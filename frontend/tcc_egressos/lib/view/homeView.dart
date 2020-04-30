@@ -36,23 +36,22 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        var maxWidth = constraints.maxWidth;
+    return LayoutBuilder(builder: (context, constraints) {
+      var maxWidth = constraints.maxWidth;
 
-        AppBar _appBar;
-        if (!kIsWeb) {
-          _appBar = AppBar(
+      if (maxWidth >= 576) {
+        return Scaffold(appBar: _createAppBar(), body: _searchBox(SizeScreen.lg));
+      }
+      return Scaffold(appBar: _createAppBar(), body: _searchBox(SizeScreen.sm));
+    });
+  }
+
+  _createAppBar() {
+    return kIsWeb
+        ? null
+        : AppBar(
             title: Text(widget.title ?? ""),
           );
-        }
-
-        if (maxWidth >= 576) {
-          return Scaffold(appBar: _appBar, body: _searchBox(SizeScreen.lg));
-        }
-        return Scaffold(appBar: _appBar, body: _searchBox(SizeScreen.sm));
-      }
-    );
   }
 
   _searchBox(SizeScreen sizeScreen) {
