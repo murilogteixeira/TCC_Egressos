@@ -1,6 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:progress_dialog/progress_dialog.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tcc_egressos/controller/homeController.dart';
+import 'package:tcc_egressos/model/curriculoLattes.dart';
 
 enum SizeScreen { lg, md, sm }
 
@@ -15,6 +20,7 @@ class _HomeViewState extends State<HomeView> {
   final _formKey = GlobalKey<FormState>();
   String _id;
   HomeController _controller;
+  ProgressDialog pr;
 
   @override
   void initState() {
@@ -27,20 +33,30 @@ class _HomeViewState extends State<HomeView> {
     super.dispose();
   }
 
-  _consultar() {
-    if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
-      _controller.consultar(_id);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+    pr = ProgressDialog(context);
+    pr.style(
+      message: "Buscando LattesID",
+      borderRadius: 10,
+      backgroundColor: Colors.white,
+      progressWidget: CircularProgressIndicator(),
+      elevation: 10,
+      insetAnimCurve: Curves.easeInOut,
+      progress: 0,
+      maxProgress: 100,
+      progressTextStyle: TextStyle(
+          color: Colors.black, fontSize: 13, fontWeight: FontWeight.w400),
+      messageTextStyle: TextStyle(
+          color: Colors.black, fontSize: 19, fontWeight: FontWeight.w600),
+    );
+
     return LayoutBuilder(builder: (context, constraints) {
       var maxWidth = constraints.maxWidth;
 
       if (maxWidth >= 576) {
-        return Scaffold(appBar: _createAppBar(), body: _searchBox(SizeScreen.lg));
+        return Scaffold(
+            appBar: _createAppBar(), body: _searchBox(SizeScreen.lg));
       }
       return Scaffold(appBar: _createAppBar(), body: _searchBox(SizeScreen.sm));
     });
@@ -58,6 +74,22 @@ class _HomeViewState extends State<HomeView> {
     BoxConstraints constraints;
     if (sizeScreen == SizeScreen.lg) {
       constraints = BoxConstraints(maxWidth: 576);
+    }
+
+    _consultar() {
+      pr.show();
+      if (_formKey.currentState.validate()) {
+        _formKey.currentState.save();
+        Future<CurriculoLattes> curriculoLattes = _controller.consultar(_id);
+        if (curriculoLattes != null) {
+          curriculoLattes.then((curriculo) async {
+            final prefs = await SharedPreferences.getInstance();
+            prefs.setString("curriculoLattes", json.encode(curriculo.toJson()));
+            pr.hide().whenComplete(
+                () => Navigator.of(context).pushNamed("/resultado"));
+          });
+        }
+      }
     }
 
     return Center(
@@ -97,7 +129,7 @@ class _HomeViewState extends State<HomeView> {
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             )),

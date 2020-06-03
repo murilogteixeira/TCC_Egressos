@@ -23,7 +23,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  intl: 0.16.1
+  intl: ^0.16.1
+  http: ^0.12.1
+  shared_preferences: ^0.5.7
+  progress_dialog: ^1.2.2
 
 
 
