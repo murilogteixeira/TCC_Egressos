@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:tcc_egressos/view/homeView.dart';
-import 'package:tcc_egressos/view/resultadoView.dart';
 
-void main() {
-  runApp(MyApp());
-}
+import 'view/home_view.dart';
+import 'view/resultado_view.dart';
+
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -16,10 +15,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: "/",
+      initialRoute: HomeView.route,
       routes: {
-        "/": (context) => HomeView(title: "Egressos",),
-        "/resultado": (context) => ResultadoView(title: "Resultado",),
+        HomeView.route: (context) => HomeView(title: "Egressos",),
+        ResultadoView.route: (context) => ResultadoView(title: "Resultado",),
       },
     );
   }
