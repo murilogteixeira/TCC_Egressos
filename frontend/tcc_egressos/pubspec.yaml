@@ -23,10 +23,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  intl: ^0.16.1
-  http: ^0.12.1
-  shared_preferences: ^0.5.7
-  progress_dialog: ^1.2.2
+  intl:
+  http:
+  shared_preferences:
+  progress_dialog:
+  mobx:
 
 
 
@@ -35,6 +36,9 @@ dependencies:
   cupertino_icons: ^0.1.3
 
 dev_dependencies:
+  mobx_codegen:
+  build_runner:
+  peanut:
   flutter_test:
     sdk: flutter
 

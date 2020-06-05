@@ -1,15 +1,12 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:progress_dialog/progress_dialog.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tcc_egressos/controller/homeController.dart';
-import 'package:tcc_egressos/model/curriculoLattes.dart';
-
-enum SizeScreen { lg, md, sm }
+import 'package:tcc_egressos/components/ScreenSize.dart';
+import 'package:tcc_egressos/controller/home_controller.dart';
 
 class HomeView extends StatefulWidget {
+  static var route = "/";
+
   final String title;
   HomeView({this.title});
   @override
@@ -18,18 +15,19 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   final _formKey = GlobalKey<FormState>();
-  String _id;
+  String _nome;
   HomeController _controller;
   ProgressDialog pr;
 
   @override
   void initState() {
     super.initState();
-    _controller = HomeController(context: context);
+    _controller = HomeController();
   }
 
   @override
   void dispose() {
+    _controller = null;
     super.dispose();
   }
 
@@ -37,7 +35,7 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     pr = ProgressDialog(context);
     pr.style(
-      message: "Buscando LattesID",
+      message: "Buscando dados",
       borderRadius: 10,
       backgroundColor: Colors.white,
       progressWidget: CircularProgressIndicator(),
@@ -76,19 +74,20 @@ class _HomeViewState extends State<HomeView> {
       constraints = BoxConstraints(maxWidth: 576);
     }
 
-    _consultar() {
-      pr.show();
+    _consultar() async {
       if (_formKey.currentState.validate()) {
         _formKey.currentState.save();
-        Future<CurriculoLattes> curriculoLattes = _controller.consultar(_id);
-        if (curriculoLattes != null) {
-          curriculoLattes.then((curriculo) async {
-            final prefs = await SharedPreferences.getInstance();
-            prefs.setString("curriculoLattes", json.encode(curriculo.toJson()));
-            pr.hide().whenComplete(
-                () => Navigator.of(context).pushNamed("/resultado"));
-          });
-        }
+
+        pr.show();
+
+        var requestOK = await _controller.consultar(_nome);
+
+        pr.hide().whenComplete(() {
+          if (requestOK) {
+            Navigator.pushNamed(context, "/resultado",
+                arguments: _controller.lista);
+          }
+        });
       }
     }
 
@@ -104,17 +103,17 @@ class _HomeViewState extends State<HomeView> {
                 children: <Widget>[
                   TextFormField(
                     decoration: InputDecoration(
-                        hintText: "Digite o ID do Currículo Lattes ",
-                        labelText: "ID Lattes",
+                        hintText: "Digite o nome para consulta ",
+                        labelText: "Nome",
                         icon: Icon(Icons.assignment_ind)),
                     validator: (id) {
                       if (id.isEmpty) {
-                        return "Digite o ID";
+                        return "Digite o nome";
                       }
                       return null;
                     },
-                    onSaved: (id) {
-                      this._id = id;
+                    onSaved: (nome) {
+                      this._nome = nome;
                     },
                   ),
                   Padding(
