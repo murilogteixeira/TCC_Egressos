@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:tcc_egressos/components/ScreenSize.dart';
 import 'package:tcc_egressos/controller/home_controller.dart';
+import 'package:tcc_egressos/view/resultado_view.dart';
 
 class HomeView extends StatefulWidget {
   static var route = "/";
@@ -54,9 +55,9 @@ class _HomeViewState extends State<HomeView> {
 
       if (maxWidth >= 576) {
         return Scaffold(
-            appBar: _createAppBar(), body: _searchBox(SizeScreen.lg));
+            appBar: _createAppBar(), body: _searchContainer(SizeScreen.lg));
       }
-      return Scaffold(appBar: _createAppBar(), body: _searchBox(SizeScreen.sm));
+      return Scaffold(appBar: _createAppBar(), body: _searchContainer(SizeScreen.sm));
     });
   }
 
@@ -68,7 +69,7 @@ class _HomeViewState extends State<HomeView> {
           );
   }
 
-  _searchBox(SizeScreen sizeScreen) {
+  _searchContainer(SizeScreen sizeScreen) {
     BoxConstraints constraints;
     if (sizeScreen == SizeScreen.lg) {
       constraints = BoxConstraints(maxWidth: 576);
@@ -84,11 +85,24 @@ class _HomeViewState extends State<HomeView> {
 
         pr.hide().whenComplete(() {
           if (requestOK) {
-            Navigator.pushNamed(context, "/resultado",
+            Navigator.pushNamed(context, ResultadoView.route,
                 arguments: _controller.lista);
           }
         });
       }
+    }
+
+    _buscarTodos() async {
+      pr.show();
+
+      var requestOK = await _controller.buscarTodos();
+
+      pr.hide().whenComplete(() {
+        if (requestOK) {
+          Navigator.pushNamed(context, ResultadoView.route,
+              arguments: _controller.lista);
+        }
+      });
     }
 
     return Center(
@@ -124,7 +138,20 @@ class _HomeViewState extends State<HomeView> {
                         _consultar();
                       },
                       child: Text(
-                        "Consultar",
+                        "Buscar nome",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 14),
+                    child: MaterialButton(
+                      color: Colors.blue,
+                      onPressed: () {
+                        _buscarTodos();
+                      },
+                      child: Text(
+                        "Buscar todos",
                         style: TextStyle(color: Colors.white),
                       ),
                     ),

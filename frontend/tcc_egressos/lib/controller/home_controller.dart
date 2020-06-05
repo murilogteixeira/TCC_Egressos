@@ -15,12 +15,12 @@ abstract class _HomeControllerBase with Store {
   ObservableList<CurriculoLattes> lista = ObservableList();
 
   Future<bool> consultar(String nome) async {
-    final response = await http
-        .get('https://egressosbackend.herokuapp.com/egressos/', headers: {
-      HttpHeaders.authorizationHeader:
-          'Bearer 684bd25e2c3387ad980e732e52ab390897d8339a'
-    });
-    // print(response.body);
+    final response = await http.get(
+        'https://egressosbackend.herokuapp.com/egressos/?search=$nome',
+        headers: {
+          HttpHeaders.authorizationHeader:
+              'Bearer 684bd25e2c3387ad980e732e52ab390897d8339a'
+        });
 
     if (response.statusCode == 200) {
       List responseJson = json.decode(response.body);
@@ -29,6 +29,28 @@ abstract class _HomeControllerBase with Store {
         lista.add(CurriculoLattes().fromJson(json));
       });
       return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<bool> buscarTodos() async {
+    final response = await http
+        .get('https://egressosbackend.herokuapp.com/egressos', headers: {
+      HttpHeaders.authorizationHeader:
+          'Bearer 684bd25e2c3387ad980e732e52ab390897d8339a'
+    });
+
+    if (response.statusCode == 200) {
+      List responseJson = json.decode(response.body);
+      lista = ObservableList();
+      responseJson.forEach((json) {
+        lista.add(CurriculoLattes().fromJson(json));
+      });
+      if (lista.isNotEmpty) {
+        return true;
+      }
+      return false;
     } else {
       return false;
     }

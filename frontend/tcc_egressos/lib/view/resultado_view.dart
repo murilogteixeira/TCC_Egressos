@@ -15,55 +15,37 @@ class ResultadoView extends StatefulWidget {
 }
 
 class _ResultadoViewState extends State<ResultadoView> {
-  // Future<CurriculoLattes> curriculoLattes;
-  // Future<String> curriculoLattesStr;
-
-  // Future<CurriculoLattes> _getCurriculo() async {
-  //   curriculoLattesStr = _getCurriculoStr();
-  //   return curriculoLattesStr
-  //       .then((value) => CurriculoLattes().fromJson(json.decode(value)));
-  // }
-
-  // Future<String> _getCurriculoStr() async {
-  //   return await SharedPreferences.getInstance()
-  //       .then((value) => value.getString("curriculoLattes"));
-  // }
-
   @override
   Widget build(BuildContext context) {
-    final ObservableList<CurriculoLattes> lista = ModalRoute.of(context).settings.arguments;
+    final ObservableList<CurriculoLattes> lista =
+        ModalRoute.of(context).settings.arguments;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Resultado"),
-      ),
-      body: ListView.builder(
-          itemCount: lista.length,
-          itemBuilder: (context, index) {
-            return ListTile(
-              title: Text("Nome: ${lista[index].nome}"),
-            );
-          }),
+    return LayoutBuilder(builder: (context, constraints) {
+      var maxWidth = constraints.maxWidth;
+
+      if (maxWidth >= 576) {
+        return Scaffold(appBar: _createAppBar(), body: _listContainer(lista));
+      }
+      return Scaffold(appBar: _createAppBar(), body: _listContainer(lista));
+    });
+  }
+
+  _createAppBar() {
+    if (kIsWeb) {
+      return null;
+    }
+    return AppBar(
+      title: Text(widget.title ?? ""),
     );
-    // curriculoLattes = _getCurriculo();
-    // return FutureBuilder(
-    //     future: curriculoLattes,
-    //     builder: (context, snapshot) {
-    //       if (snapshot.hasData) {
-    //         return Scaffold(
-    //             appBar: kIsWeb
-    //                 ? null
-    //                 : AppBar(
-    //                     title: Text(widget.title ?? ""),
-    //                   ),
-    //             body: Text("asdf"));
-    //       }
-    //       return Scaffold(
-    //         appBar: AppBar(
-    //           title: Text("Resultado"),
-    //         ),
-    //         body: Text("Não encontrado"),
-    //       );
-    //     });
+  }
+
+  _listContainer(ObservableList<CurriculoLattes> lista) {
+    return ListView.builder(
+        itemCount: lista.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(lista[index].nome),
+          );
+        });
   }
 }
