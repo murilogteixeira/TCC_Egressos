@@ -4,7 +4,7 @@ import 'package:mobx/mobx.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
 
 class ResultadoView extends StatefulWidget {
-  static var route = "/resultado";
+  static var route = "/";
 
   final String title;
 

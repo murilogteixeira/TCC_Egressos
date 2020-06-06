@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tcc_egressos/view/consulta_view.dart';
 
-import 'view/home_view.dart';
 import 'view/resultado_view.dart';
 
 void main() => runApp(MyApp());
@@ -15,9 +15,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: HomeView.route,
+      initialRoute: ConsultaView.route,
       routes: {
-        HomeView.route: (context) => HomeView(title: "Egressos",),
+        ConsultaView.route: (context) => ConsultaView(title: "Egressos",),
         ResultadoView.route: (context) => ResultadoView(title: "Resultado",),
       },
     );

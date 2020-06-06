@@ -3,18 +3,17 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:tcc_egressos/components/ScreenSize.dart';
 import 'package:tcc_egressos/controller/home_controller.dart';
-import 'package:tcc_egressos/view/resultado_view.dart';
 
-class HomeView extends StatefulWidget {
-  static var route = "/";
+class ConsultaView extends StatefulWidget {
+  static var route = "/consulta";
 
   final String title;
-  HomeView({this.title});
+  ConsultaView({this.title});
   @override
-  _HomeViewState createState() => _HomeViewState();
+  _ConsultaViewState createState() => _ConsultaViewState();
 }
 
-class _HomeViewState extends State<HomeView> {
+class _ConsultaViewState extends State<ConsultaView> {
   final _formKey = GlobalKey<FormState>();
   String _nome;
   HomeController _controller;
@@ -23,7 +22,8 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     super.initState();
-    _controller = HomeController();
+    _controller = HomeController(context);
+    pr = _createProgressDialog();
   }
 
   @override
@@ -32,10 +32,9 @@ class _HomeViewState extends State<HomeView> {
     super.dispose();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    pr = ProgressDialog(context);
-    pr.style(
+  _createProgressDialog() {
+    var progressDialog = ProgressDialog(context);
+    progressDialog.style(
       message: "Buscando dados",
       borderRadius: 10,
       backgroundColor: Colors.white,
@@ -49,7 +48,11 @@ class _HomeViewState extends State<HomeView> {
       messageTextStyle: TextStyle(
           color: Colors.black, fontSize: 19, fontWeight: FontWeight.w600),
     );
+    return progressDialog;
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       var maxWidth = constraints.maxWidth;
 
@@ -57,7 +60,8 @@ class _HomeViewState extends State<HomeView> {
         return Scaffold(
             appBar: _createAppBar(), body: _searchContainer(SizeScreen.lg));
       }
-      return Scaffold(appBar: _createAppBar(), body: _searchContainer(SizeScreen.sm));
+      return Scaffold(
+          appBar: _createAppBar(), body: _searchContainer(SizeScreen.sm));
     });
   }
 
@@ -75,34 +79,17 @@ class _HomeViewState extends State<HomeView> {
       constraints = BoxConstraints(maxWidth: 576);
     }
 
-    _consultar() async {
+    _consultar() {
       if (_formKey.currentState.validate()) {
         _formKey.currentState.save();
-
         pr.show();
-
-        var requestOK = await _controller.consultar(_nome);
-
-        pr.hide().whenComplete(() {
-          if (requestOK) {
-            Navigator.pushNamed(context, ResultadoView.route,
-                arguments: _controller.lista);
-          }
-        });
+        _controller.consultar(_nome, () => pr.hide());
       }
     }
 
-    _buscarTodos() async {
+    _buscarTodos() {
       pr.show();
-
-      var requestOK = await _controller.buscarTodos();
-
-      pr.hide().whenComplete(() {
-        if (requestOK) {
-          Navigator.pushNamed(context, ResultadoView.route,
-              arguments: _controller.lista);
-        }
-      });
+      _controller.buscarTodos(() => pr.hide());
     }
 
     return Center(
@@ -120,23 +107,15 @@ class _HomeViewState extends State<HomeView> {
                         hintText: "Digite o nome para consulta ",
                         labelText: "Nome",
                         icon: Icon(Icons.assignment_ind)),
-                    validator: (id) {
-                      if (id.isEmpty) {
-                        return "Digite o nome";
-                      }
-                      return null;
-                    },
-                    onSaved: (nome) {
-                      this._nome = nome;
-                    },
+                    validator: (id) => id.isEmpty ? "Digite o nome" : null,
+                    onSaved: (value) => _nome = value,
+                    textInputAction: TextInputAction.go,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 14),
                     child: MaterialButton(
                       color: Colors.green,
-                      onPressed: () {
-                        _consultar();
-                      },
+                      onPressed: _consultar,
                       child: Text(
                         "Buscar nome",
                         style: TextStyle(color: Colors.white),
@@ -147,9 +126,7 @@ class _HomeViewState extends State<HomeView> {
                     padding: const EdgeInsets.only(top: 14),
                     child: MaterialButton(
                       color: Colors.blue,
-                      onPressed: () {
-                        _buscarTodos();
-                      },
+                      onPressed: _buscarTodos,
                       child: Text(
                         "Buscar todos",
                         style: TextStyle(color: Colors.white),
