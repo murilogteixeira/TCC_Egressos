@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
 
 class CurriculoView extends StatefulWidget {
+  static var route = "/curriculo";
+
   CurriculoView({Key key}) : super(key: key);
 
   @override
@@ -12,7 +14,7 @@ class _CurriculoViewState extends State<CurriculoView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-       child: _mostrarCurriculo(CurriculoLattes()),
+      child: _mostrarCurriculo(CurriculoLattes()),
     );
   }
 
