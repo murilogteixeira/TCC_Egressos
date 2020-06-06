@@ -1,1 +1,1 @@
-enum SizeScreen { lg, md, sm }
+enum ScreenSize { xs, sm, md, lg, xl }
