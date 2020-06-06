@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: CurriculoView.route,
+      initialRoute: ConsultaView.route,
       routes: {
         ConsultaView.route: (context) => ConsultaView(),
         ResultadoView.route: (context) => ResultadoView(),

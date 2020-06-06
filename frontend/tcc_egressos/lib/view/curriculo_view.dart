@@ -6,6 +6,7 @@ import 'package:tcc_egressos/components/screenSize.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/endereco.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/situacao.dart';
+import 'package:tcc_egressos/model/route_argruments/curriculo_route_arguments.dart';
 
 class CurriculoView extends StatefulWidget {
   static var route = "/curriculo";
@@ -21,9 +22,12 @@ class _CurriculoViewState extends State<CurriculoView> {
   double _maxWidth;
   BoxConstraints _constraints;
   ScreenSize _screenSize;
+  CurriculoLattes _curriculo;
 
   @override
   Widget build(BuildContext context) {
+    _curriculo = ModalRoute.of(context).settings.arguments;
+    print(_curriculo);
     return LayoutBuilder(builder: (context, constraints) {
       _maxWidth = constraints.maxWidth;
 
@@ -76,19 +80,6 @@ class _CurriculoViewState extends State<CurriculoView> {
   }
 
   _mostrarCurriculo(CurriculoLattes curriculo) {
-    curriculo = CurriculoLattes(
-        nome: "Murilo",
-        id: 0,
-        celular: "993890862",
-        dataNasc: DateTime.now(),
-        descricao: "descr",
-        email: "murilo",
-        endereco:
-            Endereco(bairro: "asdf", cep: "asdf", cidade: "asdf", uf: "asdf"),
-        lattesID: "111",
-        nomeCitacao: "asdf",
-        situacao: Situacao(id: 2, tipo: "asdf"));
-
     return SingleChildScrollView(
       child: Center(
         child: Container(
@@ -109,7 +100,11 @@ class _CurriculoViewState extends State<CurriculoView> {
                     ),
                     height: 302,
                     width: _maxWidth,
-                    child: Column(),
+                    child: Column(
+                      children: <Widget>[
+                        Text(_curriculo.nome),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -148,96 +143,96 @@ class _CurriculoViewState extends State<CurriculoView> {
     );
   }
 
-  _function(curriculo) {
-    return [
-      // SizedBox(height: 100),
+  // _function(curriculo) {
+  //   return [
+  //     // SizedBox(height: 100),
 
-      // Nome
-      Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: <Widget>[
-            Text(
-              "Nome:",
-              style: TextStyle(fontSize: 16),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 8),
-              child: Text(
-                curriculo.nome,
-                style: TextStyle(fontSize: 20),
-              ),
-            ),
-          ],
-        ),
-      ),
+  //     // Nome
+  //     Padding(
+  //       padding: const EdgeInsets.symmetric(vertical: 8.0),
+  //       child: Row(
+  //         crossAxisAlignment: CrossAxisAlignment.end,
+  //         children: <Widget>[
+  //           Text(
+  //             "Nome:",
+  //             style: TextStyle(fontSize: 16),
+  //           ),
+  //           Padding(
+  //             padding: const EdgeInsets.only(left: 8),
+  //             child: Text(
+  //               curriculo.nome,
+  //               style: TextStyle(fontSize: 20),
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
 
-      // Lattes ID
-      Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: <Widget>[
-            Text(
-              "Lattes ID:",
-              style: TextStyle(fontSize: 16),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 8),
-              child: Text(
-                curriculo.lattesID,
-                style: TextStyle(fontSize: 20),
-              ),
-            ),
-          ],
-        ),
-      ),
+  //     // Lattes ID
+  //     Padding(
+  //       padding: const EdgeInsets.symmetric(vertical: 8.0),
+  //       child: Row(
+  //         crossAxisAlignment: CrossAxisAlignment.end,
+  //         children: <Widget>[
+  //           Text(
+  //             "Lattes ID:",
+  //             style: TextStyle(fontSize: 16),
+  //           ),
+  //           Padding(
+  //             padding: const EdgeInsets.only(left: 8),
+  //             child: Text(
+  //               curriculo.lattesID,
+  //               style: TextStyle(fontSize: 20),
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
 
-      // Nome citação
-      Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: <Widget>[
-            Text(
-              "Nome Citação:",
-              style: TextStyle(fontSize: 16),
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 8),
-                child: Text(
-                  curriculo.nomeCitacao,
-                  style: TextStyle(fontSize: 18),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+  //     // Nome citação
+  //     Padding(
+  //       padding: const EdgeInsets.symmetric(vertical: 8.0),
+  //       child: Row(
+  //         crossAxisAlignment: CrossAxisAlignment.end,
+  //         children: <Widget>[
+  //           Text(
+  //             "Nome Citação:",
+  //             style: TextStyle(fontSize: 16),
+  //           ),
+  //           Expanded(
+  //             child: Padding(
+  //               padding: const EdgeInsets.only(left: 8),
+  //               child: Text(
+  //                 curriculo.nomeCitacao,
+  //                 style: TextStyle(fontSize: 18),
+  //               ),
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
 
-      // Descricao
-      Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
-        child: Row(
-          children: <Widget>[
-            Text(
-              "Descrição:",
-              style: TextStyle(fontSize: 16),
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Text(
-                  curriculo.descricao,
-                  style: TextStyle(fontSize: 18),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    ];
-  }
+  //     // Descricao
+  //     Padding(
+  //       padding: const EdgeInsets.symmetric(vertical: 8.0),
+  //       child: Row(
+  //         children: <Widget>[
+  //           Text(
+  //             "Descrição:",
+  //             style: TextStyle(fontSize: 16),
+  //           ),
+  //           Expanded(
+  //             child: Padding(
+  //               padding: const EdgeInsets.only(left: 8.0),
+  //               child: Text(
+  //                 curriculo.descricao,
+  //                 style: TextStyle(fontSize: 18),
+  //               ),
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   ];
+  // }
 }
