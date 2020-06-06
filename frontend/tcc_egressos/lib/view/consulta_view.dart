@@ -5,7 +5,7 @@ import 'package:tcc_egressos/components/screenSize.dart';
 import 'package:tcc_egressos/controller/home_controller.dart';
 
 class ConsultaView extends StatefulWidget {
-  static var route = "/consulta";
+  static var route = "/";
 
   final String title = "Egressos";
 
@@ -22,7 +22,7 @@ class _ConsultaViewState extends State<ConsultaView> {
   @override
   void initState() {
     super.initState();
-    _controller = HomeController(context);
+    _controller = HomeController.getInstance(context);
     pr = _createProgressDialog();
   }
 
