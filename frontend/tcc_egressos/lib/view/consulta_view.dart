@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:progress_dialog/progress_dialog.dart';
-import 'package:tcc_egressos/components/ScreenSize.dart';
+import 'package:tcc_egressos/components/screenSize.dart';
 import 'package:tcc_egressos/controller/home_controller.dart';
 
 class ConsultaView extends StatefulWidget {
   static var route = "/consulta";
 
-  final String title;
-  ConsultaView({this.title});
+  final String title = "Egressos";
+
   @override
   _ConsultaViewState createState() => _ConsultaViewState();
 }
@@ -58,10 +58,10 @@ class _ConsultaViewState extends State<ConsultaView> {
 
       if (maxWidth >= 576) {
         return Scaffold(
-            appBar: _createAppBar(), body: _searchContainer(SizeScreen.lg));
+            appBar: _createAppBar(), body: _searchContainer(ScreenSize.lg));
       }
       return Scaffold(
-          appBar: _createAppBar(), body: _searchContainer(SizeScreen.sm));
+          appBar: _createAppBar(), body: _searchContainer(ScreenSize.sm));
     });
   }
 
@@ -73,9 +73,9 @@ class _ConsultaViewState extends State<ConsultaView> {
           );
   }
 
-  _searchContainer(SizeScreen sizeScreen) {
+  _searchContainer(ScreenSize sizeScreen) {
     BoxConstraints constraints;
-    if (sizeScreen == SizeScreen.lg) {
+    if (sizeScreen == ScreenSize.lg) {
       constraints = BoxConstraints(maxWidth: 576);
     }
 

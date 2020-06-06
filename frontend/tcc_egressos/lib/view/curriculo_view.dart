@@ -1,202 +1,243 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:tcc_egressos/components/dados_gerais_widget.dart';
+import 'package:tcc_egressos/components/nav_bar_widget.dart';
+import 'package:tcc_egressos/components/screenSize.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
+import 'package:tcc_egressos/model/curriculo_lattes/endereco.dart';
+import 'package:tcc_egressos/model/curriculo_lattes/situacao.dart';
 
 class CurriculoView extends StatefulWidget {
   static var route = "/curriculo";
 
   CurriculoView({Key key}) : super(key: key);
 
+  final title = "Curriculo";
   @override
   _CurriculoViewState createState() => _CurriculoViewState();
 }
 
 class _CurriculoViewState extends State<CurriculoView> {
+  double _maxWidth;
+  BoxConstraints _constraints;
+  ScreenSize _screenSize;
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: _mostrarCurriculo(CurriculoLattes()),
-    );
+    return LayoutBuilder(builder: (context, constraints) {
+      _maxWidth = constraints.maxWidth;
+
+      if (_maxWidth < 576) {
+        _screenSize = ScreenSize.xs;
+      } else if (_maxWidth >= 576 && _maxWidth < 768) {
+        _screenSize = ScreenSize.sm;
+      } else if (_maxWidth >= 768 && _maxWidth < 992) {
+        _screenSize = ScreenSize.md;
+      } else if (_maxWidth >= 992 && _maxWidth < 1200) {
+        _screenSize = ScreenSize.lg;
+      } else {
+        _screenSize = ScreenSize.xl;
+      }
+      return Scaffold(appBar: _criarAppBar(), body: _body());
+    });
+  }
+
+  _criarAppBar() {
+    return kIsWeb
+        ? null
+        : AppBar(
+            title: Text(widget.title ?? ""),
+          );
+  }
+
+  Widget _body() {
+    _cofigurarConstraints();
+    return _mostrarCurriculo(CurriculoLattes());
+  }
+
+  _cofigurarConstraints() {
+    switch (_screenSize) {
+      case ScreenSize.xl:
+        _constraints = BoxConstraints(maxWidth: 1140);
+        break;
+      case ScreenSize.lg:
+        _constraints = BoxConstraints(maxWidth: 960);
+        break;
+      case ScreenSize.md:
+        _constraints = BoxConstraints(maxWidth: 720);
+        break;
+      case ScreenSize.sm:
+        _constraints = BoxConstraints(maxWidth: 540);
+        break;
+      case ScreenSize.xs:
+        _constraints = BoxConstraints(maxWidth: _maxWidth - 20);
+        break;
+    }
   }
 
   _mostrarCurriculo(CurriculoLattes curriculo) {
-    print(curriculo.toString());
+    curriculo = CurriculoLattes(
+        nome: "Murilo",
+        id: 0,
+        celular: "993890862",
+        dataNasc: DateTime.now(),
+        descricao: "descr",
+        email: "murilo",
+        endereco:
+            Endereco(bairro: "asdf", cep: "asdf", cidade: "asdf", uf: "asdf"),
+        lattesID: "111",
+        nomeCitacao: "asdf",
+        situacao: Situacao(id: 2, tipo: "asdf"));
+
     return SingleChildScrollView(
-      child: Container(
-        child: Column(
-          children: <Widget>[
-            SizedBox(height: 100),
+      child: Center(
+        child: Container(
+          color: Color(0xFFEAEDF2),
+          child: Column(
+            children: [
+              NavBarWidget(),
 
-            // Nome
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: <Widget>[
-                  Text(
-                    "Nome:",
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8),
-                    child: Text(
-                      curriculo.nome,
-                      style: TextStyle(fontSize: 20),
+              // RESUMO
+              Padding(
+                padding: EdgeInsets.only(top: 25),
+                child: Container(
+                  constraints: _constraints,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Color(0xFFFDFDFD),
+                      borderRadius: BorderRadius.all(Radius.circular(12)),
                     ),
+                    height: 302,
+                    width: _maxWidth,
+                    child: Column(),
                   ),
-                ],
+                ),
               ),
-            ),
 
-            // Lattes ID
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: <Widget>[
-                  Text(
-                    "Lattes ID:",
-                    style: TextStyle(fontSize: 16),
+              // DADOS
+              Padding(
+                padding: EdgeInsets.only(top: 57),
+                child: Container(
+                  constraints: _constraints,
+                  decoration: BoxDecoration(
+                    color: Color(0xFFFDFDFD),
+                    borderRadius: BorderRadius.all(Radius.circular(12)),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8),
-                    child: Text(
-                      curriculo.lattesID,
-                      style: TextStyle(fontSize: 20),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
-            // Nome citação
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: <Widget>[
-                  Text(
-                    "Nome Citação:",
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 8),
-                      child: Text(
-                        curriculo.nomeCitacao,
-                        style: TextStyle(fontSize: 18),
+                  width: _maxWidth,
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        constraints: BoxConstraints(
+                            maxWidth: _constraints.maxWidth * 0.9),
+                        decoration: BoxDecoration(
+                          color: Color(0xFF547DD9),
+                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                        ),
+                        height: 48,
                       ),
-                    ),
+                      SizedBox(height: 67),
+                      // DadosGeraisWidget(),
+                    ],
                   ),
-                ],
-              ),
-            ),
-
-            // Descricao
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: Row(
-                children: <Widget>[
-                  Text(
-                    "Descrição:",
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: Text(
-                        curriculo.descricao,
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
-            //Artigos
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(vertical: 8.0),
-            //   child: Row(
-            //     crossAxisAlignment: CrossAxisAlignment.start,
-            //     children: <Widget>[
-            //       Text(
-            //         "Artigos:",
-            //         style: TextStyle(fontSize: 16),
-            //       ),
-            //       Padding(
-            //         padding: const EdgeInsets.only(left: 8.0),
-            //         child: Column(
-            //             children: curriculo.artigos.map((artigo) {
-            //           return Padding(
-            //             padding: const EdgeInsets.symmetric(vertical: 8.0),
-            //             child: Column(
-            //               crossAxisAlignment: CrossAxisAlignment.start,
-            //               children: <Widget>[
-            //                 Text(
-            //                   artigo.nome,
-            //                   style: TextStyle(fontSize: 16),
-            //                 ),
-            //                 Text(
-            //                   DateFormat("dd/MM/yyyy HH:mm")
-            //                       .format(artigo.dataPublicacao),
-            //                   style: TextStyle(fontSize: 16),
-            //                 ),
-            //                 Text(
-            //                   artigo.descricao,
-            //                   style: TextStyle(fontSize: 16),
-            //                 ),
-            //               ],
-            //             ),
-            //           );
-            //         }).toList()),
-            //       ),
-            //     ],
-            //   ),
-            // ),
-
-            //Eventos
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(vertical: 8.0),
-            //   child: Row(
-            //     crossAxisAlignment: CrossAxisAlignment.start,
-            //     children: <Widget>[
-            //       Text(
-            //         "Eventos:",
-            //         style: TextStyle(fontSize: 16),
-            //       ),
-            //       Padding(
-            //         padding: const EdgeInsets.only(left: 8.0),
-            //         child: Column(
-            //             children: curriculo.eventos.map((evento) {
-            //           return Padding(
-            //             padding: const EdgeInsets.symmetric(vertical: 8.0),
-            //             child: Column(
-            //               crossAxisAlignment: CrossAxisAlignment.start,
-            //               children: <Widget>[
-            //                 Text(
-            //                   evento.nome,
-            //                   style: TextStyle(fontSize: 16),
-            //                 ),
-            //                 Text(
-            //                   DateFormat("dd/MM/yyyy HH:mm")
-            //                       .format(evento.data),
-            //                   style: TextStyle(fontSize: 16),
-            //                 ),
-            //                 Text(
-            //                   evento.descricao,
-            //                   style: TextStyle(fontSize: 16),
-            //                 ),
-            //               ],
-            //             ),
-            //           );
-            //         }).toList()),
-            //       ),
-            //     ],
-            //   ),
-            // ),
-          ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  _function(curriculo) {
+    return [
+      // SizedBox(height: 100),
+
+      // Nome
+      Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: <Widget>[
+            Text(
+              "Nome:",
+              style: TextStyle(fontSize: 16),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 8),
+              child: Text(
+                curriculo.nome,
+                style: TextStyle(fontSize: 20),
+              ),
+            ),
+          ],
+        ),
+      ),
+
+      // Lattes ID
+      Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: <Widget>[
+            Text(
+              "Lattes ID:",
+              style: TextStyle(fontSize: 16),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 8),
+              child: Text(
+                curriculo.lattesID,
+                style: TextStyle(fontSize: 20),
+              ),
+            ),
+          ],
+        ),
+      ),
+
+      // Nome citação
+      Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: <Widget>[
+            Text(
+              "Nome Citação:",
+              style: TextStyle(fontSize: 16),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 8),
+                child: Text(
+                  curriculo.nomeCitacao,
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+
+      // Descricao
+      Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: Row(
+          children: <Widget>[
+            Text(
+              "Descrição:",
+              style: TextStyle(fontSize: 16),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: Text(
+                  curriculo.descricao,
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ];
   }
 }

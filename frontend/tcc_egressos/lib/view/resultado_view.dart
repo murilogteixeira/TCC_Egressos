@@ -6,9 +6,7 @@ import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
 class ResultadoView extends StatefulWidget {
   static var route = "/";
 
-  final String title;
-
-  ResultadoView({this.title});
+  final String title = "Resultado";
 
   @override
   _ResultadoViewState createState() => _ResultadoViewState();
