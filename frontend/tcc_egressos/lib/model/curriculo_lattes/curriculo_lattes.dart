@@ -146,7 +146,7 @@ abstract class _CurriculoLattesBase with Store {
     );
   }
 
-  toJson() {
+  Map<String, dynamic> toJson() {
     var f = DateFormat("yyyy-MM-dd");
     return {
       "id": id,

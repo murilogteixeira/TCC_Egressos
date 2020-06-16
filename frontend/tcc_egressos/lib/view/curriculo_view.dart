@@ -1,12 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:tcc_egressos/components/dados_gerais_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tcc_egressos/components/menu_botao_widget.dart';
 import 'package:tcc_egressos/components/nav_bar_widget.dart';
 import 'package:tcc_egressos/components/screenSize.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
-import 'package:tcc_egressos/model/curriculo_lattes/endereco.dart';
-import 'package:tcc_egressos/model/curriculo_lattes/situacao.dart';
-import 'package:tcc_egressos/model/route_argruments/curriculo_route_arguments.dart';
 
 class CurriculoView extends StatefulWidget {
   static var route = "/curriculo";
@@ -26,8 +26,13 @@ class _CurriculoViewState extends State<CurriculoView> {
 
   @override
   Widget build(BuildContext context) {
-    _curriculo = ModalRoute.of(context).settings.arguments;
-    print(_curriculo);
+    var curriculo = ModalRoute.of(context).settings.arguments;
+    if (curriculo != null) {
+      _curriculo = curriculo;
+    }
+
+    _getCurriculo();
+
     return LayoutBuilder(builder: (context, constraints) {
       _maxWidth = constraints.maxWidth;
 
@@ -46,6 +51,12 @@ class _CurriculoViewState extends State<CurriculoView> {
     });
   }
 
+  _getCurriculo() async {
+    var prefs = await SharedPreferences.getInstance();
+    var json = prefs.getString("curriculo");
+    _curriculo = CurriculoLattes().fromJson(jsonDecode(json));
+  }
+
   _criarAppBar() {
     return kIsWeb
         ? null
@@ -56,7 +67,7 @@ class _CurriculoViewState extends State<CurriculoView> {
 
   Widget _body() {
     _cofigurarConstraints();
-    return _mostrarCurriculo(CurriculoLattes());
+    return _mostrarLayout();
   }
 
   _cofigurarConstraints() {
@@ -79,7 +90,83 @@ class _CurriculoViewState extends State<CurriculoView> {
     }
   }
 
-  _mostrarCurriculo(CurriculoLattes curriculo) {
+  Widget _foto() {
+    return Container(
+      // color: Colors.green,
+      width: 90,
+      height: 90,
+      decoration: new BoxDecoration(
+        shape: BoxShape.circle,
+        image: DecorationImage(
+          fit: BoxFit.fill,
+          image: NetworkImage(
+              "https://memegenerator.net/img/images/300x300/17038753.jpg"),
+        ),
+      ),
+    );
+  }
+
+  Widget _nomeStatus() {
+    var nome = Text(
+      _curriculo.nome,
+      style: TextStyle(fontSize: 22),
+    );
+    var status = Padding(
+      padding: const EdgeInsets.only(left: 18),
+      child: Container(
+        width: 198,
+        height: 31,
+        decoration: BoxDecoration(
+            color: Colors.green,
+            borderRadius: BorderRadius.all(Radius.circular(12))),
+        child: Center(
+            child: Text(
+          "${_curriculo.situacao.tipo}",
+          style: TextStyle(fontSize: 14, color: Color(0xFFFDFDFD)),
+        )),
+      ),
+    );
+    var row = Row(
+      children: <Widget>[nome, status],
+    );
+    var column = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[nome, status],
+    );
+    if (_screenSize == ScreenSize.lg ||
+        _screenSize == ScreenSize.md ||
+        _screenSize == ScreenSize.xl) {
+      return row;
+    } else {
+      return column;
+    }
+  }
+
+  Widget _formacaoCargo() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 14),
+      child: Container(
+        constraints: BoxConstraints(maxWidth: _constraints.maxWidth * 0.8),
+        // color: Colors.blue,
+        child: Text(
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dictum dui risus, vitae maximus enim pretium eu. Nunc feugiat urna ut massa ultricies, at vehicula eros pellentesque. Suspendisse molestie ipsum in vulputate scelerisque. Sed lacinia, dui nec elementum iaculis, lectus est hendrerit quam, in egestas purus orci eu arcu.",
+        ),
+      ),
+    );
+  }
+
+  Widget _descricao() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 14),
+      child: Container(
+        child: Text(
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dictum dui risus, vitae maximus enim pretium eu. Nunc feugiat urna ut massa ultricies, at vehicula eros pellentesque. Suspendisse molestie ipsum in vulputate scelerisque. Sed lacinia, dui nec elementum iaculis, lectus est hendrerit quam, in egestas purus orci eu arcu. Maecenas tortor risus, ultrices vel aliquet vel, rutrum eu orci. Sed dui risus, dapibus accumsan tristique ut, congue in turpis. In ultricies euismod libero nec commodo. Etiam ac mollis est, quis pharetra arcu. Mauris quis nisl ante. Donec eu ex a ex tincidunt accumsan. Cras lacinia lacus ut turpis posuere varius. Mauris viverra arcu purus, eget fringilla libero dapibus nec. Ut maximus blandit auctor. Nulla dapibus, turpis vitae lobortis feugiat, metus nibh rutrum purus, id condimentum quam turpis et ex. Proin sit amet iaculis justo. Phasellus id nulla et purus consequat vulputate et ut turpis. Vivamus congue pellentesque viverra. Aliquam ut posuere erat. Quisque vitae scelerisque mi. Duis lacinia lorem vitae rhoncus gravida. Quisque tempor nulla ac purus condimentum consectetur. Duis eget bibendum orci. Curabitur facilisis ante sit amet arcu pellentesque interdum. Suspendisse potenti. Aliquam erat volutpat. Morbi ac ultrices ipsum. Nullam id turpis quis mi accumsan placerat. Morbi ut sem nec lectus finibus consequat. Donec sit amet tempor risus, ut consequat leo. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Morbi diam ligula, cursus vitae consectetur eget, facilisis nec orci.",
+        ),
+      ),
+    );
+  }
+
+  _mostrarLayout() {
     return SingleChildScrollView(
       child: Center(
         child: Container(
@@ -93,16 +180,29 @@ class _CurriculoViewState extends State<CurriculoView> {
                 padding: EdgeInsets.only(top: 25),
                 child: Container(
                   constraints: _constraints,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Color(0xFFFDFDFD),
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
-                    ),
-                    height: 302,
-                    width: _maxWidth,
+                  decoration: BoxDecoration(
+                    color: Color(0xFFFDFDFD),
+                    borderRadius: BorderRadius.all(Radius.circular(12)),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        top: 48, bottom: 25, left: 30, right: 30),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(_curriculo.nome),
+                        Row(children: [
+                          _foto(),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 27),
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  _nomeStatus(),
+                                  _formacaoCargo(),
+                                ]),
+                          ),
+                        ]),
+                        _descricao(),
                       ],
                     ),
                   ),
@@ -129,6 +229,35 @@ class _CurriculoViewState extends State<CurriculoView> {
                           borderRadius: BorderRadius.all(Radius.circular(12)),
                         ),
                         height: 48,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            MenuBotaoWidget(
+                              onTap: () => print("Dados Gerais"),
+                              text: "Dados Gerais",
+                            ),
+                            MenuBotaoWidget(
+                              onTap: () => print("Formação"),
+                              text: "Formação",
+                            ),
+                            MenuBotaoWidget(
+                              onTap: () => print("Atuação"),
+                              text: "Atuação",
+                            ),
+                            MenuBotaoWidget(
+                              onTap: () => print("Produções"),
+                              text: "Produções",
+                            ),
+                            MenuBotaoWidget(
+                              onTap: () => print("Eventos"),
+                              text: "Eventos",
+                            ),
+                            MenuBotaoWidget(
+                              onTap: () => print("Bancas"),
+                              text: "Bancas",
+                            ),
+                          ],
+                        ),
                       ),
                       SizedBox(height: 67),
                       // DadosGeraisWidget(),
