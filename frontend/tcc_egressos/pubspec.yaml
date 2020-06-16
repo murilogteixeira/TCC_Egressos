@@ -28,6 +28,7 @@ dependencies:
   shared_preferences:
   progress_dialog:
   mobx:
+  auto_size_text: ^2.1.0
 
 
 
