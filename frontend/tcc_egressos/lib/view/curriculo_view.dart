@@ -100,7 +100,7 @@ class _CurriculoViewState extends State<CurriculoView> {
         image: DecorationImage(
           fit: BoxFit.fill,
           image: NetworkImage(
-              "https://memegenerator.net/img/images/300x300/17038753.jpg"),
+              "https://picsum.photos/250"),
         ),
       ),
     );
@@ -259,7 +259,10 @@ class _CurriculoViewState extends State<CurriculoView> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 67),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 40.0),
+                        child: Container(height: 100,),
+                      ),
                       // DadosGeraisWidget(),
                     ],
                   ),
