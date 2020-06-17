@@ -17,3 +17,5 @@ class ListaDetalhesWidget extends StatelessWidget {
     );
   }
 }
+
+

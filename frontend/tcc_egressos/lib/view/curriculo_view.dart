@@ -99,8 +99,7 @@ class _CurriculoViewState extends State<CurriculoView> {
         shape: BoxShape.circle,
         image: DecorationImage(
           fit: BoxFit.fill,
-          image: NetworkImage(
-              "https://picsum.photos/250"),
+          image: NetworkImage("https://picsum.photos/250"),
         ),
       ),
     );
@@ -261,7 +260,9 @@ class _CurriculoViewState extends State<CurriculoView> {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 40.0),
-                        child: Container(height: 100,),
+                        child: Container(
+                          height: 100,
+                        ),
                       ),
                       // DadosGeraisWidget(),
                     ],
@@ -274,97 +275,97 @@ class _CurriculoViewState extends State<CurriculoView> {
       ),
     );
   }
-
-  // _function(curriculo) {
-  //   return [
-  //     // SizedBox(height: 100),
-
-  //     // Nome
-  //     Padding(
-  //       padding: const EdgeInsets.symmetric(vertical: 8.0),
-  //       child: Row(
-  //         crossAxisAlignment: CrossAxisAlignment.end,
-  //         children: <Widget>[
-  //           Text(
-  //             "Nome:",
-  //             style: TextStyle(fontSize: 16),
-  //           ),
-  //           Padding(
-  //             padding: const EdgeInsets.only(left: 8),
-  //             child: Text(
-  //               curriculo.nome,
-  //               style: TextStyle(fontSize: 20),
-  //             ),
-  //           ),
-  //         ],
-  //       ),
-  //     ),
-
-  //     // Lattes ID
-  //     Padding(
-  //       padding: const EdgeInsets.symmetric(vertical: 8.0),
-  //       child: Row(
-  //         crossAxisAlignment: CrossAxisAlignment.end,
-  //         children: <Widget>[
-  //           Text(
-  //             "Lattes ID:",
-  //             style: TextStyle(fontSize: 16),
-  //           ),
-  //           Padding(
-  //             padding: const EdgeInsets.only(left: 8),
-  //             child: Text(
-  //               curriculo.lattesID,
-  //               style: TextStyle(fontSize: 20),
-  //             ),
-  //           ),
-  //         ],
-  //       ),
-  //     ),
-
-  //     // Nome citação
-  //     Padding(
-  //       padding: const EdgeInsets.symmetric(vertical: 8.0),
-  //       child: Row(
-  //         crossAxisAlignment: CrossAxisAlignment.end,
-  //         children: <Widget>[
-  //           Text(
-  //             "Nome Citação:",
-  //             style: TextStyle(fontSize: 16),
-  //           ),
-  //           Expanded(
-  //             child: Padding(
-  //               padding: const EdgeInsets.only(left: 8),
-  //               child: Text(
-  //                 curriculo.nomeCitacao,
-  //                 style: TextStyle(fontSize: 18),
-  //               ),
-  //             ),
-  //           ),
-  //         ],
-  //       ),
-  //     ),
-
-  //     // Descricao
-  //     Padding(
-  //       padding: const EdgeInsets.symmetric(vertical: 8.0),
-  //       child: Row(
-  //         children: <Widget>[
-  //           Text(
-  //             "Descrição:",
-  //             style: TextStyle(fontSize: 16),
-  //           ),
-  //           Expanded(
-  //             child: Padding(
-  //               padding: const EdgeInsets.only(left: 8.0),
-  //               child: Text(
-  //                 curriculo.descricao,
-  //                 style: TextStyle(fontSize: 18),
-  //               ),
-  //             ),
-  //           ),
-  //         ],
-  //       ),
-  //     ),
-  //   ];
-  // }
 }
+
+// _function(curriculo) {
+//   return [
+//     // SizedBox(height: 100),
+
+//     // Nome
+//     Padding(
+//       padding: const EdgeInsets.symmetric(vertical: 8.0),
+//       child: Row(
+//         crossAxisAlignment: CrossAxisAlignment.end,
+//         children: <Widget>[
+//           Text(
+//             "Nome:",
+//             style: TextStyle(fontSize: 16),
+//           ),
+//           Padding(
+//             padding: const EdgeInsets.only(left: 8),
+//             child: Text(
+//               curriculo.nome,
+//               style: TextStyle(fontSize: 20),
+//             ),
+//           ),
+//         ],
+//       ),
+//     ),
+
+//     // Lattes ID
+//     Padding(
+//       padding: const EdgeInsets.symmetric(vertical: 8.0),
+//       child: Row(
+//         crossAxisAlignment: CrossAxisAlignment.end,
+//         children: <Widget>[
+//           Text(
+//             "Lattes ID:",
+//             style: TextStyle(fontSize: 16),
+//           ),
+//           Padding(
+//             padding: const EdgeInsets.only(left: 8),
+//             child: Text(
+//               curriculo.lattesID,
+//               style: TextStyle(fontSize: 20),
+//             ),
+//           ),
+//         ],
+//       ),
+//     ),
+
+//     // Nome citação
+//     Padding(
+//       padding: const EdgeInsets.symmetric(vertical: 8.0),
+//       child: Row(
+//         crossAxisAlignment: CrossAxisAlignment.end,
+//         children: <Widget>[
+//           Text(
+//             "Nome Citação:",
+//             style: TextStyle(fontSize: 16),
+//           ),
+//           Expanded(
+//             child: Padding(
+//               padding: const EdgeInsets.only(left: 8),
+//               child: Text(
+//                 curriculo.nomeCitacao,
+//                 style: TextStyle(fontSize: 18),
+//               ),
+//             ),
+//           ),
+//         ],
+//       ),
+//     ),
+
+//     // Descricao
+//     Padding(
+//       padding: const EdgeInsets.symmetric(vertical: 8.0),
+//       child: Row(
+//         children: <Widget>[
+//           Text(
+//             "Descrição:",
+//             style: TextStyle(fontSize: 16),
+//           ),
+//           Expanded(
+//             child: Padding(
+//               padding: const EdgeInsets.only(left: 8.0),
+//               child: Text(
+//                 curriculo.descricao,
+//                 style: TextStyle(fontSize: 18),
+//               ),
+//             ),
+//           ),
+//         ],
+//       ),
+//     ),
+//   ];
+// }
