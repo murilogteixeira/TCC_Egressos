@@ -171,7 +171,7 @@ class _HomeViewState extends State<HomeView> {
           width: 750,
           child: Align(
             alignment: Alignment.bottomCenter,
-            child: List(3),
+            child: ListEgressos(_controller.lista.length, _controller.lista),
           ) 
         )
       ],

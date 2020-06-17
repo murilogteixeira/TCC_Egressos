@@ -1,16 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:mobx/mobx.dart';
+import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
 
-class List extends StatefulWidget {
+class ListEgressos extends StatefulWidget {
   final int list_size;
-  const List(this.list_size);
+  final ObservableList<CurriculoLattes> list;
+  const ListEgressos(this.list_size, this.list);
 
   @override
-  ListState createState() => ListState();
+  ListEgressosState createState() => ListEgressosState();
 }
 
-class ListState extends State<List> {
+class ListEgressosState extends State<ListEgressos> {
   final _words = ['Gustavo', 'Filipe', 'Aline', 'Ramon', 'Murilo'];
 //  final _words = ['Gustavo','Aline', 'Ramon'];
   final _colors = [
@@ -34,13 +37,13 @@ class ListState extends State<List> {
       itemBuilder: (_, index) {
         return _buildRow(index);
       },
-      itemCount: widget.list_size,
+      itemCount: widget.list.length,
     );
   }
 
   Widget _buildRow(int index) {
     return Container(
-      height: MediaQuery.of(context).size.width < 768 ? 160 : 119,
+      height: MediaQuery.of(context).size.width < 768 ? 175 : 119,
       width: MediaQuery.of(context).size.width,
       color: Colors.white,
       child: Column(
@@ -96,7 +99,7 @@ class ListState extends State<List> {
                     children: <Widget>[
                       Container(
                           margin: EdgeInsets.fromLTRB(0.0, 0, 0, 10),
-                          child: Text('${_words[index]}',
+                          child: Text('${widget.list[index].nome}',
                               style: TextStyle(
                                   color: Colors.blue, fontSize: 20.0))),
                       Container(
@@ -106,12 +109,12 @@ class ListState extends State<List> {
                               maxHeight: MediaQuery.of(context).size.height*1.0
                             ),
                             child: AutoSizeText(
-                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+                            '${widget.list[index].descricao}',
                             group: AutoSizeGroup(),
                           ),
                           )
                       ),
-                      Text('Profissão')
+                      Text('${widget.list[index].endereco}')
                     ],
                   ),
                 ),
