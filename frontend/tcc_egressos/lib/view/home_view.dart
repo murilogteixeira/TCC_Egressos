@@ -25,7 +25,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     super.initState();
-    _controller = HomeController();
+    _controller = HomeController(context);
   }
 
   @override
@@ -83,28 +83,28 @@ class _HomeViewState extends State<HomeView> {
 
         pr.show();
 
-        var requestOK = await _controller.consultar(_nome);
+        var requestOK = await _controller.consultar(_nome, () => pr.hide());
 
-        pr.hide().whenComplete(() {
-          if (requestOK) {
-            Navigator.pushNamed(context, ResultadoView.route,
-                arguments: _controller.lista);
-          }
-        });
+        // pr.hide().whenComplete(() {
+        //   if (requestOK) {
+        //     Navigator.pushNamed(context, ResultadoView.route,
+        //         arguments: _controller.lista);
+        //   }
+        // });
       }
     }
 
     _buscarTodos() async {
       pr.show();
 
-      var requestOK = await _controller.buscarTodos();
+      var requestOK = await _controller.buscarTodos(() => pr.hide());
 
-      pr.hide().whenComplete(() {
-        if (requestOK) {
-          Navigator.pushNamed(context, ResultadoView.route,
-              arguments: _controller.lista);
-        }
-      });
+      // pr.hide().whenComplete(() {
+      //   if (requestOK) {
+      //     Navigator.pushNamed(context, ResultadoView.route,
+      //         arguments: _controller.lista);
+      //   }
+      // });
     }
 
 
