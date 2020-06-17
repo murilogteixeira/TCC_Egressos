@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tcc_egressos/view/consulta_view.dart';
+import 'package:tcc_egressos/view/curriculo_view.dart';
 
 import 'view/resultado_view.dart';
 
@@ -10,15 +11,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Egressos UCB',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       initialRoute: ConsultaView.route,
       routes: {
-        ConsultaView.route: (context) => ConsultaView(title: "Egressos",),
-        ResultadoView.route: (context) => ResultadoView(title: "Resultado",),
+        ConsultaView.route: (context) => ConsultaView(),
+        ResultadoView.route: (context) => ResultadoView(),
+        CurriculoView.route: (context) => CurriculoView(),
       },
     );
   }
