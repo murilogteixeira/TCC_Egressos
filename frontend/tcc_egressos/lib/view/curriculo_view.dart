@@ -1,11 +1,14 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tcc_egressos/components/menu_botao_widget.dart';
 import 'package:tcc_egressos/components/nav_bar_widget.dart';
 import 'package:tcc_egressos/components/screenSize.dart';
+import 'package:tcc_egressos/controller/curriculo_controller.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
 
 class CurriculoView extends StatefulWidget {
@@ -23,6 +26,13 @@ class _CurriculoViewState extends State<CurriculoView> {
   BoxConstraints _constraints;
   ScreenSize _screenSize;
   CurriculoLattes _curriculo;
+  CurriculoController _controller;
+
+  @override
+  void initState() {
+    _controller = CurriculoController();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -244,7 +254,7 @@ class _CurriculoViewState extends State<CurriculoView> {
                               text: "Atuação",
                             ),
                             MenuBotaoWidget(
-                              onTap: () => print("Produções"),
+                              onTap: _alterarContainer,
                               text: "Produções",
                             ),
                             MenuBotaoWidget(
@@ -260,8 +270,10 @@ class _CurriculoViewState extends State<CurriculoView> {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 40.0),
-                        child: Container(
-                          height: 100,
+                        child: Observer(
+                          builder: (_) {
+                            return _controller.container;
+                          },
                         ),
                       ),
                       // DadosGeraisWidget(),
@@ -273,6 +285,14 @@ class _CurriculoViewState extends State<CurriculoView> {
           ),
         ),
       ),
+    );
+  }
+
+  _alterarContainer() {
+      var r = Random();
+    _controller.container = Container(
+      color: Color.fromRGBO(r.nextInt(255), r.nextInt(255), r.nextInt(255), 1),
+      height: 50,
     );
   }
 }

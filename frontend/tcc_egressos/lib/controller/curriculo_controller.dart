@@ -9,4 +9,7 @@ abstract class _CurriculoControllerBase with Store {
 
   @observable
   ObservableList<Widget> listaWidget = ObservableList();
+
+  @observable
+  var container = Container();
 }

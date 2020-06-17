@@ -22,7 +22,7 @@ class _ConsultaViewState extends State<ConsultaView> {
   @override
   void initState() {
     super.initState();
-    _controller = HomeController.getInstance(context);
+    _controller = HomeController(context);
     pr = _createProgressDialog();
   }
 
