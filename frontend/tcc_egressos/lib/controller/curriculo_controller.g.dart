@@ -24,10 +24,26 @@ mixin _$CurriculoController on _CurriculoControllerBase, Store {
     });
   }
 
+  final _$containerAtom = Atom(name: '_CurriculoControllerBase.container');
+
+  @override
+  Container get container {
+    _$containerAtom.reportRead();
+    return super.container;
+  }
+
+  @override
+  set container(Container value) {
+    _$containerAtom.reportWrite(value, super.container, () {
+      super.container = value;
+    });
+  }
+
   @override
   String toString() {
     return '''
-listaWidget: ${listaWidget}
+listaWidget: ${listaWidget},
+container: ${container}
     ''';
   }
 }

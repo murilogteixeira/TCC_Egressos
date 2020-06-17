@@ -9,17 +9,19 @@ import 'package:mobx/mobx.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
 import 'package:tcc_egressos/view/resultado_view.dart';
 
-class HomeController {
-  static HomeController _instance;
-  static HomeController getInstance(context) =>
-      _instance == null ? HomeController(context) : _instance;
+part 'home_controller.g.dart';
 
-  HomeController(this.context);
+class HomeController = _HomeControllerBase with _$HomeController;
+
+abstract class _HomeControllerBase with Store {
+  _HomeControllerBase(this.context);
 
   final context;
 
-  ObservableList<CurriculoLattes> lista = ObservableList();
+  @observable
+  var lista = ObservableList<CurriculoLattes>();
 
+  @action
   consultar(String nome, doneCallback) async {
     final response = await http.get(
         'https://egressosbackend.herokuapp.com/egressos/?search=$nome',
@@ -42,6 +44,7 @@ class HomeController {
     doneCallback();
   }
 
+  @action
   buscarTodos(doneCallback) async {
     final response = await http
         .get('https://egressosbackend.herokuapp.com/egressos', headers: {
@@ -63,6 +66,7 @@ class HomeController {
     doneCallback();
   }
 
+  @action
   addCurriculo(CurriculoLattes curriculo) {
     lista.add(curriculo);
   }
@@ -73,6 +77,7 @@ class HomeController {
         "lista", lista.map((e) => jsonEncode(e.toJson())).toList());
   }
 
+  @action
   obterListaSP() async {
     var prefs = await SharedPreferences.getInstance();
     var listaString = prefs.getStringList("lista");
@@ -82,7 +87,6 @@ class HomeController {
           .map((e) => lista.add(CurriculoLattes().fromJson(jsonDecode(e))))
           .toList();
     }
-    lista = lista;
+    this.lista = lista;
   }
-
 }

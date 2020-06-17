@@ -28,6 +28,7 @@ dependencies:
   shared_preferences:
   progress_dialog:
   mobx:
+  flutter_mobx:
 
 
 
