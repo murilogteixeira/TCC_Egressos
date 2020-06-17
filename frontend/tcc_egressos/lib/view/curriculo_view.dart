@@ -9,6 +9,7 @@ import 'package:tcc_egressos/components/menu_botao_widget.dart';
 import 'package:tcc_egressos/components/nav_bar_widget.dart';
 import 'package:tcc_egressos/components/screenSize.dart';
 import 'package:tcc_egressos/controller/curriculo_controller.dart';
+import 'package:tcc_egressos/model/Charts/OrganizeCharts.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
 
 class CurriculoView extends StatefulWidget {
@@ -254,11 +255,15 @@ class _CurriculoViewState extends State<CurriculoView> {
                               text: "Atuação",
                             ),
                             MenuBotaoWidget(
-                              onTap: _alterarContainer,
+                              onTap: () => _alterarContainer(OrganizeCharts()
+                                  .createCharts(
+                                      dataExemplo, [100, 200, 300, 400, 500])),
                               text: "Produções",
                             ),
                             MenuBotaoWidget(
-                              onTap: () => print("Eventos"),
+                              onTap: () => _alterarContainer(OrganizeCharts()
+                                  .createCharts(
+                                      dataExemplo, [100, 2, 30, 4, 55])),
                               text: "Eventos",
                             ),
                             MenuBotaoWidget(
@@ -288,12 +293,8 @@ class _CurriculoViewState extends State<CurriculoView> {
     );
   }
 
-  _alterarContainer() {
-      var r = Random();
-    _controller.container = Container(
-      color: Color.fromRGBO(r.nextInt(255), r.nextInt(255), r.nextInt(255), 1),
-      height: 50,
-    );
+  _alterarContainer(Widget widget) {
+    _controller.container = Container(child: widget);
   }
 }
 

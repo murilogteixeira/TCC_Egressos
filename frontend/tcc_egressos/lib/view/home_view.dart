@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/rendering.dart';
 import 'package:progress_dialog/progress_dialog.dart';
-import 'package:tcc_egressos/components/ScreenSize.dart';
+import 'package:tcc_egressos/components/screenSize.dart';
 import 'package:tcc_egressos/controller/home_controller.dart';
-import 'package:tcc_egressos/view/resultado_view.dart';
 import 'package:tcc_egressos/view/tabela_egressos.dart';
 
 class HomeView extends StatefulWidget {
@@ -57,9 +56,9 @@ class _HomeViewState extends State<HomeView> {
 
       if (maxWidth >= 576) {
         return Scaffold(
-            appBar: _createAppBar(), body: _searchContainer(SizeScreen.lg));
+            appBar: _createAppBar(), body: _searchContainer(ScreenSize.lg));
       }
-      return Scaffold(appBar: _createAppBar(), body: _searchContainer(SizeScreen.sm));
+      return Scaffold(appBar: _createAppBar(), body: _searchContainer(ScreenSize.sm));
     });
   }
 
@@ -71,9 +70,9 @@ class _HomeViewState extends State<HomeView> {
           );
   }
 
-  _searchContainer(SizeScreen sizeScreen) {
+  _searchContainer(ScreenSize sizeScreen) {
     BoxConstraints constraints;
-    if (sizeScreen == SizeScreen.lg) {
+    if (sizeScreen == ScreenSize.lg) {
       constraints = BoxConstraints(maxWidth: 576);
     }
 
