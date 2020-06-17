@@ -109,12 +109,12 @@ class ListEgressosState extends State<ListEgressos> {
                               maxHeight: MediaQuery.of(context).size.height*1.0
                             ),
                             child: AutoSizeText(
-                            '${widget.list[index].descricao}',
+                            '${'Ramonzinho monstro!'}',
                             group: AutoSizeGroup(),
                           ),
                           )
                       ),
-                      Text('${widget.list[index].endereco}')
+                      Text('${"Ramonzinho monstro!"}')
                     ],
                   ),
                 ),

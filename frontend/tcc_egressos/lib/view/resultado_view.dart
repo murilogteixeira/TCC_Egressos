@@ -4,6 +4,7 @@ import 'package:mobx/mobx.dart';
 import 'package:tcc_egressos/components/curriculo_lista_widget.dart';
 import 'package:tcc_egressos/controller/resultado_controller.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
+import 'package:tcc_egressos/view/tabela_egressos.dart';
 
 class ResultadoView extends StatefulWidget {
   static var route = "/resultado";
@@ -56,16 +57,18 @@ class _ResultadoViewState extends State<ResultadoView> {
       return Text("Nenhum curriculo encontrado");
     }
 
-    return ListView.builder(
-        itemCount: lista.length,
-        itemBuilder: (context, index) {
-          return CurriculoListaWidget(
-            index: index + 1,
-            curriculo: lista[index],
-            onTapCurriculo: () {
-              _controller.onTapCurriculo(lista[index]);
-            },
-          );
-        });
+    // return ListView.builder(
+    //     itemCount: lista.length,
+    //     itemBuilder: (context, index) {
+    //       return CurriculoListaWidget(
+    //         index: index + 1,
+    //         curriculo: lista[index],
+    //         onTapCurriculo: () {
+    //           _controller.onTapCurriculo(lista[index]);
+    //         },
+    //       );
+    //     });
+
+    return ListEgressos(lista.length, lista);
   }
 }

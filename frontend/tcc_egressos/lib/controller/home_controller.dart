@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:mobx/mobx.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
 import 'package:tcc_egressos/view/resultado_view.dart';
+import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
 
 class HomeController {
   static HomeController _instance;
@@ -85,4 +86,22 @@ class HomeController {
     lista = lista;
   }
 
+  Future<ObservableList<CurriculoLattes>> getCurriculos() async {
+    final response = await http
+        .get('https://egressosbackend.herokuapp.com/egressos', headers: {
+      HttpHeaders.authorizationHeader:
+          'Bearer 684bd25e2c3387ad980e732e52ab390897d8339a'
+    });
+
+    if (response.statusCode == 200) {
+      List responseJson = json.decode(response.body);
+      lista = ObservableList();
+      responseJson.forEach((json) {
+        lista.add(CurriculoLattes().fromJson(json));
+      });
+      if (lista.isNotEmpty) {
+        return Future.value(lista);
+      }
+    }
+  }
 }

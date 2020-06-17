@@ -57,9 +57,9 @@ class _HomeViewState extends State<HomeView> {
 
       if (maxWidth >= 576) {
         return Scaffold(
-            appBar: _createAppBar(), body: _searchContainer(SizeScreen.lg));
+            appBar: _createAppBar(), body: _searchContainer(ScreenSize.lg));
       }
-      return Scaffold(appBar: _createAppBar(), body: _searchContainer(SizeScreen.sm));
+      return Scaffold(appBar: _createAppBar(), body: _searchContainer(ScreenSize.sm));
     });
   }
 
@@ -71,9 +71,9 @@ class _HomeViewState extends State<HomeView> {
           );
   }
 
-  _searchContainer(SizeScreen sizeScreen) {
+  _searchContainer(ScreenSize sizeScreen) {
     BoxConstraints constraints;
-    if (sizeScreen == SizeScreen.lg) {
+    if (sizeScreen == ScreenSize.lg) {
       constraints = BoxConstraints(maxWidth: 576);
     }
 
@@ -171,7 +171,7 @@ class _HomeViewState extends State<HomeView> {
           width: 750,
           child: Align(
             alignment: Alignment.bottomCenter,
-            child: ListEgressos(_controller.lista.length, _controller.lista),
+            //child: ListEgressos(),
           ) 
         )
       ],
