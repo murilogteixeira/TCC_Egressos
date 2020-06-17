@@ -3,25 +3,28 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
 class List extends StatefulWidget {
+  final int list_size;
+  const List(this.list_size);
+
   @override
   ListState createState() => ListState();
 }
 
 class ListState extends State<List> {
-  // final _words = ['Gustavo', 'Filipe', 'Aline', 'Ramon', 'Murilo'];
-  final _words = ['Gustavo','Aline', 'Ramon'];
-  /*final _colors = [
+  final _words = ['Gustavo', 'Filipe', 'Aline', 'Ramon', 'Murilo'];
+//  final _words = ['Gustavo','Aline', 'Ramon'];
+  final _colors = [
     Colors.blue,
     Colors.red,
     Colors.green,
     Colors.orange,
     Colors.yellow
-  ];*/
-  final _colors = [
-    Colors.blue,
-    Colors.red,
-    Colors.green
   ];
+//  final _colors = [
+//    Colors.blue,
+//    Colors.red,
+//    Colors.green
+//  ];
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +34,7 @@ class ListState extends State<List> {
       itemBuilder: (_, index) {
         return _buildRow(index);
       },
-      itemCount: _words.length,
+      itemCount: widget.list_size,
     );
   }
 

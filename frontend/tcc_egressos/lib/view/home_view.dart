@@ -171,7 +171,7 @@ class _HomeViewState extends State<HomeView> {
           width: 750,
           child: Align(
             alignment: Alignment.bottomCenter,
-            child: List(),
+            child: List(3),
           ) 
         )
       ],
