@@ -1,20 +1,26 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:mobx/mobx.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
-part 'home_controller.g.dart';
+import 'package:tcc_egressos/view/resultado_view.dart';
 
-class HomeController = _HomeControllerBase with _$HomeController;
+class HomeController {
+  static HomeController _instance;
+  static HomeController getInstance(context) =>
+      _instance == null ? HomeController(context) : _instance;
 
-abstract class _HomeControllerBase with Store {
-  @observable
+  HomeController(this.context);
+
+  final context;
+
   ObservableList<CurriculoLattes> lista = ObservableList();
 
-  Future<bool> consultar(String nome) async {
+  consultar(String nome, doneCallback) async {
     final response = await http.get(
         'https://egressosbackend.herokuapp.com/egressos/?search=$nome',
         headers: {
@@ -28,13 +34,15 @@ abstract class _HomeControllerBase with Store {
       responseJson.forEach((json) {
         lista.add(CurriculoLattes().fromJson(json));
       });
-      return true;
-    } else {
-      return false;
+      if (lista.isNotEmpty) {
+        doneCallback();
+        Navigator.pushNamed(context, ResultadoView.route, arguments: lista);
+      }
     }
+    doneCallback();
   }
 
-  Future<bool> buscarTodos() async {
+  buscarTodos(doneCallback) async {
     final response = await http
         .get('https://egressosbackend.herokuapp.com/egressos', headers: {
       HttpHeaders.authorizationHeader:
@@ -48,12 +56,11 @@ abstract class _HomeControllerBase with Store {
         lista.add(CurriculoLattes().fromJson(json));
       });
       if (lista.isNotEmpty) {
-        return true;
+        doneCallback();
+        Navigator.pushNamed(context, ResultadoView.route, arguments: lista);
       }
-      return false;
-    } else {
-      return false;
     }
+    doneCallback();
   }
 
   addCurriculo(CurriculoLattes curriculo) {
@@ -77,4 +84,5 @@ abstract class _HomeControllerBase with Store {
     }
     lista = lista;
   }
+
 }
