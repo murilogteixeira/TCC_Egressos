@@ -8,18 +8,26 @@ class List extends StatefulWidget {
 }
 
 class ListState extends State<List> {
-  final _words = ['Gustavo', 'Filipe', 'Aline', 'Ramon', 'Murilo'];
-  final _colors = [
+  // final _words = ['Gustavo', 'Filipe', 'Aline', 'Ramon', 'Murilo'];
+  final _words = ['Gustavo','Aline', 'Ramon'];
+  /*final _colors = [
     Colors.blue,
     Colors.red,
     Colors.green,
     Colors.orange,
     Colors.yellow
+  ];*/
+  final _colors = [
+    Colors.blue,
+    Colors.red,
+    Colors.green
   ];
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
       itemBuilder: (_, index) {
         return _buildRow(index);
       },
@@ -35,8 +43,8 @@ class ListState extends State<List> {
       child: Column(
         children: <Widget>[
           Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            // mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Expanded(
                 flex: 0,
@@ -108,6 +116,7 @@ class ListState extends State<List> {
             ],
           ),
           Divider(
+            endIndent: 20.0,
             indent: 20.0,
           ),
         ],
