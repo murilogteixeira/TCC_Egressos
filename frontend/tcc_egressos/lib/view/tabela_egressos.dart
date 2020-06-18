@@ -1,27 +1,33 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:mobx/mobx.dart';
+import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
 
-class List extends StatefulWidget {
+class ListEgressos extends StatefulWidget {
+  final int list_size;
+  final ObservableList<CurriculoLattes> list;
+  const ListEgressos(this.list_size, this.list);
+
   @override
-  ListState createState() => ListState();
+  ListEgressosState createState() => ListEgressosState();
 }
 
-class ListState extends State<List> {
-  // final _words = ['Gustavo', 'Filipe', 'Aline', 'Ramon', 'Murilo'];
-  final _words = ['Gustavo','Aline', 'Ramon'];
-  /*final _colors = [
+class ListEgressosState extends State<ListEgressos> {
+  final _words = ['Gustavo', 'Filipe', 'Aline', 'Ramon', 'Murilo'];
+//  final _words = ['Gustavo','Aline', 'Ramon'];
+  final _colors = [
     Colors.blue,
     Colors.red,
     Colors.green,
     Colors.orange,
     Colors.yellow
-  ];*/
-  final _colors = [
-    Colors.blue,
-    Colors.red,
-    Colors.green
   ];
+//  final _colors = [
+//    Colors.blue,
+//    Colors.red,
+//    Colors.green
+//  ];
 
   @override
   Widget build(BuildContext context) {
@@ -31,13 +37,13 @@ class ListState extends State<List> {
       itemBuilder: (_, index) {
         return _buildRow(index);
       },
-      itemCount: _words.length,
+      itemCount: widget.list.length,
     );
   }
 
   Widget _buildRow(int index) {
     return Container(
-      height: MediaQuery.of(context).size.width < 768 ? 160 : 119,
+      height: MediaQuery.of(context).size.width < 768 ? 175 : 119,
       width: MediaQuery.of(context).size.width,
       color: Colors.white,
       child: Column(
@@ -93,7 +99,7 @@ class ListState extends State<List> {
                     children: <Widget>[
                       Container(
                           margin: EdgeInsets.fromLTRB(0.0, 0, 0, 10),
-                          child: Text('${_words[index]}',
+                          child: Text('${widget.list[index].nome}',
                               style: TextStyle(
                                   color: Colors.blue, fontSize: 20.0))),
                       Container(
@@ -103,12 +109,12 @@ class ListState extends State<List> {
                               maxHeight: MediaQuery.of(context).size.height*1.0
                             ),
                             child: AutoSizeText(
-                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+                            '${'Ramonzinho monstro!'}',
                             group: AutoSizeGroup(),
                           ),
                           )
                       ),
-                      Text('Profissão')
+                      Text('${"Ramonzinho monstro!"}')
                     ],
                   ),
                 ),
