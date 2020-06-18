@@ -29,7 +29,6 @@ class _ConsultaViewState extends State<ConsultaView> {
     _controller = HomeController.getInstance(context);
     pr = _createProgressDialog();
     curriculos = _controller.getCurriculos();
-    curriculos.then((value) => print(value));
   }
 
   @override
@@ -96,81 +95,97 @@ class _ConsultaViewState extends State<ConsultaView> {
       _controller.buscarTodos(() => pr.hide());
     }
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: <Widget>[
-        Center(
-          child: Container(
-            constraints: constraints,
-            child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 50),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      TextFormField(
-                        decoration: InputDecoration(
-                            hintText: "Digite o nome para consulta ",
-                            labelText: "Nome",
-                            icon: Icon(Icons.assignment_ind)),
-                        validator: (id) {
-                          if (id.isEmpty) {
-                            return "Digite o nome";
-                          }
-                          return null;
-                        },
-                        onSaved: (nome) {
-                          this._nome = nome;
-                        },
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 14),
-                        child: MaterialButton(
-                          color: Colors.green,
-                          onPressed: () {
-                            _consultar();
+    return Container(
+      color: Colors.red,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          Center(
+            child: Container(
+              constraints: constraints,
+              child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 50),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        TextFormField(
+                          decoration: InputDecoration(
+                              hintText: "Digite o nome para consulta ",
+                              labelText: "Nome",
+                              icon: Icon(Icons.assignment_ind)),
+                          validator: (id) {
+                            if (id.isEmpty) {
+                              return "Digite o nome";
+                            }
+                            return null;
                           },
-                          child: Text(
-                            "Buscar nome",
-                            style: TextStyle(color: Colors.white),
+                          onSaved: (nome) {
+                            this._nome = nome;
+                          },
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 14),
+                          child: MaterialButton(
+                            color: Colors.green,
+                            onPressed: () {
+                              _consultar();
+                            },
+                            child: Text(
+                              "Buscar nome",
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 14),
-                        child: MaterialButton(
-                          color: Colors.blue,
-                          onPressed: () {
-                            _buscarTodos();
-                          },
-                          child: Text(
-                            "Buscar todos",
-                            style: TextStyle(color: Colors.white),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 14),
+                          child: MaterialButton(
+                            color: Colors.blue,
+                            onPressed: () {
+                              _buscarTodos();
+                            },
+                            child: Text(
+                              "Buscar todos",
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                )),
+                      ],
+                    ),
+                  )),
+            ),
           ),
-        ),
-        Container(
-          width: 750,
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: FutureBuilder(
-              future: curriculos,
-              builder: (context, AsyncSnapshot<ObservableList<CurriculoLattes>>snapshot) {
-                if(snapshot.hasData){
-                  return  ListEgressos(snapshot.data.length, snapshot.data);
-                }
-                return Text("Deu ruim meu amigo!");
-              },
-            ) 
-          ) 
-        )
-      ],
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              width: 750,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(12))
+              ),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: FutureBuilder(
+                  future: curriculos,
+                  builder: (context, AsyncSnapshot<ObservableList<CurriculoLattes>>snapshot) {
+                    if(snapshot.hasData){
+                      return  Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ListEgressos(snapshot.data.length, snapshot.data),
+                      );
+                    }else 
+                      if(snapshot.hasError){
+                        return Text("Deu ruim meu amigo!");
+                    }
+                    return Text("Carregando!");
+                  },
+                ) 
+              ) 
+            ),
+          )
+        ],
+      ),
     );
   }
 }
