@@ -5,11 +5,13 @@ part 'curriculo_controller.g.dart';
 class CurriculoController = _CurriculoControllerBase with _$CurriculoController;
 
 abstract class _CurriculoControllerBase with Store {
-  
-
   @observable
   ObservableList<Widget> listaWidget = ObservableList();
 
   @observable
   var container = Container();
+
+  @action
+  setContainer(value) => container = value;
+
 }

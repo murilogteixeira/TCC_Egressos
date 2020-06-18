@@ -101,7 +101,7 @@ class _CurriculoViewState extends State<CurriculoView> {
     }
   }
 
-  Widget _foto() {
+  _foto() {
     return Container(
       // color: Colors.green,
       width: 90,
@@ -116,7 +116,7 @@ class _CurriculoViewState extends State<CurriculoView> {
     );
   }
 
-  Widget _nomeStatus() {
+  _nomeStatus() {
     var nome = Text(
       _curriculo.nome,
       style: TextStyle(fontSize: 22),
@@ -152,7 +152,7 @@ class _CurriculoViewState extends State<CurriculoView> {
     }
   }
 
-  Widget _formacaoCargo() {
+  _formacaoCargo() {
     return Padding(
       padding: const EdgeInsets.only(top: 14),
       child: Container(
@@ -165,7 +165,7 @@ class _CurriculoViewState extends State<CurriculoView> {
     );
   }
 
-  Widget _descricao() {
+  _descricao() {
     return Padding(
       padding: const EdgeInsets.only(top: 14),
       child: Container(
@@ -176,7 +176,78 @@ class _CurriculoViewState extends State<CurriculoView> {
     );
   }
 
+  _dadosGeraisBotao() {
+    return MenuBotaoWidget(
+      onTap: () => _controller.setContainer(_dadosGeraisContainer()),
+      text: "Dados Gerais",
+    );
+  }
+
+  _formacaoBotao() {
+    return MenuBotaoWidget(
+      onTap: () => _controller.setContainer(_formacaoContainer()),
+      text: "Formação",
+    );
+  }
+
+  _atuacaoBotao() {
+    return MenuBotaoWidget(
+      onTap: () => _controller.setContainer(_atuacaoContainer()),
+      text: "Atuação",
+    );
+  }
+
+  _producoesBotao() {
+    return MenuBotaoWidget(
+      onTap: () => _controller.setContainer(_producoesContainer()),
+      text: "Produções",
+    );
+  }
+
+  _eventosBotao() {
+    return MenuBotaoWidget(
+      onTap: () => _controller.setContainer(_eventosContainer()),
+      text: "Eventos",
+    );
+  }
+
+  _bancasBotao() {
+    return MenuBotaoWidget(
+      onTap: () => _controller.setContainer(_bancasContainer()),
+      text: "Bancas",
+    );
+  }
+
+  _dadosGeraisContainer() {
+    return Container(color: Colors.orange, height: 100);
+  }
+
+  _formacaoContainer() {
+    return Container(color: Colors.indigo, height: 100);
+  }
+
+  _atuacaoContainer() {
+    return Container(color: Colors.red, height: 100);
+  }
+
+  _producoesContainer() {
+    return Container(
+        child: OrganizeCharts()
+            .createCharts(dataExemplo, [100, 200, 300, 400, 500]));
+  }
+
+  _eventosContainer() {
+    return Container(
+        child: OrganizeCharts().createCharts(dataExemplo, [100, 2, 30, 4, 55]));
+  }
+
+  _bancasContainer() {
+    return Container(color: Colors.blue, height: 100);
+  }
+
   _mostrarLayout() {
+    _controller.setContainer(_dadosGeraisContainer());
+
     return SingleChildScrollView(
       child: Center(
         child: Container(
@@ -242,34 +313,12 @@ class _CurriculoViewState extends State<CurriculoView> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            MenuBotaoWidget(
-                              onTap: () => print("Dados Gerais"),
-                              text: "Dados Gerais",
-                            ),
-                            MenuBotaoWidget(
-                              onTap: () => print("Formação"),
-                              text: "Formação",
-                            ),
-                            MenuBotaoWidget(
-                              onTap: () => print("Atuação"),
-                              text: "Atuação",
-                            ),
-                            MenuBotaoWidget(
-                              onTap: () => _alterarContainer(OrganizeCharts()
-                                  .createCharts(
-                                      dataExemplo, [100, 200, 300, 400, 500])),
-                              text: "Produções",
-                            ),
-                            MenuBotaoWidget(
-                              onTap: () => _alterarContainer(OrganizeCharts()
-                                  .createCharts(
-                                      dataExemplo, [100, 2, 30, 4, 55])),
-                              text: "Eventos",
-                            ),
-                            MenuBotaoWidget(
-                              onTap: () => print("Bancas"),
-                              text: "Bancas",
-                            ),
+                            _dadosGeraisBotao(),
+                            _formacaoBotao(),
+                            _atuacaoBotao(),
+                            _producoesBotao(),
+                            _eventosBotao(),
+                            _bancasBotao(),
                           ],
                         ),
                       ),
@@ -292,101 +341,4 @@ class _CurriculoViewState extends State<CurriculoView> {
       ),
     );
   }
-
-  _alterarContainer(Widget widget) {
-    _controller.container = Container(child: widget);
-  }
 }
-
-// _function(curriculo) {
-//   return [
-//     // SizedBox(height: 100),
-
-//     // Nome
-//     Padding(
-//       padding: const EdgeInsets.symmetric(vertical: 8.0),
-//       child: Row(
-//         crossAxisAlignment: CrossAxisAlignment.end,
-//         children: <Widget>[
-//           Text(
-//             "Nome:",
-//             style: TextStyle(fontSize: 16),
-//           ),
-//           Padding(
-//             padding: const EdgeInsets.only(left: 8),
-//             child: Text(
-//               curriculo.nome,
-//               style: TextStyle(fontSize: 20),
-//             ),
-//           ),
-//         ],
-//       ),
-//     ),
-
-//     // Lattes ID
-//     Padding(
-//       padding: const EdgeInsets.symmetric(vertical: 8.0),
-//       child: Row(
-//         crossAxisAlignment: CrossAxisAlignment.end,
-//         children: <Widget>[
-//           Text(
-//             "Lattes ID:",
-//             style: TextStyle(fontSize: 16),
-//           ),
-//           Padding(
-//             padding: const EdgeInsets.only(left: 8),
-//             child: Text(
-//               curriculo.lattesID,
-//               style: TextStyle(fontSize: 20),
-//             ),
-//           ),
-//         ],
-//       ),
-//     ),
-
-//     // Nome citação
-//     Padding(
-//       padding: const EdgeInsets.symmetric(vertical: 8.0),
-//       child: Row(
-//         crossAxisAlignment: CrossAxisAlignment.end,
-//         children: <Widget>[
-//           Text(
-//             "Nome Citação:",
-//             style: TextStyle(fontSize: 16),
-//           ),
-//           Expanded(
-//             child: Padding(
-//               padding: const EdgeInsets.only(left: 8),
-//               child: Text(
-//                 curriculo.nomeCitacao,
-//                 style: TextStyle(fontSize: 18),
-//               ),
-//             ),
-//           ),
-//         ],
-//       ),
-//     ),
-
-//     // Descricao
-//     Padding(
-//       padding: const EdgeInsets.symmetric(vertical: 8.0),
-//       child: Row(
-//         children: <Widget>[
-//           Text(
-//             "Descrição:",
-//             style: TextStyle(fontSize: 16),
-//           ),
-//           Expanded(
-//             child: Padding(
-//               padding: const EdgeInsets.only(left: 8.0),
-//               child: Text(
-//                 curriculo.descricao,
-//                 style: TextStyle(fontSize: 18),
-//               ),
-//             ),
-//           ),
-//         ],
-//       ),
-//     ),
-//   ];
-// }
