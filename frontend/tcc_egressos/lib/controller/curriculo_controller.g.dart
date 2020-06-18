@@ -39,6 +39,20 @@ mixin _$CurriculoController on _CurriculoControllerBase, Store {
     });
   }
 
+  final _$_CurriculoControllerBaseActionController =
+      ActionController(name: '_CurriculoControllerBase');
+
+  @override
+  dynamic setContainer(dynamic value) {
+    final _$actionInfo = _$_CurriculoControllerBaseActionController.startAction(
+        name: '_CurriculoControllerBase.setContainer');
+    try {
+      return super.setContainer(value);
+    } finally {
+      _$_CurriculoControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
