@@ -53,9 +53,7 @@ class ListEgressosState extends State<ListEgressos> {
     return HandCursor(
       cursor: 'pointer',
       child: GestureDetector(
-        onTap: () {
-          _controller.onTapCurriculo(widget.list[index]);
-        },
+        onTap: () => _controller.onTapCurriculo(widget.list[index]),
         child: Container(
           height: MediaQuery.of(context).size.width < 768 ? 175 : 119,
           width: MediaQuery.of(context).size.width,
