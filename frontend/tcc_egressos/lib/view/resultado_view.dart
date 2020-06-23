@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:mobx/mobx.dart';
-import 'package:tcc_egressos/components/curriculo_lista_widget.dart';
 import 'package:tcc_egressos/controller/resultado_controller.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
-import 'package:tcc_egressos/view/tabela_egressos.dart';
+import 'package:tcc_egressos/view/list_egressos.dart';
 
 class ResultadoView extends StatefulWidget {
   static var route = "/resultado";
@@ -69,6 +68,8 @@ class _ResultadoViewState extends State<ResultadoView> {
     //       );
     //     });
 
-    return ListEgressos(lista.length, lista);
+    return ListEgressos(
+      list: lista,
+    );
   }
 }

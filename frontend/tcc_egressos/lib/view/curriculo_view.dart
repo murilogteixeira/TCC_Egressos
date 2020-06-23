@@ -58,7 +58,11 @@ class _CurriculoViewState extends State<CurriculoView> {
       } else {
         _screenSize = ScreenSize.xl;
       }
-      return Scaffold(appBar: _criarAppBar(), body: _body());
+      return Scaffold(
+        appBar: _criarAppBar(),
+        body: _body(),
+        backgroundColor: Color(0xEAEDF2FF),
+      );
     });
   }
 

@@ -4,7 +4,7 @@ import 'package:flutter/rendering.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:tcc_egressos/components/screenSize.dart';
 import 'package:tcc_egressos/controller/home_controller.dart';
-import 'package:tcc_egressos/view/tabela_egressos.dart';
+import 'package:tcc_egressos/view/list_egressos.dart';
 
 class HomeView extends StatefulWidget {
   static var route = "/";
@@ -58,7 +58,8 @@ class _HomeViewState extends State<HomeView> {
         return Scaffold(
             appBar: _createAppBar(), body: _searchContainer(ScreenSize.lg));
       }
-      return Scaffold(appBar: _createAppBar(), body: _searchContainer(ScreenSize.sm));
+      return Scaffold(
+          appBar: _createAppBar(), body: _searchContainer(ScreenSize.sm));
     });
   }
 
@@ -106,74 +107,74 @@ class _HomeViewState extends State<HomeView> {
       // });
     }
 
-
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: <Widget>[
-        Center(
-          child: Container(
-            constraints: constraints,
-            child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 50),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      TextFormField(
-                        decoration: InputDecoration(
-                            hintText: "Digite o nome para consulta ",
-                            labelText: "Nome",
-                            icon: Icon(Icons.assignment_ind)),
-                        validator: (id) {
-                          if (id.isEmpty) {
-                            return "Digite o nome";
-                          }
-                          return null;
-                        },
-                        onSaved: (nome) {
-                          this._nome = nome;
-                        },
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 14),
-                        child: MaterialButton(
-                          color: Colors.green,
-                          onPressed: () {
-                            _consultar();
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          Center(
+            child: Container(
+              constraints: constraints,
+              child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 50),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        TextFormField(
+                          decoration: InputDecoration(
+                              hintText: "Digite o nome para consulta ",
+                              labelText: "Nome",
+                              icon: Icon(Icons.assignment_ind)),
+                          validator: (id) {
+                            if (id.isEmpty) {
+                              return "Digite o nome";
+                            }
+                            return null;
                           },
-                          child: Text(
-                            "Buscar nome",
-                            style: TextStyle(color: Colors.white),
+                          onSaved: (nome) {
+                            this._nome = nome;
+                          },
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 14),
+                          child: MaterialButton(
+                            color: Colors.green,
+                            onPressed: () {
+                              _consultar();
+                            },
+                            child: Text(
+                              "Buscar nome",
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 14),
-                        child: MaterialButton(
-                          color: Colors.blue,
-                          onPressed: () {
-                            _buscarTodos();
-                          },
-                          child: Text(
-                            "Buscar todos",
-                            style: TextStyle(color: Colors.white),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 14),
+                          child: MaterialButton(
+                            color: Colors.blue,
+                            onPressed: () {
+                              _buscarTodos();
+                            },
+                            child: Text(
+                              "Buscar todos",
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                )),
+                      ],
+                    ),
+                  )),
+            ),
           ),
-        ),
-        Container(
-          width: 750,
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            //child: ListEgressos(),
-          ) 
-        )
-      ],
+          Container(
+              width: 750,
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                //child: ListEgressos(),
+              ))
+        ],
+      ),
     );
   }
 }
