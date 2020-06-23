@@ -9,6 +9,7 @@ import 'package:tcc_egressos/components/menu_botao_widget.dart';
 import 'package:tcc_egressos/components/nav_bar_widget.dart';
 import 'package:tcc_egressos/components/screenSize.dart';
 import 'package:tcc_egressos/controller/curriculo_controller.dart';
+import 'package:tcc_egressos/extension/hand_cursor.dart';
 import 'package:tcc_egressos/model/Charts/OrganizeCharts.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
 
@@ -181,44 +182,62 @@ class _CurriculoViewState extends State<CurriculoView> {
   }
 
   _dadosGeraisBotao() {
-    return MenuBotaoWidget(
-      onTap: () => _controller.setContainer(_dadosGeraisContainer()),
-      text: "Dados Gerais",
+    return HandCursor(
+      cursor: 'pointer',
+      child: MenuBotaoWidget(
+        onTap: () => _controller.setContainer(_dadosGeraisContainer()),
+        text: "Dados Gerais",
+      ),
     );
   }
 
   _formacaoBotao() {
-    return MenuBotaoWidget(
-      onTap: () => _controller.setContainer(_formacaoContainer()),
-      text: "Formação",
+    return HandCursor(
+      cursor: 'pointer',
+      child: MenuBotaoWidget(
+        onTap: () => _controller.setContainer(_formacaoContainer()),
+        text: "Formação",
+      ),
     );
   }
 
   _atuacaoBotao() {
-    return MenuBotaoWidget(
-      onTap: () => _controller.setContainer(_atuacaoContainer()),
-      text: "Atuação",
+    return HandCursor(
+      cursor: 'pointer',
+      child: MenuBotaoWidget(
+        onTap: () => _controller.setContainer(_atuacaoContainer()),
+        text: "Atuação",
+      ),
     );
   }
 
   _producoesBotao() {
-    return MenuBotaoWidget(
-      onTap: () => _controller.setContainer(_producoesContainer()),
-      text: "Produções",
+    return HandCursor(
+      cursor: 'pointer',
+      child: MenuBotaoWidget(
+        onTap: () => _controller.setContainer(_producoesContainer()),
+        text: "Produções",
+      ),
     );
   }
 
   _eventosBotao() {
-    return MenuBotaoWidget(
-      onTap: () => _controller.setContainer(_eventosContainer()),
-      text: "Eventos",
+    return HandCursor(
+      cursor: 'pointer',
+      child: MenuBotaoWidget(
+        onTap: () => _controller.setContainer(_eventosContainer()),
+        text: "Eventos",
+      ),
     );
   }
 
   _bancasBotao() {
-    return MenuBotaoWidget(
-      onTap: () => _controller.setContainer(_bancasContainer()),
-      text: "Bancas",
+    return HandCursor(
+      cursor: 'pointer',
+      child: MenuBotaoWidget(
+        onTap: () => _controller.setContainer(_bancasContainer()),
+        text: "Bancas",
+      ),
     );
   }
 
