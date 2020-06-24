@@ -100,7 +100,7 @@ class _ConsultaViewState extends State<ConsultaView> {
 
     _buscarTodos() {
       pr.show();
-      _controller.buscarTodos(());
+      _controller.buscarTodos(() => pr.hide());
     }
 
     return SingleChildScrollView(
