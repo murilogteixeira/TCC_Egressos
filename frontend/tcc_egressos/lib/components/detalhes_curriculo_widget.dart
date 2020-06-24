@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:tcc_egressos/model/lista_detalhes.dart';
 
 class DetalhesCurriculoWidget extends StatelessWidget {
-  const DetalhesCurriculoWidget({Key key, this.maxWidth}) : super(key: key);
+  const DetalhesCurriculoWidget({Key key, this.maxWidth, this.dados}) : super(key: key);
 
   final double maxWidth;
+  final ListaDetalhes dados;
 
   marcador() => Padding(
         padding: const EdgeInsets.only(top: 5),
@@ -38,66 +40,14 @@ class DetalhesCurriculoWidget extends StatelessWidget {
         height: 1,
       );
 
-  detalhes(dados) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            dados['descricao'],
-            style: TextStyle(
-              fontSize: 13,
-              color: Color(0xFF4A4A4A),
-            ),
-          ),
-          Text(
-            "${dados['inicio']} - ${dados['atual'] == true ? 'momento' : dados['fim']}",
-            style: TextStyle(
-              fontSize: 12,
-              color: Color(0xFF4A4A4A),
-            ),
-          ),
-        ],
-      );
 
   @override
   Widget build(BuildContext context) {
-    var _dados = {
-      'titulo': 'Ministério da Educação, MEC, Brasil.',
-      'cargos': [
-        {
-          'descricao':
-              'Membro da Comissão ENC, Enquadramento Funcional: Cargo honorífico',
-          'inicio': '2001',
-          'atual': true,
-          'fim': null
-        },
-        {
-          'descricao':
-              'Membro da Comissão do ENC-2001, Enquadramento Funcional: Cargo honorífico',
-          'inicio': '2000',
-          'atual': false,
-          'fim': 2001
-        },
-        {
-          'descricao':
-              'Membro da C. E. E. Farmácia, Enquadramento Funcional: Cargo honorífico',
-          'inicio': '1998',
-          'atual': false,
-          'fim': 2000
-        },
-        {
-          'descricao':
-              'Disponibilidade pela UFPR, Enquadramento Funcional: DAS 2, Carga horária: 40, Regime: Dedicação exclusiva.',
-          'inicio': '1975',
-          'atual': false,
-          'fim': 1983
-        },
-      ],
-    };
 
     historicoCargo() {
-      var cargos = _dados['cargos'] as List<Map<String, Object>>;
+
       return Column(
-        children: cargos.map((cargo) {
+        children: dados.lista.map((cargo) {
           return Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
             child: Row(
@@ -115,11 +65,11 @@ class DetalhesCurriculoWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        cargo['descricao'],
+                        cargo.descricao,
                         style: TextStyle(fontSize: 13),
                       ),
                       Text(
-                        '${cargo['inicio']} - ${cargo['atual'] == true ? 'momento' : cargo['fim']}',
+                        '${cargo.inicio} - ${cargo.atual == true ? 'momento' : cargo.fim}',
                         style: TextStyle(fontSize: 12),
                       )
                     ],
@@ -149,7 +99,7 @@ class DetalhesCurriculoWidget extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(left: 30, bottom: 10),
                         child: Text(
-                          _dados['titulo'],
+                          dados.titulo,
                           style: TextStyle(
                               fontSize: 16,
                               color: Color(0xFF547DD9),

@@ -10,9 +10,9 @@ import 'package:tcc_egressos/components/menu_botao_widget.dart';
 import 'package:tcc_egressos/components/nav_bar_widget.dart';
 import 'package:tcc_egressos/components/screenSize.dart';
 import 'package:tcc_egressos/controller/curriculo_controller.dart';
-import 'package:tcc_egressos/extension/hand_cursor.dart';
 import 'package:tcc_egressos/model/Charts/OrganizeCharts.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
+import 'package:tcc_egressos/model/lista_detalhes.dart';
 
 class CurriculoView extends StatefulWidget {
   static var route = "/curriculo";
@@ -31,9 +31,16 @@ class _CurriculoViewState extends State<CurriculoView> {
   CurriculoLattes _curriculo;
   CurriculoController _controller;
 
+  Widget _atualMenu;
+  setAtualMenu(menu) {
+    _atualMenu = menu;
+    _controller.container = menu;
+  }
+
   @override
   void initState() {
     _controller = CurriculoController();
+    _atualMenu = _dadosGeraisContainer();
     super.initState();
   }
 
@@ -183,79 +190,49 @@ class _CurriculoViewState extends State<CurriculoView> {
   }
 
   _dadosGeraisBotao() {
-    return HandCursor(
-      cursor: 'pointer',
-      child: MenuBotaoWidget(
-        onTap: () => _controller.setContainer(_dadosGeraisContainer()),
-        text: "Dados Gerais",
-      ),
+    return MenuBotaoWidget(
+      onTap: () => setAtualMenu(_dadosGeraisContainer()),
+      text: "Dados Gerais",
     );
   }
 
   _formacaoBotao() {
-    return HandCursor(
-      cursor: 'pointer',
-      child: MenuBotaoWidget(
-        onTap: () => _controller.setContainer(_formacaoContainer()),
-        text: "Formação",
-      ),
+    return MenuBotaoWidget(
+      onTap: () => setAtualMenu(_formacaoContainer()),
+      text: "Formação",
     );
   }
 
   _atuacaoBotao() {
-    return HandCursor(
-      cursor: 'pointer',
-      child: MenuBotaoWidget(
-        onTap: () => _controller.setContainer(_atuacaoContainer()),
-        text: "Atuação",
-      ),
+    return MenuBotaoWidget(
+      onTap: () => setAtualMenu(_atuacaoContainer()),
+      text: "Atuação",
     );
   }
 
   _producoesBotao() {
-    return HandCursor(
-      cursor: 'pointer',
-      child: MenuBotaoWidget(
-        onTap: () => _controller.setContainer(_producoesContainer()),
-        text: "Produções",
-      ),
+    return MenuBotaoWidget(
+      onTap: () => setAtualMenu(_producoesContainer()),
+      text: "Produções",
     );
   }
 
   _eventosBotao() {
-    return HandCursor(
-      cursor: 'pointer',
-      child: MenuBotaoWidget(
-        onTap: () => _controller.setContainer(_eventosContainer()),
-        text: "Eventos",
-      ),
+    return MenuBotaoWidget(
+      onTap: () => setAtualMenu(_eventosContainer()),
+      text: "Eventos",
     );
   }
 
   _bancasBotao() {
-    return HandCursor(
-      cursor: 'pointer',
-      child: MenuBotaoWidget(
-        onTap: () => _controller.setContainer(_bancasContainer()),
-        text: "Bancas",
-      ),
+    return MenuBotaoWidget(
+      onTap: () => setAtualMenu(_bancasContainer()),
+      text: "Bancas",
     );
   }
 
   _dadosGeraisContainer() {
-    return Column(
-      children: <Widget>[
-        DetalhesCurriculoWidget(
-          maxWidth: _maxWidth * 0.9,
-        ),
-        DetalhesCurriculoWidget(
-          maxWidth: _maxWidth * 0.9,
-        ),
-        DetalhesCurriculoWidget(
-          maxWidth: _maxWidth * 0.9,
-        ),
-      ],
-    );
+    return Container(color: Colors.red, height: 100);
   }
 
   _formacaoContainer() {
@@ -263,7 +240,48 @@ class _CurriculoViewState extends State<CurriculoView> {
   }
 
   _atuacaoContainer() {
-    return Container(color: Colors.red, height: 100);
+    var atuacao = ListaDetalhes('Ministério da Educação, MEC, Brasil', [
+      ItemListaDetalhes(
+        'Membro da Comissão ENC, Enquadramento Funcional: Cargo honorífico',
+        '2001',
+        null,
+        true,
+      ),
+      ItemListaDetalhes(
+        'Membro da Comissão do ENC-2001, Enquadramento Funcional: Cargo honorífico',
+        '2000',
+        '2001',
+        false,
+      ),
+      ItemListaDetalhes(
+        'Membro da C. E. E. Farmácia, Enquadramento Funcional: Cargo honorífico',
+        '1998',
+        '2000',
+        false,
+      ),
+      ItemListaDetalhes(
+        'Disponibilidade pela UFPR, Enquadramento Funcional: DAS 2, Carga horária: 40, Regime: Dedicação exclusiva',
+        '1975',
+        '1983',
+        false,
+      ),
+    ]);
+    return Column(
+      children: <Widget>[
+        DetalhesCurriculoWidget(
+          maxWidth: _maxWidth * 0.9,
+          dados: atuacao,
+        ),
+        DetalhesCurriculoWidget(
+          maxWidth: _maxWidth * 0.9,
+          dados: atuacao,
+        ),
+        DetalhesCurriculoWidget(
+          maxWidth: _maxWidth * 0.9,
+          dados: atuacao,
+        ),
+      ],
+    );
   }
 
   _producoesContainer() {
@@ -282,7 +300,7 @@ class _CurriculoViewState extends State<CurriculoView> {
   }
 
   _mostrarLayout() {
-    _controller.setContainer(_dadosGeraisContainer());
+    setAtualMenu(_atualMenu);
 
     return SingleChildScrollView(
       child: Center(
@@ -358,8 +376,8 @@ class _CurriculoViewState extends State<CurriculoView> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(
-                            top: 40.0, bottom: 40, left: 30.5, right: 30.5),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 40, horizontal: 30.5),
                         child: Observer(
                           builder: (_) {
                             return _controller.container;

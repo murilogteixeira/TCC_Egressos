@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:progress_dialog/progress_dialog.dart';
+import 'package:tcc_egressos/components/nav_bar_widget.dart';
 import 'package:tcc_egressos/components/screenSize.dart';
 import 'package:tcc_egressos/controller/home_controller.dart';
 import 'package:mobx/mobx.dart';
@@ -78,10 +79,11 @@ class _ConsultaViewState extends State<ConsultaView> {
   }
 
   _createAppBar() {
-    return AppBar(
-      title: Text(widget.title ?? ""),
-      backgroundColor: Color(0xFF7A9EEF),
-    );
+    return kIsWeb
+        ? null
+        : AppBar(
+            title: Text(widget.title ?? ""),
+          );
   }
 
   _searchContainer(ScreenSize sizeScreen) {
@@ -108,6 +110,8 @@ class _ConsultaViewState extends State<ConsultaView> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
+            NavBarWidget(),
+            
             Center(
               child: Container(
                 constraints: constraints,
