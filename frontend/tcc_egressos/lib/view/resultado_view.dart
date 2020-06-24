@@ -70,6 +70,7 @@ class _ResultadoViewState extends State<ResultadoView> {
 
     return ListEgressos(
       list: lista,
+      sizeList: lista.length,
     );
   }
 }
