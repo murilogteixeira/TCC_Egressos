@@ -8,7 +8,9 @@ import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
 
 class ListEgressos extends StatefulWidget {
   final ObservableList<CurriculoLattes> list;
-  const ListEgressos({this.list});
+  final int sizeList;
+  const ListEgressos({this.list, this.sizeList});
+  
 
   @override
   ListEgressosState createState() => ListEgressosState();
@@ -45,7 +47,7 @@ class ListEgressosState extends State<ListEgressos> {
       itemBuilder: (_, index) {
         return _buildRow(index);
       },
-      itemCount: widget.list.length,
+      itemCount: widget.sizeList > widget.list.length ? widget.list.length : widget.sizeList,
     );
   }
 

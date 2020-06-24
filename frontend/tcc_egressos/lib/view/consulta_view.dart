@@ -22,6 +22,7 @@ class _ConsultaViewState extends State<ConsultaView> {
   HomeController _controller;
   ProgressDialog pr;
   Future<ObservableList<CurriculoLattes>> curriculos;
+  int numeroBuscados;
 
   @override
   void initState() {
@@ -71,17 +72,16 @@ class _ConsultaViewState extends State<ConsultaView> {
       return Scaffold(
         appBar: _createAppBar(),
         body: _searchContainer(ScreenSize.sm),
-        backgroundColor: Color(0xEAEDF2FF),
+        backgroundColor: Color(0xFFEAEDF2),
       );
     });
   }
 
   _createAppBar() {
-    return kIsWeb
-        ? null
-        : AppBar(
-            title: Text(widget.title ?? ""),
-          );
+    return AppBar(
+      title: Text(widget.title ?? ""),
+      backgroundColor: Color(0xFF7A9EEF),
+    );
   }
 
   _searchContainer(ScreenSize sizeScreen) {
@@ -100,7 +100,7 @@ class _ConsultaViewState extends State<ConsultaView> {
 
     _buscarTodos() {
       pr.show();
-      _controller.buscarTodos(() => pr.hide());
+      _controller.buscarTodos(());
     }
 
     return SingleChildScrollView(
@@ -112,26 +112,53 @@ class _ConsultaViewState extends State<ConsultaView> {
               child: Container(
                 constraints: constraints,
                 child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 50),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 50, vertical: 75),
                     child: Form(
                       key: _formKey,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          TextFormField(
-                            decoration: InputDecoration(
-                                hintText: "Digite o nome para consulta ",
-                                labelText: "Nome",
-                                icon: Icon(Icons.assignment_ind)),
-                            validator: (id) {
-                              if (id.isEmpty) {
-                                return "Digite o nome";
-                              }
-                              return null;
-                            },
-                            onSaved: (nome) {
-                              this._nome = nome;
-                            },
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(45),
+                            ),
+                            child: TextFormField(
+                              autovalidate: true,
+                              textInputAction: TextInputAction.go,
+                              onFieldSubmitted: (value) {
+                                if (value.contains('\n')) {
+                                  if (value.compareTo("") == 1) {
+                                    _consultar();
+                                  } else {
+                                    _buscarTodos();
+                                  }
+                                }
+                              },
+                              decoration: InputDecoration(
+                                hintText: "Pesquise pelo engresso",
+                                // labelText: "Pesquise pelo engresso",
+                                enabledBorder: new UnderlineInputBorder(
+                                    borderRadius: BorderRadius.circular(45),
+                                    borderSide:
+                                        BorderSide(color: Colors.transparent)),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.transparent),
+                                  borderRadius: BorderRadius.circular(45),
+                                ),
+                                icon: Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                  child: Icon(Icons.search),
+                                ),
+                              ),
+
+                              onSaved: (nome) {
+                                this._nome = nome;
+                              },
+                            ),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top: 14),
@@ -183,6 +210,7 @@ class _ConsultaViewState extends State<ConsultaView> {
                               padding: const EdgeInsets.all(8.0),
                               child: ListEgressos(
                                 list: snapshot.data,
+                                sizeList: snapshot.data.length == 0 ? 3 : snapshot.data.length,
                               ),
                             );
                           } else if (snapshot.hasError) {
