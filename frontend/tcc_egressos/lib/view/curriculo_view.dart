@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tcc_egressos/components/detalhes_curriculo_widget.dart';
 import 'package:tcc_egressos/components/menu_botao_widget.dart';
 import 'package:tcc_egressos/components/nav_bar_widget.dart';
 import 'package:tcc_egressos/components/screenSize.dart';
@@ -62,7 +63,7 @@ class _CurriculoViewState extends State<CurriculoView> {
       return Scaffold(
         appBar: _criarAppBar(),
         body: _body(),
-        backgroundColor: Color(0xEAEDF2FF),
+        backgroundColor: Color(0xFFEAEDF2),
       );
     });
   }
@@ -242,7 +243,19 @@ class _CurriculoViewState extends State<CurriculoView> {
   }
 
   _dadosGeraisContainer() {
-    return Container(color: Colors.orange, height: 100);
+    return Column(
+      children: <Widget>[
+        DetalhesCurriculoWidget(
+          maxWidth: _maxWidth * 0.9,
+        ),
+        DetalhesCurriculoWidget(
+          maxWidth: _maxWidth * 0.9,
+        ),
+        DetalhesCurriculoWidget(
+          maxWidth: _maxWidth * 0.9,
+        ),
+      ],
+    );
   }
 
   _formacaoContainer() {
@@ -274,7 +287,6 @@ class _CurriculoViewState extends State<CurriculoView> {
     return SingleChildScrollView(
       child: Center(
         child: Container(
-          color: Color(0xFFEAEDF2),
           child: Column(
             children: [
               NavBarWidget(),
@@ -315,7 +327,7 @@ class _CurriculoViewState extends State<CurriculoView> {
 
               // DADOS
               Padding(
-                padding: EdgeInsets.only(top: 57),
+                padding: EdgeInsets.only(top: 57, bottom: 20),
                 child: Container(
                   constraints: _constraints,
                   decoration: BoxDecoration(
@@ -346,7 +358,8 @@ class _CurriculoViewState extends State<CurriculoView> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 40.0),
+                        padding: const EdgeInsets.only(
+                            top: 40.0, bottom: 40, left: 30.5, right: 30.5),
                         child: Observer(
                           builder: (_) {
                             return _controller.container;
@@ -357,7 +370,7 @@ class _CurriculoViewState extends State<CurriculoView> {
                     ],
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),

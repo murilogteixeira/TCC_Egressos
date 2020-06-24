@@ -27,13 +27,13 @@ mixin _$CurriculoController on _CurriculoControllerBase, Store {
   final _$containerAtom = Atom(name: '_CurriculoControllerBase.container');
 
   @override
-  Container get container {
+  Widget get container {
     _$containerAtom.reportRead();
     return super.container;
   }
 
   @override
-  set container(Container value) {
+  set container(Widget value) {
     _$containerAtom.reportWrite(value, super.container, () {
       super.container = value;
     });

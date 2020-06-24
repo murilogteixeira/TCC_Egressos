@@ -65,7 +65,7 @@ class _ConsultaViewState extends State<ConsultaView> {
         return Scaffold(
           appBar: _createAppBar(),
           body: _searchContainer(ScreenSize.lg),
-          backgroundColor: Color(0xEAEDF2FF),
+          backgroundColor: Color(0xFFEAEDF2),
         );
       }
       return Scaffold(

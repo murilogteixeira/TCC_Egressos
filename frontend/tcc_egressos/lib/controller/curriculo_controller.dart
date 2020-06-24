@@ -9,7 +9,7 @@ abstract class _CurriculoControllerBase with Store {
   ObservableList<Widget> listaWidget = ObservableList();
 
   @observable
-  var container = Container();
+  Widget container = Container();
 
   @action
   setContainer(value) => container = value;
