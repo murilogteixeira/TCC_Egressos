@@ -5,13 +5,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tcc_egressos/components/detalhes_curriculo_widget.dart';
 import 'package:tcc_egressos/components/menu_botao_widget.dart';
 import 'package:tcc_egressos/components/nav_bar_widget.dart';
 import 'package:tcc_egressos/components/screenSize.dart';
 import 'package:tcc_egressos/controller/curriculo_controller.dart';
-import 'package:tcc_egressos/extension/hand_cursor.dart';
 import 'package:tcc_egressos/model/Charts/OrganizeCharts.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
+import 'package:tcc_egressos/model/lista_detalhes.dart';
 
 class CurriculoView extends StatefulWidget {
   static var route = "/curriculo";
@@ -29,6 +30,12 @@ class _CurriculoViewState extends State<CurriculoView> {
   ScreenSize _screenSize;
   CurriculoLattes _curriculo;
   CurriculoController _controller;
+
+  Widget _atualMenu;
+  setAtualMenu(menu) {
+    _atualMenu = menu;
+    _controller.container = menu;
+  }
 
   @override
   void initState() {
@@ -62,7 +69,7 @@ class _CurriculoViewState extends State<CurriculoView> {
       return Scaffold(
         appBar: _criarAppBar(),
         body: _body(),
-        backgroundColor: Color(0xEAEDF2FF),
+        backgroundColor: Color(0xFFEAEDF2),
       );
     });
   }
@@ -182,75 +189,180 @@ class _CurriculoViewState extends State<CurriculoView> {
   }
 
   _dadosGeraisBotao() {
-    return HandCursor(
-      cursor: 'pointer',
-      child: MenuBotaoWidget(
-        onTap: () => _controller.setContainer(_dadosGeraisContainer()),
-        text: "Dados Gerais",
-      ),
+    return MenuBotaoWidget(
+      onTap: () => setAtualMenu(_dadosGeraisContainer()),
+      text: "Dados Gerais",
     );
   }
 
   _formacaoBotao() {
-    return HandCursor(
-      cursor: 'pointer',
-      child: MenuBotaoWidget(
-        onTap: () => _controller.setContainer(_formacaoContainer()),
-        text: "Formação",
-      ),
+    return MenuBotaoWidget(
+      onTap: () => setAtualMenu(_formacaoContainer()),
+      text: "Formação",
     );
   }
 
   _atuacaoBotao() {
-    return HandCursor(
-      cursor: 'pointer',
-      child: MenuBotaoWidget(
-        onTap: () => _controller.setContainer(_atuacaoContainer()),
-        text: "Atuação",
-      ),
+    return MenuBotaoWidget(
+      onTap: () => setAtualMenu(_atuacaoContainer()),
+      text: "Atuação",
     );
   }
 
   _producoesBotao() {
-    return HandCursor(
-      cursor: 'pointer',
-      child: MenuBotaoWidget(
-        onTap: () => _controller.setContainer(_producoesContainer()),
-        text: "Produções",
-      ),
+    return MenuBotaoWidget(
+      onTap: () => setAtualMenu(_producoesContainer()),
+      text: "Produções",
     );
   }
 
   _eventosBotao() {
-    return HandCursor(
-      cursor: 'pointer',
-      child: MenuBotaoWidget(
-        onTap: () => _controller.setContainer(_eventosContainer()),
-        text: "Eventos",
-      ),
+    return MenuBotaoWidget(
+      onTap: () => setAtualMenu(_eventosContainer()),
+      text: "Eventos",
     );
   }
 
   _bancasBotao() {
-    return HandCursor(
-      cursor: 'pointer',
-      child: MenuBotaoWidget(
-        onTap: () => _controller.setContainer(_bancasContainer()),
-        text: "Bancas",
-      ),
+    return MenuBotaoWidget(
+      onTap: () => setAtualMenu(_bancasContainer()),
+      text: "Bancas",
     );
   }
 
   _dadosGeraisContainer() {
-    return Container(color: Colors.orange, height: 100);
+    var atuacao = ListaDetalhes(
+      titulo: 'Ministério da Educação, MEC, Brasil',
+      lista: [
+        ItemListaDetalhes(
+          subtitulo:
+              'Membro da Comissão ENC, Enquadramento Funcional: Cargo honorífico',
+          corpo: ['2001 - momento'],
+        ),
+        ItemListaDetalhes(
+          subtitulo:
+              'Membro da Comissão do ENC-2001, Enquadramento Funcional: Cargo honorífico',
+          corpo: ['2000 - 2001'],
+        ),
+        ItemListaDetalhes(
+          subtitulo:
+              'Membro da C. E. E. Farmácia, Enquadramento Funcional: Cargo honorífico',
+          corpo: ['1998 - 2000'],
+        ),
+        ItemListaDetalhes(
+          subtitulo:
+              'Disponibilidade pela UFPR, Enquadramento Funcional: DAS 2, Carga horária: 40, Regime: Dedicação exclusiva',
+          corpo: ['1975 - 1983'],
+        ),
+      ],
+    );
+
+    return Column(
+      children: <Widget>[
+        DetalhesCurriculoWidget(
+          maxWidth: _maxWidth * 0.9,
+          dados: atuacao,
+        ),
+        DetalhesCurriculoWidget(
+          maxWidth: _maxWidth * 0.9,
+          dados: atuacao,
+        ),
+        DetalhesCurriculoWidget(
+          maxWidth: _maxWidth * 0.9,
+          dados: atuacao,
+        ),
+      ],
+    );
   }
 
   _formacaoContainer() {
-    return Container(color: Colors.indigo, height: 100);
+    var atuacao = ListaDetalhes(
+      titulo: 'Ministério da Educação, MEC, Brasil',
+      lista: [
+        ItemListaDetalhes(
+          subtitulo:
+              'Membro da Comissão ENC, Enquadramento Funcional: Cargo honorífico',
+          corpo: ['2001 - momento'],
+        ),
+        ItemListaDetalhes(
+          subtitulo:
+              'Membro da Comissão do ENC-2001, Enquadramento Funcional: Cargo honorífico',
+          corpo: ['2000 - 2001'],
+        ),
+        ItemListaDetalhes(
+          subtitulo:
+              'Membro da C. E. E. Farmácia, Enquadramento Funcional: Cargo honorífico',
+          corpo: ['1998 - 2000'],
+        ),
+        ItemListaDetalhes(
+          subtitulo:
+              'Disponibilidade pela UFPR, Enquadramento Funcional: DAS 2, Carga horária: 40, Regime: Dedicação exclusiva',
+          corpo: ['1975 - 1983'],
+        ),
+      ],
+    );
+
+    return Column(
+      children: <Widget>[
+        DetalhesCurriculoWidget(
+          maxWidth: _maxWidth * 0.9,
+          dados: atuacao,
+        ),
+        DetalhesCurriculoWidget(
+          maxWidth: _maxWidth * 0.9,
+          dados: atuacao,
+        ),
+        DetalhesCurriculoWidget(
+          maxWidth: _maxWidth * 0.9,
+          dados: atuacao,
+        ),
+      ],
+    );
   }
 
   _atuacaoContainer() {
-    return Container(color: Colors.red, height: 100);
+    var atuacao = ListaDetalhes(
+      titulo: 'Ministério da Educação, MEC, Brasil',
+      lista: [
+        ItemListaDetalhes(
+          subtitulo:
+              'Membro da Comissão ENC, Enquadramento Funcional: Cargo honorífico',
+          corpo: ['2001 - momento'],
+        ),
+        ItemListaDetalhes(
+          subtitulo:
+              'Membro da Comissão do ENC-2001, Enquadramento Funcional: Cargo honorífico',
+          corpo: ['2000 - 2001'],
+        ),
+        ItemListaDetalhes(
+          subtitulo:
+              'Membro da C. E. E. Farmácia, Enquadramento Funcional: Cargo honorífico',
+          corpo: ['1998 - 2000'],
+        ),
+        ItemListaDetalhes(
+          subtitulo:
+              'Disponibilidade pela UFPR, Enquadramento Funcional: DAS 2, Carga horária: 40, Regime: Dedicação exclusiva',
+          corpo: ['1975 - 1983'],
+        ),
+      ],
+    );
+
+    return Column(
+      children: <Widget>[
+        DetalhesCurriculoWidget(
+          maxWidth: _maxWidth * 0.9,
+          dados: atuacao,
+        ),
+        DetalhesCurriculoWidget(
+          maxWidth: _maxWidth * 0.9,
+          dados: atuacao,
+        ),
+        DetalhesCurriculoWidget(
+          maxWidth: _maxWidth * 0.9,
+          dados: atuacao,
+        ),
+      ],
+    );
   }
 
   _producoesContainer() {
@@ -269,12 +381,10 @@ class _CurriculoViewState extends State<CurriculoView> {
   }
 
   _mostrarLayout() {
-    _controller.setContainer(_dadosGeraisContainer());
-
+    _controller.container = _dadosGeraisContainer();
     return SingleChildScrollView(
       child: Center(
         child: Container(
-          color: Color(0xFFEAEDF2),
           child: Column(
             children: [
               NavBarWidget(),
@@ -315,7 +425,7 @@ class _CurriculoViewState extends State<CurriculoView> {
 
               // DADOS
               Padding(
-                padding: EdgeInsets.only(top: 57),
+                padding: EdgeInsets.only(top: 57, bottom: 20),
                 child: Container(
                   constraints: _constraints,
                   decoration: BoxDecoration(
@@ -346,7 +456,8 @@ class _CurriculoViewState extends State<CurriculoView> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 40.0),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 40, horizontal: 30.5),
                         child: Observer(
                           builder: (_) {
                             return _controller.container;
@@ -357,7 +468,7 @@ class _CurriculoViewState extends State<CurriculoView> {
                     ],
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),

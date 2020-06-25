@@ -67,7 +67,7 @@ class _ConsultaViewState extends State<ConsultaView> {
         return Scaffold(
           appBar: _createAppBar(),
           body: _searchContainer(ScreenSize.lg),
-          backgroundColor: Color(0xEAEDF2FF),
+          backgroundColor: Color(0xFFEAEDF2),
         );
       }
       return Scaffold(
@@ -79,10 +79,11 @@ class _ConsultaViewState extends State<ConsultaView> {
   }
 
   _createAppBar() {
-    return kIsWeb ? null : AppBar(
-      title: Text(widget.title ?? ""),
-      backgroundColor: Color(0xFF7A9EEF),
-    );
+    return kIsWeb
+        ? null
+        : AppBar(
+            title: Text(widget.title ?? ""),
+          );
   }
 
   _searchContainer(ScreenSize sizeScreen) {
@@ -110,6 +111,7 @@ class _ConsultaViewState extends State<ConsultaView> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             NavBarWidget(),
+            
             Center(
               child: Container(
                 constraints: constraints,

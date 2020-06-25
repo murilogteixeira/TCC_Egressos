@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tcc_egressos/extension/hand_cursor.dart';
 
 class MenuBotaoWidget extends StatelessWidget {
   const MenuBotaoWidget({Key key, this.onTap, this.text}) : super(key: key);
@@ -8,21 +9,25 @@ class MenuBotaoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 40.0),
-        child: Container(
-            child: Center(
-              child: Text(
-                text,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w100,
+    return HandCursor(
+      cursor: 'pointer',
+      child: GestureDetector(
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 40.0),
+          child: Container(
+              color: Color(0x547DD9),
+              child: Center(
+                child: Text(
+                  text,
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w100,
+                  ),
                 ),
-              ),
-            )),
+              )),
+        ),
       ),
     );
   }
