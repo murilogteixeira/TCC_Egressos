@@ -10,6 +10,7 @@ import 'package:tcc_egressos/components/menu_botao_widget.dart';
 import 'package:tcc_egressos/components/nav_bar_widget.dart';
 import 'package:tcc_egressos/components/screenSize.dart';
 import 'package:tcc_egressos/controller/curriculo_controller.dart';
+import 'package:tcc_egressos/controller/menu_botao_widget_controller.dart';
 import 'package:tcc_egressos/model/Charts/OrganizeCharts.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
 import 'package:tcc_egressos/model/lista_detalhes.dart';
@@ -31,15 +32,18 @@ class _CurriculoViewState extends State<CurriculoView> {
   CurriculoLattes _curriculo;
   CurriculoController _controller;
 
-  Widget _atualMenu;
-  setAtualMenu(menu) {
-    _atualMenu = menu;
-    _controller.container = menu;
-  }
+  MenuBotaoWidget _atualBotao;
 
   @override
   void initState() {
     _controller = CurriculoController();
+
+    _dadosGeraisBotao = _setDadosGeraisBotao();
+    _formacaoBotao = _setFormacaoBotao();
+    _atuacaoBotao = _setAtuacaoBotao();
+    _producoesBotao = _setProducoesBotao();
+    _eventosBotao = _setEventosBotao();
+    _bancasBotao = _setBancasBotao();
     super.initState();
   }
 
@@ -188,45 +192,85 @@ class _CurriculoViewState extends State<CurriculoView> {
     );
   }
 
-  _dadosGeraisBotao() {
+  _setAtualMenu(container) {
+    _controller.container = container;
+  }
+
+  _setAtualBotao(botao) {
+    _atualBotao.controller.ativo = false;
+    _atualBotao = botao;
+    _atualBotao.controller.ativo = true;
+  }
+
+  MenuBotaoWidget _dadosGeraisBotao;
+  _setDadosGeraisBotao() {
     return MenuBotaoWidget(
-      onTap: () => setAtualMenu(_dadosGeraisContainer()),
+      onTap: () {
+        _setAtualMenu(_dadosGeraisContainer());
+        _setAtualBotao(_dadosGeraisBotao);
+      },
       text: "Dados Gerais",
+      controller: MenuBotaoWidgetController(ativo: true),
     );
   }
 
-  _formacaoBotao() {
+  MenuBotaoWidget _formacaoBotao;
+  _setFormacaoBotao() {
     return MenuBotaoWidget(
-      onTap: () => setAtualMenu(_formacaoContainer()),
+      onTap: () {
+        _setAtualMenu(_formacaoContainer());
+        _setAtualBotao(_formacaoBotao);
+      },
       text: "Formação",
+      controller: MenuBotaoWidgetController(ativo: false),
     );
   }
 
-  _atuacaoBotao() {
+  MenuBotaoWidget _atuacaoBotao;
+  _setAtuacaoBotao() {
     return MenuBotaoWidget(
-      onTap: () => setAtualMenu(_atuacaoContainer()),
+      onTap: () {
+        _setAtualMenu(_atuacaoContainer());
+        _setAtualBotao(_atuacaoBotao);
+      },
       text: "Atuação",
+      controller: MenuBotaoWidgetController(ativo: false),
     );
   }
 
-  _producoesBotao() {
+  MenuBotaoWidget _producoesBotao;
+  _setProducoesBotao() {
     return MenuBotaoWidget(
-      onTap: () => setAtualMenu(_producoesContainer()),
+      onTap: () {
+        _setAtualMenu(_producoesContainer());
+        _setAtualBotao(_producoesBotao);
+      },
       text: "Produções",
+      controller: MenuBotaoWidgetController(ativo: false),
     );
   }
 
-  _eventosBotao() {
+  MenuBotaoWidget _eventosBotao;
+  _setEventosBotao() {
     return MenuBotaoWidget(
-      onTap: () => setAtualMenu(_eventosContainer()),
+      onTap: () {
+        _setAtualMenu(_eventosContainer());
+        _setAtualBotao(_eventosBotao);
+      },
       text: "Eventos",
+      controller: MenuBotaoWidgetController(ativo: false),
     );
   }
 
-  _bancasBotao() {
+  MenuBotaoWidget _bancasBotao;
+  _setBancasBotao() {
     return MenuBotaoWidget(
-      onTap: () => setAtualMenu(_bancasContainer()),
+      onTap: () {
+        _setAtualMenu(_bancasContainer());
+        _setAtualBotao(_bancasBotao);
+      },
       text: "Bancas",
+      controller: MenuBotaoWidgetController(ativo: false),
     );
   }
 
@@ -487,12 +531,12 @@ class _CurriculoViewState extends State<CurriculoView> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            _dadosGeraisBotao(),
-                            _formacaoBotao(),
-                            _atuacaoBotao(),
-                            _producoesBotao(),
-                            _eventosBotao(),
-                            _bancasBotao(),
+                            _dadosGeraisBotao,
+                            _formacaoBotao,
+                            _atuacaoBotao,
+                            _producoesBotao,
+                            _eventosBotao,
+                            _bancasBotao,
                           ],
                         ),
                       ),

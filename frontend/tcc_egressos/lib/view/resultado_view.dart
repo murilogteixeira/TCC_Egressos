@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:mobx/mobx.dart';
+import 'package:tcc_egressos/components/nav_bar_widget.dart';
 import 'package:tcc_egressos/controller/resultado_controller.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
 import 'package:tcc_egressos/view/list_egressos.dart';
@@ -23,6 +24,8 @@ class _ResultadoViewState extends State<ResultadoView> {
     super.initState();
   }
 
+  
+
   @override
   Widget build(BuildContext context) {
     ObservableList<CurriculoLattes> args =
@@ -38,6 +41,7 @@ class _ResultadoViewState extends State<ResultadoView> {
       if (maxWidth >= 576) {
         return Scaffold(
             appBar: _createAppBar(),
+            backgroundColor: Color(0xFFEAEDF2),
             body: _listContainer(lista)
         );
       }
@@ -49,12 +53,11 @@ class _ResultadoViewState extends State<ResultadoView> {
   }
 
   _createAppBar() {
-    if (kIsWeb) {
-      return null;
-    }
-    return AppBar(
-      title: Text(widget.title ?? ""),
-    );
+    return kIsWeb
+        ? null
+        : AppBar(
+            title: Text(widget.title ?? ""),
+          );
   }
 
   _listContainer(ObservableList<CurriculoLattes> lista) {
@@ -74,39 +77,48 @@ class _ResultadoViewState extends State<ResultadoView> {
     //       );
     //     });
 
-    return Container(
-      padding: EdgeInsets.fromLTRB(200, 200, 200, 0),
-      color: Color(0xFFEAEDF2),
-      child: Column(
-        children: <Widget>[
-          Container(
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(20))
-            ),
-            child: Column(
-              children: <Widget>[
-                Container(
-                    alignment: Alignment.centerLeft,
-                    padding: EdgeInsets.fromLTRB(50, 50, 0, 50),
-                    child: Text(
-                        '${lista.length} resultados encontrados',
-                        style: TextStyle(color: Colors.blue, fontSize: 20.0)
-                    )
+    return SingleChildScrollView(
+      child: Container(
+        color: Color(0xFFEAEDF2),
+        child: Column(
+          children: <Widget>[
+            NavBarWidget(),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 80, 0, 20),
+              child: Container(
+                width: 740,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(20))
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(20))
-                  ),
-                  child: ListEgressos(
-                    list: lista,
-                    sizeList: lista.length,
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                          alignment: Alignment.topLeft,
+                          padding: EdgeInsets.all(20),
+                          child: Text(
+                              '${lista.length} resultados encontrados',
+                              style: TextStyle(color: Colors.blue, fontSize: 20.0)
+                          )
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                        ),
+                        child: ListEgressos(
+                          list: lista,
+                          sizeList: lista.length,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
