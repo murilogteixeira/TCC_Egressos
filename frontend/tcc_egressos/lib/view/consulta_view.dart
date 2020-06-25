@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:progress_dialog/progress_dialog.dart';
+import 'package:tcc_egressos/components/nav_bar_widget.dart';
 import 'package:tcc_egressos/components/screenSize.dart';
 import 'package:tcc_egressos/controller/home_controller.dart';
 import 'package:mobx/mobx.dart';
@@ -78,7 +79,7 @@ class _ConsultaViewState extends State<ConsultaView> {
   }
 
   _createAppBar() {
-    return AppBar(
+    return kIsWeb ? null : AppBar(
       title: Text(widget.title ?? ""),
       backgroundColor: Color(0xFF7A9EEF),
     );
@@ -108,84 +109,79 @@ class _ConsultaViewState extends State<ConsultaView> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
+            NavBarWidget(),
             Center(
               child: Container(
                 constraints: constraints,
                 child: Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 50, vertical: 75),
+                        vertical: 58),
                     child: Form(
                       key: _formKey,
-                      child: Column(
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(45),
-                            ),
-                            child: TextFormField(
-                              autovalidate: true,
-                              textInputAction: TextInputAction.go,
-                              onFieldSubmitted: (value) {
-                                if (value.contains('\n')) {
-                                  if (value.compareTo("") == 1) {
-                                    _consultar();
-                                  } else {
-                                    _buscarTodos();
-                                  }
-                                }
-                              },
-                              decoration: InputDecoration(
-                                hintText: "Pesquise pelo engresso",
-                                // labelText: "Pesquise pelo engresso",
-                                enabledBorder: new UnderlineInputBorder(
-                                    borderRadius: BorderRadius.circular(45),
-                                    borderSide:
-                                        BorderSide(color: Colors.transparent)),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: Colors.transparent),
-                                  borderRadius: BorderRadius.circular(45),
-                                ),
-                                icon: Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                  child: Icon(Icons.search),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 14),
+                            child: Container(
+                              width: 400,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(45),
+                              ),
+                              child: Center(
+                                child: TextFormField(
+                                  decoration: InputDecoration(
+                                    hintText: "Pesquise pelo engresso",
+                                    enabledBorder: new UnderlineInputBorder(
+                                        borderRadius: BorderRadius.circular(45),
+                                        borderSide:
+                                            BorderSide(color: Colors.transparent)),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.transparent),
+                                      borderRadius: BorderRadius.circular(45),
+                                    ),
+                                    icon: Padding(
+                                      padding:
+                                          const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                      child: Icon(Icons.search),
+                                    ),
+                                  ),
+                                  onSaved: (nome) {
+                                    this._nome = nome;
+                                  },
                                 ),
                               ),
-
-                              onSaved: (nome) {
-                                this._nome = nome;
-                              },
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 14),
-                            child: MaterialButton(
-                              color: Colors.green,
-                              onPressed: () {
-                                _consultar();
-                              },
-                              child: Text(
-                                "Buscar nome",
-                                style: TextStyle(color: Colors.white),
-                              ),
+                          MaterialButton(
+                            color: Color(0xFF547DD9),
+                            height: 50,
+                            minWidth: 140,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(45)),
+                            onPressed: () {
+                              _consultar();
+                            },
+                            child: Text(
+                              "Pesquisar",
+                              style: TextStyle(color: Colors.white),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 14),
-                            child: MaterialButton(
-                              color: Colors.blue,
-                              onPressed: () {
-                                _buscarTodos();
-                              },
-                              child: Text(
-                                "Buscar todos",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ),
-                          ),
+                          // Padding(
+                          //   padding: const EdgeInsets.only(top: 14),
+                          //   child: MaterialButton(
+                          //     color: Colors.blue,
+                          //     onPressed: () {
+                          //       _buscarTodos();
+                          //     },
+                          //     child: Text(
+                          //       "Buscar todos",
+                          //       style: TextStyle(color: Colors.white),
+                          //     ),
+                          //   ),
+                          // )
                         ],
                       ),
                     )),
@@ -210,7 +206,9 @@ class _ConsultaViewState extends State<ConsultaView> {
                               padding: const EdgeInsets.all(8.0),
                               child: ListEgressos(
                                 list: snapshot.data,
-                                sizeList: snapshot.data.length == 0 ? 3 : snapshot.data.length,
+                                sizeList: snapshot.data.length == 0
+                                    ? 3
+                                    : snapshot.data.length,
                               ),
                             );
                           } else if (snapshot.hasError) {
