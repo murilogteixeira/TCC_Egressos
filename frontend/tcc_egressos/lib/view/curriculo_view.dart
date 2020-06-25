@@ -276,28 +276,38 @@ class _CurriculoViewState extends State<CurriculoView> {
   }
 
   _dadosGeraisContainer() {
-    var atuacao = ListaDetalhes(
-      titulo: 'Ministério da Educação, MEC, Brasil',
+    var nomeCitacao = ListaDetalhes(
+      titulo: 'Nome Citação',
       lista: [
         ItemListaDetalhes(
           subtitulo:
-              'Membro da Comissão ENC, Enquadramento Funcional: Cargo honorífico',
-          corpo: ['2001 - momento'],
+              'FERNEDA, E.;Ferneda, E.;FERNEDA, EDILSON',
+          corpo: [''],
+        ),
+      ],
+    );
+    var contatos = ListaDetalhes(
+      titulo: 'Contatos',
+      lista: [
+        ItemListaDetalhes(
+          subtitulo:
+              'Email:',
+          corpo: ['ferneda@ucb.br'],
         ),
         ItemListaDetalhes(
           subtitulo:
-              'Membro da Comissão do ENC-2001, Enquadramento Funcional: Cargo honorífico',
-          corpo: ['2000 - 2001'],
+              'LinkedIn:',
+          corpo: ['https://www.linkedin.com/in/edilson-ferneda-348199a/'],
         ),
         ItemListaDetalhes(
           subtitulo:
-              'Membro da C. E. E. Farmácia, Enquadramento Funcional: Cargo honorífico',
-          corpo: ['1998 - 2000'],
+              'Instagram:',
+          corpo: ['@eferneda'],
         ),
         ItemListaDetalhes(
           subtitulo:
-              'Disponibilidade pela UFPR, Enquadramento Funcional: DAS 2, Carga horária: 40, Regime: Dedicação exclusiva',
-          corpo: ['1975 - 1983'],
+              'Facebook:',
+          corpo: ['https://www.facebook.com/edilson.ferneda.5'],
         ),
       ],
     );
@@ -306,43 +316,50 @@ class _CurriculoViewState extends State<CurriculoView> {
       children: <Widget>[
         DetalhesCurriculoWidget(
           maxWidth: _maxWidth * 0.9,
-          dados: atuacao,
+          dados: nomeCitacao,
         ),
         DetalhesCurriculoWidget(
           maxWidth: _maxWidth * 0.9,
-          dados: atuacao,
-        ),
-        DetalhesCurriculoWidget(
-          maxWidth: _maxWidth * 0.9,
-          dados: atuacao,
+          dados: contatos,
         ),
       ],
     );
   }
 
   _formacaoContainer() {
-    var atuacao = ListaDetalhes(
-      titulo: 'Ministério da Educação, MEC, Brasil',
+    var formacao1 = ListaDetalhes(
+      titulo: 'Doutorado em Ciência da Computação.',
       lista: [
         ItemListaDetalhes(
           subtitulo:
-              'Membro da Comissão ENC, Enquadramento Funcional: Cargo honorífico',
-          corpo: ['2001 - momento'],
+              '',
+          corpo: [
+            'LIRMM-Université Montpellier II, LIRMM-UMII, França.',
+            'Título: Conception d\'un agent rationnel et examen de son raisonnement en géométrie, Ano de obtenção: 1992.',
+            'Orientador: Jean Sallantin.',
+            'Bolsista do(a): Coordenação de Aperfeiçoamento de Pessoal de Nível Superior, CAPES, Brasil.',
+            'Palavras-chave: Inteligência Artificial; Agentes Inteligentes; Agentes Racionais.',
+            'Grande área: Ciências Exatas e da Terra',
+          ],
         ),
         ItemListaDetalhes(
           subtitulo:
-              'Membro da Comissão do ENC-2001, Enquadramento Funcional: Cargo honorífico',
-          corpo: ['2000 - 2001'],
+              'Programa de Capacitação do Banco de Avaliadores do. (Carga horária: 32h).',
+          corpo: [
+            'Instituto Nacional de Estudos e Pesquisas Educacionais Anísio Teixeira, INEP/MEC, Brasil.',
+          ],
         ),
+      ],
+    );
+    var formacao2 = ListaDetalhes(
+      titulo: 'Formação Complementar',
+      lista: [
         ItemListaDetalhes(
           subtitulo:
-              'Membro da C. E. E. Farmácia, Enquadramento Funcional: Cargo honorífico',
-          corpo: ['1998 - 2000'],
-        ),
-        ItemListaDetalhes(
-          subtitulo:
-              'Disponibilidade pela UFPR, Enquadramento Funcional: DAS 2, Carga horária: 40, Regime: Dedicação exclusiva',
-          corpo: ['1975 - 1983'],
+              'Programa de Capacitação do Banco de Avaliadores do. (Carga horária: 32h).',
+          corpo: [
+            'Instituto Nacional de Estudos e Pesquisas Educacionais Anísio Teixeira, INEP/MEC, Brasil.',
+          ],
         ),
       ],
     );
@@ -351,15 +368,11 @@ class _CurriculoViewState extends State<CurriculoView> {
       children: <Widget>[
         DetalhesCurriculoWidget(
           maxWidth: _maxWidth * 0.9,
-          dados: atuacao,
+          dados: formacao1,
         ),
         DetalhesCurriculoWidget(
           maxWidth: _maxWidth * 0.9,
-          dados: atuacao,
-        ),
-        DetalhesCurriculoWidget(
-          maxWidth: _maxWidth * 0.9,
-          dados: atuacao,
+          dados: formacao2,
         ),
       ],
     );
