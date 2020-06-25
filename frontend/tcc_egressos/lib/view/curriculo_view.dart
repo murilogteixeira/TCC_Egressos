@@ -124,10 +124,11 @@ class _CurriculoViewState extends State<CurriculoView> {
       height: 90,
       decoration: new BoxDecoration(
         shape: BoxShape.circle,
-        image: DecorationImage(
-          fit: BoxFit.fill,
-          image: NetworkImage("https://picsum.photos/250"),
-        ),
+        color: Colors.blue
+        // image: DecorationImage(
+        //   fit: BoxFit.fill,
+        //   image: NetworkImage("https://picsum.photos/250"),
+        // ),
       ),
     );
   }
@@ -207,7 +208,7 @@ class _CurriculoViewState extends State<CurriculoView> {
     return MenuBotaoWidget(
       onTap: () {
         _setAtualMenu(_dadosGeraisContainer());
-        _setAtualBotao(_dadosGeraisBotao);
+        // _setAtualBotao(_dadosGeraisBotao);
       },
       text: "Dados Gerais",
       controller: MenuBotaoWidgetController(ativo: true),
@@ -219,7 +220,7 @@ class _CurriculoViewState extends State<CurriculoView> {
     return MenuBotaoWidget(
       onTap: () {
         _setAtualMenu(_formacaoContainer());
-        _setAtualBotao(_formacaoBotao);
+        // _setAtualBotao(_formacaoBotao);
       },
       text: "Formação",
       controller: MenuBotaoWidgetController(ativo: false),
@@ -231,7 +232,7 @@ class _CurriculoViewState extends State<CurriculoView> {
     return MenuBotaoWidget(
       onTap: () {
         _setAtualMenu(_atuacaoContainer());
-        _setAtualBotao(_atuacaoBotao);
+        // _setAtualBotao(_atuacaoBotao);
       },
       text: "Atuação",
       controller: MenuBotaoWidgetController(ativo: false),
@@ -243,7 +244,7 @@ class _CurriculoViewState extends State<CurriculoView> {
     return MenuBotaoWidget(
       onTap: () {
         _setAtualMenu(_producoesContainer());
-        _setAtualBotao(_producoesBotao);
+        // _setAtualBotao(_producoesBotao);
       },
       text: "Produções",
       controller: MenuBotaoWidgetController(ativo: false),
@@ -255,7 +256,7 @@ class _CurriculoViewState extends State<CurriculoView> {
     return MenuBotaoWidget(
       onTap: () {
         _setAtualMenu(_eventosContainer());
-        _setAtualBotao(_eventosBotao);
+        // _setAtualBotao(_eventosBotao);
       },
       text: "Eventos",
       controller: MenuBotaoWidgetController(ativo: false),
@@ -267,7 +268,7 @@ class _CurriculoViewState extends State<CurriculoView> {
     return MenuBotaoWidget(
       onTap: () {
         _setAtualMenu(_bancasContainer());
-        _setAtualBotao(_bancasBotao);
+        // _setAtualBotao(_bancasBotao);
       },
       text: "Bancas",
       controller: MenuBotaoWidgetController(ativo: false),
