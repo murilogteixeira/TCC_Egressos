@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:tcc_egressos/model/lista_detalhes.dart';
 
 class DetalhesCurriculoWidget extends StatelessWidget {
-  const DetalhesCurriculoWidget({Key key, this.maxWidth, this.dados}) : super(key: key);
+  const DetalhesCurriculoWidget({Key key, this.maxWidth, this.dados})
+      : super(key: key);
 
   final double maxWidth;
   final ListaDetalhes dados;
@@ -40,48 +41,62 @@ class DetalhesCurriculoWidget extends StatelessWidget {
         height: 1,
       );
 
+  historicoCargo() {
+    return Column(
+      children: dados.lista.map((item) {
+        var titulo = Text(
+          item.subtitulo,
+          style: TextStyle(fontSize: 13),
+        );
+
+        List<Widget> corpo = item.corpo.map((item) {
+          return Text(
+            item,
+            style: TextStyle(fontSize: 12),
+          );
+        }).toList();
+
+        List<Widget> tituloCorpo = [];
+        tituloCorpo.add(titulo);
+        tituloCorpo.addAll(corpo);
+
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 8.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Column(
+                children: <Widget>[
+                  marcador(),
+                  linha(),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 24),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: tituloCorpo
+                    // <Widget>[
+                    // Text(
+                    //   item.subtitulo,
+                    //   style: TextStyle(fontSize: 13),
+                    // ),
+                    //   Text(
+                    //     '${cargo.inicio} - ${cargo.atual == true ? 'momento' : cargo.fim}',
+                    //     style: TextStyle(fontSize: 12),
+                    //   )
+                    // ],
+                    ),
+              )
+            ],
+          ),
+        );
+      }).toList(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-
-    historicoCargo() {
-
-      return Column(
-        children: dados.lista.map((cargo) {
-          return Padding(
-            padding: const EdgeInsets.only(bottom: 8.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Column(
-                  children: <Widget>[
-                    marcador(),
-                    linha(),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 24),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        cargo.descricao,
-                        style: TextStyle(fontSize: 13),
-                      ),
-                      Text(
-                        '${cargo.inicio} - ${cargo.atual == true ? 'momento' : cargo.fim}',
-                        style: TextStyle(fontSize: 12),
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),
-          );
-        }).toList(),
-      );
-    }
-
     return Column(
       children: <Widget>[
         Container(
