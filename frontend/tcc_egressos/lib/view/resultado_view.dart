@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:mobx/mobx.dart';
+import 'package:tcc_egressos/components/nav_bar_widget.dart';
 import 'package:tcc_egressos/controller/resultado_controller.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
 import 'package:tcc_egressos/view/list_egressos.dart';
@@ -52,12 +53,11 @@ class _ResultadoViewState extends State<ResultadoView> {
   }
 
   _createAppBar() {
-    if (!kIsWeb) {
-      return null;
-    }
-    return AppBar(
-      title: Text(widget.title ?? ""),
-    );
+    return kIsWeb
+        ? null
+        : AppBar(
+            title: Text(widget.title ?? ""),
+          );
   }
 
   _listContainer(ObservableList<CurriculoLattes> lista) {
@@ -79,40 +79,41 @@ class _ResultadoViewState extends State<ResultadoView> {
 
     return SingleChildScrollView(
       child: Container(
-        padding: EdgeInsets.fromLTRB(200, 200, 200, 20),
         color: Color(0xFFEAEDF2),
         child: Column(
           children: <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(20))
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                        alignment: Alignment.topLeft,
-                        padding: EdgeInsets.all(20),
-                        child: Text(
-                            '${lista.length} resultados encontrados',
-                            style: TextStyle(color: Colors.blue, fontSize: 20.0)
-                        )
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
+            NavBarWidget(),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 80, 0, 20),
+              child: Container(
+                width: 740,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(20))
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                          alignment: Alignment.topLeft,
+                          padding: EdgeInsets.all(20),
+                          child: Text(
+                              '${lista.length} resultados encontrados',
+                              style: TextStyle(color: Colors.blue, fontSize: 20.0)
+                          )
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                      Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                        ),
                         child: ListEgressos(
                           list: lista,
                           sizeList: lista.length,
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
