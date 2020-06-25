@@ -320,15 +320,15 @@ final dataExemplo = [
       710,
       ),
   new ChartsData(
-      "blablablablablablablablablblablablablablabl ",
+      "Artigos publicados ",
       400,
       ),
   new ChartsData(
-      "blablablablablablablablablablablablablablabl ",
+      "Menções em obras ",
       400,
       ),
   new ChartsData(
-      "blablablablablablablablablablablablablabl ",
+      "Participação em bancas ",
       400,
       ),
   
