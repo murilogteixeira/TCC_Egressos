@@ -124,10 +124,11 @@ class _CurriculoViewState extends State<CurriculoView> {
       height: 90,
       decoration: new BoxDecoration(
         shape: BoxShape.circle,
-        image: DecorationImage(
-          fit: BoxFit.fill,
-          image: NetworkImage("https://picsum.photos/250"),
-        ),
+        color: Colors.blue
+        // image: DecorationImage(
+        //   fit: BoxFit.fill,
+        //   image: NetworkImage("https://picsum.photos/250"),
+        // ),
       ),
     );
   }
@@ -175,7 +176,7 @@ class _CurriculoViewState extends State<CurriculoView> {
         constraints: BoxConstraints(maxWidth: _constraints.maxWidth * 0.8),
         // color: Colors.blue,
         child: Text(
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dictum dui risus, vitae maximus enim pretium eu. Nunc feugiat urna ut massa ultricies, at vehicula eros pellentesque. Suspendisse molestie ipsum in vulputate scelerisque. Sed lacinia, dui nec elementum iaculis, lectus est hendrerit quam, in egestas purus orci eu arcu.",
+          "Especialização em TECNOLOGIA INDUSTRIAL FARMACEUTICA pela Universidade Federal de Minas Gerais, Brasil(1961)Professor titular da Pontifícia Universidade Católica do Paraná , Brasil",
         ),
       ),
     );
@@ -186,7 +187,7 @@ class _CurriculoViewState extends State<CurriculoView> {
       padding: const EdgeInsets.only(top: 14),
       child: Container(
         child: Text(
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dictum dui risus, vitae maximus enim pretium eu. Nunc feugiat urna ut massa ultricies, at vehicula eros pellentesque. Suspendisse molestie ipsum in vulputate scelerisque. Sed lacinia, dui nec elementum iaculis, lectus est hendrerit quam, in egestas purus orci eu arcu. Maecenas tortor risus, ultrices vel aliquet vel, rutrum eu orci. Sed dui risus, dapibus accumsan tristique ut, congue in turpis. In ultricies euismod libero nec commodo. Etiam ac mollis est, quis pharetra arcu. Mauris quis nisl ante. Donec eu ex a ex tincidunt accumsan. Cras lacinia lacus ut turpis posuere varius. Mauris viverra arcu purus, eget fringilla libero dapibus nec. Ut maximus blandit auctor. Nulla dapibus, turpis vitae lobortis feugiat, metus nibh rutrum purus, id condimentum quam turpis et ex. Proin sit amet iaculis justo. Phasellus id nulla et purus consequat vulputate et ut turpis. Vivamus congue pellentesque viverra. Aliquam ut posuere erat. Quisque vitae scelerisque mi. Duis lacinia lorem vitae rhoncus gravida. Quisque tempor nulla ac purus condimentum consectetur. Duis eget bibendum orci. Curabitur facilisis ante sit amet arcu pellentesque interdum. Suspendisse potenti. Aliquam erat volutpat. Morbi ac ultrices ipsum. Nullam id turpis quis mi accumsan placerat. Morbi ut sem nec lectus finibus consequat. Donec sit amet tempor risus, ut consequat leo. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Morbi diam ligula, cursus vitae consectetur eget, facilisis nec orci.",
+          "FARMACÊUTICO, DOUTOR e LIVRE-DOCENTE pela Universidade Federal do Paraná. É avaliador do INEP/MEC, membro da Comissão de Ensino do Conselho Federal de Farmácia e auditor técnico para empresas farmacêuticas da SGS Certificadora. É professor aposentado da UFPR e da PUCPR. Tem experiência na área de Farmácia, com ênfase em Farmacotécnica e Farmacognosia, atuando principalmente nos seguintes temas: reconhecimento de curso, controle de qualidade, farmacognosia, autorização de curso e fitoquímica. É presidente da Associação Brasileira de Ensino Farmacêutico e Bioquímico - ABENFARBIO, Gestão 2007-2011 e Membro da Comissão de Ensino Farmacêutico do Conselho Federal de Farmácia, Gestão 2010-2011. (Texto informado pelo autor)",
         ),
       ),
     );
@@ -207,7 +208,7 @@ class _CurriculoViewState extends State<CurriculoView> {
     return MenuBotaoWidget(
       onTap: () {
         _setAtualMenu(_dadosGeraisContainer());
-        _setAtualBotao(_dadosGeraisBotao);
+        // _setAtualBotao(_dadosGeraisBotao);
       },
       text: "Dados Gerais",
       controller: MenuBotaoWidgetController(ativo: true),
@@ -219,7 +220,7 @@ class _CurriculoViewState extends State<CurriculoView> {
     return MenuBotaoWidget(
       onTap: () {
         _setAtualMenu(_formacaoContainer());
-        _setAtualBotao(_formacaoBotao);
+        // _setAtualBotao(_formacaoBotao);
       },
       text: "Formação",
       controller: MenuBotaoWidgetController(ativo: false),
@@ -231,7 +232,7 @@ class _CurriculoViewState extends State<CurriculoView> {
     return MenuBotaoWidget(
       onTap: () {
         _setAtualMenu(_atuacaoContainer());
-        _setAtualBotao(_atuacaoBotao);
+        // _setAtualBotao(_atuacaoBotao);
       },
       text: "Atuação",
       controller: MenuBotaoWidgetController(ativo: false),
@@ -243,7 +244,7 @@ class _CurriculoViewState extends State<CurriculoView> {
     return MenuBotaoWidget(
       onTap: () {
         _setAtualMenu(_producoesContainer());
-        _setAtualBotao(_producoesBotao);
+        // _setAtualBotao(_producoesBotao);
       },
       text: "Produções",
       controller: MenuBotaoWidgetController(ativo: false),
@@ -255,7 +256,7 @@ class _CurriculoViewState extends State<CurriculoView> {
     return MenuBotaoWidget(
       onTap: () {
         _setAtualMenu(_eventosContainer());
-        _setAtualBotao(_eventosBotao);
+        // _setAtualBotao(_eventosBotao);
       },
       text: "Eventos",
       controller: MenuBotaoWidgetController(ativo: false),
@@ -267,7 +268,7 @@ class _CurriculoViewState extends State<CurriculoView> {
     return MenuBotaoWidget(
       onTap: () {
         _setAtualMenu(_bancasContainer());
-        _setAtualBotao(_bancasBotao);
+        // _setAtualBotao(_bancasBotao);
       },
       text: "Bancas",
       controller: MenuBotaoWidgetController(ativo: false),
