@@ -124,10 +124,11 @@ class _CurriculoViewState extends State<CurriculoView> {
       height: 90,
       decoration: new BoxDecoration(
         shape: BoxShape.circle,
-        image: DecorationImage(
-          fit: BoxFit.fill,
-          image: NetworkImage("https://picsum.photos/250"),
-        ),
+        color: Colors.blue
+        // image: DecorationImage(
+        //   fit: BoxFit.fill,
+        //   image: NetworkImage("https://picsum.photos/250"),
+        // ),
       ),
     );
   }
@@ -175,7 +176,7 @@ class _CurriculoViewState extends State<CurriculoView> {
         constraints: BoxConstraints(maxWidth: _constraints.maxWidth * 0.8),
         // color: Colors.blue,
         child: Text(
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dictum dui risus, vitae maximus enim pretium eu. Nunc feugiat urna ut massa ultricies, at vehicula eros pellentesque. Suspendisse molestie ipsum in vulputate scelerisque. Sed lacinia, dui nec elementum iaculis, lectus est hendrerit quam, in egestas purus orci eu arcu.",
+          "Professor e Doutor de Ciência da Computação - Universidade Católica de Brasília",
         ),
       ),
     );
@@ -186,7 +187,7 @@ class _CurriculoViewState extends State<CurriculoView> {
       padding: const EdgeInsets.only(top: 14),
       child: Container(
         child: Text(
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dictum dui risus, vitae maximus enim pretium eu. Nunc feugiat urna ut massa ultricies, at vehicula eros pellentesque. Suspendisse molestie ipsum in vulputate scelerisque. Sed lacinia, dui nec elementum iaculis, lectus est hendrerit quam, in egestas purus orci eu arcu. Maecenas tortor risus, ultrices vel aliquet vel, rutrum eu orci. Sed dui risus, dapibus accumsan tristique ut, congue in turpis. In ultricies euismod libero nec commodo. Etiam ac mollis est, quis pharetra arcu. Mauris quis nisl ante. Donec eu ex a ex tincidunt accumsan. Cras lacinia lacus ut turpis posuere varius. Mauris viverra arcu purus, eget fringilla libero dapibus nec. Ut maximus blandit auctor. Nulla dapibus, turpis vitae lobortis feugiat, metus nibh rutrum purus, id condimentum quam turpis et ex. Proin sit amet iaculis justo. Phasellus id nulla et purus consequat vulputate et ut turpis. Vivamus congue pellentesque viverra. Aliquam ut posuere erat. Quisque vitae scelerisque mi. Duis lacinia lorem vitae rhoncus gravida. Quisque tempor nulla ac purus condimentum consectetur. Duis eget bibendum orci. Curabitur facilisis ante sit amet arcu pellentesque interdum. Suspendisse potenti. Aliquam erat volutpat. Morbi ac ultrices ipsum. Nullam id turpis quis mi accumsan placerat. Morbi ut sem nec lectus finibus consequat. Donec sit amet tempor risus, ut consequat leo. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Morbi diam ligula, cursus vitae consectetur eget, facilisis nec orci.",
+          "Graduado em Tecnologia de Computação pelo Instituto Tecnológico de Aeronáutica - ITA (1979), Mestre em Sistemas e Computação pela Universidade Federal da Paraíba - UFPB (1988) e Doutor em Ciência da Computação pelo Laboratoire d'Informatique, Robotique et de Microélectronique de Montpellier - LIRMM, França (1992). Entre 1986 e 2004, foi professor do Departamento de Sistemas e Computação da Universidade Federal de Campina Grande - UFCG (antiga UFPB), tendo atuado nos cursos de Tecnologia em Processamento de Dados, Bacharelado em Ciência da Computação, Mestrado em Informática e Doutorado em Engenharia Elétrica. Desde 2001 é professor titular da Universidade Católica de Brasília, onde atua no Curso de Bacharelado em Ciência da Computação e no Mestrado em Governança, Tecnologia e Inovação (antigo Mestrado em Gestão do Conhecimento e Tecnologia da Informação). Seus interesses incluem Inteligência Artificial e Gestão do Conhecimento. Tem experiência como consultor de organismos internacionais em projetos juntos a órgãos do Governo Federal Brasileiro.",
         ),
       ),
     );
@@ -207,7 +208,7 @@ class _CurriculoViewState extends State<CurriculoView> {
     return MenuBotaoWidget(
       onTap: () {
         _setAtualMenu(_dadosGeraisContainer());
-        _setAtualBotao(_dadosGeraisBotao);
+        // _setAtualBotao(_dadosGeraisBotao);
       },
       text: "Dados Gerais",
       controller: MenuBotaoWidgetController(ativo: true),
@@ -219,7 +220,7 @@ class _CurriculoViewState extends State<CurriculoView> {
     return MenuBotaoWidget(
       onTap: () {
         _setAtualMenu(_formacaoContainer());
-        _setAtualBotao(_formacaoBotao);
+        // _setAtualBotao(_formacaoBotao);
       },
       text: "Formação",
       controller: MenuBotaoWidgetController(ativo: false),
@@ -231,7 +232,7 @@ class _CurriculoViewState extends State<CurriculoView> {
     return MenuBotaoWidget(
       onTap: () {
         _setAtualMenu(_atuacaoContainer());
-        _setAtualBotao(_atuacaoBotao);
+        // _setAtualBotao(_atuacaoBotao);
       },
       text: "Atuação",
       controller: MenuBotaoWidgetController(ativo: false),
@@ -243,7 +244,7 @@ class _CurriculoViewState extends State<CurriculoView> {
     return MenuBotaoWidget(
       onTap: () {
         _setAtualMenu(_producoesContainer());
-        _setAtualBotao(_producoesBotao);
+        // _setAtualBotao(_producoesBotao);
       },
       text: "Produções",
       controller: MenuBotaoWidgetController(ativo: false),
@@ -255,7 +256,7 @@ class _CurriculoViewState extends State<CurriculoView> {
     return MenuBotaoWidget(
       onTap: () {
         _setAtualMenu(_eventosContainer());
-        _setAtualBotao(_eventosBotao);
+        // _setAtualBotao(_eventosBotao);
       },
       text: "Eventos",
       controller: MenuBotaoWidgetController(ativo: false),
@@ -267,7 +268,7 @@ class _CurriculoViewState extends State<CurriculoView> {
     return MenuBotaoWidget(
       onTap: () {
         _setAtualMenu(_bancasContainer());
-        _setAtualBotao(_bancasBotao);
+        // _setAtualBotao(_bancasBotao);
       },
       text: "Bancas",
       controller: MenuBotaoWidgetController(ativo: false),
