@@ -5,7 +5,20 @@ class NavBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String _nome = "Murilo";
+    final _formKey = GlobalKey<FormState>();
+    String _nome;
+
+    _consultar() {
+      if (_formKey.currentState.validate()) {
+        _formKey.currentState.save();
+        if (_nome.isEmpty) {
+          return;
+        }
+        // pr.show();
+        // _controller.consultar(_nome, () => pr.hide());
+      }
+    }
+
     return Container(
         color: Colors.blue,
         height: 87,
@@ -16,26 +29,21 @@ class NavBarWidget extends StatelessWidget {
             children: [
               Container(
                 width: 268,
-                height: 31,
+                height: 35,
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(17.5),
                 ),
-                child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 15),
                   child: TextFormField(
+                    key: _formKey,
                     decoration: InputDecoration(
                       hintText: "Pesquise pelo engresso",
-                      enabledBorder: new UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(45),
+                      border: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.transparent)),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.transparent),
-                        borderRadius: BorderRadius.circular(45),
-                      ),
-                      icon: Padding(
-                        padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                        child: Icon(Icons.search),
-                      ),
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
                     ),
                     onSaved: (nome) {
                       _nome = nome;
@@ -45,15 +53,17 @@ class NavBarWidget extends StatelessWidget {
               ),
               MaterialButton(
                 color: Color(0xFF547DD9),
-                height: 53,
-                minWidth: 53,
+                height: 35,
+                minWidth: 35,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(25)),
                 onPressed: () {
-                  // _consultar();
+                  _consultar();
                 },
                 child: Icon(
-                  Icons.search, color: Colors.white,
+                  Icons.search,
+                  color: Colors.white,
+                  size: 15,
                 ),
               )
             ],

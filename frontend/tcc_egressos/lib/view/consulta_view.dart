@@ -95,6 +95,9 @@ class _ConsultaViewState extends State<ConsultaView> {
     _consultar() {
       if (_formKey.currentState.validate()) {
         _formKey.currentState.save();
+        if (_nome.isEmpty) {
+          return;
+        }
         pr.show();
         _controller.consultar(_nome, () => pr.hide());
       }
@@ -111,13 +114,11 @@ class _ConsultaViewState extends State<ConsultaView> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             NavBarWidget(),
-            
             Center(
               child: Container(
                 constraints: constraints,
                 child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 58),
+                    padding: const EdgeInsets.symmetric(vertical: 58),
                     child: Form(
                       key: _formKey,
                       child: Row(
@@ -132,29 +133,25 @@ class _ConsultaViewState extends State<ConsultaView> {
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(45),
                               ),
-                              child: Center(
-                                child: TextFormField(
-                                  decoration: InputDecoration(
-                                    hintText: "Pesquise pelo engresso",
-                                    enabledBorder: new UnderlineInputBorder(
-                                        borderRadius: BorderRadius.circular(45),
-                                        borderSide:
-                                            BorderSide(color: Colors.transparent)),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.transparent),
-                                      borderRadius: BorderRadius.circular(45),
-                                    ),
-                                    icon: Padding(
-                                      padding:
-                                          const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                      child: Icon(Icons.search),
-                                    ),
+                              child: TextFormField(
+                                decoration: InputDecoration(
+                                  hintText: "Pesquise pelo engresso",
+                                  border: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Colors.transparent)),
+                                  enabledBorder: InputBorder.none,
+                                  focusedBorder: InputBorder.none,
+                                  errorBorder: InputBorder.none,
+                                  focusedErrorBorder: InputBorder.none,
+                                  icon: Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                    child: Icon(Icons.search),
                                   ),
-                                  onSaved: (nome) {
-                                    this._nome = nome;
-                                  },
                                 ),
+                                onSaved: (nome) {
+                                  this._nome = nome;
+                                },
                               ),
                             ),
                           ),
@@ -162,7 +159,8 @@ class _ConsultaViewState extends State<ConsultaView> {
                             color: Color(0xFF547DD9),
                             height: 50,
                             minWidth: 140,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(45)),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(45)),
                             onPressed: () {
                               _consultar();
                             },
