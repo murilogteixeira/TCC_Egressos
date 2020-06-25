@@ -1,15 +1,13 @@
 class ListaDetalhes {
-  ListaDetalhes(this.titulo, this.lista);
+  ListaDetalhes({this.titulo, this.lista});
 
   final String titulo;
   final List<ItemListaDetalhes> lista;
 }
 
 class ItemListaDetalhes {
-  ItemListaDetalhes(this.descricao, this.inicio, this.fim, this.atual);
+  ItemListaDetalhes({this.subtitulo, this.corpo});
 
-  final String descricao;
-  final String inicio;
-  final String fim;
-  final bool atual;
+  final String subtitulo;
+  final List<String> corpo;
 }

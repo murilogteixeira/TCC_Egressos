@@ -10,7 +10,6 @@ class ListEgressos extends StatefulWidget {
   final ObservableList<CurriculoLattes> list;
   final int sizeList;
   const ListEgressos({this.list, this.sizeList});
-  
 
   @override
   ListEgressosState createState() => ListEgressosState();
@@ -47,7 +46,9 @@ class ListEgressosState extends State<ListEgressos> {
       itemBuilder: (_, index) {
         return _buildRow(index);
       },
-      itemCount: widget.sizeList > widget.list.length ? widget.list.length : widget.sizeList,
+      itemCount: widget.sizeList > widget.list.length
+          ? widget.list.length
+          : widget.sizeList,
     );
   }
 
@@ -94,14 +95,14 @@ class ListEgressosState extends State<ListEgressos> {
                         width: 70.0,
                         //  alignment: Alignment.center,
                         decoration: new BoxDecoration(
-                            border: Border.all(
-                              color: Colors.white,
-                              width: 2.5,
-                            ),
-                            shape: BoxShape.circle,
-                            image: new DecorationImage(
-                                image: AssetImage('terry.jpg'),
-                                fit: BoxFit.fill)),
+                          border: Border.all(
+                            color: Colors.white,
+                            width: 2.5,
+                          ),
+                          shape: BoxShape.circle,
+                          // image: new DecorationImage(
+                          //     image: AssetImage('terry.jpg'), fit: BoxFit.fill),
+                        ),
                       ),
                     ),
                   ),

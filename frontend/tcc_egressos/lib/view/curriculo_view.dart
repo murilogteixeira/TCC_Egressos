@@ -40,7 +40,6 @@ class _CurriculoViewState extends State<CurriculoView> {
   @override
   void initState() {
     _controller = CurriculoController();
-    _atualMenu = _dadosGeraisContainer();
     super.initState();
   }
 
@@ -232,40 +231,122 @@ class _CurriculoViewState extends State<CurriculoView> {
   }
 
   _dadosGeraisContainer() {
-    return Container(color: Colors.red, height: 100);
+    var atuacao = ListaDetalhes(
+      titulo: 'Ministério da Educação, MEC, Brasil',
+      lista: [
+        ItemListaDetalhes(
+          subtitulo:
+              'Membro da Comissão ENC, Enquadramento Funcional: Cargo honorífico',
+          corpo: ['2001 - momento'],
+        ),
+        ItemListaDetalhes(
+          subtitulo:
+              'Membro da Comissão do ENC-2001, Enquadramento Funcional: Cargo honorífico',
+          corpo: ['2000 - 2001'],
+        ),
+        ItemListaDetalhes(
+          subtitulo:
+              'Membro da C. E. E. Farmácia, Enquadramento Funcional: Cargo honorífico',
+          corpo: ['1998 - 2000'],
+        ),
+        ItemListaDetalhes(
+          subtitulo:
+              'Disponibilidade pela UFPR, Enquadramento Funcional: DAS 2, Carga horária: 40, Regime: Dedicação exclusiva',
+          corpo: ['1975 - 1983'],
+        ),
+      ],
+    );
+
+    return Column(
+      children: <Widget>[
+        DetalhesCurriculoWidget(
+          maxWidth: _maxWidth * 0.9,
+          dados: atuacao,
+        ),
+        DetalhesCurriculoWidget(
+          maxWidth: _maxWidth * 0.9,
+          dados: atuacao,
+        ),
+        DetalhesCurriculoWidget(
+          maxWidth: _maxWidth * 0.9,
+          dados: atuacao,
+        ),
+      ],
+    );
   }
 
   _formacaoContainer() {
-    return Container(color: Colors.indigo, height: 100);
+    var atuacao = ListaDetalhes(
+      titulo: 'Ministério da Educação, MEC, Brasil',
+      lista: [
+        ItemListaDetalhes(
+          subtitulo:
+              'Membro da Comissão ENC, Enquadramento Funcional: Cargo honorífico',
+          corpo: ['2001 - momento'],
+        ),
+        ItemListaDetalhes(
+          subtitulo:
+              'Membro da Comissão do ENC-2001, Enquadramento Funcional: Cargo honorífico',
+          corpo: ['2000 - 2001'],
+        ),
+        ItemListaDetalhes(
+          subtitulo:
+              'Membro da C. E. E. Farmácia, Enquadramento Funcional: Cargo honorífico',
+          corpo: ['1998 - 2000'],
+        ),
+        ItemListaDetalhes(
+          subtitulo:
+              'Disponibilidade pela UFPR, Enquadramento Funcional: DAS 2, Carga horária: 40, Regime: Dedicação exclusiva',
+          corpo: ['1975 - 1983'],
+        ),
+      ],
+    );
+
+    return Column(
+      children: <Widget>[
+        DetalhesCurriculoWidget(
+          maxWidth: _maxWidth * 0.9,
+          dados: atuacao,
+        ),
+        DetalhesCurriculoWidget(
+          maxWidth: _maxWidth * 0.9,
+          dados: atuacao,
+        ),
+        DetalhesCurriculoWidget(
+          maxWidth: _maxWidth * 0.9,
+          dados: atuacao,
+        ),
+      ],
+    );
   }
 
   _atuacaoContainer() {
-    var atuacao = ListaDetalhes('Ministério da Educação, MEC, Brasil', [
-      ItemListaDetalhes(
-        'Membro da Comissão ENC, Enquadramento Funcional: Cargo honorífico',
-        '2001',
-        null,
-        true,
-      ),
-      ItemListaDetalhes(
-        'Membro da Comissão do ENC-2001, Enquadramento Funcional: Cargo honorífico',
-        '2000',
-        '2001',
-        false,
-      ),
-      ItemListaDetalhes(
-        'Membro da C. E. E. Farmácia, Enquadramento Funcional: Cargo honorífico',
-        '1998',
-        '2000',
-        false,
-      ),
-      ItemListaDetalhes(
-        'Disponibilidade pela UFPR, Enquadramento Funcional: DAS 2, Carga horária: 40, Regime: Dedicação exclusiva',
-        '1975',
-        '1983',
-        false,
-      ),
-    ]);
+    var atuacao = ListaDetalhes(
+      titulo: 'Ministério da Educação, MEC, Brasil',
+      lista: [
+        ItemListaDetalhes(
+          subtitulo:
+              'Membro da Comissão ENC, Enquadramento Funcional: Cargo honorífico',
+          corpo: ['2001 - momento'],
+        ),
+        ItemListaDetalhes(
+          subtitulo:
+              'Membro da Comissão do ENC-2001, Enquadramento Funcional: Cargo honorífico',
+          corpo: ['2000 - 2001'],
+        ),
+        ItemListaDetalhes(
+          subtitulo:
+              'Membro da C. E. E. Farmácia, Enquadramento Funcional: Cargo honorífico',
+          corpo: ['1998 - 2000'],
+        ),
+        ItemListaDetalhes(
+          subtitulo:
+              'Disponibilidade pela UFPR, Enquadramento Funcional: DAS 2, Carga horária: 40, Regime: Dedicação exclusiva',
+          corpo: ['1975 - 1983'],
+        ),
+      ],
+    );
+
     return Column(
       children: <Widget>[
         DetalhesCurriculoWidget(
@@ -300,8 +381,7 @@ class _CurriculoViewState extends State<CurriculoView> {
   }
 
   _mostrarLayout() {
-    setAtualMenu(_atualMenu);
-
+    _controller.container = _dadosGeraisContainer();
     return SingleChildScrollView(
       child: Center(
         child: Container(
