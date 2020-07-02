@@ -17,14 +17,14 @@ class ListEgressos extends StatefulWidget {
 
 class ListEgressosState extends State<ListEgressos> {
   ListEgressosController _controller;
-  final _words = ['Gustavo', 'Filipe', 'Aline', 'Ramon', 'Murilo'];
+  // final _words = ['Gustavo', 'Filipe', 'Aline', 'Ramon', 'Murilo'];
 //  final _words = ['Gustavo','Aline', 'Ramon'];
   final _colors = [
     Colors.blue,
     Colors.red,
     Colors.green,
-    Colors.orange,
-    Colors.yellow
+    Colors.blue,
+    Colors.red
   ];
 //  final _colors = [
 //    Colors.blue,
@@ -89,19 +89,24 @@ class ListEgressosState extends State<ListEgressos> {
                         //  ),
                         color: _colors[index],
                         shape: BoxShape.circle,
+                        
+                        // image: new DecorationImage(
+                        //       image: AssetImage('web/profile.png'), fit: BoxFit.fill),
+                        
                       ),
                       child: Container(
                         height: 70.0,
                         width: 70.0,
-                        //  alignment: Alignment.center,
+                        // child: Image.asset("Assets/Images/profile.png"),
+                         alignment: Alignment.center,
                         decoration: new BoxDecoration(
                           border: Border.all(
                             color: Colors.white,
                             width: 2.5,
                           ),
                           shape: BoxShape.circle,
-                          // image: new DecorationImage(
-                          //     image: AssetImage('terry.jpg'), fit: BoxFit.fill),
+                          image: new DecorationImage(
+                              image: AssetImage('assets/Images/profile.png'), fit: BoxFit.fitHeight),
                         ),
                       ),
                     ),

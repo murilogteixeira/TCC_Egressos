@@ -103,6 +103,7 @@ class _ResultadoViewState extends State<ResultadoView> {
                               style: TextStyle(color: Colors.blue, fontSize: 20.0)
                           )
                       ),
+                      
                       Container(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(20)),

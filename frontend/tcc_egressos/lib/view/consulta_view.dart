@@ -205,11 +205,20 @@ class _ConsultaViewState extends State<ConsultaView> {
                           if (snapshot.hasData) {
                             return Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: ListEgressos(
-                                list: snapshot.data,
-                                sizeList: snapshot.data.length == 0
-                                    ? 3
-                                    : snapshot.data.length,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Egressos mais pesquisados", style: TextStyle(
+                                    color: Color.fromARGB(255, 85, 125, 217),
+                                    fontSize: 20
+                                  ),),
+                                  ListEgressos(
+                                    list: snapshot.data,
+                                    sizeList: snapshot.data.length == 0
+                                        ? 3
+                                        : snapshot.data.length,
+                                  ),
+                                ],
                               ),
                             );
                           } else if (snapshot.hasError) {
