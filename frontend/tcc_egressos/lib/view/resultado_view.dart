@@ -72,6 +72,26 @@ class _ResultadoViewState extends State<ResultadoView> {
     return aux;
   }
 
+  Widget _buildIndexPage(int nroPages) {
+    List<Widget> aux = new List<Widget>();
+    for (int i = 0; i < nroPages; i++) {
+      aux.add(Container(
+        padding: EdgeInsets.all(20),
+        child: FlatButton(
+          onPressed: () {
+            print('oi');
+          },
+          child: Text('${i+1}'),
+        ),
+      ));
+    }
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: aux,
+    );
+  }
+
   _createAppBar() {
     return kIsWeb
         ? null
@@ -84,20 +104,7 @@ class _ResultadoViewState extends State<ResultadoView> {
     if (lista == null) {
       return Text("Nenhum curriculo encontrado");
     }
-//    print((lista.length/2).round());
-     matriz = _buildPages((lista.length/2).round(), 2, lista);
-    // return ListView.builder(
-    //     itemCount: lista.length,
-    //     itemBuilder: (context, index) {
-    //       return CurriculoListaWidget(
-    //         index: index + 1,
-    //         curriculo: lista[index],
-    //         onTapCurriculo: () {
-    //           _controller.onTapCurriculo(lista[index]);
-    //         },
-    //       );
-    //     });
-
+    matriz = _buildPages((lista.length/2).round(), 2, lista);
     return SingleChildScrollView(
       child: Container(
         color: Color(0xFFEAEDF2),
@@ -117,17 +124,23 @@ class _ResultadoViewState extends State<ResultadoView> {
                     children: <Widget>[
                       Container(
                           alignment: Alignment.topLeft,
-                          padding: EdgeInsets.all(20),
-                          child: Text('${lista.length} resultados encontrados',
+                          padding: EdgeInsets.fromLTRB(20, 20, 0, 0),
+                          child: Text('${matriz[0].length} resultados encontrados',
                               style: TextStyle(
-                                  color: Colors.blue, fontSize: 20.0))),
+                                  color: Colors.blue, fontSize: 20.0))
+                      ),
+                      Container(
+                        alignment: Alignment.topCenter,
+                        padding: EdgeInsets.all(20),
+                        child: _buildIndexPage(matriz[0].length),
+                      ),
                       Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(20)),
                         ),
                         child: ListEgressos(
-                          list: lista,
-                          sizeList: lista.length,
+                          list: matriz[0],
+                          sizeList: matriz[0].length,
                         ),
                       ),
                     ],
