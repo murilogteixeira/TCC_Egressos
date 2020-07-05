@@ -50,23 +50,24 @@ class _ResultadoViewState extends State<ResultadoView> {
   ObservableList<ObservableList<CurriculoLattes>> _buildPages(int nroPages, int nroRegister, ObservableList<CurriculoLattes> lista) {
     ObservableList<ObservableList<CurriculoLattes>> aux = new ObservableList<ObservableList<CurriculoLattes>>();
     int k = 0;
+
     for (int i = 0; i < nroPages; i++) {
+      aux.add(new ObservableList<CurriculoLattes>());
       /*
         Verifica se o numero de register nao e maior que o numero de egressos
         restantes na lita, caso seja ele apresenta os que sobraram.
       */
       if (lista.length-(i*nroRegister) < nroRegister) {
         for (int j = 0; j < lista.length-(i*nroRegister); j++) {
-          aux[i][j] = (lista[k]);
+          aux[i].add(lista[k]);
           k++;
         }
       }else{
         for (int j = 0; j < nroRegister; j++) {
-          aux[i][j] = (lista[k]);
+          aux[i].add(lista[k]);
           k++;
         }
       }
-      
     }
     return aux;
   }
@@ -83,8 +84,8 @@ class _ResultadoViewState extends State<ResultadoView> {
     if (lista == null) {
       return Text("Nenhum curriculo encontrado");
     }
-    print((lista.length/2).round());
-    // matriz = _buildPages((lista.length/2).round(), 2, lista);
+//    print((lista.length/2).round());
+     matriz = _buildPages((lista.length/2).round(), 2, lista);
     // return ListView.builder(
     //     itemCount: lista.length,
     //     itemBuilder: (context, index) {
