@@ -17,14 +17,13 @@ class ResultadoView extends StatefulWidget {
 
 class _ResultadoViewState extends State<ResultadoView> {
   ResultadoController _controller;
-
+  ObservableList<ObservableList<CurriculoLattes>> matriz;
+  
   @override
   void initState() {
     _controller = ResultadoController.getInstance(context);
     super.initState();
   }
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -34,22 +33,42 @@ class _ResultadoViewState extends State<ResultadoView> {
       _controller.lista = args;
     }
     ObservableList<CurriculoLattes> lista = _controller.lista;
+    
 
     return LayoutBuilder(builder: (context, constraints) {
       var maxWidth = constraints.maxWidth;
-
       if (maxWidth >= 576) {
         return Scaffold(
             appBar: _createAppBar(),
             backgroundColor: Color(0xFFEAEDF2),
-            body: _listContainer(lista)
-        );
+            body: _listContainer(lista));
       }
-      return Scaffold(
-          appBar: _createAppBar(),
-          body: _listContainer(lista)
-      );
+      return Scaffold(appBar: _createAppBar(), body: _listContainer(lista));
     });
+  }
+
+  ObservableList<ObservableList<CurriculoLattes>> _buildPages(int nroPages, int nroRegister, ObservableList<CurriculoLattes> lista) {
+    ObservableList<ObservableList<CurriculoLattes>> aux = new ObservableList<ObservableList<CurriculoLattes>>();
+    int k = 0;
+    for (int i = 0; i < nroPages; i++) {
+      /*
+        Verifica se o numero de register nao e maior que o numero de egressos
+        restantes na lita, caso seja ele apresenta os que sobraram.
+      */
+      if (lista.length-(i*nroRegister) < nroRegister) {
+        for (int j = 0; j < lista.length-(i*nroRegister); j++) {
+          aux[i][j] = (lista[k]);
+          k++;
+        }
+      }else{
+        for (int j = 0; j < nroRegister; j++) {
+          aux[i][j] = (lista[k]);
+          k++;
+        }
+      }
+      
+    }
+    return aux;
   }
 
   _createAppBar() {
@@ -64,7 +83,8 @@ class _ResultadoViewState extends State<ResultadoView> {
     if (lista == null) {
       return Text("Nenhum curriculo encontrado");
     }
-
+    print((lista.length/2).round());
+    // matriz = _buildPages((lista.length/2).round(), 2, lista);
     // return ListView.builder(
     //     itemCount: lista.length,
     //     itemBuilder: (context, index) {
@@ -89,8 +109,7 @@ class _ResultadoViewState extends State<ResultadoView> {
                 width: 740,
                 decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(20))
-                ),
+                    borderRadius: BorderRadius.all(Radius.circular(20))),
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Column(
@@ -98,15 +117,12 @@ class _ResultadoViewState extends State<ResultadoView> {
                       Container(
                           alignment: Alignment.topLeft,
                           padding: EdgeInsets.all(20),
-                          child: Text(
-                              '${lista.length} resultados encontrados',
-                              style: TextStyle(color: Colors.blue, fontSize: 20.0)
-                          )
-                      ),
-                      
+                          child: Text('${lista.length} resultados encontrados',
+                              style: TextStyle(
+                                  color: Colors.blue, fontSize: 20.0))),
                       Container(
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
                         ),
                         child: ListEgressos(
                           list: lista,

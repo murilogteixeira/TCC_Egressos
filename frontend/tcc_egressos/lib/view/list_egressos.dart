@@ -17,6 +17,8 @@ class ListEgressos extends StatefulWidget {
 
 class ListEgressosState extends State<ListEgressos> {
   ListEgressosController _controller;
+  int indexInicial;
+  int indexFinal;
 
   @override
   void initState() {
@@ -32,9 +34,7 @@ class ListEgressosState extends State<ListEgressos> {
       itemBuilder: (_, index) {
         return _buildRow(index);
       },
-      itemCount: widget.sizeList > widget.list.length
-          ? widget.list.length
-          : widget.sizeList,
+      itemCount: widget.sizeList,
     );
   }
 
