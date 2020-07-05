@@ -48,7 +48,7 @@ class NavBarWidget extends StatelessWidget {
                         child: TextFormField(
                           key: _formKey,
                           decoration: InputDecoration(
-                            hintText: "Pesquise pelo engresso",
+                            hintText: "Pesquise pelo egresso",
                             border: OutlineInputBorder(
                                 borderSide:
                                     BorderSide(color: Colors.transparent)),

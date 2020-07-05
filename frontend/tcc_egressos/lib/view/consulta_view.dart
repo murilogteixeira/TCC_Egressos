@@ -134,7 +134,7 @@ class _ConsultaViewState extends State<ConsultaView> {
                               child: Center(
                                 child: TextFormField(
                                   decoration: InputDecoration(
-                                    hintText: "Pesquise pelo engresso",
+                                    hintText: "Pesquise pelo egresso",
                                     enabledBorder: new UnderlineInputBorder(
                                         borderRadius: BorderRadius.circular(45),
                                         borderSide:

@@ -29,7 +29,7 @@ class _CurriculoViewState extends State<CurriculoView> {
   double _maxWidth;
   BoxConstraints _constraints;
   ScreenSize _screenSize;
-  CurriculoLattes _curriculo;
+  // CurriculoLattes _curriculo;
   CurriculoController _controller;
 
   MenuBotaoWidget _atualBotao;
@@ -51,7 +51,7 @@ class _CurriculoViewState extends State<CurriculoView> {
   Widget build(BuildContext context) {
     var curriculo = ModalRoute.of(context).settings.arguments;
     if (curriculo != null) {
-      _curriculo = curriculo;
+      _controller.setCurriculo(curriculo);
     }
 
     _getCurriculo();
@@ -81,7 +81,7 @@ class _CurriculoViewState extends State<CurriculoView> {
   _getCurriculo() async {
     var prefs = await SharedPreferences.getInstance();
     var json = prefs.getString("curriculo");
-    _curriculo = CurriculoLattes().fromJson(jsonDecode(json));
+    _controller.curriculo = CurriculoLattes().fromJson(jsonDecode(json));
   }
 
   _criarAppBar() {
@@ -124,31 +124,47 @@ class _CurriculoViewState extends State<CurriculoView> {
       height: 90,
       decoration: new BoxDecoration(
         shape: BoxShape.circle,
-        color: Colors.blue
-        // image: DecorationImage(
-        //   fit: BoxFit.fill,
-        //   image: NetworkImage("https://picsum.photos/250"),
-        // ),
+        color: Colors.grey,
+        image: DecorationImage(
+          fit: BoxFit.fill,
+          image: NetworkImage(
+              "https://www.bauducco.com.br/wp-content/uploads/2017/09/default-placeholder-1-2.png"),
+        ),
       ),
     );
   }
 
   _nomeStatus() {
     var nome = Text(
-      _curriculo.nome,
+      _controller.curriculo.nome,
       style: TextStyle(fontSize: 22),
     );
+    Color corSituacao;
+
+    switch (_controller.curriculo.situacao.id) {
+      case 1:
+        corSituacao = Colors.red;
+        break;
+      case 2:
+        corSituacao = Colors.blue;
+        break;
+      case 3:
+        corSituacao = Colors.green;
+        break;
+      default:
+    }
+
     var status = Padding(
       padding: const EdgeInsets.only(left: 18),
       child: Container(
         width: 198,
         height: 31,
         decoration: BoxDecoration(
-            color: Colors.green,
+            color: corSituacao,
             borderRadius: BorderRadius.all(Radius.circular(12))),
         child: Center(
             child: Text(
-          "${_curriculo.situacao.tipo}",
+          "${_controller.curriculo.situacao.tipo}",
           style: TextStyle(fontSize: 14, color: Color(0xFFFDFDFD)),
         )),
       ),
@@ -219,7 +235,8 @@ class _CurriculoViewState extends State<CurriculoView> {
   _setFormacaoBotao() {
     return MenuBotaoWidget(
       onTap: () {
-        _setAtualMenu(_formacaoContainer());
+        // _setAtualMenu(_formacaoContainer());
+        formacaoContainer().then((value) => _setAtualMenu(value));
         // _setAtualBotao(_formacaoBotao);
       },
       text: "Formação",
@@ -280,8 +297,7 @@ class _CurriculoViewState extends State<CurriculoView> {
       titulo: 'Nome Citação',
       lista: [
         ItemListaDetalhes(
-          subtitulo:
-              'FERNEDA, E.;Ferneda, E.;FERNEDA, EDILSON',
+          subtitulo: _controller.curriculo.nomeCitacao,
           corpo: [''],
         ),
       ],
@@ -290,24 +306,24 @@ class _CurriculoViewState extends State<CurriculoView> {
       titulo: 'Contatos',
       lista: [
         ItemListaDetalhes(
-          subtitulo:
-              'Email:',
-          corpo: ['ferneda@ucb.br'],
+          subtitulo: 'Email:',
+          corpo: [_controller.curriculo.email],
         ),
         ItemListaDetalhes(
-          subtitulo:
-              'LinkedIn:',
+          subtitulo: 'LinkedIn:',
           corpo: ['https://www.linkedin.com/in/edilson-ferneda-348199a/'],
         ),
         ItemListaDetalhes(
-          subtitulo:
-              'Instagram:',
+          subtitulo: 'Instagram:',
           corpo: ['@eferneda'],
         ),
         ItemListaDetalhes(
-          subtitulo:
-              'Facebook:',
+          subtitulo: 'Facebook:',
           corpo: ['https://www.facebook.com/edilson.ferneda.5'],
+        ),
+        ItemListaDetalhes(
+          subtitulo: 'Telefone:',
+          corpo: [_controller.curriculo.celular ?? 'Não informado'],
         ),
       ],
     );
@@ -326,13 +342,12 @@ class _CurriculoViewState extends State<CurriculoView> {
     );
   }
 
-  _formacaoContainer() {
+  Future<Widget> formacaoContainer() async {
     var formacao1 = ListaDetalhes(
       titulo: 'Doutorado em Ciência da Computação.',
       lista: [
         ItemListaDetalhes(
-          subtitulo:
-              '',
+          subtitulo: '',
           corpo: [
             'LIRMM-Université Montpellier II, LIRMM-UMII, França.',
             'Título: Conception d\'un agent rationnel et examen de son raisonnement en géométrie, Ano de obtenção: 1992.',
@@ -364,17 +379,22 @@ class _CurriculoViewState extends State<CurriculoView> {
       ],
     );
 
+    var formacao = await _controller.consultaFormacao();
+
+    // var listaFormacao = ListaDetalhes(
+    //     titulo: '',
+    //     lista: formacao.map((e) {
+    //       return ItemListaDetalhes(subtitulo: e.curso, corpo: [e.instituicao]);
+    //     }).toList());
+
+    var listaFormacao = formacao.map((e) {
+      return DetalhesCurriculoWidget(maxWidth: _maxWidth * 0.9, dados: ListaDetalhes(
+          titulo: e.curso,
+          lista: [ItemListaDetalhes(subtitulo: e.instituicao, corpo: [e.area, '${e.dataInicio} - ${e.dataFim}'])]),);
+    }).toList();
+
     return Column(
-      children: <Widget>[
-        DetalhesCurriculoWidget(
-          maxWidth: _maxWidth * 0.9,
-          dados: formacao1,
-        ),
-        DetalhesCurriculoWidget(
-          maxWidth: _maxWidth * 0.9,
-          dados: formacao2,
-        ),
-      ],
+      children: listaFormacao,
     );
   }
 

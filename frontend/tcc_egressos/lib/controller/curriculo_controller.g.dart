@@ -9,18 +9,18 @@ part of 'curriculo_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$CurriculoController on _CurriculoControllerBase, Store {
-  final _$listaWidgetAtom = Atom(name: '_CurriculoControllerBase.listaWidget');
+  final _$curriculoAtom = Atom(name: '_CurriculoControllerBase.curriculo');
 
   @override
-  ObservableList<Widget> get listaWidget {
-    _$listaWidgetAtom.reportRead();
-    return super.listaWidget;
+  CurriculoLattes get curriculo {
+    _$curriculoAtom.reportRead();
+    return super.curriculo;
   }
 
   @override
-  set listaWidget(ObservableList<Widget> value) {
-    _$listaWidgetAtom.reportWrite(value, super.listaWidget, () {
-      super.listaWidget = value;
+  set curriculo(CurriculoLattes value) {
+    _$curriculoAtom.reportWrite(value, super.curriculo, () {
+      super.curriculo = value;
     });
   }
 
@@ -43,6 +43,17 @@ mixin _$CurriculoController on _CurriculoControllerBase, Store {
       ActionController(name: '_CurriculoControllerBase');
 
   @override
+  dynamic setCurriculo(dynamic value) {
+    final _$actionInfo = _$_CurriculoControllerBaseActionController.startAction(
+        name: '_CurriculoControllerBase.setCurriculo');
+    try {
+      return super.setCurriculo(value);
+    } finally {
+      _$_CurriculoControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic setContainer(dynamic value) {
     final _$actionInfo = _$_CurriculoControllerBaseActionController.startAction(
         name: '_CurriculoControllerBase.setContainer');
@@ -56,7 +67,7 @@ mixin _$CurriculoController on _CurriculoControllerBase, Store {
   @override
   String toString() {
     return '''
-listaWidget: ${listaWidget},
+curriculo: ${curriculo},
 container: ${container}
     ''';
   }

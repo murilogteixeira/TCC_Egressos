@@ -57,13 +57,17 @@ class ListaDetalhesWidget extends StatelessWidget {
                     width: 70.0,
                     //  alignment: Alignment.center,
                     decoration: new BoxDecoration(
-                        border: Border.all(
-                          color: Colors.white,
-                          width: 2.5,
-                        ),
-                        shape: BoxShape.circle,
-                        image: new DecorationImage(
-                            image: AssetImage('terry.jpg'), fit: BoxFit.fill)),
+                      border: Border.all(
+                        color: Colors.white,
+                        width: 2.5,
+                      ),
+                      shape: BoxShape.circle,
+                      image: new DecorationImage(
+                        fit: BoxFit.fill,
+                        image: NetworkImage(
+                            'https://www.bauducco.com.br/wp-content/uploads/2017/09/default-placeholder-1-2.png'),
+                      ),
+                    ),
                   ),
                 ),
               ),
