@@ -147,7 +147,7 @@ class _ResultadoViewState extends State<ResultadoView> {
                           alignment: Alignment.topLeft,
                           padding: EdgeInsets.fromLTRB(20, 20, 0, 0),
                           child: Text(
-                              '${matriz[0].length} resultados encontrados',
+                              '${lista.length} resultados encontrados',
                               style: TextStyle(
                                   color: Colors.blue, fontSize: 20.0))),
                       Container(
