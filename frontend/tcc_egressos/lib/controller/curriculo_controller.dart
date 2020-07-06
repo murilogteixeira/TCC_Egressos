@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
 import 'package:http/http.dart' as http;
-import 'package:tcc_egressos/model/curriculo_lattes/formacaoAcademica.dart';
+import 'package:tcc_egressos/model/curriculo_lattes/atuacao.dart';
 
 part 'curriculo_controller.g.dart';
 
@@ -26,18 +26,22 @@ abstract class _CurriculoControllerBase with Store {
   @action
   setContainer(value) => container = value;
 
-  Future<List<FormacaoAcademica>> consultaFormacao() async {
+  Future<List<Atuacao>> consultaAtuacao() async {
     final response = await http.get(
-        'https://egressosbackend.herokuapp.com/formacoesAcademicas/?search=${curriculo.id}',
-        headers: {
-          HttpHeaders.authorizationHeader:
-              'Bearer 684bd25e2c3387ad980e732e52ab390897d8339a'
-        });
+      'https://egressosbackend.herokuapp.com/atuacoesProfissionais/?search=${curriculo.id}',
+      headers: {
+        HttpHeaders.authorizationHeader:
+            'Bearer 684bd25e2c3387ad980e732e52ab390897d8339a',
+        HttpHeaders.contentTypeHeader: 'application/json; charset=utf-8',
+      },
+    );
+
+    var body = utf8.decode(response.bodyBytes);
 
     if (response.statusCode == 200) {
-      List responseJson = json.decode(response.body);
+      List responseJson = json.decode(body);
       var formacaoList = responseJson.map((e) {
-        return FormacaoAcademica().fromJson(e);
+        return Atuacao().fromJson(e);
       }).toList();
 
       return formacaoList;

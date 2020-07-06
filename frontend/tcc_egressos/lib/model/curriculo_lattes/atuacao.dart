@@ -1,35 +1,35 @@
-class FormacaoAcademica {
-  String curso;
+class Atuacao {
+  String cargo;
   String instituicao;
   String dataInicio;
   String dataFim;
-  String area;
+  String descricao;
 
-  FormacaoAcademica({
-    this.curso,
+  Atuacao({
+    this.cargo,
     this.instituicao,
     this.dataInicio,
     this.dataFim,
-    this.area,
+    this.descricao,
   });
 
   Map<String, dynamic> toJson() {
     return {
-      'curso': curso,
+      'cargo': cargo,
       'instituicao': instituicao,
       'data_inicio': dataInicio,
       'data_fim': dataFim,
-      'grande_area': area
+      'descricao': descricao
     };
   }
 
-  FormacaoAcademica fromJson(Map<String, dynamic> json) {
-    return FormacaoAcademica(
-      curso: json['curso'],
+  Atuacao fromJson(Map<String, dynamic> json) {
+    return Atuacao(
+      cargo: json['cargo'],
       instituicao: json['instituicao'],
       dataInicio: json['data_inicio'],
       dataFim: json['data_fim'],
-      area: json['grande_area'],
+      descricao: json['descricao'],
     );
   }
 }
