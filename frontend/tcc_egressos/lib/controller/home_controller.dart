@@ -25,14 +25,18 @@ abstract class _HomeControllerBase with Store {
   @action
   consultar(String nome, doneCallback) async {
     final response = await http.get(
-        'https://egressosbackend.herokuapp.com/egressos/?search=$nome',
-        headers: {
-          HttpHeaders.authorizationHeader:
-              'Bearer 684bd25e2c3387ad980e732e52ab390897d8339a'
-        });
+      'https://egressosbackend.herokuapp.com/egressos/?search=$nome',
+      headers: {
+        HttpHeaders.authorizationHeader:
+            'Bearer 684bd25e2c3387ad980e732e52ab390897d8339a',
+        HttpHeaders.contentTypeHeader: 'application/json; charset=utf-8',
+      },
+    );
+
+    var body = utf8.decode(response.bodyBytes);
 
     if (response.statusCode == 200) {
-      List responseJson = json.decode(response.body);
+      List responseJson = json.decode(body);
       lista = ObservableList();
       responseJson.forEach((json) {
         lista.add(CurriculoLattes().fromJson(json));
@@ -47,14 +51,19 @@ abstract class _HomeControllerBase with Store {
 
   @action
   buscarTodos(doneCallback) async {
-    final response = await http
-        .get('https://egressosbackend.herokuapp.com/egressos', headers: {
-      HttpHeaders.authorizationHeader:
-          'Bearer 684bd25e2c3387ad980e732e52ab390897d8339a'
-    });
+    final response = await http.get(
+      'https://egressosbackend.herokuapp.com/egressos',
+      headers: {
+        HttpHeaders.authorizationHeader:
+            'Bearer 684bd25e2c3387ad980e732e52ab390897d8339a',
+        HttpHeaders.contentTypeHeader: 'application/json; charset=utf-8',
+      },
+    );
+
+    var body = utf8.decode(response.bodyBytes);
 
     if (response.statusCode == 200) {
-      List responseJson = json.decode(response.body);
+      List responseJson = json.decode(body);
       lista = ObservableList();
       responseJson.forEach((json) {
         lista.add(CurriculoLattes().fromJson(json));
@@ -95,11 +104,14 @@ abstract class _HomeControllerBase with Store {
     final response = await http
         .get('https://egressosbackend.herokuapp.com/egressos', headers: {
       HttpHeaders.authorizationHeader:
-          'Bearer 684bd25e2c3387ad980e732e52ab390897d8339a'
+          'Bearer 684bd25e2c3387ad980e732e52ab390897d8339a',
+      HttpHeaders.contentTypeHeader: 'application/json; charset=utf-8',
     });
 
+    var body = utf8.decode(response.bodyBytes);
+
     if (response.statusCode == 200) {
-      List responseJson = json.decode(response.body);
+      List responseJson = json.decode(body);
       lista = ObservableList();
       responseJson.forEach((json) {
         lista.add(CurriculoLattes().fromJson(json));
@@ -108,5 +120,6 @@ abstract class _HomeControllerBase with Store {
         return Future.value(lista);
       }
     }
+    return null;
   }
 }

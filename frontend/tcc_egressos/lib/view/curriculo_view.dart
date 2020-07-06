@@ -39,8 +39,8 @@ class _CurriculoViewState extends State<CurriculoView> {
     _controller = CurriculoController();
 
     _dadosGeraisBotao = _setDadosGeraisBotao();
-    _formacaoBotao = _setFormacaoBotao();
-    _atuacaoBotao = _setAtuacaoBotao();
+    // _formacaoBotao = _setFormacaoBotao();
+    // _atuacaoBotao = _setAtuacaoBotao();
     _producoesBotao = _setProducoesBotao();
     _eventosBotao = _setEventosBotao();
     _bancasBotao = _setBancasBotao();
@@ -213,10 +213,11 @@ class _CurriculoViewState extends State<CurriculoView> {
     _controller.container = container;
   }
 
-  _setAtualBotao(botao) {
-    _atualBotao.controller.ativo = false;
-    _atualBotao = botao;
-    _atualBotao.controller.ativo = true;
+  _resetBotaoAtivo() {
+    _dadosGeraisBotao.controller.ativo = false;
+    _producoesBotao.controller.ativo = false;
+    _eventosBotao.controller.ativo = false;
+    _bancasBotao.controller.ativo = false;
   }
 
   MenuBotaoWidget _dadosGeraisBotao;
@@ -224,43 +225,46 @@ class _CurriculoViewState extends State<CurriculoView> {
     return MenuBotaoWidget(
       onTap: () {
         _setAtualMenu(_dadosGeraisContainer());
-        // _setAtualBotao(_dadosGeraisBotao);
+        _resetBotaoAtivo();
+        _dadosGeraisBotao.controller.ativo = true;
       },
       text: "Dados Gerais",
       controller: MenuBotaoWidgetController(ativo: true),
     );
   }
 
-  MenuBotaoWidget _formacaoBotao;
-  _setFormacaoBotao() {
-    return MenuBotaoWidget(
-      onTap: () {
-        // _setAtualMenu(_formacaoContainer());
-        formacaoContainer().then((value) => _setAtualMenu(value));
-        // _setAtualBotao(_formacaoBotao);
-      },
-      text: "Formação",
-      controller: MenuBotaoWidgetController(ativo: false),
-    );
-  }
+  // MenuBotaoWidget _formacaoBotao;
+  // _setFormacaoBotao() {
+  //   return MenuBotaoWidget(
+  //     onTap: () {
+  //       // _setAtualMenu(_formacaoContainer());
+  //       formacaoContainer().then((value) => _setAtualMenu(value));
+  //       // _setAtualBotao(_formacaoBotao);
+  //     },
+  //     text: "Formação",
+  //     controller: MenuBotaoWidgetController(ativo: false),
+  //   );
+  // }
 
-  MenuBotaoWidget _atuacaoBotao;
-  _setAtuacaoBotao() {
-    return MenuBotaoWidget(
-      onTap: () {
-        _setAtualMenu(_atuacaoContainer());
-        // _setAtualBotao(_atuacaoBotao);
-      },
-      text: "Atuação",
-      controller: MenuBotaoWidgetController(ativo: false),
-    );
-  }
+  // MenuBotaoWidget _atuacaoBotao;
+  // _setAtuacaoBotao() {
+  //   return MenuBotaoWidget(
+  //     onTap: () {
+  //       _setAtualMenu(_atuacaoContainer());
+  //       // _setAtualBotao(_atuacaoBotao);
+  //     },
+  //     text: "Atuação",
+  //     controller: MenuBotaoWidgetController(ativo: false),
+  //   );
+  // }
 
   MenuBotaoWidget _producoesBotao;
   _setProducoesBotao() {
     return MenuBotaoWidget(
       onTap: () {
         _setAtualMenu(_producoesContainer());
+        _resetBotaoAtivo();
+        _producoesBotao.controller.ativo = true;
         // _setAtualBotao(_producoesBotao);
       },
       text: "Produções",
@@ -273,6 +277,8 @@ class _CurriculoViewState extends State<CurriculoView> {
     return MenuBotaoWidget(
       onTap: () {
         _setAtualMenu(_eventosContainer());
+        _resetBotaoAtivo();
+        _eventosBotao.controller.ativo = true;
         // _setAtualBotao(_eventosBotao);
       },
       text: "Eventos",
@@ -285,6 +291,8 @@ class _CurriculoViewState extends State<CurriculoView> {
     return MenuBotaoWidget(
       onTap: () {
         _setAtualMenu(_bancasContainer());
+        _resetBotaoAtivo();
+        _bancasBotao.controller.ativo = true;
         // _setAtualBotao(_bancasBotao);
       },
       text: "Bancas",
@@ -298,6 +306,16 @@ class _CurriculoViewState extends State<CurriculoView> {
       lista: [
         ItemListaDetalhes(
           subtitulo: _controller.curriculo.nomeCitacao,
+          corpo: [''],
+        ),
+      ],
+    );
+
+    var atuacao = ListaDetalhes(
+      titulo: 'Atuação',
+      lista: [
+        ItemListaDetalhes(
+          subtitulo: 'Gestão educacional',
           corpo: [''],
         ),
       ],
@@ -336,112 +354,116 @@ class _CurriculoViewState extends State<CurriculoView> {
         ),
         DetalhesCurriculoWidget(
           maxWidth: _maxWidth * 0.9,
+          dados: atuacao,
+        ),
+        DetalhesCurriculoWidget(
+          maxWidth: _maxWidth * 0.9,
           dados: contatos,
         ),
       ],
     );
   }
 
-  Future<Widget> formacaoContainer() async {
-    var formacao1 = ListaDetalhes(
-      titulo: 'Doutorado em Ciência da Computação.',
-      lista: [
-        ItemListaDetalhes(
-          subtitulo: '',
-          corpo: [
-            'LIRMM-Université Montpellier II, LIRMM-UMII, França.',
-            'Título: Conception d\'un agent rationnel et examen de son raisonnement en géométrie, Ano de obtenção: 1992.',
-            'Orientador: Jean Sallantin.',
-            'Bolsista do(a): Coordenação de Aperfeiçoamento de Pessoal de Nível Superior, CAPES, Brasil.',
-            'Palavras-chave: Inteligência Artificial; Agentes Inteligentes; Agentes Racionais.',
-            'Grande área: Ciências Exatas e da Terra',
-          ],
-        ),
-        ItemListaDetalhes(
-          subtitulo:
-              'Programa de Capacitação do Banco de Avaliadores do. (Carga horária: 32h).',
-          corpo: [
-            'Instituto Nacional de Estudos e Pesquisas Educacionais Anísio Teixeira, INEP/MEC, Brasil.',
-          ],
-        ),
-      ],
-    );
-    var formacao2 = ListaDetalhes(
-      titulo: 'Formação Complementar',
-      lista: [
-        ItemListaDetalhes(
-          subtitulo:
-              'Programa de Capacitação do Banco de Avaliadores do. (Carga horária: 32h).',
-          corpo: [
-            'Instituto Nacional de Estudos e Pesquisas Educacionais Anísio Teixeira, INEP/MEC, Brasil.',
-          ],
-        ),
-      ],
-    );
+  // Future<Widget> formacaoContainer() async {
+  //   var formacao1 = ListaDetalhes(
+  //     titulo: 'Doutorado em Ciência da Computação.',
+  //     lista: [
+  //       ItemListaDetalhes(
+  //         subtitulo: '',
+  //         corpo: [
+  //           'LIRMM-Université Montpellier II, LIRMM-UMII, França.',
+  //           'Título: Conception d\'un agent rationnel et examen de son raisonnement en géométrie, Ano de obtenção: 1992.',
+  //           'Orientador: Jean Sallantin.',
+  //           'Bolsista do(a): Coordenação de Aperfeiçoamento de Pessoal de Nível Superior, CAPES, Brasil.',
+  //           'Palavras-chave: Inteligência Artificial; Agentes Inteligentes; Agentes Racionais.',
+  //           'Grande área: Ciências Exatas e da Terra',
+  //         ],
+  //       ),
+  //       ItemListaDetalhes(
+  //         subtitulo:
+  //             'Programa de Capacitação do Banco de Avaliadores do. (Carga horária: 32h).',
+  //         corpo: [
+  //           'Instituto Nacional de Estudos e Pesquisas Educacionais Anísio Teixeira, INEP/MEC, Brasil.',
+  //         ],
+  //       ),
+  //     ],
+  //   );
+  //   var formacao2 = ListaDetalhes(
+  //     titulo: 'Formação Complementar',
+  //     lista: [
+  //       ItemListaDetalhes(
+  //         subtitulo:
+  //             'Programa de Capacitação do Banco de Avaliadores do. (Carga horária: 32h).',
+  //         corpo: [
+  //           'Instituto Nacional de Estudos e Pesquisas Educacionais Anísio Teixeira, INEP/MEC, Brasil.',
+  //         ],
+  //       ),
+  //     ],
+  //   );
 
-    var formacao = await _controller.consultaFormacao();
+  //   var formacao = await _controller.consultaFormacao();
 
-    // var listaFormacao = ListaDetalhes(
-    //     titulo: '',
-    //     lista: formacao.map((e) {
-    //       return ItemListaDetalhes(subtitulo: e.curso, corpo: [e.instituicao]);
-    //     }).toList());
+  //   // var listaFormacao = ListaDetalhes(
+  //   //     titulo: '',
+  //   //     lista: formacao.map((e) {
+  //   //       return ItemListaDetalhes(subtitulo: e.curso, corpo: [e.instituicao]);
+  //   //     }).toList());
 
-    var listaFormacao = formacao.map((e) {
-      return DetalhesCurriculoWidget(maxWidth: _maxWidth * 0.9, dados: ListaDetalhes(
-          titulo: e.curso,
-          lista: [ItemListaDetalhes(subtitulo: e.instituicao, corpo: [e.area, '${e.dataInicio} - ${e.dataFim}'])]),);
-    }).toList();
+  //   var listaFormacao = formacao.map((e) {
+  //     return DetalhesCurriculoWidget(maxWidth: _maxWidth * 0.9, dados: ListaDetalhes(
+  //         titulo: e.curso,
+  //         lista: [ItemListaDetalhes(subtitulo: e.instituicao, corpo: [e.area, '${e.dataInicio} - ${e.dataFim}'])]),);
+  //   }).toList();
 
-    return Column(
-      children: listaFormacao,
-    );
-  }
+  //   return Column(
+  //     children: listaFormacao,
+  //   );
+  // }
 
-  _atuacaoContainer() {
-    var atuacao = ListaDetalhes(
-      titulo: 'Ministério da Educação, MEC, Brasil',
-      lista: [
-        ItemListaDetalhes(
-          subtitulo:
-              'Membro da Comissão ENC, Enquadramento Funcional: Cargo honorífico',
-          corpo: ['2001 - momento'],
-        ),
-        ItemListaDetalhes(
-          subtitulo:
-              'Membro da Comissão do ENC-2001, Enquadramento Funcional: Cargo honorífico',
-          corpo: ['2000 - 2001'],
-        ),
-        ItemListaDetalhes(
-          subtitulo:
-              'Membro da C. E. E. Farmácia, Enquadramento Funcional: Cargo honorífico',
-          corpo: ['1998 - 2000'],
-        ),
-        ItemListaDetalhes(
-          subtitulo:
-              'Disponibilidade pela UFPR, Enquadramento Funcional: DAS 2, Carga horária: 40, Regime: Dedicação exclusiva',
-          corpo: ['1975 - 1983'],
-        ),
-      ],
-    );
+  // _atuacaoContainer() {
+  //   var atuacao = ListaDetalhes(
+  //     titulo: 'Ministério da Educação, MEC, Brasil',
+  //     lista: [
+  //       ItemListaDetalhes(
+  //         subtitulo:
+  //             'Membro da Comissão ENC, Enquadramento Funcional: Cargo honorífico',
+  //         corpo: ['2001 - momento'],
+  //       ),
+  //       ItemListaDetalhes(
+  //         subtitulo:
+  //             'Membro da Comissão do ENC-2001, Enquadramento Funcional: Cargo honorífico',
+  //         corpo: ['2000 - 2001'],
+  //       ),
+  //       ItemListaDetalhes(
+  //         subtitulo:
+  //             'Membro da C. E. E. Farmácia, Enquadramento Funcional: Cargo honorífico',
+  //         corpo: ['1998 - 2000'],
+  //       ),
+  //       ItemListaDetalhes(
+  //         subtitulo:
+  //             'Disponibilidade pela UFPR, Enquadramento Funcional: DAS 2, Carga horária: 40, Regime: Dedicação exclusiva',
+  //         corpo: ['1975 - 1983'],
+  //       ),
+  //     ],
+  //   );
 
-    return Column(
-      children: <Widget>[
-        DetalhesCurriculoWidget(
-          maxWidth: _maxWidth * 0.9,
-          dados: atuacao,
-        ),
-        DetalhesCurriculoWidget(
-          maxWidth: _maxWidth * 0.9,
-          dados: atuacao,
-        ),
-        DetalhesCurriculoWidget(
-          maxWidth: _maxWidth * 0.9,
-          dados: atuacao,
-        ),
-      ],
-    );
-  }
+  //   return Column(
+  //     children: <Widget>[
+  //       DetalhesCurriculoWidget(
+  //         maxWidth: _maxWidth * 0.9,
+  //         dados: atuacao,
+  //       ),
+  //       DetalhesCurriculoWidget(
+  //         maxWidth: _maxWidth * 0.9,
+  //         dados: atuacao,
+  //       ),
+  //       DetalhesCurriculoWidget(
+  //         maxWidth: _maxWidth * 0.9,
+  //         dados: atuacao,
+  //       ),
+  //     ],
+  //   );
+  // }
 
   _producoesContainer() {
     return Container(
@@ -566,8 +588,8 @@ class _CurriculoViewState extends State<CurriculoView> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             _dadosGeraisBotao,
-                            _formacaoBotao,
-                            _atuacaoBotao,
+                            // _formacaoBotao,
+                            // _atuacaoBotao,
                             _producoesBotao,
                             _eventosBotao,
                             _bancasBotao,
