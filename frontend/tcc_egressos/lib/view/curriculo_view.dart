@@ -12,6 +12,7 @@ import 'package:tcc_egressos/components/screenSize.dart';
 import 'package:tcc_egressos/controller/curriculo_controller.dart';
 import 'package:tcc_egressos/controller/menu_botao_widget_controller.dart';
 import 'package:tcc_egressos/model/Charts/OrganizeCharts.dart';
+import 'package:tcc_egressos/model/curriculo_lattes/cargo.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
 import 'package:tcc_egressos/model/lista_detalhes.dart';
 
@@ -29,7 +30,7 @@ class _CurriculoViewState extends State<CurriculoView> {
   double _maxWidth;
   BoxConstraints _constraints;
   ScreenSize _screenSize;
-  CurriculoLattes _curriculo;
+  // CurriculoLattes _curriculo;
   CurriculoController _controller;
 
   MenuBotaoWidget _atualBotao;
@@ -39,11 +40,11 @@ class _CurriculoViewState extends State<CurriculoView> {
     _controller = CurriculoController();
 
     _dadosGeraisBotao = _setDadosGeraisBotao();
-    _formacaoBotao = _setFormacaoBotao();
-    _atuacaoBotao = _setAtuacaoBotao();
+    // _formacaoBotao = _setFormacaoBotao();
+    // _atuacaoBotao = _setAtuacaoBotao();
     _producoesBotao = _setProducoesBotao();
     _eventosBotao = _setEventosBotao();
-    _bancasBotao = _setBancasBotao();
+    // _bancasBotao = _setBancasBotao();
     super.initState();
   }
 
@@ -51,7 +52,7 @@ class _CurriculoViewState extends State<CurriculoView> {
   Widget build(BuildContext context) {
     var curriculo = ModalRoute.of(context).settings.arguments;
     if (curriculo != null) {
-      _curriculo = curriculo;
+      _controller.setCurriculo(curriculo);
     }
 
     _getCurriculo();
@@ -81,7 +82,7 @@ class _CurriculoViewState extends State<CurriculoView> {
   _getCurriculo() async {
     var prefs = await SharedPreferences.getInstance();
     var json = prefs.getString("curriculo");
-    _curriculo = CurriculoLattes().fromJson(jsonDecode(json));
+    _controller.curriculo = CurriculoLattes().fromJson(jsonDecode(json));
   }
 
   _criarAppBar() {
@@ -124,31 +125,47 @@ class _CurriculoViewState extends State<CurriculoView> {
       height: 90,
       decoration: new BoxDecoration(
         shape: BoxShape.circle,
-        color: Colors.blue
-        // image: DecorationImage(
-        //   fit: BoxFit.fill,
-        //   image: NetworkImage("https://picsum.photos/250"),
-        // ),
+        color: Colors.grey,
+        image: DecorationImage(
+          fit: BoxFit.fill,
+          image: NetworkImage(
+              "https://www.kirkham-legal.co.uk/wp-content/uploads/2017/02/profile-placeholder.png"),
+        ),
       ),
     );
   }
 
   _nomeStatus() {
     var nome = Text(
-      _curriculo.nome,
+      _controller.curriculo.nome,
       style: TextStyle(fontSize: 22),
     );
+    Color corSituacao;
+
+    switch (_controller.curriculo.situacao.id) {
+      case 1:
+        corSituacao = Colors.red;
+        break;
+      case 2:
+        corSituacao = Colors.blue;
+        break;
+      case 3:
+        corSituacao = Colors.green;
+        break;
+      default:
+    }
+
     var status = Padding(
       padding: const EdgeInsets.only(left: 18),
       child: Container(
         width: 198,
         height: 31,
         decoration: BoxDecoration(
-            color: Colors.green,
+            color: corSituacao,
             borderRadius: BorderRadius.all(Radius.circular(12))),
         child: Center(
             child: Text(
-          "${_curriculo.situacao.tipo}",
+          "${_controller.curriculo.situacao.tipo}",
           style: TextStyle(fontSize: 14, color: Color(0xFFFDFDFD)),
         )),
       ),
@@ -170,14 +187,24 @@ class _CurriculoViewState extends State<CurriculoView> {
   }
 
   _formacaoCargo() {
+    var cargo = _controller.consultaCargo();
     return Padding(
       padding: const EdgeInsets.only(top: 14),
       child: Container(
         constraints: BoxConstraints(maxWidth: _constraints.maxWidth * 0.8),
         // color: Colors.blue,
-        child: Text(
-          "Professor e Doutor de Ciência da Computação - Universidade Católica de Brasília",
+        child: FutureBuilder(
+          future: cargo,
+          builder: (BuildContext context, AsyncSnapshot<Cargo> snapshot) {
+            if (snapshot.hasData) {
+              return Text('${snapshot.data.cargo} - ${snapshot.data.instituicao}');
+            }
+            return Text('Cargo atual não informado');
+          },
         ),
+        // child: Text(
+        //   '${cargo.cargo} - ${cargo.instituicao}',
+        // ),
       ),
     );
   }
@@ -197,10 +224,11 @@ class _CurriculoViewState extends State<CurriculoView> {
     _controller.container = container;
   }
 
-  _setAtualBotao(botao) {
-    _atualBotao.controller.ativo = false;
-    _atualBotao = botao;
-    _atualBotao.controller.ativo = true;
+  _resetBotaoAtivo() {
+    _dadosGeraisBotao.controller.ativo = false;
+    _producoesBotao.controller.ativo = false;
+    _eventosBotao.controller.ativo = false;
+    // _bancasBotao.controller.ativo = false;
   }
 
   MenuBotaoWidget _dadosGeraisBotao;
@@ -208,34 +236,11 @@ class _CurriculoViewState extends State<CurriculoView> {
     return MenuBotaoWidget(
       onTap: () {
         _setAtualMenu(_dadosGeraisContainer());
-        // _setAtualBotao(_dadosGeraisBotao);
+        _resetBotaoAtivo();
+        _dadosGeraisBotao.controller.ativo = true;
       },
       text: "Dados Gerais",
       controller: MenuBotaoWidgetController(ativo: true),
-    );
-  }
-
-  MenuBotaoWidget _formacaoBotao;
-  _setFormacaoBotao() {
-    return MenuBotaoWidget(
-      onTap: () {
-        _setAtualMenu(_formacaoContainer());
-        // _setAtualBotao(_formacaoBotao);
-      },
-      text: "Formação",
-      controller: MenuBotaoWidgetController(ativo: false),
-    );
-  }
-
-  MenuBotaoWidget _atuacaoBotao;
-  _setAtuacaoBotao() {
-    return MenuBotaoWidget(
-      onTap: () {
-        _setAtualMenu(_atuacaoContainer());
-        // _setAtualBotao(_atuacaoBotao);
-      },
-      text: "Atuação",
-      controller: MenuBotaoWidgetController(ativo: false),
     );
   }
 
@@ -244,6 +249,8 @@ class _CurriculoViewState extends State<CurriculoView> {
     return MenuBotaoWidget(
       onTap: () {
         _setAtualMenu(_producoesContainer());
+        _resetBotaoAtivo();
+        _producoesBotao.controller.ativo = true;
         // _setAtualBotao(_producoesBotao);
       },
       text: "Produções",
@@ -256,21 +263,11 @@ class _CurriculoViewState extends State<CurriculoView> {
     return MenuBotaoWidget(
       onTap: () {
         _setAtualMenu(_eventosContainer());
+        _resetBotaoAtivo();
+        _eventosBotao.controller.ativo = true;
         // _setAtualBotao(_eventosBotao);
       },
       text: "Eventos",
-      controller: MenuBotaoWidgetController(ativo: false),
-    );
-  }
-
-  MenuBotaoWidget _bancasBotao;
-  _setBancasBotao() {
-    return MenuBotaoWidget(
-      onTap: () {
-        _setAtualMenu(_bancasContainer());
-        // _setAtualBotao(_bancasBotao);
-      },
-      text: "Bancas",
       controller: MenuBotaoWidgetController(ativo: false),
     );
   }
@@ -280,8 +277,17 @@ class _CurriculoViewState extends State<CurriculoView> {
       titulo: 'Nome Citação',
       lista: [
         ItemListaDetalhes(
-          subtitulo:
-              'FERNEDA, E.;Ferneda, E.;FERNEDA, EDILSON',
+          subtitulo: _controller.curriculo.nomeCitacao,
+          corpo: [''],
+        ),
+      ],
+    );
+
+    var atuacao = ListaDetalhes(
+      titulo: 'Atuação',
+      lista: [
+        ItemListaDetalhes(
+          subtitulo: 'Gestão educacional',
           corpo: [''],
         ),
       ],
@@ -290,24 +296,24 @@ class _CurriculoViewState extends State<CurriculoView> {
       titulo: 'Contatos',
       lista: [
         ItemListaDetalhes(
-          subtitulo:
-              'Email:',
-          corpo: ['ferneda@ucb.br'],
+          subtitulo: 'Email:',
+          corpo: [_controller.curriculo.email],
         ),
         ItemListaDetalhes(
-          subtitulo:
-              'LinkedIn:',
+          subtitulo: 'LinkedIn:',
           corpo: ['https://www.linkedin.com/in/edilson-ferneda-348199a/'],
         ),
         ItemListaDetalhes(
-          subtitulo:
-              'Instagram:',
+          subtitulo: 'Instagram:',
           corpo: ['@eferneda'],
         ),
         ItemListaDetalhes(
-          subtitulo:
-              'Facebook:',
+          subtitulo: 'Facebook:',
           corpo: ['https://www.facebook.com/edilson.ferneda.5'],
+        ),
+        ItemListaDetalhes(
+          subtitulo: 'Telefone:',
+          corpo: [_controller.curriculo.celular ?? 'Não informado'],
         ),
       ],
     );
@@ -320,104 +326,11 @@ class _CurriculoViewState extends State<CurriculoView> {
         ),
         DetalhesCurriculoWidget(
           maxWidth: _maxWidth * 0.9,
+          dados: atuacao,
+        ),
+        DetalhesCurriculoWidget(
+          maxWidth: _maxWidth * 0.9,
           dados: contatos,
-        ),
-      ],
-    );
-  }
-
-  _formacaoContainer() {
-    var formacao1 = ListaDetalhes(
-      titulo: 'Doutorado em Ciência da Computação.',
-      lista: [
-        ItemListaDetalhes(
-          subtitulo:
-              '',
-          corpo: [
-            'LIRMM-Université Montpellier II, LIRMM-UMII, França.',
-            'Título: Conception d\'un agent rationnel et examen de son raisonnement en géométrie, Ano de obtenção: 1992.',
-            'Orientador: Jean Sallantin.',
-            'Bolsista do(a): Coordenação de Aperfeiçoamento de Pessoal de Nível Superior, CAPES, Brasil.',
-            'Palavras-chave: Inteligência Artificial; Agentes Inteligentes; Agentes Racionais.',
-            'Grande área: Ciências Exatas e da Terra',
-          ],
-        ),
-        ItemListaDetalhes(
-          subtitulo:
-              'Programa de Capacitação do Banco de Avaliadores do. (Carga horária: 32h).',
-          corpo: [
-            'Instituto Nacional de Estudos e Pesquisas Educacionais Anísio Teixeira, INEP/MEC, Brasil.',
-          ],
-        ),
-      ],
-    );
-    var formacao2 = ListaDetalhes(
-      titulo: 'Formação Complementar',
-      lista: [
-        ItemListaDetalhes(
-          subtitulo:
-              'Programa de Capacitação do Banco de Avaliadores do. (Carga horária: 32h).',
-          corpo: [
-            'Instituto Nacional de Estudos e Pesquisas Educacionais Anísio Teixeira, INEP/MEC, Brasil.',
-          ],
-        ),
-      ],
-    );
-
-    return Column(
-      children: <Widget>[
-        DetalhesCurriculoWidget(
-          maxWidth: _maxWidth * 0.9,
-          dados: formacao1,
-        ),
-        DetalhesCurriculoWidget(
-          maxWidth: _maxWidth * 0.9,
-          dados: formacao2,
-        ),
-      ],
-    );
-  }
-
-  _atuacaoContainer() {
-    var atuacao = ListaDetalhes(
-      titulo: 'Ministério da Educação, MEC, Brasil',
-      lista: [
-        ItemListaDetalhes(
-          subtitulo:
-              'Membro da Comissão ENC, Enquadramento Funcional: Cargo honorífico',
-          corpo: ['2001 - momento'],
-        ),
-        ItemListaDetalhes(
-          subtitulo:
-              'Membro da Comissão do ENC-2001, Enquadramento Funcional: Cargo honorífico',
-          corpo: ['2000 - 2001'],
-        ),
-        ItemListaDetalhes(
-          subtitulo:
-              'Membro da C. E. E. Farmácia, Enquadramento Funcional: Cargo honorífico',
-          corpo: ['1998 - 2000'],
-        ),
-        ItemListaDetalhes(
-          subtitulo:
-              'Disponibilidade pela UFPR, Enquadramento Funcional: DAS 2, Carga horária: 40, Regime: Dedicação exclusiva',
-          corpo: ['1975 - 1983'],
-        ),
-      ],
-    );
-
-    return Column(
-      children: <Widget>[
-        DetalhesCurriculoWidget(
-          maxWidth: _maxWidth * 0.9,
-          dados: atuacao,
-        ),
-        DetalhesCurriculoWidget(
-          maxWidth: _maxWidth * 0.9,
-          dados: atuacao,
-        ),
-        DetalhesCurriculoWidget(
-          maxWidth: _maxWidth * 0.9,
-          dados: atuacao,
         ),
       ],
     );
@@ -432,51 +345,6 @@ class _CurriculoViewState extends State<CurriculoView> {
   _eventosContainer() {
     return Container(
         child: OrganizeCharts().createCharts(dataExemplo, [100, 2, 30, 4, 55]));
-  }
-
-  _bancasContainer() {
-    var atuacao = ListaDetalhes(
-      titulo: 'Ministério da Educação, MEC, Brasil',
-      lista: [
-        ItemListaDetalhes(
-          subtitulo:
-              'Membro da Comissão ENC, Enquadramento Funcional: Cargo honorífico',
-          corpo: ['2001 - momento'],
-        ),
-        ItemListaDetalhes(
-          subtitulo:
-              'Membro da Comissão do ENC-2001, Enquadramento Funcional: Cargo honorífico',
-          corpo: ['2000 - 2001'],
-        ),
-        ItemListaDetalhes(
-          subtitulo:
-              'Membro da C. E. E. Farmácia, Enquadramento Funcional: Cargo honorífico',
-          corpo: ['1998 - 2000'],
-        ),
-        ItemListaDetalhes(
-          subtitulo:
-              'Disponibilidade pela UFPR, Enquadramento Funcional: DAS 2, Carga horária: 40, Regime: Dedicação exclusiva',
-          corpo: ['1975 - 1983'],
-        ),
-      ],
-    );
-
-    return Column(
-      children: <Widget>[
-        DetalhesCurriculoWidget(
-          maxWidth: _maxWidth * 0.9,
-          dados: atuacao,
-        ),
-        DetalhesCurriculoWidget(
-          maxWidth: _maxWidth * 0.9,
-          dados: atuacao,
-        ),
-        DetalhesCurriculoWidget(
-          maxWidth: _maxWidth * 0.9,
-          dados: atuacao,
-        ),
-      ],
-    );
   }
 
   _mostrarLayout() {
@@ -546,11 +414,8 @@ class _CurriculoViewState extends State<CurriculoView> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             _dadosGeraisBotao,
-                            _formacaoBotao,
-                            _atuacaoBotao,
                             _producoesBotao,
                             _eventosBotao,
-                            _bancasBotao,
                           ],
                         ),
                       ),

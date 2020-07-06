@@ -54,6 +54,10 @@ class _ResultadoViewState extends State<ResultadoView> {
         new ObservableList<ObservableList<CurriculoLattes>>();
     int k = 0;
 
+    if (nroPages < 1){
+      nroPages = 1;
+    }
+
     print(nroPages);
     for (int i = 0; i < nroPages; i++) {
       aux.add(new ObservableList<CurriculoLattes>());
