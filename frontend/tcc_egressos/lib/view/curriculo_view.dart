@@ -12,6 +12,7 @@ import 'package:tcc_egressos/components/screenSize.dart';
 import 'package:tcc_egressos/controller/curriculo_controller.dart';
 import 'package:tcc_egressos/controller/menu_botao_widget_controller.dart';
 import 'package:tcc_egressos/model/Charts/OrganizeCharts.dart';
+import 'package:tcc_egressos/model/curriculo_lattes/cargo.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
 import 'package:tcc_egressos/model/lista_detalhes.dart';
 
@@ -186,14 +187,24 @@ class _CurriculoViewState extends State<CurriculoView> {
   }
 
   _formacaoCargo() {
+    var cargo = _controller.consultaCargo();
     return Padding(
       padding: const EdgeInsets.only(top: 14),
       child: Container(
         constraints: BoxConstraints(maxWidth: _constraints.maxWidth * 0.8),
         // color: Colors.blue,
-        child: Text(
-          "Professor e Doutor de Ciência da Computação - Universidade Católica de Brasília",
+        child: FutureBuilder(
+          future: cargo,
+          builder: (BuildContext context, AsyncSnapshot<Cargo> snapshot) {
+            if (snapshot.hasData) {
+              return Text('${snapshot.data.cargo} - ${snapshot.data.instituicao}');
+            }
+            return Text('Cargo atual não informado');
+          },
         ),
+        // child: Text(
+        //   '${cargo.cargo} - ${cargo.instituicao}',
+        // ),
       ),
     );
   }
@@ -233,31 +244,6 @@ class _CurriculoViewState extends State<CurriculoView> {
     );
   }
 
-  // MenuBotaoWidget _formacaoBotao;
-  // _setFormacaoBotao() {
-  //   return MenuBotaoWidget(
-  //     onTap: () {
-  //       // _setAtualMenu(_formacaoContainer());
-  //       formacaoContainer().then((value) => _setAtualMenu(value));
-  //       // _setAtualBotao(_formacaoBotao);
-  //     },
-  //     text: "Formação",
-  //     controller: MenuBotaoWidgetController(ativo: false),
-  //   );
-  // }
-
-  // MenuBotaoWidget _atuacaoBotao;
-  // _setAtuacaoBotao() {
-  //   return MenuBotaoWidget(
-  //     onTap: () {
-  //       _setAtualMenu(_atuacaoContainer());
-  //       // _setAtualBotao(_atuacaoBotao);
-  //     },
-  //     text: "Atuação",
-  //     controller: MenuBotaoWidgetController(ativo: false),
-  //   );
-  // }
-
   MenuBotaoWidget _producoesBotao;
   _setProducoesBotao() {
     return MenuBotaoWidget(
@@ -285,20 +271,6 @@ class _CurriculoViewState extends State<CurriculoView> {
       controller: MenuBotaoWidgetController(ativo: false),
     );
   }
-
-  // MenuBotaoWidget _bancasBotao;
-  // _setBancasBotao() {
-  //   return MenuBotaoWidget(
-  //     onTap: () {
-  //       _setAtualMenu(_bancasContainer());
-  //       _resetBotaoAtivo();
-  //       _bancasBotao.controller.ativo = true;
-  //       // _setAtualBotao(_bancasBotao);
-  //     },
-  //     text: "Bancas",
-  //     controller: MenuBotaoWidgetController(ativo: false),
-  //   );
-  // }
 
   _dadosGeraisContainer() {
     var nomeCitacao = ListaDetalhes(
@@ -364,107 +336,6 @@ class _CurriculoViewState extends State<CurriculoView> {
     );
   }
 
-  // Future<Widget> formacaoContainer() async {
-  //   var formacao1 = ListaDetalhes(
-  //     titulo: 'Doutorado em Ciência da Computação.',
-  //     lista: [
-  //       ItemListaDetalhes(
-  //         subtitulo: '',
-  //         corpo: [
-  //           'LIRMM-Université Montpellier II, LIRMM-UMII, França.',
-  //           'Título: Conception d\'un agent rationnel et examen de son raisonnement en géométrie, Ano de obtenção: 1992.',
-  //           'Orientador: Jean Sallantin.',
-  //           'Bolsista do(a): Coordenação de Aperfeiçoamento de Pessoal de Nível Superior, CAPES, Brasil.',
-  //           'Palavras-chave: Inteligência Artificial; Agentes Inteligentes; Agentes Racionais.',
-  //           'Grande área: Ciências Exatas e da Terra',
-  //         ],
-  //       ),
-  //       ItemListaDetalhes(
-  //         subtitulo:
-  //             'Programa de Capacitação do Banco de Avaliadores do. (Carga horária: 32h).',
-  //         corpo: [
-  //           'Instituto Nacional de Estudos e Pesquisas Educacionais Anísio Teixeira, INEP/MEC, Brasil.',
-  //         ],
-  //       ),
-  //     ],
-  //   );
-  //   var formacao2 = ListaDetalhes(
-  //     titulo: 'Formação Complementar',
-  //     lista: [
-  //       ItemListaDetalhes(
-  //         subtitulo:
-  //             'Programa de Capacitação do Banco de Avaliadores do. (Carga horária: 32h).',
-  //         corpo: [
-  //           'Instituto Nacional de Estudos e Pesquisas Educacionais Anísio Teixeira, INEP/MEC, Brasil.',
-  //         ],
-  //       ),
-  //     ],
-  //   );
-
-  //   var formacao = await _controller.consultaFormacao();
-
-  //   // var listaFormacao = ListaDetalhes(
-  //   //     titulo: '',
-  //   //     lista: formacao.map((e) {
-  //   //       return ItemListaDetalhes(subtitulo: e.curso, corpo: [e.instituicao]);
-  //   //     }).toList());
-
-  //   var listaFormacao = formacao.map((e) {
-  //     return DetalhesCurriculoWidget(maxWidth: _maxWidth * 0.9, dados: ListaDetalhes(
-  //         titulo: e.curso,
-  //         lista: [ItemListaDetalhes(subtitulo: e.instituicao, corpo: [e.area, '${e.dataInicio} - ${e.dataFim}'])]),);
-  //   }).toList();
-
-  //   return Column(
-  //     children: listaFormacao,
-  //   );
-  // }
-
-  // _atuacaoContainer() {
-  //   var atuacao = ListaDetalhes(
-  //     titulo: 'Ministério da Educação, MEC, Brasil',
-  //     lista: [
-  //       ItemListaDetalhes(
-  //         subtitulo:
-  //             'Membro da Comissão ENC, Enquadramento Funcional: Cargo honorífico',
-  //         corpo: ['2001 - momento'],
-  //       ),
-  //       ItemListaDetalhes(
-  //         subtitulo:
-  //             'Membro da Comissão do ENC-2001, Enquadramento Funcional: Cargo honorífico',
-  //         corpo: ['2000 - 2001'],
-  //       ),
-  //       ItemListaDetalhes(
-  //         subtitulo:
-  //             'Membro da C. E. E. Farmácia, Enquadramento Funcional: Cargo honorífico',
-  //         corpo: ['1998 - 2000'],
-  //       ),
-  //       ItemListaDetalhes(
-  //         subtitulo:
-  //             'Disponibilidade pela UFPR, Enquadramento Funcional: DAS 2, Carga horária: 40, Regime: Dedicação exclusiva',
-  //         corpo: ['1975 - 1983'],
-  //       ),
-  //     ],
-  //   );
-
-  //   return Column(
-  //     children: <Widget>[
-  //       DetalhesCurriculoWidget(
-  //         maxWidth: _maxWidth * 0.9,
-  //         dados: atuacao,
-  //       ),
-  //       DetalhesCurriculoWidget(
-  //         maxWidth: _maxWidth * 0.9,
-  //         dados: atuacao,
-  //       ),
-  //       DetalhesCurriculoWidget(
-  //         maxWidth: _maxWidth * 0.9,
-  //         dados: atuacao,
-  //       ),
-  //     ],
-  //   );
-  // }
-
   _producoesContainer() {
     return Container(
         child: OrganizeCharts()
@@ -475,51 +346,6 @@ class _CurriculoViewState extends State<CurriculoView> {
     return Container(
         child: OrganizeCharts().createCharts(dataExemplo, [100, 2, 30, 4, 55]));
   }
-
-  // _bancasContainer() {
-  //   var atuacao = ListaDetalhes(
-  //     titulo: 'Ministério da Educação, MEC, Brasil',
-  //     lista: [
-  //       ItemListaDetalhes(
-  //         subtitulo:
-  //             'Membro da Comissão ENC, Enquadramento Funcional: Cargo honorífico',
-  //         corpo: ['2001 - momento'],
-  //       ),
-  //       ItemListaDetalhes(
-  //         subtitulo:
-  //             'Membro da Comissão do ENC-2001, Enquadramento Funcional: Cargo honorífico',
-  //         corpo: ['2000 - 2001'],
-  //       ),
-  //       ItemListaDetalhes(
-  //         subtitulo:
-  //             'Membro da C. E. E. Farmácia, Enquadramento Funcional: Cargo honorífico',
-  //         corpo: ['1998 - 2000'],
-  //       ),
-  //       ItemListaDetalhes(
-  //         subtitulo:
-  //             'Disponibilidade pela UFPR, Enquadramento Funcional: DAS 2, Carga horária: 40, Regime: Dedicação exclusiva',
-  //         corpo: ['1975 - 1983'],
-  //       ),
-  //     ],
-  //   );
-
-  //   return Column(
-  //     children: <Widget>[
-  //       DetalhesCurriculoWidget(
-  //         maxWidth: _maxWidth * 0.9,
-  //         dados: atuacao,
-  //       ),
-  //       DetalhesCurriculoWidget(
-  //         maxWidth: _maxWidth * 0.9,
-  //         dados: atuacao,
-  //       ),
-  //       DetalhesCurriculoWidget(
-  //         maxWidth: _maxWidth * 0.9,
-  //         dados: atuacao,
-  //       ),
-  //     ],
-  //   );
-  // }
 
   _mostrarLayout() {
     _controller.container = _dadosGeraisContainer();
@@ -588,11 +414,8 @@ class _CurriculoViewState extends State<CurriculoView> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             _dadosGeraisBotao,
-                            // _formacaoBotao,
-                            // _atuacaoBotao,
                             _producoesBotao,
                             _eventosBotao,
-                            // _bancasBotao,
                           ],
                         ),
                       ),
