@@ -208,10 +208,13 @@ class _ConsultaViewState extends State<ConsultaView> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text("Egressos mais pesquisados", style: TextStyle(
-                                    color: Color.fromARGB(255, 85, 125, 217),
-                                    fontSize: 20
-                                  ),),
+                                  Container(
+                                    padding: EdgeInsets.fromLTRB(20, 20, 0, 20),
+                                    child: Text("Egressos mais pesquisados", style: TextStyle(
+                                      color: Color.fromARGB(255, 85, 125, 217),
+                                      fontSize: 20
+                                    ),),
+                                  ),
                                   ListEgressos(
                                     list: snapshot.data,
                                     sizeList: snapshot.data.length == 0

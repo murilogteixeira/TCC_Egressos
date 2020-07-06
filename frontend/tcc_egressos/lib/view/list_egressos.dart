@@ -17,20 +17,8 @@ class ListEgressos extends StatefulWidget {
 
 class ListEgressosState extends State<ListEgressos> {
   ListEgressosController _controller;
-  // final _words = ['Gustavo', 'Filipe', 'Aline', 'Ramon', 'Murilo'];
-//  final _words = ['Gustavo','Aline', 'Ramon'];
-  final _colors = [
-    Colors.blue,
-    Colors.red,
-    Colors.green,
-    Colors.blue,
-    Colors.red
-  ];
-//  final _colors = [
-//    Colors.blue,
-//    Colors.red,
-//    Colors.green
-//  ];
+  int indexInicial;
+  int indexFinal;
 
   @override
   void initState() {
@@ -46,10 +34,21 @@ class ListEgressosState extends State<ListEgressos> {
       itemBuilder: (_, index) {
         return _buildRow(index);
       },
-      itemCount: widget.sizeList > widget.list.length
-          ? widget.list.length
-          : widget.sizeList,
+      itemCount: widget.sizeList,
     );
+  }
+
+  Color _defineColor(int index) {
+    switch (widget.list[index].situacao.tipo) {
+      case 'Regular':
+        return Colors.blue;
+      case 'Atrasado':
+        return Colors.red;
+      case ('Adiantado'):
+        return Colors.green;
+      default:
+        return Colors.grey;
+    }
   }
 
   Widget _buildRow(int index) {
@@ -87,26 +86,28 @@ class ListEgressosState extends State<ListEgressos> {
                         //    color: Colors.red,
                         //    width: 5.0,
                         //  ),
-                        color: _colors[index],
+                        color: _defineColor(index),
                         shape: BoxShape.circle,
-                        
+
                         // image: new DecorationImage(
                         //       image: AssetImage('web/profile.png'), fit: BoxFit.fill),
-                        
+
                       ),
                       child: Container(
-                        height: 70.0,
-                        width: 70.0,
+                        height: 69.0,
+                        width: 69.0,
                         // child: Image.asset("Assets/Images/profile.png"),
-                         alignment: Alignment.center,
+                        alignment: Alignment.center,
                         decoration: new BoxDecoration(
                           border: Border.all(
                             color: Colors.white,
-                            width: 2.5,
+                            width: 3.5,
                           ),
                           shape: BoxShape.circle,
                           image: new DecorationImage(
-                              image: AssetImage('assets/Images/profile.png'), fit: BoxFit.fitHeight),
+                              fit: BoxFit.fill,
+                              image: NetworkImage("https://www.kirkham-legal.co.uk/wp-content/uploads/2017/02/profile-placeholder.png"),
+                          )
                         ),
                       ),
                     ),
@@ -125,16 +126,16 @@ class ListEgressosState extends State<ListEgressos> {
                                       color: Colors.blue, fontSize: 20.0))),
                           Container(
                               child: ConstrainedBox(
-                            constraints: BoxConstraints(
-                                maxWidth:
+                                constraints: BoxConstraints(
+                                    maxWidth:
                                     MediaQuery.of(context).size.width * 0.8 / 2,
-                                maxHeight:
+                                    maxHeight:
                                     MediaQuery.of(context).size.height * 1.0),
-                            child: AutoSizeText(
-                              '${'Professor na Universidade Católica de Brasília'}',
-                              group: AutoSizeGroup(),
-                            ),
-                          )),
+                                child: AutoSizeText(
+                                  '${'Professor na Universidade Católica de Brasília'}',
+                                  group: AutoSizeGroup(),
+                                ),
+                              )),
                           Text('${"Doutor"}')
                         ],
                       ),
