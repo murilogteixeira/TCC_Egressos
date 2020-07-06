@@ -94,14 +94,14 @@ class ListEgressosState extends State<ListEgressos> {
 
                       ),
                       child: Container(
-                        height: 70.0,
-                        width: 70.0,
+                        height: 69.0,
+                        width: 69.0,
                         // child: Image.asset("Assets/Images/profile.png"),
                         alignment: Alignment.center,
                         decoration: new BoxDecoration(
                           border: Border.all(
                             color: Colors.white,
-                            width: 2.5,
+                            width: 3.5,
                           ),
                           shape: BoxShape.circle,
                           image: new DecorationImage(

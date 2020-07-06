@@ -117,7 +117,7 @@ class _ResultadoViewState extends State<ResultadoView> {
       return Text("Nenhum curriculo encontrado");
     }
     print((lista.length / 6).round());
-    matriz = _buildPages((lista.length/3).round(), 3, lista);
+    matriz = _buildPages((lista.length/4).round(), 4, lista);
     return SingleChildScrollView(
       child: Container(
         color: Color(0xFFEAEDF2),
@@ -145,7 +145,7 @@ class _ResultadoViewState extends State<ResultadoView> {
                       Container(
                         alignment: Alignment.topCenter,
                         padding: EdgeInsets.all(20),
-                        child: _buildIndexPage((lista.length/3/3).round()),
+                        child: _buildIndexPage((lista.length/4).round()),
                       ),
                       Container(
                         decoration: BoxDecoration(
