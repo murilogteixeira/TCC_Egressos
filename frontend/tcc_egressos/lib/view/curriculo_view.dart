@@ -128,7 +128,7 @@ class _CurriculoViewState extends State<CurriculoView> {
         image: DecorationImage(
           fit: BoxFit.fill,
           image: NetworkImage(
-              "https://www.bauducco.com.br/wp-content/uploads/2017/09/default-placeholder-1-2.png"),
+              "https://www.kirkham-legal.co.uk/wp-content/uploads/2017/02/profile-placeholder.png"),
         ),
       ),
     );
