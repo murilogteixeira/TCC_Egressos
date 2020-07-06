@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:mobx/mobx.dart';
+import 'package:tcc_egressos/controller/curriculo_controller.dart';
 import 'package:tcc_egressos/controller/list_egressos_controller.dart';
 import 'package:tcc_egressos/extension/hand_cursor.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
@@ -16,13 +17,15 @@ class ListEgressos extends StatefulWidget {
 }
 
 class ListEgressosState extends State<ListEgressos> {
-  ListEgressosController _controller;
+  ListEgressosController _listController;
+  CurriculoController _curriculoController;
   int indexInicial;
   int indexFinal;
 
   @override
   void initState() {
-    _controller = ListEgressosController(context);
+    _listController = ListEgressosController(context);
+    _curriculoController = CurriculoController();
     super.initState();
   }
 
@@ -44,7 +47,7 @@ class ListEgressosState extends State<ListEgressos> {
         return Colors.blue;
       case 'Atrasado':
         return Colors.red;
-      case ('Adiantado'):
+      case 'Adiantado':
         return Colors.green;
       default:
         return Colors.grey;
@@ -55,7 +58,7 @@ class ListEgressosState extends State<ListEgressos> {
     return HandCursor(
       cursor: 'pointer',
       child: GestureDetector(
-        onTap: () => _controller.onTapCurriculo(widget.list[index]),
+        onTap: () => _listController.onTapCurriculo(widget.list[index]),
         child: Container(
           height: MediaQuery.of(context).size.width < 768 ? 175 : 119,
           width: MediaQuery.of(context).size.width,
