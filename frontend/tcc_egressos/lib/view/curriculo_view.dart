@@ -43,7 +43,7 @@ class _CurriculoViewState extends State<CurriculoView> {
     // _atuacaoBotao = _setAtuacaoBotao();
     _producoesBotao = _setProducoesBotao();
     _eventosBotao = _setEventosBotao();
-    _bancasBotao = _setBancasBotao();
+    // _bancasBotao = _setBancasBotao();
     super.initState();
   }
 
@@ -217,7 +217,7 @@ class _CurriculoViewState extends State<CurriculoView> {
     _dadosGeraisBotao.controller.ativo = false;
     _producoesBotao.controller.ativo = false;
     _eventosBotao.controller.ativo = false;
-    _bancasBotao.controller.ativo = false;
+    // _bancasBotao.controller.ativo = false;
   }
 
   MenuBotaoWidget _dadosGeraisBotao;
@@ -286,19 +286,19 @@ class _CurriculoViewState extends State<CurriculoView> {
     );
   }
 
-  MenuBotaoWidget _bancasBotao;
-  _setBancasBotao() {
-    return MenuBotaoWidget(
-      onTap: () {
-        _setAtualMenu(_bancasContainer());
-        _resetBotaoAtivo();
-        _bancasBotao.controller.ativo = true;
-        // _setAtualBotao(_bancasBotao);
-      },
-      text: "Bancas",
-      controller: MenuBotaoWidgetController(ativo: false),
-    );
-  }
+  // MenuBotaoWidget _bancasBotao;
+  // _setBancasBotao() {
+  //   return MenuBotaoWidget(
+  //     onTap: () {
+  //       _setAtualMenu(_bancasContainer());
+  //       _resetBotaoAtivo();
+  //       _bancasBotao.controller.ativo = true;
+  //       // _setAtualBotao(_bancasBotao);
+  //     },
+  //     text: "Bancas",
+  //     controller: MenuBotaoWidgetController(ativo: false),
+  //   );
+  // }
 
   _dadosGeraisContainer() {
     var nomeCitacao = ListaDetalhes(
@@ -476,50 +476,50 @@ class _CurriculoViewState extends State<CurriculoView> {
         child: OrganizeCharts().createCharts(dataExemplo, [100, 2, 30, 4, 55]));
   }
 
-  _bancasContainer() {
-    var atuacao = ListaDetalhes(
-      titulo: 'Ministério da Educação, MEC, Brasil',
-      lista: [
-        ItemListaDetalhes(
-          subtitulo:
-              'Membro da Comissão ENC, Enquadramento Funcional: Cargo honorífico',
-          corpo: ['2001 - momento'],
-        ),
-        ItemListaDetalhes(
-          subtitulo:
-              'Membro da Comissão do ENC-2001, Enquadramento Funcional: Cargo honorífico',
-          corpo: ['2000 - 2001'],
-        ),
-        ItemListaDetalhes(
-          subtitulo:
-              'Membro da C. E. E. Farmácia, Enquadramento Funcional: Cargo honorífico',
-          corpo: ['1998 - 2000'],
-        ),
-        ItemListaDetalhes(
-          subtitulo:
-              'Disponibilidade pela UFPR, Enquadramento Funcional: DAS 2, Carga horária: 40, Regime: Dedicação exclusiva',
-          corpo: ['1975 - 1983'],
-        ),
-      ],
-    );
+  // _bancasContainer() {
+  //   var atuacao = ListaDetalhes(
+  //     titulo: 'Ministério da Educação, MEC, Brasil',
+  //     lista: [
+  //       ItemListaDetalhes(
+  //         subtitulo:
+  //             'Membro da Comissão ENC, Enquadramento Funcional: Cargo honorífico',
+  //         corpo: ['2001 - momento'],
+  //       ),
+  //       ItemListaDetalhes(
+  //         subtitulo:
+  //             'Membro da Comissão do ENC-2001, Enquadramento Funcional: Cargo honorífico',
+  //         corpo: ['2000 - 2001'],
+  //       ),
+  //       ItemListaDetalhes(
+  //         subtitulo:
+  //             'Membro da C. E. E. Farmácia, Enquadramento Funcional: Cargo honorífico',
+  //         corpo: ['1998 - 2000'],
+  //       ),
+  //       ItemListaDetalhes(
+  //         subtitulo:
+  //             'Disponibilidade pela UFPR, Enquadramento Funcional: DAS 2, Carga horária: 40, Regime: Dedicação exclusiva',
+  //         corpo: ['1975 - 1983'],
+  //       ),
+  //     ],
+  //   );
 
-    return Column(
-      children: <Widget>[
-        DetalhesCurriculoWidget(
-          maxWidth: _maxWidth * 0.9,
-          dados: atuacao,
-        ),
-        DetalhesCurriculoWidget(
-          maxWidth: _maxWidth * 0.9,
-          dados: atuacao,
-        ),
-        DetalhesCurriculoWidget(
-          maxWidth: _maxWidth * 0.9,
-          dados: atuacao,
-        ),
-      ],
-    );
-  }
+  //   return Column(
+  //     children: <Widget>[
+  //       DetalhesCurriculoWidget(
+  //         maxWidth: _maxWidth * 0.9,
+  //         dados: atuacao,
+  //       ),
+  //       DetalhesCurriculoWidget(
+  //         maxWidth: _maxWidth * 0.9,
+  //         dados: atuacao,
+  //       ),
+  //       DetalhesCurriculoWidget(
+  //         maxWidth: _maxWidth * 0.9,
+  //         dados: atuacao,
+  //       ),
+  //     ],
+  //   );
+  // }
 
   _mostrarLayout() {
     _controller.container = _dadosGeraisContainer();
@@ -592,7 +592,7 @@ class _CurriculoViewState extends State<CurriculoView> {
                             // _atuacaoBotao,
                             _producoesBotao,
                             _eventosBotao,
-                            _bancasBotao,
+                            // _bancasBotao,
                           ],
                         ),
                       ),
