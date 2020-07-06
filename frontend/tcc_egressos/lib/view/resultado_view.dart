@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
 import 'package:tcc_egressos/components/nav_bar_widget.dart';
 import 'package:tcc_egressos/controller/resultado_controller.dart';
@@ -19,9 +20,10 @@ class _ResultadoViewState extends State<ResultadoView> {
   ResultadoController _controller;
   ObservableList<ObservableList<CurriculoLattes>> matriz;
   
+
   @override
   void initState() {
-    _controller = ResultadoController.getInstance(context);
+    _controller = ResultadoController(context);
     super.initState();
   }
 
@@ -33,7 +35,6 @@ class _ResultadoViewState extends State<ResultadoView> {
       _controller.lista = args;
     }
     ObservableList<CurriculoLattes> lista = _controller.lista;
-    
 
     return LayoutBuilder(builder: (context, constraints) {
       var maxWidth = constraints.maxWidth;
@@ -47,22 +48,25 @@ class _ResultadoViewState extends State<ResultadoView> {
     });
   }
 
-  ObservableList<ObservableList<CurriculoLattes>> _buildPages(int nroPages, int nroRegister, ObservableList<CurriculoLattes> lista) {
-    ObservableList<ObservableList<CurriculoLattes>> aux = new ObservableList<ObservableList<CurriculoLattes>>();
+  ObservableList<ObservableList<CurriculoLattes>> _buildPages(
+      int nroPages, int nroRegister, ObservableList<CurriculoLattes> lista) {
+    ObservableList<ObservableList<CurriculoLattes>> aux =
+        new ObservableList<ObservableList<CurriculoLattes>>();
     int k = 0;
 
+    print(nroPages);
     for (int i = 0; i < nroPages; i++) {
       aux.add(new ObservableList<CurriculoLattes>());
       /*
         Verifica se o numero de register nao e maior que o numero de egressos
         restantes na lita, caso seja ele apresenta os que sobraram.
       */
-      if (lista.length-(i*nroRegister) < nroRegister) {
-        for (int j = 0; j < lista.length-(i*nroRegister); j++) {
+      if (lista.length - (i * nroRegister) < nroRegister) {
+        for (int j = 0; j < lista.length - (i * nroRegister); j++) {
           aux[i].add(lista[k]);
           k++;
         }
-      }else{
+      } else {
         for (int j = 0; j < nroRegister; j++) {
           aux[i].add(lista[k]);
           k++;
@@ -80,8 +84,9 @@ class _ResultadoViewState extends State<ResultadoView> {
         child: FlatButton(
           onPressed: () {
             print('oi');
+            _controller.setPaginaAtual(i);
           },
-          child: Text('${i+1}'),
+          child: Text('${i + 1}'),
         ),
       ));
     }
@@ -89,6 +94,13 @@ class _ResultadoViewState extends State<ResultadoView> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: aux,
+    );
+  }
+
+  ListEgressos _selecionarLista() {
+    return ListEgressos(
+      list: matriz[_controller.paginaAtual],
+      sizeList: matriz[_controller.paginaAtual].length,
     );
   }
 
@@ -104,7 +116,8 @@ class _ResultadoViewState extends State<ResultadoView> {
     if (lista == null) {
       return Text("Nenhum curriculo encontrado");
     }
-    matriz = _buildPages((lista.length/2).round(), 2, lista);
+    print((lista.length / 6).round());
+    matriz = _buildPages((lista.length/3).round(), 3, lista);
     return SingleChildScrollView(
       child: Container(
         color: Color(0xFFEAEDF2),
@@ -125,23 +138,22 @@ class _ResultadoViewState extends State<ResultadoView> {
                       Container(
                           alignment: Alignment.topLeft,
                           padding: EdgeInsets.fromLTRB(20, 20, 0, 0),
-                          child: Text('${matriz[0].length} resultados encontrados',
+                          child: Text(
+                              '${matriz[0].length} resultados encontrados',
                               style: TextStyle(
-                                  color: Colors.blue, fontSize: 20.0))
-                      ),
+                                  color: Colors.blue, fontSize: 20.0))),
                       Container(
                         alignment: Alignment.topCenter,
                         padding: EdgeInsets.all(20),
-                        child: _buildIndexPage(matriz[0].length),
+                        child: _buildIndexPage((lista.length/3/3).round()),
                       ),
                       Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(20)),
                         ),
-                        child: ListEgressos(
-                          list: matriz[0],
-                          sizeList: matriz[0].length,
-                        ),
+                        child: Observer(builder: (_){
+                          return _selecionarLista();
+                        }),
                       ),
                     ],
                   ),

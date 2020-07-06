@@ -105,7 +105,9 @@ class ListEgressosState extends State<ListEgressos> {
                           ),
                           shape: BoxShape.circle,
                           image: new DecorationImage(
-                              image: AssetImage('assets/Images/profile.png'), fit: BoxFit.fitHeight),
+                              fit: BoxFit.fill,
+                              image: NetworkImage("https://www.kirkham-legal.co.uk/wp-content/uploads/2017/02/profile-placeholder.png"),
+                          )
                         ),
                       ),
                     ),

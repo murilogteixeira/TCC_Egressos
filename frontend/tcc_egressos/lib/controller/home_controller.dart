@@ -16,7 +16,6 @@ class HomeController = _HomeControllerBase with _$HomeController;
 
 abstract class _HomeControllerBase with Store {
   _HomeControllerBase(this.context);
-
   final context;
 
   @observable
