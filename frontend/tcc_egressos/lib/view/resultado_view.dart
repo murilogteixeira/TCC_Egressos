@@ -83,16 +83,20 @@ class _ResultadoViewState extends State<ResultadoView> {
   Widget _buildIndexPage(int nroPages) {
     List<Widget> aux = new List<Widget>();
     for (int i = 0; i < nroPages; i++) {
-      aux.add(Container(
-        padding: EdgeInsets.all(20),
-        child: FlatButton(
-          onPressed: () {
-            print('oi');
-            _controller.setPaginaAtual(i);
-          },
-          child: Text('${i + 1}'),
-        ),
-      ));
+      aux.add(
+          Container(
+            padding: EdgeInsets.fromLTRB(i == 0 ? 0 : 1.0, 0, i == nroPages-1 ? 1.0 : 0, 0),
+            child: FlatButton(
+              padding: EdgeInsets.zero,
+              textColor: Colors.black,
+              shape: new CircleBorder(),
+              onPressed: () {
+                _controller.setPaginaAtual(i);
+              },
+              child: Text('${i + 1}'),
+            ),
+          )
+      );
     }
 
     return Row(
@@ -143,7 +147,7 @@ class _ResultadoViewState extends State<ResultadoView> {
                           alignment: Alignment.topLeft,
                           padding: EdgeInsets.fromLTRB(20, 20, 0, 0),
                           child: Text(
-                              '${matriz[0].length} resultados encontrados',
+                              '${lista.length} resultados encontrados',
                               style: TextStyle(
                                   color: Colors.blue, fontSize: 20.0))),
                       Container(
@@ -158,6 +162,11 @@ class _ResultadoViewState extends State<ResultadoView> {
                         child: Observer(builder: (_){
                           return _selecionarLista();
                         }),
+                      ),
+                      Container(
+                        alignment: Alignment.topCenter,
+                        padding: EdgeInsets.all(20),
+                        child: _buildIndexPage((lista.length/4).round()),
                       ),
                     ],
                   ),
