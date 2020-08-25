@@ -189,7 +189,7 @@ class _ConsultaViewState extends State<ConsultaView> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.only(top: 8, bottom: 45),
               child: Container(
                   width: 750,
                   decoration: BoxDecoration(
