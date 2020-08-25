@@ -18,6 +18,7 @@ jobs:
 
       - name: Install
         run: |
+          cd frontend/tcc_egressos
           flutter config --enable-web
           flutter pub get
 
