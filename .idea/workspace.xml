@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="2018a1b8-8f37-4606-bbc5-2503d4af7c86" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/TCC_Egressos.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/tcc_egressos/lib/view/list_egressos.dart" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/tcc_egressos/lib/view/list_egressos.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/tcc_egressos/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/tcc_egressos/pubspec.lock" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="Nexus_6_API_28" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1dpdwZJof1EmjUsYaKz3U5A9CR8" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="dart.analysis.tool.window.force.activate" value="false" />
+    <property name="io.flutter.reload.alreadyRun" value="true" />
+    <property name="settings.editor.selected.configurable" value="dart.settings" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="FlutterRunConfigurationType" factoryName="Flutter">
+      <option name="filePath" value="$PROJECT_DIR$/frontend/tcc_egressos/lib/main.dart" />
+      <method v="2" />
+    </configuration>
+    <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter" nameIsGenerated="true">
+      <option name="filePath" value="$PROJECT_DIR$/frontend/tcc_egressos/lib/main.dart" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2018a1b8-8f37-4606-bbc5-2503d4af7c86" name="Default Changelist" comment="" />
+      <created>1593126207090</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1593126207090</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="184" y="81" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1593126286624">
+      <screen x="0" y="23" width="1440" height="793" />
+    </state>
+    <state x="184" y="81" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.793@0.23.1440.793" timestamp="1593126286624" />
+    <state x="457" y="216" key="#com.intellij.ide.util.TreeFileChooserDialog" timestamp="1593126228879">
+      <screen x="0" y="23" width="1440" height="793" />
+    </state>
+    <state x="457" y="216" key="#com.intellij.ide.util.TreeFileChooserDialog/0.23.1440.793@0.23.1440.793" timestamp="1593126228879" />
+    <state x="408" y="154" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1593646441099">
+      <screen x="0" y="23" width="1440" height="793" />
+    </state>
+    <state x="408" y="154" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.23.1440.793@0.23.1440.793" timestamp="1593646441099" />
+    <state width="1398" height="186" key="GridCell.Tab.0.bottom" timestamp="1593825808026">
+      <screen x="0" y="23" width="1440" height="793" />
+    </state>
+    <state width="1398" height="186" key="GridCell.Tab.0.bottom/0.23.1440.793@0.23.1440.793" timestamp="1593825808026" />
+    <state width="1398" height="186" key="GridCell.Tab.0.center" timestamp="1593825808026">
+      <screen x="0" y="23" width="1440" height="793" />
+    </state>
+    <state width="1398" height="186" key="GridCell.Tab.0.center/0.23.1440.793@0.23.1440.793" timestamp="1593825808026" />
+    <state width="1398" height="186" key="GridCell.Tab.0.left" timestamp="1593825808025">
+      <screen x="0" y="23" width="1440" height="793" />
+    </state>
+    <state width="1398" height="186" key="GridCell.Tab.0.left/0.23.1440.793@0.23.1440.793" timestamp="1593825808025" />
+    <state width="1398" height="186" key="GridCell.Tab.0.right" timestamp="1593825808026">
+      <screen x="0" y="23" width="1440" height="793" />
+    </state>
+    <state width="1398" height="186" key="GridCell.Tab.0.right/0.23.1440.793@0.23.1440.793" timestamp="1593825808026" />
+    <state x="221" y="58" key="SettingsEditor" timestamp="1593126285960">
+      <screen x="0" y="23" width="1440" height="793" />
+    </state>
+    <state x="221" y="58" key="SettingsEditor/0.23.1440.793@0.23.1440.793" timestamp="1593126285960" />
+    <state x="390" y="252" key="com.intellij.ide.util.TipDialog" timestamp="1593646616576">
+      <screen x="0" y="23" width="1440" height="793" />
+    </state>
+    <state x="390" y="252" key="com.intellij.ide.util.TipDialog/0.23.1440.793@0.23.1440.793" timestamp="1593646616576" />
+  </component>
+</project>
