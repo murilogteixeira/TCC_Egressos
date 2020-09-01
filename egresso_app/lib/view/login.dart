@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:egresso_app/view/home.dart';
 
 class Login extends StatefulWidget {
   static final route = '/login';
@@ -80,6 +81,7 @@ class LoginForm extends StatelessWidget {
             onPressed: () {
               if (_login()) {
                 // Próxima tela
+                Navigator.of(context).pushReplacementNamed(Home.route);
               }
             },
           ),

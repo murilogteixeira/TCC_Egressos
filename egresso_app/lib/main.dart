@@ -1,4 +1,5 @@
 import 'package:egresso_app/view/login.dart';
+import 'package:egresso_app/view/home.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -15,7 +16,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: Login.route,
       routes: {
-        Login.route: (context) => Login()
+        Login.route: (context) => Login(),
+        Home.route: (context) => Home()
       },
     );
   }
