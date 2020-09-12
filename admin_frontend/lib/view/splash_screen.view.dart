@@ -24,8 +24,8 @@ class _SplashScreenViewState extends State<SplashScreenView> {
     );
   }
 
-  _verificaUsuarioLogado() {
-    var usuario = AutenticacaoService.instance.getUsuario();
+  _verificaUsuarioLogado() async {
+    var usuario = await AutenticacaoService.instance.getUsuario();
     if (usuario != null) {
       switch (usuario.funcao) {
         case Funcao.admin:
