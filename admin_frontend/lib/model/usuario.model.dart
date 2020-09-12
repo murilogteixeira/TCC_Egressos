@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:tcc_egressos/helpers/funcao.enum.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
 
@@ -21,12 +19,11 @@ class UsuarioModel {
   });
 
   UsuarioModel.fromJson(Map<String, dynamic> json) {
-    if(json.containsKey('id')) id = json['id'];
+    if (json.containsKey('id')) id = json['id'];
     nome = json['nome'];
     email = json['email'];
-    if(json.containsKey('senha')) senha = json['senha'];
+    if (json.containsKey('senha')) senha = json['senha'];
     // curriculo = CurriculoLattes().fromJson(jsonDecode(json['curriculo']));
-    funcao = json['funcao'];
     funcao = Funcao.values
         .firstWhere((e) => e.toString() == 'Funcao.' + json['funcao']);
   }

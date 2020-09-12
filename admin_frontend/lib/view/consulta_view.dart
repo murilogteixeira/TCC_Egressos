@@ -9,7 +9,7 @@ import 'package:tcc_egressos/view/list_egressos.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
 
 class ConsultaView extends StatefulWidget {
-  static var route = "/";
+  static var route = "/consulta";
 
   final String title = "Egressos";
 

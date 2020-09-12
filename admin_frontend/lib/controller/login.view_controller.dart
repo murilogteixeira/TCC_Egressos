@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tcc_egressos/service/autenticacao.service.dart';
 import 'package:tcc_egressos/helpers/funcao.enum.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
 import 'package:tcc_egressos/model/usuario.model.dart';
@@ -11,17 +11,20 @@ class LoginViewController {
 
   UsuarioModel usuario;
 
-  bool efetuarLogin(String email, String senha) {
+  UsuarioModel efetuarLogin(String email, String senha) {
+    UsuarioModel usuario;
     if (_email == email && _senha == senha) {
-      _salvarUsuario(UsuarioModel(email: email, nome: "", curriculo: CurriculoLattes(), funcao: Funcao.admin));
-      return true;
-    } else {
-      return false;
+      usuario = UsuarioModel(
+          email: email,
+          nome: "",
+          curriculo: CurriculoLattes(),
+          funcao: Funcao.admin);
+      _salvarUsuario(usuario);
     }
+    return usuario;
   }
 
   _salvarUsuario(UsuarioModel usuario) async {
-    var pref = await SharedPreferences.getInstance();
-    pref.setString('usuario', jsonEncode(usuario.toJson()));
+    AutenticacaoService.instance.setUsusario(usuario);
   }
 }

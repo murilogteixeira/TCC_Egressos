@@ -3,8 +3,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tcc_egressos/controller/login.view_controller.dart';
+import 'package:tcc_egressos/helpers/funcao.enum.dart';
 import 'package:tcc_egressos/model/usuario.model.dart';
 import 'package:tcc_egressos/view/consulta_view.dart';
+import 'package:tcc_egressos/view/home_egresso.view.dart';
 
 class LoginView extends StatefulWidget {
   static final route = '/login';
@@ -35,18 +37,18 @@ class LoginForm extends StatelessWidget {
 
     String inputEmail;
     String inputSenha;
-    
-    bool _login() {
+
+    UsuarioModel _login() {
+      UsuarioModel usuario;
       if (_formKey.currentState.validate()) {
         _formKey.currentState.save();
-        if (!_controller.efetuarLogin(inputEmail, inputSenha)) {
+        usuario = _controller.efetuarLogin(inputEmail, inputSenha);
+        if (usuario == null) {
           Scaffold.of(context)
               .showSnackBar(SnackBar(content: Text('Email ou senha inválido')));
-          return false;
         }
-        return true;
       }
-      return false;
+      return usuario;
     }
 
     return Form(
@@ -83,9 +85,19 @@ class LoginForm extends StatelessWidget {
           RaisedButton(
             child: Text('Entrar'),
             onPressed: () {
-              if (_login()) {
-                // Próxima tela
-                Navigator.of(context).pushReplacementNamed(ConsultaView.route);
+              var usuario = _login();
+              if (usuario != null) {
+                switch (usuario.funcao) {
+                  case Funcao.admin:
+                    Navigator.of(context)
+                        .pushReplacementNamed(ConsultaView.route);
+                    break;
+                  case Funcao.egresso:
+                    Navigator.of(context)
+                        .pushReplacementNamed(HomeEgressoView.route);
+                    break;
+                  default:
+                }
               }
             },
           ),
