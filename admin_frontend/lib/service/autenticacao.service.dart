@@ -25,10 +25,11 @@ class AutenticacaoService {
   }
 
   UsuarioModel getUsuario() {
-    if (_usuario != null)
+    if (_usuario != null) {
       return _usuario;
-    else
+    } else {
       return _getCacheLogin();
+    }
   }
 
   _getPrefsInstance() async {
@@ -36,16 +37,16 @@ class AutenticacaoService {
   }
 
   UsuarioModel _getCacheLogin() {
-    var usuarioString =
-        prefs.getString(_usuarioKey);
+    // Erro aqui
+    var usuarioString = prefs.getString(_usuarioKey);
+    print('--> $_usuarioKey');
     if (usuarioString == null) return null;
     _usuario = UsuarioModel.fromJson(jsonDecode(usuarioString));
     return _usuario;
   }
 
   _salvarCacheLogin() {
-    prefs.setString(
-        _usuarioKey, jsonEncode(_usuario.toJson()));
+    prefs.setString(_usuarioKey, jsonEncode(_usuario.toJson()));
   }
 
   logout() {
