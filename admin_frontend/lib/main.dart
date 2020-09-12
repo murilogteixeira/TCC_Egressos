@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tcc_egressos/view/consulta_view.dart';
 import 'package:tcc_egressos/view/curriculo_view.dart';
+import 'package:tcc_egressos/view/login.view.dart';
+import 'package:tcc_egressos/view/splash_screen.view.dart';
 
 import 'view/resultado_view.dart';
 
@@ -16,8 +19,11 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: ConsultaView.route,
+      initialRoute:
+          SplashScreenView.route,
       routes: {
+        SplashScreenView.route: (context) => SplashScreenView(),
+        LoginView.route: (context) => LoginView(),
         ConsultaView.route: (context) => ConsultaView(),
         ResultadoView.route: (context) => ResultadoView(),
         CurriculoView.route: (context) => CurriculoView(),
