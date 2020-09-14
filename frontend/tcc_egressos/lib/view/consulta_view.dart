@@ -9,7 +9,7 @@ import 'package:tcc_egressos/view/list_egressos.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
 
 class ConsultaView extends StatefulWidget {
-  static var route = "/";
+  static var route = "/consulta";
 
   final String title = "Egressos";
 
@@ -115,8 +115,7 @@ class _ConsultaViewState extends State<ConsultaView> {
               child: Container(
                 constraints: constraints,
                 child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 58),
+                    padding: const EdgeInsets.symmetric(vertical: 58),
                     child: Form(
                       key: _formKey,
                       child: Row(
@@ -137,16 +136,16 @@ class _ConsultaViewState extends State<ConsultaView> {
                                     hintText: "Pesquise pelo egresso",
                                     enabledBorder: new UnderlineInputBorder(
                                         borderRadius: BorderRadius.circular(45),
-                                        borderSide:
-                                            BorderSide(color: Colors.transparent)),
+                                        borderSide: BorderSide(
+                                            color: Colors.transparent)),
                                     focusedBorder: OutlineInputBorder(
                                       borderSide:
                                           BorderSide(color: Colors.transparent),
                                       borderRadius: BorderRadius.circular(45),
                                     ),
                                     icon: Padding(
-                                      padding:
-                                          const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                      padding: const EdgeInsets.fromLTRB(
+                                          20, 0, 0, 0),
                                       child: Icon(Icons.search),
                                     ),
                                   ),
@@ -161,7 +160,8 @@ class _ConsultaViewState extends State<ConsultaView> {
                             color: Color(0xFF547DD9),
                             height: 50,
                             minWidth: 140,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(45)),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(45)),
                             onPressed: () {
                               _consultar();
                             },
@@ -210,10 +210,13 @@ class _ConsultaViewState extends State<ConsultaView> {
                                 children: [
                                   Container(
                                     padding: EdgeInsets.fromLTRB(20, 20, 0, 20),
-                                    child: Text("Egressos mais pesquisados", style: TextStyle(
-                                      color: Color.fromARGB(255, 85, 125, 217),
-                                      fontSize: 20
-                                    ),),
+                                    child: Text(
+                                      "Egressos mais pesquisados",
+                                      style: TextStyle(
+                                          color:
+                                              Color.fromARGB(255, 85, 125, 217),
+                                          fontSize: 20),
+                                    ),
                                   ),
                                   ListEgressos(
                                     list: snapshot.data,
