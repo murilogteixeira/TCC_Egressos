@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/view/home.view.dart';
+import 'package:mobile/view/home/home.view.dart';
 import 'package:mobile/view/perfil.view.dart';
 
 class TabBarAppView extends StatefulWidget {
