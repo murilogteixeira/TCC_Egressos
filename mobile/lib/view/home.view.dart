@@ -6,10 +6,30 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  static const _tituloProducoes = 'Produções';
+  static const _tituloBancas = 'Bancas';
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(child: Text('Home View'),),
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Home'),
+          bottom: TabBar(
+            tabs: [
+              Tab(child: Text(_tituloProducoes)),
+              Tab(child: Text(_tituloBancas)),
+            ],
+          ),
+        ),
+        body: TabBarView(
+          children: [
+            Text('Produções'),
+            Text('Bancas'),
+          ],
+        ),
+      ),
     );
   }
 }

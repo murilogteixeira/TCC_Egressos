@@ -9,7 +9,9 @@ class _PerfilViewState extends State<PerfilView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text('Perfil View'),),
+      body: Center(
+        child: Text('Perfil View'),
+      ),
     );
   }
 }

@@ -10,8 +10,6 @@ class AppTabBarView extends StatefulWidget {
 
 class _AppTabBarViewState extends State<AppTabBarView> {
   var _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static List<Widget> _widgetOptions = [
     HomeView(),
     PerfilView(),
@@ -26,9 +24,6 @@ class _AppTabBarViewState extends State<AppTabBarView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('BottomNavigationBar Sample'),
-      ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
