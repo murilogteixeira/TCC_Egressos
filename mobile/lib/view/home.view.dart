@@ -16,11 +16,7 @@ class _HomeEgressoViewState extends State<HomeEgressoView> {
       style: optionStyle,
     ),
     Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: School',
+      'Index 1: Perfil',
       style: optionStyle,
     ),
   ];
@@ -47,12 +43,8 @@ class _HomeEgressoViewState extends State<HomeEgressoView> {
             title: Text('Home'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            title: Text('Business'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            title: Text('School'),
+            icon: Icon(Icons.account_box),
+            title: Text('Perfil'),
           ),
         ],
         currentIndex: _selectedIndex,
