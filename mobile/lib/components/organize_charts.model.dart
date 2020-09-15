@@ -42,7 +42,7 @@ class PieOutsideLabelChart extends StatelessWidget {
   factory PieOutsideLabelChart.withSampleData(List<ChartsData> data) {
     return new PieOutsideLabelChart(
       _createSampleData(data),
-      animate: true,
+      animate: false,
     );
   }
 
@@ -50,7 +50,7 @@ class PieOutsideLabelChart extends StatelessWidget {
   Widget build(BuildContext context) {
     return Charts.PieChart(
       seriesList,
-      animate: true,
+      animate: false,
       animationDuration: Duration(seconds: 2),
     );
   }
@@ -80,7 +80,7 @@ class BarChartOutsideLabelChart extends StatelessWidget {
       List<ChartsData> data, List<int> averages) {
     return new BarChartOutsideLabelChart(
       _createSampleData(data, averages),
-      animate: true,
+      animate: false,
     );
   }
 
