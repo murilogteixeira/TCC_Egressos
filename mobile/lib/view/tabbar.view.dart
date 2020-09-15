@@ -2,16 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:mobile/view/home.view.dart';
 import 'package:mobile/view/perfil.view.dart';
 
-class AppTabBarView extends StatefulWidget {
+class TabBarAppView extends StatefulWidget {
   static final route = '/homeEgresso';
   @override
-  _AppTabBarViewState createState() => _AppTabBarViewState();
+  _TabBarAppViewState createState() => _TabBarAppViewState();
 }
 
-class _AppTabBarViewState extends State<AppTabBarView> {
+class _TabBarAppViewState extends State<TabBarAppView> {
   var _selectedIndex = 0;
+  
+  static const String _tituloHome = 'Home';
+  static const String _tituloPerfil = 'Perfil';
+
   static List<Widget> _widgetOptions = [
-    HomeView(),
+    HomeView(title: _tituloHome),
     PerfilView(),
   ];
 
@@ -31,11 +35,11 @@ class _AppTabBarViewState extends State<AppTabBarView> {
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.pie_chart),
-            title: Text('Home'),
+            title: Text(_tituloHome),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),
-            title: Text('Perfil'),
+            title: Text(_tituloPerfil),
           ),
         ],
         currentIndex: _selectedIndex,
