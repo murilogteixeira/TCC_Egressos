@@ -10,7 +10,7 @@ class HandCursor extends MouseRegion {
 
   HandCursor({String cursor, Widget child}) : super(
     onHover: (PointerHoverEvent evt) {
-      appContainer.style.cursor=cursor;
+      appContainer.style.cursor = cursor;
       // you can use any of these: 
       // 'help', 'wait', 'move', 'crosshair', 'text' or 'pointer'
       // more options/details here: http://www.javascripter.net/faq/stylesc.htm

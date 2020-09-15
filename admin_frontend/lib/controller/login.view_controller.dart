@@ -18,7 +18,7 @@ class LoginViewController {
           email: email,
           nome: "",
           curriculo: CurriculoLattes(),
-          funcao: Funcao.admin);
+          funcao: Funcao.egresso);
       _salvarUsuario(usuario);
     }
     return usuario;
