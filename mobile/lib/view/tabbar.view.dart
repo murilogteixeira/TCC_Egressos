@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/view/home.view.dart';
+import 'package:mobile/view/home/home.view.dart';
 import 'package:mobile/view/perfil.view.dart';
 
-class AppTabBarView extends StatefulWidget {
-  static final route = '/homeEgresso';
+class TabBarAppView extends StatefulWidget {
+  static final route = '/tabBarView';
   @override
-  _AppTabBarViewState createState() => _AppTabBarViewState();
+  _TabBarAppViewState createState() => _TabBarAppViewState();
 }
 
-class _AppTabBarViewState extends State<AppTabBarView> {
+class _TabBarAppViewState extends State<TabBarAppView> {
   var _selectedIndex = 0;
+  
+  static const String _tituloHome = 'Comparativos';
+  static const String _tituloPerfil = 'Perfil';
+
   static List<Widget> _widgetOptions = [
-    HomeView(),
+    HomeView(title: _tituloHome),
     PerfilView(),
   ];
 
@@ -28,18 +32,19 @@ class _AppTabBarViewState extends State<AppTabBarView> {
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.grey[300],
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.pie_chart),
-            title: Text('Home'),
+            title: Text(_tituloHome),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),
-            title: Text('Perfil'),
+            title: Text(_tituloPerfil),
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
+        selectedItemColor: Theme.of(context).primaryColor,
         onTap: _onItemTapped,
       ),
     );

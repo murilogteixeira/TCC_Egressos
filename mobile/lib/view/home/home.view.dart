@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/view/home/bancas.view.dart';
+import 'package:mobile/view/home/producoes.view.dart';
 
 class HomeView extends StatefulWidget {
+  const HomeView({Key key, this.title}) : super(key: key);
+
+  final String title;
+
   @override
   _HomeViewState createState() => _HomeViewState();
 }
@@ -15,7 +21,7 @@ class _HomeViewState extends State<HomeView> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Home'),
+          title: Text(widget.title),
           bottom: TabBar(
             tabs: [
               Tab(child: Text(_tituloProducoes)),
@@ -25,8 +31,8 @@ class _HomeViewState extends State<HomeView> {
         ),
         body: TabBarView(
           children: [
-            Text('Produções'),
-            Text('Bancas'),
+            ProducoesView(),
+            BancasView(),
           ],
         ),
       ),
