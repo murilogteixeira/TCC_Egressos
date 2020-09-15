@@ -6,6 +6,8 @@ class LoginView extends StatefulWidget {
 
   final String title = "Login";
 
+  LoginView({Key key}) : super(key: key);
+
   @override
   _LoginViewState createState() => _LoginViewState();
 }
@@ -14,10 +16,40 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Hello World!'),
-      ),
-      body: Center(
+      appBar: AppBar(title: Text('Login')),
+      body: LoginForm(),
+    );
+  }
+}
+
+class LoginForm extends StatelessWidget {
+  const LoginForm({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var _formKey = GlobalKey<FormState>();
+    final _user = 'mail@mail.com';
+    final _pass = '123';
+
+    String inputEmail;
+    String inputPass;
+
+    bool _login() {
+      if (_formKey.currentState.validate()) {
+        _formKey.currentState.save();
+        if (_user != inputEmail || _pass != inputPass) {
+          Scaffold.of(context)
+              .showSnackBar(SnackBar(content: Text('Email ou senha inválido')));
+          return false;
+        }
+        return true;
+      }
+      return false;
+    }
+
+    return Form(
+      key: _formKey,
+      child: Center(
         child: Container(
           child: Column(
             children: <Widget>[
@@ -37,8 +69,15 @@ class _LoginViewState extends State<LoginView> {
                 child: Container(
                   width: 400,
                   child: TextFormField(
+                    validator: (value) {
+                      if (value.isEmpty) return 'Insira o seu email';
+                      return null;
+                    },
+                    onSaved: (value) => inputEmail = value,
                     decoration: InputDecoration(
-                      hintText: "Digite seu e-mail...",
+                      labelText: 'Email',
+                      icon: Icon(Icons.mail),
+                      // hintText: "Digite seu e-mail...",
                       enabledBorder: new UnderlineInputBorder(
                           borderRadius: BorderRadius.circular(45),
                           borderSide: BorderSide(color: Colors.black)),
@@ -47,9 +86,6 @@ class _LoginViewState extends State<LoginView> {
                         borderRadius: BorderRadius.circular(45),
                       ),
                     ),
-                    // onSaved: (nome) {
-                    //   this._nome = nome;
-                    // },
                   ),
                 ),
               ),
@@ -58,8 +94,15 @@ class _LoginViewState extends State<LoginView> {
                 child: Container(
                   width: 400,
                   child: TextFormField(
+                    validator: (value) {
+                      if (value.isEmpty) return 'Insira a sua senha';
+                      return null;
+                    },
+                    onSaved: (value) => inputPass = value,
                     decoration: InputDecoration(
-                      hintText: "Digite sua senha...",
+                      labelText: 'Senha',
+                      icon: Icon(Icons.lock),
+                      // hintText: "Digite sua senha...",
                       enabledBorder: new UnderlineInputBorder(
                           borderRadius: BorderRadius.circular(45),
                           borderSide: BorderSide(color: Colors.black)),
@@ -100,7 +143,9 @@ class _LoginViewState extends State<LoginView> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(45)),
                     onPressed: () {
-                      Navigator.pushNamed(context, ConsultaView.route);
+                      if (_login()) {
+                        Navigator.pushNamed(context, ConsultaView.route);
+                      }
                     },
                     child: Text(
                       "Entrar",

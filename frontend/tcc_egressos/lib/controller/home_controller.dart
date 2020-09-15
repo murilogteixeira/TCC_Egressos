@@ -8,7 +8,6 @@ import 'package:http/http.dart' as http;
 import 'package:mobx/mobx.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
 import 'package:tcc_egressos/view/resultado_view.dart';
-import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
 
 part 'home_controller.g.dart';
 
