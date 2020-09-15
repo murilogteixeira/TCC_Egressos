@@ -123,15 +123,18 @@ class _LoginFormState extends State<LoginForm> {
                   InputDecoration(labelText: 'Senha', icon: Icon(Icons.lock)),
             ),
           ),
-          Observer(
-            builder: (_) {
-              return _controller.loading
-                  ? CircularProgressIndicator()
-                  : RaisedButton(
-                      child: Text('Entrar'),
-                      onPressed: entrarOnPressed,
-                    );
-            },
+          Padding(
+            padding: const EdgeInsets.only(top: 20),
+            child: Observer(
+              builder: (_) {
+                return _controller.loading
+                    ? CircularProgressIndicator()
+                    : RaisedButton(
+                        child: Text('Entrar'),
+                        onPressed: entrarOnPressed,
+                      );
+              },
+            ),
           ),
         ],
       ),
