@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tcc_egressos/service/autenticacao.service.dart';
+import 'package:tcc_egressos/view/login.view.dart';
 
 class NavBarWidget extends StatelessWidget {
   const NavBarWidget({Key key}) : super(key: key);
@@ -63,25 +65,31 @@ class NavBarWidget extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    bottom: 8,
-                    left: 236,
+                      bottom: 8,
+                      left: 236,
                       child: MaterialButton(
-                    color: Color(0xFF547DD9),
-                    height: 50,
-                    minWidth: 50,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25)),
-                    onPressed: () {
-                      _consultar();
-                    },
-                    child: Icon(
-                      Icons.search,
-                      color: Colors.white,
-                      size: 15,
-                    ),
-                  ))
+                        color: Color(0xFF547DD9),
+                        height: 50,
+                        minWidth: 50,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25)),
+                        onPressed: () {
+                          _consultar();
+                        },
+                        child: Icon(
+                          Icons.search,
+                          color: Colors.white,
+                          size: 15,
+                        ),
+                      )),
                 ],
-              )
+              ),
+              MaterialButton(
+                  child: Text('Logout'),
+                  onPressed: () {
+                    AutenticacaoService.instance.logout();
+                    Navigator.of(context).pushReplacementNamed(LoginView.route);
+                  })
             ],
           ),
         ));

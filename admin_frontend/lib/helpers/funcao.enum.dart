@@ -1,0 +1,3 @@
+enum Funcao {
+  admin, egresso
+}
