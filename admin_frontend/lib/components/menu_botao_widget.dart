@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:tcc_egressos/controller/menu_botao_widget_controller.dart';
@@ -52,31 +53,37 @@ class MenuBotaoWidget extends StatefulWidget {
 class _MenuBotaoWidgetState extends State<MenuBotaoWidget> {
   @override
   Widget build(BuildContext context) {
-    return HandCursor(
-      cursor: 'pointer',
-      child: GestureDetector(
-        onTap: widget.onTap,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 40.0),
-          child: Container(
-              color: Color(0x547DD9),
-              child: Center(
-                child: Observer(
-                  builder: (BuildContext context) {
-                    return Text(
-                      widget.text,
-                      style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w100,
-                          decoration: widget.controller.ativo
-                              ? TextDecoration.underline
-                              : null),
-                    );
-                  },
-                ),
-              )),
-        ),
+    return kIsWeb
+        ? HandCursor(
+            cursor: 'pointer',
+            child: _botao(),
+          )
+        : _botao();
+  }
+
+  _botao() {
+    return GestureDetector(
+      onTap: widget.onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 40.0),
+        child: Container(
+            color: Color(0x547DD9),
+            child: Center(
+              child: Observer(
+                builder: (BuildContext context) {
+                  return Text(
+                    widget.text,
+                    style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w100,
+                        decoration: widget.controller.ativo
+                            ? TextDecoration.underline
+                            : null),
+                  );
+                },
+              ),
+            )),
       ),
     );
   }
