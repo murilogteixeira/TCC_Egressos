@@ -15,12 +15,12 @@ class _PerfilViewState extends State<PerfilView> {
           title: Text('Perfil'),
         ),
         body: Padding(
-          padding: const EdgeInsets.only(left: 50, right: 50, top: 40),
+          padding: const EdgeInsets.only(left: 50, right: 50),
           child: SingleChildScrollView(
             child: Column(
-              children: <Widget>[
+              children: [
                 Padding(
-                    padding: EdgeInsets.only(bottom: 10),
+                    padding: EdgeInsets.only(bottom: 10, top: 40),
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(180),
                         child: Image.network(
@@ -119,12 +119,15 @@ class _PerfilViewState extends State<PerfilView> {
                     alignment: Alignment.centerLeft,
                     child: Text('(61)9 9999-9999',
                         style: TextStyle(color: Colors.black, fontSize: 20.0))),
-                RaisedButton(
-                  child: Text('Logout'),
-                  onPressed: () {
-                    LoginController().logout();
-                    Navigator.of(context).pushReplacementNamed(LoginView.route);
-                  },
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 40),
+                  child: RaisedButton(
+                    child: Text('Logout'),
+                    onPressed: () {
+                      LoginController().logout();
+                      Navigator.of(context).pushReplacementNamed(LoginView.route);
+                    },
+                  ),
                 )
               ],
             ),
