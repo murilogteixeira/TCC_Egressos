@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:mobile/helpers/enum/funcao.dart';
 
 import 'curriculo_lattes/curriculo_lattes.dart';
@@ -24,7 +26,7 @@ class UsuarioModel {
     nome = json['nome'];
     email = json['email'];
     if (json.containsKey('senha')) senha = json['senha'];
-    // curriculo = CurriculoLattes().fromJson(jsonDecode(json['curriculo']));
+    curriculo = CurriculoLattes().fromJson(jsonDecode(json['curriculo']));
     funcao = Funcao.values
         .firstWhere((e) => e.toString() == 'Funcao.' + json['funcao']);
   }
@@ -35,11 +37,16 @@ class UsuarioModel {
     data['nome'] = this.nome;
     data['email'] = this.email;
     data['senha'] = this.senha;
-    // data['curriculo'] = jsonEncode(this.curriculo.toJson());
+    data['curriculo'] = jsonEncode(this.curriculo.toJson());
     data['funcao'] = this
         .funcao
         .toString()
         .substring(this.funcao.toString().indexOf('.') + 1);
     return data;
+  }
+
+  @override
+  String toString() {
+    return jsonEncode(toJson());
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/view/consulta.view.dart';
 import 'package:mobile/view/login.view.dart';
 import 'package:mobile/view/tabbar.view.dart';
 
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
       routes: {
         LoginView.route: (context) => LoginView(),
         TabBarAppView.route: (context) => TabBarAppView(),
+        ConsultaView.route: (context) => ConsultaView(),
       },
     );
   }
