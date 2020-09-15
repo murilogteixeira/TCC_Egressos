@@ -11,7 +11,7 @@ class TabBarAppView extends StatefulWidget {
 class _TabBarAppViewState extends State<TabBarAppView> {
   var _selectedIndex = 0;
   
-  static const String _tituloHome = 'Home';
+  static const String _tituloHome = 'Comparativos';
   static const String _tituloPerfil = 'Perfil';
 
   static List<Widget> _widgetOptions = [

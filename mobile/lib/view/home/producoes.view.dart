@@ -12,7 +12,11 @@ class _ProducoesViewState extends State<ProducoesView> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          OrganizeCharts().createCharts('Produções', dataExemplo, [100, 200, 300, 400, 500]),
+          OrganizeCharts().createCharts(
+            'Produções',
+            dataExemplo,
+            [100, 200, 300, 400, 500],
+          ),
         ],
       ),
     );
@@ -21,23 +25,23 @@ class _ProducoesViewState extends State<ProducoesView> {
 
 final dataExemplo = [
   new ChartsData(
-      "Participação em eventos, congressos, exposições e feiras ",
-      500,),
+    "Participação em eventos, congressos, exposições e feiras ",
+    500,
+  ),
   new ChartsData(
-      "Organização de eventos, congressos, exposições e feiras ",
-      710,
-      ),
+    "Organização de eventos, congressos, exposições e feiras ",
+    710,
+  ),
   new ChartsData(
-      "Artigos publicados ",
-      400,
-      ),
+    "Artigos publicados ",
+    400,
+  ),
   new ChartsData(
-      "Menções em obras ",
-      400,
-      ),
+    "Menções em obras ",
+    400,
+  ),
   new ChartsData(
-      "Participação em bancas ",
-      400,
-      ),
-  
+    "Participação em bancas ",
+    400,
+  ),
 ];

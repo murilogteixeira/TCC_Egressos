@@ -1,9 +1,12 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as Charts;
 
 import 'package:flutter/rendering.dart';
 
 import 'package:flutter/foundation.dart' show kIsWeb;
+import '../../helpers/extension/string.dart';
 
 Map<int, Color> getSwatch(Color color) {
   final hslColor = HSLColor.fromColor(color);
@@ -218,25 +221,27 @@ class OrganizeCharts {
     }
 
     List<Widget> _pieChartAndData() {
-      var legendas = Column(
+      Widget legendas = Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: children,
       );
+      double chartSize = kIsWeb ? 300 : 250;
+      legendas = kIsWeb
+          ? legendas
+          : Padding(
+              padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+              child: legendas,
+            );
       return [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
           child: SizedBox(
-            width: 300,
-            height: 300,
+            width: chartSize,
+            height: chartSize,
             child: PieOutsideLabelChart.withSampleData(data),
           ),
         ),
-        kIsWeb
-            ? legendas
-            : Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-                child: legendas,
-              ),
+        legendas,
       ];
     }
 
@@ -286,9 +291,11 @@ class OrganizeCharts {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.fromLTRB(60, 50, 1, 10),
+              padding: kIsWeb
+                  ? const EdgeInsets.fromLTRB(60, 50, 1, 10)
+                  : const EdgeInsets.fromLTRB(25, 50, 1, 10),
               child: Text(
-                "Visão Geral",
+                "Visão Geral - ${title.capitalize()}",
                 style: TextStyle(
                   color: Color.fromARGB(255, 84, 125, 217),
                   fontSize: 17,
@@ -296,9 +303,11 @@ class OrganizeCharts {
               ),
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(60, 5, 1, 10),
+              padding: kIsWeb
+                  ? const EdgeInsets.fromLTRB(60, 50, 1, 10)
+                  : const EdgeInsets.only(left: 25),
               child: Text(
-                "Total: $valorTotalPieChart ${title.toLowerCase()}",
+                "Total: $valorTotalPieChart ",
                 style: TextStyle(
                   fontSize: 16,
                 ),
