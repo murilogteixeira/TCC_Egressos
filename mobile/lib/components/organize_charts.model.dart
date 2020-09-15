@@ -6,7 +6,7 @@ import 'package:charts_flutter/flutter.dart' as Charts;
 import 'package:flutter/rendering.dart';
 
 import 'package:flutter/foundation.dart' show kIsWeb;
-import '../../helpers/extension/string.dart';
+import '../helpers/extension/string.dart';
 
 Map<int, Color> getSwatch(Color color) {
   final hslColor = HSLColor.fromColor(color);

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:tcc_egressos/controller/login.view_controller.dart';
-import 'package:tcc_egressos/helpers/funcao.enum.dart';
-import 'package:tcc_egressos/model/usuario.model.dart';
-import 'package:tcc_egressos/view/consulta_view.dart';
-import 'package:tcc_egressos/view/home_egresso.view.dart';
+import 'package:mobile/controller/login.controller.dart';
+import 'package:mobile/helpers/enum/funcao.dart';
+import 'package:mobile/model/usuario.model.dart';
+import 'package:mobile/view/tabbar.view.dart';
+
+import 'consulta.view.dart';
 
 class LoginView extends StatefulWidget {
   static final route = '/login';
@@ -91,7 +92,7 @@ class LoginForm extends StatelessWidget {
                     break;
                   case Funcao.egresso:
                     Navigator.of(context)
-                        .pushReplacementNamed(HomeEgressoView.route);
+                        .pushReplacementNamed(TabBarAppView.route);
                     break;
                   default:
                 }

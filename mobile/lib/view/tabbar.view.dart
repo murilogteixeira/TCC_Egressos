@@ -3,7 +3,7 @@ import 'package:mobile/view/home/home.view.dart';
 import 'package:mobile/view/perfil.view.dart';
 
 class TabBarAppView extends StatefulWidget {
-  static final route = '/homeEgresso';
+  static final route = '/tabBarView';
   @override
   _TabBarAppViewState createState() => _TabBarAppViewState();
 }
@@ -32,6 +32,7 @@ class _TabBarAppViewState extends State<TabBarAppView> {
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.grey[300],
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.pie_chart),
@@ -43,7 +44,7 @@ class _TabBarAppViewState extends State<TabBarAppView> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
+        selectedItemColor: Theme.of(context).primaryColor,
         onTap: _onItemTapped,
       ),
     );

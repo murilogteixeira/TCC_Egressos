@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/model/charts/organize_charts.model.dart';
+import 'package:mobile/components/organize_charts.model.dart';
 
 class ProducoesView extends StatefulWidget {
   @override
