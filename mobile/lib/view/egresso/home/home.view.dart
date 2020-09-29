@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/view/home/bancas.view.dart';
-import 'package:mobile/view/home/producoes.view.dart';
+import 'package:mobile/view/egresso/home/bancas.view.dart';
+import 'package:mobile/view/egresso/home/producoes.view.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key key, this.title}) : super(key: key);

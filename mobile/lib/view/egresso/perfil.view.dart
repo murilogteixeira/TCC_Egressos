@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/controller/login.controller.dart';
-import 'package:mobile/view/login.view.dart';
+import 'package:mobile/view/shared/login.view.dart';
 
 class PerfilView extends StatefulWidget {
   @override

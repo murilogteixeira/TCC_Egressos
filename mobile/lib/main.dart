@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/view/consulta.view.dart';
-import 'package:mobile/view/login.view.dart';
-import 'package:mobile/view/tabbar.view.dart';
+import 'package:mobile/view/admin/consulta.view.dart';
+import 'package:mobile/view/shared/login.view.dart';
+import 'package:mobile/view/egresso/tabbar.view.dart';
 
 void main() => runApp(MyApp());
 
