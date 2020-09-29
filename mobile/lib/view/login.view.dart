@@ -22,7 +22,6 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Login')),
       body: LoginForm(),
     );
   }
@@ -97,43 +96,123 @@ class _LoginFormState extends State<LoginForm> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: TextFormField(
-              validator: (value) {
-                if (value.isEmpty) return 'Insira o seu email';
-                return null;
-              },
-              onSaved: (value) => inputEmail = value,
-              decoration: InputDecoration(
-                labelText: 'Email',
-                icon: Icon(Icons.mail),
-              ),
+            padding: const EdgeInsets.symmetric(horizontal: 40),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Log In",
+                  style: TextStyle(
+                      fontSize: 45,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF547DD9)),
+                ),
+                SizedBox(height: 40),
+                Text(
+                  "Nome de Usuário",
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                TextFormField(
+                  validator: (value) {
+                    if (value.isEmpty) return 'Insira o seu email';
+                    return null;
+                  },
+                  onSaved: (value) => inputEmail = value,
+                  decoration: InputDecoration(
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(7)),
+                      borderSide:
+                          BorderSide(color: Color(0xFF547DD9), width: 2.0),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(7)),
+                      borderSide:
+                          BorderSide(color: Color(0xFFDCDDE0), width: 2.0),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(7)),
+                      borderSide:
+                          BorderSide(color: Colors.red, width: 2.0),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                Text(
+                  "Senha",
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                TextFormField(
+                  obscureText: true,
+                  validator: (value) {
+                    if (value.isEmpty) return 'Insira a sua senha';
+                    return null;
+                  },
+                  onSaved: (value) => inputSenha = value,
+                  decoration: InputDecoration(
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(7)),
+                      borderSide:
+                          BorderSide(color: Color(0xFF547DD9), width: 2.0),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(7)),
+                      borderSide:
+                          BorderSide(color: Color(0xFFDCDDE0), width: 2.0),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(7)),
+                      borderSide:
+                          BorderSide(color: Colors.red, width: 2.0),
+                    ),
+                  ),
+                )
+              ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: TextFormField(
-              obscureText: true,
-              validator: (value) {
-                if (value.isEmpty) return 'Insira a sua senha';
-                return null;
-              },
-              onSaved: (value) => inputSenha = value,
-              decoration:
-                  InputDecoration(labelText: 'Senha', icon: Icon(Icons.lock)),
-            ),
+          SizedBox(
+            height: 65,
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 20),
-            child: Observer(
-              builder: (_) {
-                return _controller.loading
-                    ? CircularProgressIndicator()
-                    : RaisedButton(
-                        child: Text('Entrar'),
+          Observer(
+            builder: (_) {
+              return _controller.loading
+                  ? CircularProgressIndicator()
+                  : ButtonTheme(
+                        minWidth: 192,
+                        height: 50,
+                        buttonColor: Color(0xFF30559F),
+                        child: RaisedButton(
+                        child: Text('Entrar',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 19,
+                            fontWeight: FontWeight.w300,
+                          ),
+                        ),
                         onPressed: entrarOnPressed,
-                      );
-              },
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+                      ),
+                  );
+            },
+          ),
+          FlatButton(
+            onPressed: null, 
+            child: Text(
+              "Esqueceu a senha?",
+              style: TextStyle(
+                decoration: TextDecoration.underline
+              ),
             ),
           ),
         ],
