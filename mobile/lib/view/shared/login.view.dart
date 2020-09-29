@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobile/controller/login.controller.dart';
 import 'package:mobile/helpers/enum/funcao.dart';
-import 'package:mobile/model/usuario.model.dart';
-import 'package:mobile/view/tabbar.view.dart';
+import 'package:mobile/model/curriculo_lattes/egresso.dart';
+import 'package:mobile/model/usuario.dart';
+import 'package:mobile/view/egresso/tabbar.view.dart';
 
-import 'consulta.view.dart';
+import '../admin/consulta.view.dart';
 
 class LoginView extends StatefulWidget {
   static final route = '/login';
@@ -38,56 +39,59 @@ class _LoginFormState extends State<LoginForm> {
   var _controller = LoginController();
   var _formKey = GlobalKey<FormState>();
 
+  Usuario usuario;
   String inputEmail;
   String inputSenha;
 
-  Future<bool> usuarioLogado() async {
-    await Future.delayed(Duration(seconds: 2));
-    return await _controller.usuario != null;
-  }
-
-  _goToHome() {
-    Navigator.of(context).pushReplacementNamed(TabBarAppView.route);
-  }
-
-  Future<UsuarioModel> _login() async {
-    UsuarioModel usuario;
-    if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
-      usuario = _controller.efetuarLogin(inputEmail, inputSenha);
-      if (usuario == null) {
-        Scaffold.of(context)
-            .showSnackBar(SnackBar(content: Text('Email ou senha inválido')));
-      }
-    }
-    await Future.delayed(Duration(seconds: 2));
+  Future<Usuario> verificaLoginEmCache() async {
+    Future.delayed(Duration(seconds: 1));
+    _controller.setLoading(true);
+    usuario = await _controller.usuario;
+    _controller.setLoading(false);
     return usuario;
   }
 
-  entrarOnPressed() async {
+  _login() async {
+    await _loginValidate()
+        ? _goToHome()
+        : _showMessageError('Email ou senha inválido');
+  }
+
+  Future<bool> _loginValidate() async {
+    var retorno = true;
     _controller.setLoading(true);
-    var usuario = await _login();
-    if (usuario != null) {
-      switch (usuario.funcao) {
-        case Funcao.admin:
-          Navigator.of(context).pushReplacementNamed(ConsultaView.route);
-          break;
-        case Funcao.egresso:
-          Navigator.of(context).pushReplacementNamed(TabBarAppView.route);
-          break;
-        default:
-      }
+    usuario = await _controller.efetuarLogin(inputEmail, inputSenha);
+    if (usuario == null) {
+      retorno = false;
     }
     _controller.setLoading(false);
+    return retorno;
+  }
+
+  entrarOnPressed() async {
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+      await _login();
+    }
+  }
+
+  _goToHome() {
+    if (usuario != null) {
+      usuario.isStaff
+          ? Navigator.of(context).pushReplacementNamed(ConsultaView.route)
+          : Navigator.of(context).pushReplacementNamed(TabBarAppView.route);
+    }
+  }
+
+  _showMessageError(String texto) {
+    Scaffold.of(context).showSnackBar(SnackBar(content: Text(texto)));
   }
 
   @override
   Widget build(BuildContext context) {
-    usuarioLogado().then((logado) {
-      if (logado) {
+    verificaLoginEmCache().then((usuarioLogado) {
+      if (usuarioLogado != null) {
         _goToHome();
-      } else {
-        _controller.setLoading(false);
       }
     });
     return Form(
@@ -136,8 +140,7 @@ class _LoginFormState extends State<LoginForm> {
                     ),
                     errorBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(7)),
-                      borderSide:
-                          BorderSide(color: Colors.red, width: 2.0),
+                      borderSide: BorderSide(color: Colors.red, width: 2.0),
                     ),
                   ),
                 ),
@@ -173,8 +176,7 @@ class _LoginFormState extends State<LoginForm> {
                     ),
                     errorBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(7)),
-                      borderSide:
-                          BorderSide(color: Colors.red, width: 2.0),
+                      borderSide: BorderSide(color: Colors.red, width: 2.0),
                     ),
                   ),
                 )
@@ -189,11 +191,12 @@ class _LoginFormState extends State<LoginForm> {
               return _controller.loading
                   ? CircularProgressIndicator()
                   : ButtonTheme(
-                        minWidth: 192,
-                        height: 50,
-                        buttonColor: Color(0xFF30559F),
-                        child: RaisedButton(
-                        child: Text('Entrar',
+                      minWidth: 192,
+                      height: 50,
+                      buttonColor: Color(0xFF30559F),
+                      child: RaisedButton(
+                        child: Text(
+                          'Entrar',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 19,
@@ -201,18 +204,17 @@ class _LoginFormState extends State<LoginForm> {
                           ),
                         ),
                         onPressed: entrarOnPressed,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25)),
                       ),
-                  );
+                    );
             },
           ),
           FlatButton(
-            onPressed: null, 
+            onPressed: null,
             child: Text(
               "Esqueceu a senha?",
-              style: TextStyle(
-                decoration: TextDecoration.underline
-              ),
+              style: TextStyle(decoration: TextDecoration.underline),
             ),
           ),
         ],

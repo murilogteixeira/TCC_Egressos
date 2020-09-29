@@ -1,18 +1,19 @@
-class Situacao {
+class TipoProducao {
   int id;
-  String tipo;
+  String nome;
 
-  Situacao({this.id, this.tipo});
+  TipoProducao({this.id, this.nome});
 
-  Situacao.fromJson(Map<String, dynamic> json) {
+  TipoProducao.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    tipo = json['tipo'];
+    nome = json['nome'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['tipo'] = this.tipo;
+    data['nome'] = this.nome;
     return data;
   }
 }
+
