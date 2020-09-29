@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as Charts;
 
@@ -177,52 +176,55 @@ class OrganizeCharts {
       colorsMaterial.add(MaterialColor(element.value, getSwatch(element)));
     });
 
-    final children = <Widget>[];
+    List<Widget> _createDataRows(isOverview) {
+      final children = <Widget>[];
 
-    for (var i = 0; i < data.length; i++) {
-      data[i].cor = Charts.Color(
-          r: colorsColor[i].red,
-          g: colorsColor[i].green,
-          b: colorsColor[i].blue,
-          a: colorsColor[i].alpha);
+      for (var i = 0; i < data.length; i++) {
+        data[i].cor = Charts.Color(
+            r: colorsColor[i].red,
+            g: colorsColor[i].green,
+            b: colorsColor[i].blue,
+            a: colorsColor[i].alpha);
 
-      Widget row = Padding(
-        padding: const EdgeInsets.symmetric(vertical: 5),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Row(
-                children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 0, horizontal: 5),
-                    child: Icon(Icons.lens,
-                        size: (ballSize), color: colorsMaterial[i]),
-                  ),
-                  Flexible(
-                    child: Text(
-                      data[i].nome,
-                      style: TextStyle(fontSize: fontSize),
+        Widget row = Padding(
+          padding: const EdgeInsets.symmetric(vertical: 5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 0, horizontal: 5),
+                      child: Icon(Icons.lens,
+                          size: (ballSize), color: colorsMaterial[i]),
                     ),
-                  )
-                ],
+                    Flexible(
+                      child: Text(
+                        data[i].nome,
+                        style: TextStyle(fontSize: fontSize),
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
-            Text(
-              "... ${data[i].value}",
-              style: TextStyle(fontSize: fontSize),
-            ),
-          ],
-        ),
-      );
-      children.add(row);
+              Text(
+                "-> ${isOverview ? data[i].value : avarages[i]}",
+                style: TextStyle(fontSize: fontSize),
+              ),
+            ],
+          ),
+        );
+        children.add(row);
+      }
+      return children;
     }
 
     List<Widget> _pieChartAndData() {
       Widget legendas = Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: children,
+        children: _createDataRows(true),
       );
       double chartSize = kIsWeb ? 300 : 250;
       legendas = kIsWeb
@@ -262,7 +264,7 @@ class OrganizeCharts {
               : const EdgeInsets.all(10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: children,
+            children: _createDataRows(false),
           ),
         )
       ];

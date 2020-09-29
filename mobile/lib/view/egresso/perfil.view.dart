@@ -32,7 +32,7 @@ class _PerfilViewState extends State<PerfilView> {
                   padding: EdgeInsets.only(bottom: 40),
                   child: Align(
                       alignment: Alignment.center,
-                      child: Text('Vitoria Regia',
+                      child: Text('Mario Braga',
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 28.0))),
                 ),
@@ -48,7 +48,7 @@ class _PerfilViewState extends State<PerfilView> {
                   padding: EdgeInsets.only(bottom: 10),
                   child: Align(
                       alignment: Alignment.centerLeft,
-                      child: Text('R. Vitoria',
+                      child: Text('Braga, M.',
                           style:
                               TextStyle(color: Colors.black, fontSize: 20.0))),
                 ),
@@ -80,7 +80,7 @@ class _PerfilViewState extends State<PerfilView> {
                   padding: EdgeInsets.only(bottom: 10),
                   child: Align(
                       alignment: Alignment.centerLeft,
-                      child: Text('Professora Universitaria',
+                      child: Text('Professor Universitário',
                           style:
                               TextStyle(color: Colors.black, fontSize: 20.0))),
                 ),
@@ -95,7 +95,7 @@ class _PerfilViewState extends State<PerfilView> {
                   padding: EdgeInsets.only(bottom: 2),
                   child: Align(
                       alignment: Alignment.centerLeft,
-                      child: Text('vitoriaregia@mail.com',
+                      child: Text('braga@mail.com',
                           style:
                               TextStyle(color: Colors.black, fontSize: 20.0))),
                 ),
@@ -103,7 +103,7 @@ class _PerfilViewState extends State<PerfilView> {
                   padding: EdgeInsets.only(bottom: 2),
                   child: Align(
                       alignment: Alignment.centerLeft,
-                      child: Text('Linkedin@vitoria-regia',
+                      child: Text('Linkedin@braga',
                           style:
                               TextStyle(color: Colors.black, fontSize: 20.0))),
                 ),
@@ -111,7 +111,7 @@ class _PerfilViewState extends State<PerfilView> {
                   padding: EdgeInsets.only(bottom: 2),
                   child: Align(
                       alignment: Alignment.centerLeft,
-                      child: Text('@vitoriaRERE',
+                      child: Text('@braga',
                           style:
                               TextStyle(color: Colors.black, fontSize: 20.0))),
                 ),

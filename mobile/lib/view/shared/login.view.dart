@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobile/controller/login.controller.dart';
-import 'package:mobile/helpers/enum/funcao.dart';
-import 'package:mobile/model/curriculo_lattes/egresso.dart';
 import 'package:mobile/model/usuario.dart';
 import 'package:mobile/view/egresso/tabbar.view.dart';
 

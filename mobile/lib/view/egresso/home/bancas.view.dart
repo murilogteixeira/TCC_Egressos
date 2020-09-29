@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/components/organize_charts.model.dart';
+import 'package:mobile/controller/login.controller.dart';
+import 'package:mobile/model/usuario.dart';
 
 class BancasView extends StatefulWidget {
   @override
@@ -7,15 +9,18 @@ class BancasView extends StatefulWidget {
 }
 
 class _BancasViewState extends State<BancasView> {
+  Usuario usuario;
+
   @override
   Widget build(BuildContext context) {
+
     return SingleChildScrollView(
       child: Column(
         children: [
           OrganizeCharts().createCharts(
             'Bancas',
             dataExemplo,
-            [100, 200, 300, 400, 500],
+            [51, 20, 30, 40, 50],
           ),
         ],
       ),
@@ -26,22 +31,22 @@ class _BancasViewState extends State<BancasView> {
 final dataExemplo = [
   new ChartsData(
     "Participação em eventos, congressos, exposições e feiras ",
-    500,
+    50,
   ),
   new ChartsData(
     "Organização de eventos, congressos, exposições e feiras ",
-    710,
+    71,
   ),
   new ChartsData(
     "Artigos publicados ",
-    400,
+    40,
   ),
   new ChartsData(
     "Menções em obras ",
-    400,
+    40,
   ),
   new ChartsData(
     "Participação em bancas ",
-    400,
+    40,
   ),
 ];

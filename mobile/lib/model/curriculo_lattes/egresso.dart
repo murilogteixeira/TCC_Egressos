@@ -32,12 +32,12 @@ class Egresso {
     nomeCitacoes = json['nomeCitacoes'];
     celular = json['celular'];
     email = json['email'];
-    endereco = json['endereco'] != null
-        ? new Endereco.fromJson(json['endereco'])
-        : null;
-    situacao = json['situacao'] != null
-        ? new Situacao.fromJson(json['situacao'])
-        : null;
+    // endereco = json['endereco'] != null
+        // ? new Endereco.fromJson(json['endereco'])
+        // : null;
+    // situacao = json['situacao'] != null
+    //     ? new Situacao.fromJson(json['situacao'])
+    //     : null;
   }
 
   Map<String, dynamic> toJson() {

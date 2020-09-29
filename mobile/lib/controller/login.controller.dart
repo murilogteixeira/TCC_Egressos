@@ -1,9 +1,5 @@
 import 'dart:convert';
 
-import 'package:mobile/helpers/enum/funcao.dart';
-import 'package:mobile/model/curriculo_lattes/egresso.dart';
-import 'package:mobile/model/curriculo_lattes/endereco.dart';
-import 'package:mobile/model/curriculo_lattes/situacao.dart';
 import 'package:mobile/model/usuario.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -18,29 +14,6 @@ abstract class _LoginControllerBase with Store {
   bool loading = true;
   @action
   setLoading(value) => loading = value;
-
-  // List<Usuario> usuarios = [
-  //   Usuario(
-  //     isStaff: false,
-  //     status: null,
-  //     egresso: Egresso(
-  //       id: 1,
-  //       nome: '',
-  //       idLattes: '',
-  //       nomeCitacoes: '',
-  //       celular: '',
-  //       dNasc: '',
-  //       email: '',
-  //       endereco: Endereco(id: 1, bairro: '', cep: '', estado: '', uf: ''),
-  //       situacao: Situacao(id: 1, tipo: ''),
-  //     ),
-  //   ),
-  //   Usuario(
-  //     isStaff: true,
-  //     status: null,
-  //     egresso: null,
-  //   ),
-  // ];
 
   Usuario _usuario;
   var usuarioKey = 'usuario';
@@ -60,31 +33,30 @@ abstract class _LoginControllerBase with Store {
   }
 
   Future<Usuario> _performLogin(String username, String password) async {
+    final uri = 'https://egressosbackend.herokuapp.com/api/login/';
+    var json = {
+      'username': username,
+      'password': password,
+    };
+
     final response = await http.post(
-      'https://egressosbackend.herokuapp.com/api/login/',
-      headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(
-        {
-          'username': username,
-          'password': password,
-        },
-      ),
+      uri,
+      headers: {'Content-Type': 'application/json; charset=UTF-8'},
+      body: jsonEncode(json),
     );
 
     if (response.statusCode == 200) {
-      var usuarioResponse = Usuario.fromJson(json.decode(response.body));
+      var json = jsonDecode(response.body);
+      List egressoJson = jsonDecode(json['Egresso']);
+      if (egressoJson.first == null) return null;
+      json['Egresso'] = egressoJson.first['fields'];
+      var usuarioResponse = Usuario.fromJson(json);
       return usuarioResponse.status ? usuarioResponse : null;
     } else {
       print('Erro ao realizar login');
     }
     return null;
   }
-
-  // Usuario procurarEmail(email) {
-  //   return usuarios.firstWhere((element) => element.egresso.email == email);
-  // }
 
   Future<Usuario> get usuario async {
     if (_usuario != null) {
@@ -103,7 +75,8 @@ abstract class _LoginControllerBase with Store {
     var prefs = await SharedPreferences.getInstance();
     var usuarioString = prefs.getString(usuarioKey);
     if (usuarioString == null) return null;
-    _usuario = Usuario.fromJson(jsonDecode(usuarioString));
+    var jsonDecoded = jsonDecode(usuarioString);
+    _usuario = Usuario.fromJson(jsonDecoded);
     return _usuario;
   }
 
