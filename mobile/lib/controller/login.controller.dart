@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:mobile/model/curriculo_lattes/banca/banca.dart';
+import 'package:mobile/model/curriculo_lattes/producao/producao.dart';
 import 'package:mobile/model/usuario.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -50,10 +52,45 @@ abstract class _LoginControllerBase with Store {
       List egressoJson = jsonDecode(json['Egresso']);
       if (egressoJson.first == null) return null;
       json['Egresso'] = egressoJson.first['fields'];
+      json['Egresso']['id'] = egressoJson.first['pk'];
       var usuarioResponse = Usuario.fromJson(json);
       return usuarioResponse.status ? usuarioResponse : null;
     } else {
       print('Erro ao realizar login');
+    }
+    return null;
+  }
+
+  Future<List<Producao>> getProducoesEgresso(int id) async {
+    final uri =
+        'https://egressosbackend.herokuapp.com/producoesEgresso/?search=$id';
+
+    final response = await http.get(uri);
+
+    if (response.statusCode == 200) {
+      List json = jsonDecode(response.body);
+      List<Producao> producoes = [];
+      producoes = json.map((e) => Producao.fromJson(e)).toList();
+      return producoes;
+    } else {
+      print('Erro ao buscar produções');
+    }
+    return null;
+  }
+
+  Future<List<Banca>> getBancasEgresso(int id) async {
+    final uri =
+        'https://egressosbackend.herokuapp.com/bancasEgresso/?search=$id';
+
+    final response = await http.get(uri);
+
+    if (response.statusCode == 200) {
+      List json = jsonDecode(response.body);
+      List<Banca> bancas = [];
+      bancas = json.map((e) => Banca.fromJson(e)).toList();
+      return bancas;
+    } else {
+      print('Erro ao buscar produções');
     }
     return null;
   }

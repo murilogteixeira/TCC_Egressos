@@ -13,6 +13,7 @@ class _PerfilViewState extends State<PerfilView> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Perfil'),
+          backgroundColor: Color(0xff30559F),
         ),
         body: Padding(
           padding: const EdgeInsets.only(left: 50, right: 50),

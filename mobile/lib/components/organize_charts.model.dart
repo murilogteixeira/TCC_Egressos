@@ -176,7 +176,7 @@ class OrganizeCharts {
       colorsMaterial.add(MaterialColor(element.value, getSwatch(element)));
     });
 
-    List<Widget> _createDataRows(isOverview) {
+    List<Widget> _createDataRows() {
       final children = <Widget>[];
 
       for (var i = 0; i < data.length; i++) {
@@ -209,9 +209,12 @@ class OrganizeCharts {
                   ],
                 ),
               ),
-              Text(
-                "-> ${isOverview ? data[i].value : avarages[i]}",
-                style: TextStyle(fontSize: fontSize),
+              Padding(
+                padding: const EdgeInsets.only(left: 2.0),
+                child: Text(
+                  " .${data[i].value}",
+                  style: TextStyle(fontSize: fontSize),
+                ),
               ),
             ],
           ),
@@ -224,7 +227,7 @@ class OrganizeCharts {
     List<Widget> _pieChartAndData() {
       Widget legendas = Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: _createDataRows(true),
+        children: _createDataRows(),
       );
       double chartSize = kIsWeb ? 300 : 250;
       legendas = kIsWeb
@@ -264,7 +267,7 @@ class OrganizeCharts {
               : const EdgeInsets.all(10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: _createDataRows(false),
+            children: _createDataRows(),
           ),
         )
       ];
@@ -296,7 +299,7 @@ class OrganizeCharts {
                   ? const EdgeInsets.fromLTRB(60, 50, 1, 10)
                   : const EdgeInsets.fromLTRB(25, 50, 1, 10),
               child: Text(
-                "Visão Geral - ${title.capitalize()}",
+                title.capitalize(),
                 style: TextStyle(
                   color: Color.fromARGB(255, 84, 125, 217),
                   fontSize: 17,
@@ -372,25 +375,25 @@ class ChartsData {
   ChartsData(this.nome, this.value, [this.cor]);
 }
 
-final dataExemplo = [
-  new ChartsData(
-    "Participação em eventos, congressos, exposições e feiras ",
-    500,
-  ),
-  new ChartsData(
-    "Organização de eventos, congressos, exposições e feiras ",
-    710,
-  ),
-  new ChartsData(
-    "Artigos publicados ",
-    400,
-  ),
-  new ChartsData(
-    "Menções em obras ",
-    400,
-  ),
-  new ChartsData(
-    "Participação em bancas ",
-    400,
-  ),
-];
+// final dataExemplo = [
+//   new ChartsData(
+//     "Participação em eventos, congressos, exposições e feiras ",
+//     500,
+//   ),
+//   new ChartsData(
+//     "Organização de eventos, congressos, exposições e feiras ",
+//     710,
+//   ),
+//   new ChartsData(
+//     "Artigos publicados ",
+//     400,
+//   ),
+//   new ChartsData(
+//     "Menções em obras ",
+//     400,
+//   ),
+//   new ChartsData(
+//     "Participação em bancas ",
+//     400,
+//   ),
+// ];

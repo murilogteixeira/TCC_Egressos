@@ -1,3 +1,6 @@
+import 'package:mobile/model/curriculo_lattes/banca/banca.dart';
+import 'package:mobile/model/curriculo_lattes/producao/producao.dart';
+
 import 'endereco.dart';
 import 'situacao.dart';
 
@@ -7,10 +10,12 @@ class Egresso {
   String nome;
   String dNasc;
   String nomeCitacoes;
-  String celular;
+  Null celular;
   String email;
   Endereco endereco;
   Situacao situacao;
+  List<Producao> producoes;
+  List<Banca> bancas;
 
   Egresso({
     this.id,
@@ -22,6 +27,8 @@ class Egresso {
     this.email,
     this.endereco,
     this.situacao,
+    this.producoes,
+    this.bancas,
   });
 
   Egresso.fromJson(Map<String, dynamic> json) {
@@ -38,6 +45,18 @@ class Egresso {
     // situacao = json['situacao'] != null
     //     ? new Situacao.fromJson(json['situacao'])
     //     : null;
+    if (json['producoes'] != null) {
+      producoes = new List<Producao>();
+      json['producoes'].forEach((v) {
+        producoes.add(new Producao.fromJson(v));
+      });
+    }
+    if (json['bancas'] != null) {
+      bancas = new List<Banca>();
+      json['bancas'].forEach((v) {
+        bancas.add(new Banca.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -54,6 +73,12 @@ class Egresso {
     }
     if (this.situacao != null) {
       data['situacao'] = this.situacao.toJson();
+    }
+    if (this.producoes != null) {
+      data['producoes'] = this.producoes.map((v) => v.toJson()).toList();
+    }
+    if (this.bancas != null) {
+      data['bancas'] = this.bancas.map((v) => v.toJson()).toList();
     }
     return data;
   }

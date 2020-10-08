@@ -77,7 +77,7 @@ class _LoginFormState extends State<LoginForm> {
     if (usuario != null) {
       usuario.isStaff
           ? Navigator.of(context).pushReplacementNamed(ConsultaView.route)
-          : Navigator.of(context).pushReplacementNamed(TabBarAppView.route);
+          : Navigator.of(context).pushReplacementNamed(TabBarAppView.route, arguments: usuario.egresso);
     }
   }
 
@@ -141,6 +141,7 @@ class _LoginFormState extends State<LoginForm> {
                   ),
                 ),
                 TextFormField(
+                  initialValue: "braga",
                   validator: (value) {
                     if (value.isEmpty) return 'Insira o seu email';
                     return null;
@@ -159,6 +160,7 @@ class _LoginFormState extends State<LoginForm> {
                   ),
                 ),
                 TextFormField(
+                  initialValue: "Professor1234",
                   obscureText: true,
                   validator: (value) {
                     if (value.isEmpty) return 'Insira a sua senha';
