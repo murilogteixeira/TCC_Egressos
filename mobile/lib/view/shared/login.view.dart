@@ -165,7 +165,24 @@ class _LoginFormState extends State<LoginForm> {
                     return null;
                   },
                   onSaved: (value) => inputSenha = value,
-                  decoration: _inputDecoration,
+                  decoration: InputDecoration(
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(7)),
+                      borderSide:
+                          BorderSide(color: Color(0xFF547DD9), width: 2.0),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(7)),
+                      borderSide:
+                          BorderSide(color: Color(0xFFDCDDE0), width: 2.0),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(7)),
+                      borderSide: BorderSide(color: Colors.red, width: 2.0),
+                    ),
+                  ),
                 )
               ],
             ),
