@@ -49,6 +49,7 @@ abstract class _LoginControllerBase with Store {
 
     if (response.statusCode == 200) {
       var json = jsonDecode(response.body);
+      if (json['status'] == false) return null;
       List egressoJson = jsonDecode(json['Egresso']);
       if (egressoJson.first == null) return null;
       json['Egresso'] = egressoJson.first['fields'];
@@ -57,40 +58,6 @@ abstract class _LoginControllerBase with Store {
       return usuarioResponse.status ? usuarioResponse : null;
     } else {
       print('Erro ao realizar login');
-    }
-    return null;
-  }
-
-  Future<List<Producao>> getProducoesEgresso(int id) async {
-    final uri =
-        'https://egressosbackend.herokuapp.com/producoesEgresso/?search=$id';
-
-    final response = await http.get(uri);
-
-    if (response.statusCode == 200) {
-      List json = jsonDecode(response.body);
-      List<Producao> producoes = [];
-      producoes = json.map((e) => Producao.fromJson(e)).toList();
-      return producoes;
-    } else {
-      print('Erro ao buscar produções');
-    }
-    return null;
-  }
-
-  Future<List<Banca>> getBancasEgresso(int id) async {
-    final uri =
-        'https://egressosbackend.herokuapp.com/bancasEgresso/?search=$id';
-
-    final response = await http.get(uri);
-
-    if (response.statusCode == 200) {
-      List json = jsonDecode(response.body);
-      List<Banca> bancas = [];
-      bancas = json.map((e) => Banca.fromJson(e)).toList();
-      return bancas;
-    } else {
-      print('Erro ao buscar produções');
     }
     return null;
   }

@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobile/controller/login.controller.dart';
 import 'package:mobile/model/usuario.dart';
 import 'package:mobile/view/egresso/tabbar.view.dart';
+import 'package:mobile/view/shared/recuperarSenha.view.dart';
 
 import '../admin/consulta.view.dart';
 
@@ -77,7 +78,8 @@ class _LoginFormState extends State<LoginForm> {
     if (usuario != null) {
       usuario.isStaff
           ? Navigator.of(context).pushReplacementNamed(ConsultaView.route)
-          : Navigator.of(context).pushReplacementNamed(TabBarAppView.route, arguments: usuario.egresso);
+          : Navigator.of(context).pushReplacementNamed(TabBarAppView.route,
+              arguments: usuario.egresso);
     }
   }
 
@@ -141,7 +143,7 @@ class _LoginFormState extends State<LoginForm> {
                   ),
                 ),
                 TextFormField(
-                  initialValue: "braga",
+                  initialValue: "neide.ribeiro",
                   validator: (value) {
                     if (value.isEmpty) return 'Insira o seu email';
                     return null;
@@ -160,7 +162,7 @@ class _LoginFormState extends State<LoginForm> {
                   ),
                 ),
                 TextFormField(
-                  initialValue: "Professor1234",
+                  initialValue: "TCCegressos2020",
                   obscureText: true,
                   validator: (value) {
                     if (value.isEmpty) return 'Insira a sua senha';
@@ -215,7 +217,7 @@ class _LoginFormState extends State<LoginForm> {
             splashColor: Colors.transparent,
             highlightColor: Colors.transparent,
             onPressed: () {
-              print('Esqueceu a senha');
+              Navigator.of(context).pushNamed(RecuperarSenha.route);
             },
           ),
         ],
