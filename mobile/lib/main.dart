@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       initialRoute: LoginView.route,
+      // initialRoute: TabBarAppView.route,
       routes: {
         LoginView.route: (context) => LoginView(),
         RecuperarSenha.route: (context) => RecuperarSenha(),
