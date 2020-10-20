@@ -17,6 +17,9 @@ class ProducoesView extends StatefulWidget {
 }
 
 class _ProducoesViewState extends State<ProducoesView> {
+  List<_TipoProducao> tiposProducao = [];
+  List<int> mediasProducao = [];
+
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
@@ -49,26 +52,30 @@ class _ProducoesViewState extends State<ProducoesView> {
       map['$i'] = count == null ? 1 : count + 1;
     });
 
-    List<_TipoProducao> tipos = [];
     map.forEach((key, value) {
-      tipos.add(_TipoProducao(nome: key, quantidade: value));
+      var tipo = _TipoProducao(nome: key, quantidade: value);
+
+      tipo.id = widget.mediaProducoes
+          .firstWhere((element) => element.tipo == key)
+          .tipoId;
+
+      tiposProducao.add(tipo);
     });
 
-    return tipos.map((e) => ChartsData(e.nome, e.quantidade)).toList();
+    return tiposProducao.map((e) => ChartsData(e.nome, e.quantidade)).toList();
   }
 
   List<int> _chartAvarages() {
-    List<int> medias = [];
-
-    for (var i = 0; i < widget.producoes.length; i++) {}
-    return [1,2,3,4,5,6];
-    return medias;
+    widget.mediaProducoes.sort((a,b) => a.tipoId.compareTo(b.tipoId));
+    
+    return widget.mediaProducoes.map((element) => element.media).toList();
   }
 }
 
 class _TipoProducao {
+  int id;
   String nome;
   int quantidade;
 
-  _TipoProducao({this.nome, this.quantidade});
+  _TipoProducao({this.id, this.nome, this.quantidade});
 }
