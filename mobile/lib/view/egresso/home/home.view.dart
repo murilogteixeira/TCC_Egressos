@@ -16,8 +16,8 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  static const _tituloProducoes = 'Produções';
-  static const _tituloBancas = 'Bancas';
+  // static const _tituloProducoes = 'Produções';
+  // static const _tituloBancas = 'Bancas';
 
   var _controller = HomeController();
 
@@ -28,23 +28,18 @@ class _HomeViewState extends State<HomeView> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
-          bottom: TabBar(
-            indicatorColor: Colors.white,
-            tabs: [
-              Tab(child: Text(_tituloProducoes)),
-              Tab(child: Text(_tituloBancas)),
-            ],
-          ),
+          // bottom: TabBar(
+          //   indicatorColor: Colors.white,
+          //   // tabs: [
+          //   //   Tab(child: Text(_tituloProducoes)),
+          //   //   // Tab(child: Text(_tituloBancas)),
+          //   // ],
+          // ),
           backgroundColor: Color(0xff30559F),
         ),
         body: Observer(
           builder: (_) {
-            return TabBarView(
-              children: [
-                ProducoesView(producoes: _controller.producoes, mediaProducoes: _controller.mediaProducoes),
-                BancasView(bancas: _controller.bancas, mediaBancas: _controller.mediaBancas),
-              ],
-            );
+            return ProducoesView(producoes: _controller.producoes, mediaProducoes: _controller.mediaProducoes);
           },
         ),
       ),

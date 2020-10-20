@@ -10,7 +10,7 @@ class Egresso {
   String nome;
   String dNasc;
   String nomeCitacoes;
-  Null celular;
+  String celular;
   String email;
   Endereco endereco;
   Situacao situacao;

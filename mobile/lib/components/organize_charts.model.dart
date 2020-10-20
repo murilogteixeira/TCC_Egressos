@@ -250,6 +250,7 @@ class OrganizeCharts {
     }
 
     List<Widget> _barChartAndData() {
+
       return [
         Padding(
           padding: kIsWeb

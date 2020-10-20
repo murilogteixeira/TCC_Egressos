@@ -24,6 +24,21 @@ mixin _$HomeController on _HomeControllerBase, Store {
     });
   }
 
+  final _$mediaProducoesAtom = Atom(name: '_HomeControllerBase.mediaProducoes');
+
+  @override
+  ObservableList<MediaProducao> get mediaProducoes {
+    _$mediaProducoesAtom.reportRead();
+    return super.mediaProducoes;
+  }
+
+  @override
+  set mediaProducoes(ObservableList<MediaProducao> value) {
+    _$mediaProducoesAtom.reportWrite(value, super.mediaProducoes, () {
+      super.mediaProducoes = value;
+    });
+  }
+
   final _$bancasAtom = Atom(name: '_HomeControllerBase.bancas');
 
   @override
@@ -39,11 +54,28 @@ mixin _$HomeController on _HomeControllerBase, Store {
     });
   }
 
+  final _$mediaBancasAtom = Atom(name: '_HomeControllerBase.mediaBancas');
+
+  @override
+  ObservableList<int> get mediaBancas {
+    _$mediaBancasAtom.reportRead();
+    return super.mediaBancas;
+  }
+
+  @override
+  set mediaBancas(ObservableList<int> value) {
+    _$mediaBancasAtom.reportWrite(value, super.mediaBancas, () {
+      super.mediaBancas = value;
+    });
+  }
+
   @override
   String toString() {
     return '''
 producoes: ${producoes},
-bancas: ${bancas}
+mediaProducoes: ${mediaProducoes},
+bancas: ${bancas},
+mediaBancas: ${mediaBancas}
     ''';
   }
 }
