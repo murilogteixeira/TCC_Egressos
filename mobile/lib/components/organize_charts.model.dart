@@ -176,7 +176,7 @@ class OrganizeCharts {
       colorsMaterial.add(MaterialColor(element.value, getSwatch(element)));
     });
 
-    List<Widget> _createDataRows() {
+    List<Widget> _createDataRows(bool isAvarages) {
       final children = <Widget>[];
 
       for (var i = 0; i < data.length; i++) {
@@ -212,7 +212,7 @@ class OrganizeCharts {
               Padding(
                 padding: const EdgeInsets.only(left: 2.0),
                 child: Text(
-                  " .${data[i].value}",
+                  " .${isAvarages ? avarages[i] : data[i].value}",
                   style: TextStyle(fontSize: fontSize),
                 ),
               ),
@@ -227,7 +227,7 @@ class OrganizeCharts {
     List<Widget> _pieChartAndData() {
       Widget legendas = Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: _createDataRows(),
+        children: _createDataRows(false),
       );
       double chartSize = kIsWeb ? 300 : 250;
       legendas = kIsWeb
@@ -268,7 +268,7 @@ class OrganizeCharts {
               : const EdgeInsets.all(10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: _createDataRows(),
+            children: _createDataRows(true),
           ),
         )
       ];
