@@ -24,6 +24,21 @@ mixin _$LoginController on _LoginControllerBase, Store {
     });
   }
 
+  final _$_usuarioAtom = Atom(name: '_LoginControllerBase._usuario');
+
+  @override
+  Usuario get _usuario {
+    _$_usuarioAtom.reportRead();
+    return super._usuario;
+  }
+
+  @override
+  set _usuario(Usuario value) {
+    _$_usuarioAtom.reportWrite(value, super._usuario, () {
+      super._usuario = value;
+    });
+  }
+
   final _$_LoginControllerBaseActionController =
       ActionController(name: '_LoginControllerBase');
 
@@ -33,6 +48,17 @@ mixin _$LoginController on _LoginControllerBase, Store {
         name: '_LoginControllerBase.setLoading');
     try {
       return super.setLoading(value);
+    } finally {
+      _$_LoginControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setUsusario(Usuario usuario) {
+    final _$actionInfo = _$_LoginControllerBaseActionController.startAction(
+        name: '_LoginControllerBase.setUsusario');
+    try {
+      return super.setUsusario(usuario);
     } finally {
       _$_LoginControllerBaseActionController.endAction(_$actionInfo);
     }
