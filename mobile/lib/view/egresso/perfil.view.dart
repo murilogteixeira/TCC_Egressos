@@ -20,15 +20,25 @@ class _PerfilViewState extends State<PerfilView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.edit),
+        onPressed: () {
+          Navigator.of(context).pushNamed(EditarPerfil.route);
+        },
+      ),
       appBar: AppBar(
         title: Text('Perfil'),
         actions: [
-          IconButton(
-            icon: Icon(Icons.edit),
+          FlatButton(
+            child: Text(
+              'Sair',
+              style: TextStyle(color: Colors.white, fontSize: 18),
+            ),
             onPressed: () {
-              Navigator.of(context).pushNamed(EditarPerfil.route);
+              LoginController().logout();
+              Navigator.of(context).pushReplacementNamed(LoginView.route);
             },
-          )
+          ),
         ],
       ),
       body: Observer(
@@ -103,8 +113,7 @@ class _PerfilViewState extends State<PerfilView> {
                               Container(
                                 width: 130.0,
                                 color: Colors.white,
-                                child: Align(
-                                  alignment: Alignment.center,
+                                child: RaisedButton(
                                   child: Text(
                                     "Dados Gerais",
                                     style: TextStyle(
@@ -113,6 +122,10 @@ class _PerfilViewState extends State<PerfilView> {
                                       color: Color(0xFF547DD9),
                                     ),
                                   ),
+                                  onPressed: () {
+                                    print('object');
+                                  },
+                                  color: Colors.white,
                                 ),
                               ),
                               Container(
@@ -281,17 +294,7 @@ class _PerfilViewState extends State<PerfilView> {
                           style: TextStyle(color: Colors.black, fontSize: 20.0),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 40),
-                        child: RaisedButton(
-                          child: Text('Logout'),
-                          onPressed: () {
-                            LoginController().logout();
-                            Navigator.of(context)
-                                .pushReplacementNamed(LoginView.route);
-                          },
-                        ),
-                      )
+                      SizedBox(height: 40),
                     ],
                   ),
                 ),

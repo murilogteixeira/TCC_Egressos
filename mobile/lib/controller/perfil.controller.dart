@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:mobile/controller/login.controller.dart';
 import 'package:mobile/model/curriculo_lattes/egresso.dart';
 import 'package:mobx/mobx.dart';
@@ -15,4 +16,10 @@ abstract class _PerfilControllerBase with Store {
 
   @action
   setEgresso(value) => egresso = value;
+
+  @observable
+  Widget conteudo;
+
+  @action
+  setConteudo(value) => conteudo = value;
 }
