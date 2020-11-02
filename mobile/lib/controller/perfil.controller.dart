@@ -18,14 +18,8 @@ abstract class _PerfilControllerBase with Store {
   setEgresso(value) => egresso = value;
 
   @observable
-  Widget conteudo;
-
-  @action
-  setConteudo(value) => conteudo = value;
-}
-
-  @observable
   Widget informacoesEgresso;
 
   @action
   setInformacoesEgresso(value) => informacoesEgresso = value;
+}
