@@ -4,6 +4,7 @@ import 'package:mobile/controller/login.controller.dart';
 import 'package:mobile/controller/perfil.controller.dart';
 import 'package:mobile/model/curriculo_lattes/egresso.dart';
 import 'package:mobile/model/usuario.dart';
+import 'package:mobile/view/egresso/editar_perfil.view.dart';
 import 'package:mobile/view/shared/login.view.dart';
 import 'package:flutter/src/rendering/box.dart';
 import 'package:mobx/mobx.dart';
@@ -21,6 +22,14 @@ class _PerfilViewState extends State<PerfilView> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Perfil'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.edit),
+            onPressed: () {
+              Navigator.of(context).pushNamed(EditarPerfil.route);
+            },
+          )
+        ],
       ),
       body: Observer(
         builder: (_) => _controller.egresso == null
