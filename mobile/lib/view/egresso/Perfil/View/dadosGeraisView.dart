@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/controller/perfil.controller.dart';
 
 class DadosGeraisView extends StatefulWidget {
-  const DadosGeraisView({Key key}) : super(key: key);
+  const DadosGeraisView({Key key, this.controller}) : super(key: key);
 
-  // final List<Banca> bancas;
-  // final List<int> mediaBancas;
+  final PerfilController controller;
 
   @override
   _DadosGeraisViewState createState() => _DadosGeraisViewState();
@@ -17,6 +17,22 @@ class _DadosGeraisViewState extends State<DadosGeraisView> {
       child: Container(
         child: Column(
           children: <Widget>[
+              Padding(
+              padding: EdgeInsets.only(bottom: 2),
+              child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text('ID Latters:',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 18.0))),
+            ),
+            Padding(
+              padding: EdgeInsets.only(bottom: 10),
+              child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                      widget.controller.egresso.idLattes,
+                      style: TextStyle(color: Colors.black, fontSize: 20.0))),
+            ),
             Padding(
               padding: EdgeInsets.only(bottom: 2),
               child: Align(
@@ -30,7 +46,7 @@ class _DadosGeraisViewState extends State<DadosGeraisView> {
               child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                      'BRAGA FILHO, M. O.;DE OLIVEIRA BRAGA FILHO, MARIO',
+                      widget.controller.egresso.nomeCitacoes,
                       style: TextStyle(color: Colors.black, fontSize: 20.0))),
             ),
             Padding(
@@ -74,7 +90,7 @@ class _DadosGeraisViewState extends State<DadosGeraisView> {
               padding: EdgeInsets.only(bottom: 2),
               child: Align(
                   alignment: Alignment.centerLeft,
-                  child: Text('braga@mail.com',
+                  child: Text(widget.controller.egresso.email,
                       style: TextStyle(color: Colors.black, fontSize: 20.0))),
             ),
             Padding(
@@ -93,7 +109,7 @@ class _DadosGeraisViewState extends State<DadosGeraisView> {
             ),
             Align(
                 alignment: Alignment.centerLeft,
-                child: Text('(61)9 9999-9999',
+                child: Text(widget.controller.egresso.celular ?? '',
                     style: TextStyle(color: Colors.black, fontSize: 20.0))),
           ],
         ),
