@@ -24,19 +24,18 @@ mixin _$PerfilController on _PerfilControllerBase, Store {
     });
   }
 
-  final _$informacoesEgressoAtom =
-      Atom(name: '_PerfilControllerBase.informacoesEgresso');
+  final _$conteudoAtom = Atom(name: '_PerfilControllerBase.conteudo');
 
   @override
-  Widget get informacoesEgresso {
-    _$informacoesEgressoAtom.reportRead();
-    return super.informacoesEgresso;
+  Widget get conteudo {
+    _$conteudoAtom.reportRead();
+    return super.conteudo;
   }
 
   @override
-  set informacoesEgresso(Widget value) {
-    _$informacoesEgressoAtom.reportWrite(value, super.informacoesEgresso, () {
-      super.informacoesEgresso = value;
+  set conteudo(Widget value) {
+    _$conteudoAtom.reportWrite(value, super.conteudo, () {
+      super.conteudo = value;
     });
   }
 
@@ -55,11 +54,11 @@ mixin _$PerfilController on _PerfilControllerBase, Store {
   }
 
   @override
-  dynamic setInformacoesEgresso(dynamic value) {
+  dynamic setConteudo(dynamic value) {
     final _$actionInfo = _$_PerfilControllerBaseActionController.startAction(
-        name: '_PerfilControllerBase.setInformacoesEgresso');
+        name: '_PerfilControllerBase.setConteudo');
     try {
-      return super.setInformacoesEgresso(value);
+      return super.setConteudo(value);
     } finally {
       _$_PerfilControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -69,7 +68,7 @@ mixin _$PerfilController on _PerfilControllerBase, Store {
   String toString() {
     return '''
 egresso: ${egresso},
-informacoesEgresso: ${informacoesEgresso}
+conteudo: ${conteudo}
     ''';
   }
 }

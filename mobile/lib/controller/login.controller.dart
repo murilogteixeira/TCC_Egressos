@@ -17,7 +17,9 @@ abstract class _LoginControllerBase with Store {
   @action
   setLoading(value) => loading = value;
 
+  @observable
   Usuario _usuario;
+
   var usuarioKey = 'usuario';
 
   Future<Usuario> efetuarLogin(String email, String senha) async {
@@ -70,6 +72,7 @@ abstract class _LoginControllerBase with Store {
     }
   }
 
+  @action
   setUsusario(Usuario usuario) {
     this._usuario = usuario;
     _salvarCacheLogin();
