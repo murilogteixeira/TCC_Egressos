@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/view/admin/consulta.view.dart';
-import 'package:mobile/view/egresso/editar_perfil.view.dart';
+import 'package:mobile/view/egresso/Perfil/editar_perfil.view.dart';
 import 'package:mobile/view/shared/login.view.dart';
 import 'package:mobile/view/egresso/tabbar.view.dart';
 import 'package:mobile/view/shared/recuperarSenha.view.dart';
