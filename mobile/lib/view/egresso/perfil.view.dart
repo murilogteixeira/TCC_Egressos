@@ -12,13 +12,19 @@ class _PerfilViewState extends State<PerfilView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Padding(
-      padding: const EdgeInsets.only(left: 0, right: 0),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 76,
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.edit),
+        onPressed: () {
+          Navigator.of(context).pushNamed(EditarPerfil.route);
+        },
+      ),
+      appBar: AppBar(
+        title: Text('Perfil'),
+        actions: [
+          FlatButton(
+            child: Text(
+              'Sair',
+              style: TextStyle(color: Colors.white, fontSize: 16),
             ),
             Padding(
                 padding: EdgeInsets.only(bottom: 10, top: 40),
