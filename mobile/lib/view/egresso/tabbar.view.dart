@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile/model/curriculo_lattes/egresso.dart';
 import 'package:mobile/model/usuario.dart';
 import 'package:mobile/view/egresso/home/home.view.dart';
-import 'package:mobile/view/egresso/perfil.view.dart';
+import 'package:mobile/view/egresso/Perfil/perfil.view.dart';
 
 class TabBarAppView extends StatefulWidget {
   static final route = '/tabBarView';
