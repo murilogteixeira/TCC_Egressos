@@ -83,7 +83,7 @@ class _DadosGeraisViewState extends State<DadosGeraisView> {
                 padding: EdgeInsets.only(bottom: 2),
                 child: Align(
                     alignment: Alignment.centerLeft,
-                    child: Text('Conatos:',
+                    child: Text('Contatos:',
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 18.0)))),
             Padding(
