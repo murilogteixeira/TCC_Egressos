@@ -20,15 +20,16 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       initialRoute: LoginView.route,
+      // initialRoute: ConsultaView.route,
       // initialRoute: TabBarAppView.route,
       routes: {
         LoginView.route: (context) => LoginView(),
         RecuperarSenha.route: (context) => RecuperarSenha(),
-        TabBarAppView.route: (context) => TabBarAppView(),
+        TabBarAppView.route: (context) =>
+            TabBarAppView(egresso: ModalRoute.of(context).settings.arguments),
         ConsultaView.route: (context) => ConsultaView(),
-        EditarPerfil.route: (context) => EditarPerfil(
-              egresso: ModalRoute.of(context).settings.arguments,
-            ),
+        EditarPerfil.route: (context) =>
+            EditarPerfil(egresso: ModalRoute.of(context).settings.arguments),
       },
     );
   }

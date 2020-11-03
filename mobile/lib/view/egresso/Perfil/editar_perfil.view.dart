@@ -235,25 +235,25 @@ class _EditarPerfilState extends State<EditarPerfil> {
                 decoration: _inputDecoration,
               ),
               SizedBox(height: smallVerticalPadding),
-              Text(
-                'LinkedIn:',
-                style: TextStyle(fontSize: 16.0),
-              ),
-              SizedBox(height: smallVerticalPadding),
-              TextFormField(
-                initialValue: '',
-                decoration: _inputDecoration,
-              ),
-              SizedBox(height: smallVerticalPadding),
-              Text(
-                'Instagram:',
-                style: TextStyle(fontSize: 16.0),
-              ),
-              SizedBox(height: smallVerticalPadding),
-              TextFormField(
-                initialValue: '',
-                decoration: _inputDecoration,
-              ),
+              // Text(
+              //   'LinkedIn:',
+              //   style: TextStyle(fontSize: 16.0),
+              // ),
+              // SizedBox(height: smallVerticalPadding),
+              // TextFormField(
+              //   initialValue: '',
+              //   decoration: _inputDecoration,
+              // ),
+              // SizedBox(height: smallVerticalPadding),
+              // Text(
+              //   'Instagram:',
+              //   style: TextStyle(fontSize: 16.0),
+              // ),
+              // SizedBox(height: smallVerticalPadding),
+              // TextFormField(
+              //   initialValue: '',
+              //   decoration: _inputDecoration,
+              // ),
               SizedBox(height: verticalPadding),
               Center(
                 child: SizedBox(

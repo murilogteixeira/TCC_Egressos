@@ -18,6 +18,7 @@ class ProducoesController {
       return producoes;
     } else {
       print('Erro ao buscar produções');
+      print(_decodeUTF8(response.bodyBytes));
     }
     return null;
   }
