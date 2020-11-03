@@ -54,24 +54,29 @@ class _PerfilViewState extends State<PerfilView> {
                         height: MediaQuery.of(context).size.height * 0.085,
                       ),
                       Padding(
-                          padding: EdgeInsets.only(bottom: 10, top: 40),
-                          child: ClipRRect(
-                              borderRadius: BorderRadius.circular(180),
-                              child: Image.network(
-                                'https://www.pngitem.com/pimgs/m/421-4212617_person-placeholder-image-transparent-hd-png-download.png',
-                                height: 90,
-                                width: 90,
-                              ))),
+                        padding: EdgeInsets.only(bottom: 10, top: 40),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(180),
+                          child: Image.network(
+                            'https://www.pngitem.com/pimgs/m/421-4212617_person-placeholder-image-transparent-hd-png-download.png',
+                            height: 90,
+                            width: 90,
+                          ),
+                        ),
+                      ),
                       Padding(
                         padding: EdgeInsets.only(bottom: 10),
                         child: Align(
-                            alignment: Alignment.center,
-                            child: Text(_controller.egresso.nome,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 18.0,
-                                  color: Color(0xFF547DD9),
-                                ))),
+                          alignment: Alignment.center,
+                          child: Text(
+                            _controller.egresso.nome,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 18.0,
+                              color: Color(0xFF547DD9),
+                            ),
+                          ),
+                        ),
                       ),
                       Padding(
                         padding: EdgeInsets.only(bottom: 40),
@@ -158,7 +163,7 @@ class _PerfilViewState extends State<PerfilView> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.edit),
         onPressed: () {
-          Navigator.of(context).pushNamed(EditarPerfil.route);
+          Navigator.of(context).pushNamed(EditarPerfil.route, arguments: _controller.egresso);
         },
       ),
     );
