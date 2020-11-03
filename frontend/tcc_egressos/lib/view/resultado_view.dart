@@ -5,6 +5,7 @@ import 'package:mobx/mobx.dart';
 import 'package:tcc_egressos/components/nav_bar_widget.dart';
 import 'package:tcc_egressos/controller/resultado_controller.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
+import 'package:tcc_egressos/model/curriculo_lattes/egresso.dart';
 import 'package:tcc_egressos/view/list_egressos.dart';
 
 class ResultadoView extends StatefulWidget {
@@ -18,7 +19,8 @@ class ResultadoView extends StatefulWidget {
 
 class _ResultadoViewState extends State<ResultadoView> {
   ResultadoController _controller;
-  ObservableList<ObservableList<CurriculoLattes>> matriz;
+  // ObservableList<ObservableList<CurriculoLattes>> matriz;
+  ObservableList<ObservableList<Egresso>> matriz;
 
   @override
   void initState() {
@@ -28,12 +30,15 @@ class _ResultadoViewState extends State<ResultadoView> {
 
   @override
   Widget build(BuildContext context) {
-    ObservableList<CurriculoLattes> args =
-        ModalRoute.of(context).settings.arguments;
+    // ObservableList<CurriculoLattes> args =
+    //     ModalRoute.of(context).settings.arguments;
+    ObservableList<Egresso> args = ModalRoute.of(context).settings.arguments;
     if (args != null) {
       _controller.lista = args;
     }
-    ObservableList<CurriculoLattes> lista = _controller.lista;
+
+    // ObservableList<CurriculoLattes> lista = _controller.lista;
+    ObservableList<Egresso> lista = _controller.lista;
 
     return LayoutBuilder(builder: (context, constraints) {
       var maxWidth = constraints.maxWidth;
@@ -47,19 +52,23 @@ class _ResultadoViewState extends State<ResultadoView> {
     });
   }
 
-  ObservableList<ObservableList<CurriculoLattes>> _buildPages(
-      int nroPages, int nroRegister, ObservableList<CurriculoLattes> lista) {
-    ObservableList<ObservableList<CurriculoLattes>> aux =
-        new ObservableList<ObservableList<CurriculoLattes>>();
+  // ObservableList<ObservableList<CurriculoLattes>> _buildPages(
+  //     int nroPages, int nroRegister, ObservableList<CurriculoLattes> lista) {
+  ObservableList<ObservableList<Egresso>> _buildPages(
+      int nroPages, int nroRegister, ObservableList<Egresso> lista) {
+    // ObservableList<ObservableList<CurriculoLattes>> aux =
+    //     new ObservableList<ObservableList<CurriculoLattes>>();
+    ObservableList<ObservableList<Egresso>> aux =
+        new ObservableList<ObservableList<Egresso>>();
     int k = 0;
 
     if (nroPages < 1) {
       nroPages = 1;
     }
 
-    print(nroPages);
     for (int i = 0; i < nroPages; i++) {
-      aux.add(new ObservableList<CurriculoLattes>());
+      // aux.add(new ObservableList<CurriculoLattes>());
+      aux.add(new ObservableList<Egresso>());
       /*
         Verifica se o numero de register nao e maior que o numero de egressos
         restantes na lita, caso seja ele apresenta os que sobraram.
@@ -108,8 +117,10 @@ class _ResultadoViewState extends State<ResultadoView> {
     //   list: matriz[_controller.paginaAtual],
     //   sizeList: matriz[_controller.paginaAtual].length,
     // );
-    // return ListEgressos(egressos: List<Egressos>[],)
-    return null;
+    return ListEgressos(
+      egressos: matriz[_controller.paginaAtual],
+      sizeList: matriz[_controller.paginaAtual].length,
+    );
   }
 
   _createAppBar() {
@@ -120,11 +131,12 @@ class _ResultadoViewState extends State<ResultadoView> {
           );
   }
 
-  _listContainer(ObservableList<CurriculoLattes> lista) {
+  // _listContainer(ObservableList<CurriculoLattes> lista) {
+  // _listContainer(ObserverList<Egresso> lista) {
+  _listContainer(ObservableList<Egresso> lista) {
     if (lista == null) {
-      return Text("Nenhum curriculo encontrado");
+      return Text("Nenhum egresso encontrado");
     }
-    print((lista.length / 6).round());
     matriz = _buildPages((lista.length / 4).round(), 4, lista);
     return SingleChildScrollView(
       child: Container(

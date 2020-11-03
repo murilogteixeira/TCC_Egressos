@@ -27,13 +27,13 @@ mixin _$ResultadoController on _ResultadoControllerBase, Store {
   final _$listaAtom = Atom(name: '_ResultadoControllerBase.lista');
 
   @override
-  ObservableList<CurriculoLattes> get lista {
+  ObservableList<Egresso> get lista {
     _$listaAtom.reportRead();
     return super.lista;
   }
 
   @override
-  set lista(ObservableList<CurriculoLattes> value) {
+  set lista(ObservableList<Egresso> value) {
     _$listaAtom.reportWrite(value, super.lista, () {
       super.lista = value;
     });

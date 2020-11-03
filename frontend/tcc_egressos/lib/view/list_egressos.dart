@@ -141,11 +141,12 @@ class ListEgressosState extends State<ListEgressos> {
                                 maxHeight:
                                     MediaQuery.of(context).size.height * 1.0),
                             child: AutoSizeText(
-                              '${'Professor na Universidade Católica de Brasília'}',
+                              /*'${'Professor na Universidade Católica de Brasília'}'*/ '${widget.egressos[index].email}',
                               group: AutoSizeGroup(),
                             ),
                           )),
-                          Text('${"Doutor"}')
+                          Text(
+                              /*'${"Doutor"}'*/ '${widget.egressos[index].celular}')
                         ],
                       ),
                     ),

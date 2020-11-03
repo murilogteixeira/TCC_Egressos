@@ -10,10 +10,12 @@ import 'package:tcc_egressos/components/menu_botao_widget.dart';
 import 'package:tcc_egressos/components/nav_bar_widget.dart';
 import 'package:tcc_egressos/components/screenSize.dart';
 import 'package:tcc_egressos/controller/curriculo_controller.dart';
+import 'package:tcc_egressos/controller/egresso_controller.dart';
 import 'package:tcc_egressos/controller/menu_botao_widget_controller.dart';
 import 'package:tcc_egressos/model/Charts/OrganizeCharts.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/cargo.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
+import 'package:tcc_egressos/model/curriculo_lattes/egresso.dart';
 import 'package:tcc_egressos/model/lista_detalhes.dart';
 
 class CurriculoView extends StatefulWidget {
@@ -31,13 +33,16 @@ class _CurriculoViewState extends State<CurriculoView> {
   BoxConstraints _constraints;
   ScreenSize _screenSize;
   // CurriculoLattes _curriculo;
-  CurriculoController _controller;
+  // CurriculoController _controller;
+  Egresso _egresso;
+  EgressoController _controller;
 
   MenuBotaoWidget _atualBotao;
 
   @override
   void initState() {
-    _controller = CurriculoController();
+    // _controller = CurriculoController();
+    _controller = EgressoController();
 
     _dadosGeraisBotao = _setDadosGeraisBotao();
     // _formacaoBotao = _setFormacaoBotao();
@@ -50,12 +55,18 @@ class _CurriculoViewState extends State<CurriculoView> {
 
   @override
   Widget build(BuildContext context) {
-    var curriculo = ModalRoute.of(context).settings.arguments;
-    if (curriculo != null) {
-      _controller.setCurriculo(curriculo);
+    // var curriculo = ModalRoute.of(context).settings.arguments;
+    var egresso = ModalRoute.of(context).settings.arguments;
+
+    // if (curriculo != null) {
+    //   _controller.setCurriculo(curriculo);
+    // }
+    if (egresso != null) {
+      _controller.setEgresso(egresso);
     }
 
-    _getCurriculo();
+    // _getCurriculo();
+    _getEgresso();
 
     return LayoutBuilder(builder: (context, constraints) {
       _maxWidth = constraints.maxWidth;
@@ -79,10 +90,13 @@ class _CurriculoViewState extends State<CurriculoView> {
     });
   }
 
-  _getCurriculo() async {
+  // _getCurriculo() async {
+  _getEgresso() async {
     var prefs = await SharedPreferences.getInstance();
-    var json = prefs.getString("curriculo");
-    _controller.curriculo = CurriculoLattes().fromJson(jsonDecode(json));
+    var json = prefs.getString('egresso');
+    // var json = prefs.getString("curriculo");
+    // _controller.curriculo = CurriculoLattes().fromJson(jsonDecode(json));
+    _controller.egresso = Egresso.fromJson(jsonDecode(json));
   }
 
   _criarAppBar() {
@@ -137,12 +151,14 @@ class _CurriculoViewState extends State<CurriculoView> {
 
   _nomeStatus() {
     var nome = Text(
-      _controller.curriculo.nome,
+      // _controller.curriculo.nome,
+      _controller.egresso.nome,
       style: TextStyle(fontSize: 22),
     );
     Color corSituacao;
 
-    switch (_controller.curriculo.situacao.id) {
+    // switch (_controller.curriculo.situacao.id) {
+    switch (_controller.egresso.situacao.id) {
       case 1:
         corSituacao = Colors.red;
         break;
@@ -165,7 +181,8 @@ class _CurriculoViewState extends State<CurriculoView> {
             borderRadius: BorderRadius.all(Radius.circular(12))),
         child: Center(
             child: Text(
-          "${_controller.curriculo.situacao.tipo}",
+          // "${_controller.curriculo.situacao.tipo}",
+          '${_controller.egresso.situacao.tipo}',
           style: TextStyle(fontSize: 14, color: Color(0xFFFDFDFD)),
         )),
       ),
@@ -197,7 +214,8 @@ class _CurriculoViewState extends State<CurriculoView> {
           future: cargo,
           builder: (BuildContext context, AsyncSnapshot<Cargo> snapshot) {
             if (snapshot.hasData) {
-              return Text('${snapshot.data.cargo} - ${snapshot.data.instituicao}');
+              return Text(
+                  '${snapshot.data.cargo} - ${snapshot.data.instituicao}');
             }
             return Text('Cargo atual não informado');
           },
@@ -277,7 +295,8 @@ class _CurriculoViewState extends State<CurriculoView> {
       titulo: 'Nome Citação',
       lista: [
         ItemListaDetalhes(
-          subtitulo: _controller.curriculo.nomeCitacao,
+          // subtitulo: _controller.curriculo.nomeCitacao,
+          subtitulo: _controller.egresso.nomeCitacoes[0],
           corpo: [''],
         ),
       ],
@@ -297,7 +316,7 @@ class _CurriculoViewState extends State<CurriculoView> {
       lista: [
         ItemListaDetalhes(
           subtitulo: 'Email:',
-          corpo: [_controller.curriculo.email],
+          corpo: [/*_controller.curriculo.email*/ _controller.egresso.email],
         ),
         ItemListaDetalhes(
           subtitulo: 'LinkedIn:',
@@ -313,7 +332,10 @@ class _CurriculoViewState extends State<CurriculoView> {
         ),
         ItemListaDetalhes(
           subtitulo: 'Telefone:',
-          corpo: [_controller.curriculo.celular ?? 'Não informado'],
+          corpo: [
+            /*_controller.curriculo.celular*/ _controller.egresso.celular ??
+                'Não informado'
+          ],
         ),
       ],
     );
