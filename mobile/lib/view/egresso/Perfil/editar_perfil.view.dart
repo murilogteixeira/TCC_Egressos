@@ -70,16 +70,22 @@ class _EditarPerfilState extends State<EditarPerfil> {
     switch (await showDialog(
         context: context,
         child: SimpleDialog(
-          title: Text('Selecione a opção para escolha da imagem:'),
+          title: Text('Escolha a origem da imagem:'),
           children: [
             SimpleDialogOption(
-              child: Text('Galeria'),
+              child: Text(
+                'Galeria',
+                style: TextStyle(fontSize: 18),
+              ),
               onPressed: () {
                 Navigator.of(context).pop(ImageOption.GALLERY);
               },
             ),
             SimpleDialogOption(
-              child: Text('Câmera'),
+              child: Text(
+                'Câmera',
+                style: TextStyle(fontSize: 18),
+              ),
               onPressed: () {
                 Navigator.of(context).pop(ImageOption.CAMERA);
               },
