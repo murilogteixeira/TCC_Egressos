@@ -214,23 +214,44 @@ class _EditarPerfilState extends State<EditarPerfil> {
                 'Contatos:',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
               ),
+              SizedBox(height: smallVerticalPadding),
+              Text(
+                'Email:',
+                style: TextStyle(fontSize: 16.0),
+              ),
+              SizedBox(height: smallVerticalPadding),
               TextFormField(
                 initialValue: _controller.egresso.email,
                 decoration: _inputDecoration,
               ),
               SizedBox(height: smallVerticalPadding),
-              TextFormField(
-                initialValue: 'Linkedin@mario-braga',
-                decoration: _inputDecoration,
-              ),
-              SizedBox(height: smallVerticalPadding),
-              TextFormField(
-                initialValue: '@mariobragaucb',
-                decoration: _inputDecoration,
+              Text(
+                'Telefone:',
+                style: TextStyle(fontSize: 16.0),
               ),
               SizedBox(height: smallVerticalPadding),
               TextFormField(
                 initialValue: _controller.egresso.celular,
+                decoration: _inputDecoration,
+              ),
+              SizedBox(height: smallVerticalPadding),
+              Text(
+                'LinkedIn:',
+                style: TextStyle(fontSize: 16.0),
+              ),
+              SizedBox(height: smallVerticalPadding),
+              TextFormField(
+                initialValue: '',
+                decoration: _inputDecoration,
+              ),
+              SizedBox(height: smallVerticalPadding),
+              Text(
+                'Instagram:',
+                style: TextStyle(fontSize: 16.0),
+              ),
+              SizedBox(height: smallVerticalPadding),
+              TextFormField(
+                initialValue: '',
                 decoration: _inputDecoration,
               ),
               SizedBox(height: verticalPadding),
