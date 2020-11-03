@@ -5,6 +5,7 @@ import 'package:tcc_egressos/components/nav_bar_widget.dart';
 import 'package:tcc_egressos/components/screenSize.dart';
 import 'package:tcc_egressos/controller/home_controller.dart';
 import 'package:mobx/mobx.dart';
+import 'package:tcc_egressos/model/curriculo_lattes/egresso.dart';
 import 'package:tcc_egressos/view/list_egressos.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
 
@@ -23,6 +24,9 @@ class _ConsultaViewState extends State<ConsultaView> {
   HomeController _controller;
   ProgressDialog pr;
   Future<ObservableList<CurriculoLattes>> curriculos;
+
+  Future<ObservableList<Egresso>> egressos;
+
   int numeroBuscados;
 
   @override
@@ -30,7 +34,8 @@ class _ConsultaViewState extends State<ConsultaView> {
     super.initState();
     _controller = HomeController(context);
     pr = _createProgressDialog();
-    curriculos = _controller.getCurriculos();
+    // curriculos = _controller.getCurriculos();
+    egressos = _controller.getEgressos();
   }
 
   @override
@@ -198,10 +203,13 @@ class _ConsultaViewState extends State<ConsultaView> {
                   child: Align(
                       alignment: Alignment.bottomCenter,
                       child: FutureBuilder(
-                        future: curriculos,
-                        builder: (context,
+                        // future: curriculos,
+                        future: egressos,
+                        /*builder: (context,
                             AsyncSnapshot<ObservableList<CurriculoLattes>>
-                                snapshot) {
+                                snapshot)*/
+                        builder: (context,
+                            AsyncSnapshot<ObservableList<Egresso>> snapshot) {
                           if (snapshot.hasData) {
                             return Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -218,8 +226,14 @@ class _ConsultaViewState extends State<ConsultaView> {
                                           fontSize: 20),
                                     ),
                                   ),
-                                  ListEgressos(
+                                  /*ListEgressos(
                                     list: snapshot.data,
+                                    sizeList: snapshot.data.length == 0
+                                        ? 3
+                                        : snapshot.data.length,
+                                  ),*/
+                                  ListEgressos(
+                                    egressos: snapshot.data,
                                     sizeList: snapshot.data.length == 0
                                         ? 3
                                         : snapshot.data.length,

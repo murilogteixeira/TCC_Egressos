@@ -19,7 +19,6 @@ class ResultadoView extends StatefulWidget {
 class _ResultadoViewState extends State<ResultadoView> {
   ResultadoController _controller;
   ObservableList<ObservableList<CurriculoLattes>> matriz;
-  
 
   @override
   void initState() {
@@ -54,7 +53,7 @@ class _ResultadoViewState extends State<ResultadoView> {
         new ObservableList<ObservableList<CurriculoLattes>>();
     int k = 0;
 
-    if (nroPages < 1){
+    if (nroPages < 1) {
       nroPages = 1;
     }
 
@@ -83,20 +82,19 @@ class _ResultadoViewState extends State<ResultadoView> {
   Widget _buildIndexPage(int nroPages) {
     List<Widget> aux = new List<Widget>();
     for (int i = 0; i < nroPages; i++) {
-      aux.add(
-          Container(
-            padding: EdgeInsets.fromLTRB(i == 0 ? 0 : 1.0, 0, i == nroPages-1 ? 1.0 : 0, 0),
-            child: FlatButton(
-              padding: EdgeInsets.zero,
-              textColor: Colors.black,
-              shape: new CircleBorder(),
-              onPressed: () {
-                _controller.setPaginaAtual(i);
-              },
-              child: Text('${i + 1}'),
-            ),
-          )
-      );
+      aux.add(Container(
+        padding: EdgeInsets.fromLTRB(
+            i == 0 ? 0 : 1.0, 0, i == nroPages - 1 ? 1.0 : 0, 0),
+        child: FlatButton(
+          padding: EdgeInsets.zero,
+          textColor: Colors.black,
+          shape: new CircleBorder(),
+          onPressed: () {
+            _controller.setPaginaAtual(i);
+          },
+          child: Text('${i + 1}'),
+        ),
+      ));
     }
 
     return Row(
@@ -106,10 +104,12 @@ class _ResultadoViewState extends State<ResultadoView> {
   }
 
   ListEgressos _selecionarLista() {
-    return ListEgressos(
-      list: matriz[_controller.paginaAtual],
-      sizeList: matriz[_controller.paginaAtual].length,
-    );
+    // return ListEgressos(
+    //   list: matriz[_controller.paginaAtual],
+    //   sizeList: matriz[_controller.paginaAtual].length,
+    // );
+    // return ListEgressos(egressos: List<Egressos>[],)
+    return null;
   }
 
   _createAppBar() {
@@ -125,7 +125,7 @@ class _ResultadoViewState extends State<ResultadoView> {
       return Text("Nenhum curriculo encontrado");
     }
     print((lista.length / 6).round());
-    matriz = _buildPages((lista.length/4).round(), 4, lista);
+    matriz = _buildPages((lista.length / 4).round(), 4, lista);
     return SingleChildScrollView(
       child: Container(
         color: Color(0xFFEAEDF2),
@@ -146,27 +146,26 @@ class _ResultadoViewState extends State<ResultadoView> {
                       Container(
                           alignment: Alignment.topLeft,
                           padding: EdgeInsets.fromLTRB(20, 20, 0, 0),
-                          child: Text(
-                              '${lista.length} resultados encontrados',
+                          child: Text('${lista.length} resultados encontrados',
                               style: TextStyle(
                                   color: Colors.blue, fontSize: 20.0))),
                       Container(
                         alignment: Alignment.topCenter,
                         padding: EdgeInsets.all(20),
-                        child: _buildIndexPage((lista.length/4).round()),
+                        child: _buildIndexPage((lista.length / 4).round()),
                       ),
                       Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(20)),
                         ),
-                        child: Observer(builder: (_){
+                        child: Observer(builder: (_) {
                           return _selecionarLista();
                         }),
                       ),
                       Container(
                         alignment: Alignment.topCenter,
                         padding: EdgeInsets.all(20),
-                        child: _buildIndexPage((lista.length/4).round()),
+                        child: _buildIndexPage((lista.length / 4).round()),
                       ),
                     ],
                   ),

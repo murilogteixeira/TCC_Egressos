@@ -18,6 +18,7 @@ abstract class _CurriculoControllerBase with Store {
 
   @observable
   CurriculoLattes curriculo;
+
   @action
   setCurriculo(value) => curriculo = value;
 
