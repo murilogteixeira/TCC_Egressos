@@ -5,6 +5,7 @@ import 'package:mobx/mobx.dart';
 import 'package:tcc_egressos/components/nav_bar_widget.dart';
 import 'package:tcc_egressos/controller/resultado_controller.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
+import 'package:tcc_egressos/model/curriculo_lattes/egresso.dart';
 import 'package:tcc_egressos/view/list_egressos.dart';
 
 class ResultadoView extends StatefulWidget {
@@ -18,8 +19,8 @@ class ResultadoView extends StatefulWidget {
 
 class _ResultadoViewState extends State<ResultadoView> {
   ResultadoController _controller;
-  ObservableList<ObservableList<CurriculoLattes>> matriz;
-  
+  // ObservableList<ObservableList<CurriculoLattes>> matriz;
+  ObservableList<ObservableList<Egresso>> matriz;
 
   @override
   void initState() {
@@ -29,12 +30,15 @@ class _ResultadoViewState extends State<ResultadoView> {
 
   @override
   Widget build(BuildContext context) {
-    ObservableList<CurriculoLattes> args =
-        ModalRoute.of(context).settings.arguments;
+    // ObservableList<CurriculoLattes> args =
+    //     ModalRoute.of(context).settings.arguments;
+    ObservableList<Egresso> args = ModalRoute.of(context).settings.arguments;
     if (args != null) {
       _controller.lista = args;
     }
-    ObservableList<CurriculoLattes> lista = _controller.lista;
+
+    // ObservableList<CurriculoLattes> lista = _controller.lista;
+    ObservableList<Egresso> lista = _controller.lista;
 
     return LayoutBuilder(builder: (context, constraints) {
       var maxWidth = constraints.maxWidth;
@@ -48,19 +52,23 @@ class _ResultadoViewState extends State<ResultadoView> {
     });
   }
 
-  ObservableList<ObservableList<CurriculoLattes>> _buildPages(
-      int nroPages, int nroRegister, ObservableList<CurriculoLattes> lista) {
-    ObservableList<ObservableList<CurriculoLattes>> aux =
-        new ObservableList<ObservableList<CurriculoLattes>>();
+  // ObservableList<ObservableList<CurriculoLattes>> _buildPages(
+  //     int nroPages, int nroRegister, ObservableList<CurriculoLattes> lista) {
+  ObservableList<ObservableList<Egresso>> _buildPages(
+      int nroPages, int nroRegister, ObservableList<Egresso> lista) {
+    // ObservableList<ObservableList<CurriculoLattes>> aux =
+    //     new ObservableList<ObservableList<CurriculoLattes>>();
+    ObservableList<ObservableList<Egresso>> aux =
+        new ObservableList<ObservableList<Egresso>>();
     int k = 0;
 
-    if (nroPages < 1){
+    if (nroPages < 1) {
       nroPages = 1;
     }
 
-    print(nroPages);
     for (int i = 0; i < nroPages; i++) {
-      aux.add(new ObservableList<CurriculoLattes>());
+      // aux.add(new ObservableList<CurriculoLattes>());
+      aux.add(new ObservableList<Egresso>());
       /*
         Verifica se o numero de register nao e maior que o numero de egressos
         restantes na lita, caso seja ele apresenta os que sobraram.
@@ -83,20 +91,19 @@ class _ResultadoViewState extends State<ResultadoView> {
   Widget _buildIndexPage(int nroPages) {
     List<Widget> aux = new List<Widget>();
     for (int i = 0; i < nroPages; i++) {
-      aux.add(
-          Container(
-            padding: EdgeInsets.fromLTRB(i == 0 ? 0 : 1.0, 0, i == nroPages-1 ? 1.0 : 0, 0),
-            child: FlatButton(
-              padding: EdgeInsets.zero,
-              textColor: Colors.black,
-              shape: new CircleBorder(),
-              onPressed: () {
-                _controller.setPaginaAtual(i);
-              },
-              child: Text('${i + 1}'),
-            ),
-          )
-      );
+      aux.add(Container(
+        padding: EdgeInsets.fromLTRB(
+            i == 0 ? 0 : 1.0, 0, i == nroPages - 1 ? 1.0 : 0, 0),
+        child: FlatButton(
+          padding: EdgeInsets.zero,
+          textColor: Colors.black,
+          shape: new CircleBorder(),
+          onPressed: () {
+            _controller.setPaginaAtual(i);
+          },
+          child: Text('${i + 1}'),
+        ),
+      ));
     }
 
     return Row(
@@ -106,8 +113,12 @@ class _ResultadoViewState extends State<ResultadoView> {
   }
 
   ListEgressos _selecionarLista() {
+    // return ListEgressos(
+    //   list: matriz[_controller.paginaAtual],
+    //   sizeList: matriz[_controller.paginaAtual].length,
+    // );
     return ListEgressos(
-      list: matriz[_controller.paginaAtual],
+      egressos: matriz[_controller.paginaAtual],
       sizeList: matriz[_controller.paginaAtual].length,
     );
   }
@@ -120,12 +131,13 @@ class _ResultadoViewState extends State<ResultadoView> {
           );
   }
 
-  _listContainer(ObservableList<CurriculoLattes> lista) {
+  // _listContainer(ObservableList<CurriculoLattes> lista) {
+  // _listContainer(ObserverList<Egresso> lista) {
+  _listContainer(ObservableList<Egresso> lista) {
     if (lista == null) {
-      return Text("Nenhum curriculo encontrado");
+      return Text("Nenhum egresso encontrado");
     }
-    print((lista.length / 6).round());
-    matriz = _buildPages((lista.length/4).round(), 4, lista);
+    matriz = _buildPages((lista.length / 4).round(), 4, lista);
     return SingleChildScrollView(
       child: Container(
         color: Color(0xFFEAEDF2),
@@ -146,27 +158,26 @@ class _ResultadoViewState extends State<ResultadoView> {
                       Container(
                           alignment: Alignment.topLeft,
                           padding: EdgeInsets.fromLTRB(20, 20, 0, 0),
-                          child: Text(
-                              '${lista.length} resultados encontrados',
+                          child: Text('${lista.length} resultados encontrados',
                               style: TextStyle(
                                   color: Colors.blue, fontSize: 20.0))),
                       Container(
                         alignment: Alignment.topCenter,
                         padding: EdgeInsets.all(20),
-                        child: _buildIndexPage((lista.length/4).round()),
+                        child: _buildIndexPage((lista.length / 4).round()),
                       ),
                       Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(20)),
                         ),
-                        child: Observer(builder: (_){
+                        child: Observer(builder: (_) {
                           return _selecionarLista();
                         }),
                       ),
                       Container(
                         alignment: Alignment.topCenter,
                         padding: EdgeInsets.all(20),
-                        child: _buildIndexPage((lista.length/4).round()),
+                        child: _buildIndexPage((lista.length / 4).round()),
                       ),
                     ],
                   ),

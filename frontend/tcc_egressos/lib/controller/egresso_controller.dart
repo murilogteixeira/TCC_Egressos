@@ -3,24 +3,21 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import 'package:tcc_egressos/model/curriculo_lattes/cargo.dart';
-import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
 import 'package:http/http.dart' as http;
 import 'package:tcc_egressos/model/curriculo_lattes/atuacao.dart';
+import 'package:tcc_egressos/model/curriculo_lattes/cargo.dart';
+import 'package:tcc_egressos/model/curriculo_lattes/egresso.dart';
 
-part 'curriculo_controller.g.dart';
+part 'egresso_controller.g.dart';
 
-class CurriculoController = _CurriculoControllerBase with _$CurriculoController;
+class EgressoController = _EgressoControllerBase with _$EgressoController;
 
-abstract class _CurriculoControllerBase with Store {
-  // @observable
-  // ObservableList<Widget> listaWidget = ObservableList();
-
+abstract class _EgressoControllerBase with Store {
   @observable
-  CurriculoLattes curriculo;
+  Egresso egresso;
 
   @action
-  setCurriculo(value) => curriculo = value;
+  setEgresso(value) => egresso = value;
 
   @observable
   Widget container = Container();
@@ -30,7 +27,7 @@ abstract class _CurriculoControllerBase with Store {
 
   Future<List<Atuacao>> consultaAtuacao() async {
     final response = await http.get(
-      'https://egressosbackend.herokuapp.com/atuacoesProfissionais/?search=${curriculo.id}',
+      'https://egressosbackend.herokuapp.com/atuacoesProfissionais/?search=${egresso.id}',
       headers: {
         HttpHeaders.authorizationHeader:
             'Bearer 684bd25e2c3387ad980e732e52ab390897d8339a',
@@ -54,7 +51,7 @@ abstract class _CurriculoControllerBase with Store {
 
   Future<Cargo> consultaCargo() async {
     final response = await http.get(
-      'https://egressosbackend.herokuapp.com/atuacoesProfissionais/?search=${curriculo.id}',
+      'https://egressosbackend.herokuapp.com/atuacoesProfissionais/?search=${egresso.id}',
       headers: {
         HttpHeaders.authorizationHeader:
             'Bearer 684bd25e2c3387ad980e732e52ab390897d8339a',

@@ -12,13 +12,22 @@ mixin _$HomeController on _HomeControllerBase, Store {
   final _$listaAtom = Atom(name: '_HomeControllerBase.lista');
 
   @override
-  ObservableList<CurriculoLattes> get lista {
+  // ObservableList<CurriculoLattes> get lista {
+  //   _$listaAtom.reportRead();
+  //   return super.lista;
+  // }
+  ObservableList<Egresso> get lista {
     _$listaAtom.reportRead();
     return super.lista;
   }
 
   @override
-  set lista(ObservableList<CurriculoLattes> value) {
+  // set lista(ObservableList<CurriculoLattes> value) {
+  //   _$listaAtom.reportWrite(value, super.lista, () {
+  //     super.lista = value;
+  //   });
+  // }
+  set lista(ObservableList<Egresso> value) {
     _$listaAtom.reportWrite(value, super.lista, () {
       super.lista = value;
     });
@@ -52,11 +61,20 @@ mixin _$HomeController on _HomeControllerBase, Store {
       ActionController(name: '_HomeControllerBase');
 
   @override
-  dynamic addCurriculo(CurriculoLattes curriculo) {
+  // dynamic addCurriculo(CurriculoLattes curriculo) {
+  //   final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+  //       name: '_HomeControllerBase.addCurriculo');
+  //   try {
+  //     return super.addCurriculo(curriculo);
+  //   } finally {
+  //     _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+  //   }
+  // }
+  dynamic addEgresso(Egresso egresso) {
     final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
-        name: '_HomeControllerBase.addCurriculo');
+        name: '_HomeControllerBase.addEgresso');
     try {
-      return super.addCurriculo(curriculo);
+      return super.addEgresso(egresso);
     } finally {
       _$_HomeControllerBaseActionController.endAction(_$actionInfo);
     }

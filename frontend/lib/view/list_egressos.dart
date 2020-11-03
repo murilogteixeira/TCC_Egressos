@@ -6,11 +6,14 @@ import 'package:tcc_egressos/controller/curriculo_controller.dart';
 import 'package:tcc_egressos/controller/list_egressos_controller.dart';
 import 'package:tcc_egressos/extension/hand_cursor.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
+import 'package:tcc_egressos/model/curriculo_lattes/egresso.dart';
 
 class ListEgressos extends StatefulWidget {
-  final ObservableList<CurriculoLattes> list;
+  // final ObservableList<CurriculoLattes> list;
+  final ObservableList<Egresso> egressos;
   final int sizeList;
-  const ListEgressos({this.list, this.sizeList});
+  // const ListEgressos({this.list, this.sizeList});
+  const ListEgressos({this.egressos, this.sizeList});
 
   @override
   ListEgressosState createState() => ListEgressosState();
@@ -41,8 +44,10 @@ class ListEgressosState extends State<ListEgressos> {
     );
   }
 
-  Color _defineColor(int index) {
-    switch (widget.list[index].situacao.tipo) {
+  // Color _defineColor(int index) {
+  Color _defineColor(String tipo) {
+    // switch (widget.list[index].situacao.tipo) {
+    switch (tipo) {
       case 'Regular':
         return Colors.blue;
       case 'Atrasado':
@@ -58,7 +63,8 @@ class ListEgressosState extends State<ListEgressos> {
     return HandCursor(
       cursor: 'pointer',
       child: GestureDetector(
-        onTap: () => _listController.onTapCurriculo(widget.list[index]),
+        // onTap: () => _listController.onTapCurriculo(widget.list[index]),
+        onTap: () => _listController.onTapEgresso(widget.egressos[index]),
         child: Container(
           height: MediaQuery.of(context).size.width < 768 ? 175 : 119,
           width: MediaQuery.of(context).size.width,
@@ -89,12 +95,11 @@ class ListEgressosState extends State<ListEgressos> {
                         //    color: Colors.red,
                         //    width: 5.0,
                         //  ),
-                        color: _defineColor(index),
+                        color:
+                            _defineColor(widget.egressos[index].situacao.tipo),
                         shape: BoxShape.circle,
-
                         // image: new DecorationImage(
                         //       image: AssetImage('web/profile.png'), fit: BoxFit.fill),
-
                       ),
                       child: Container(
                         height: 69.0,
@@ -102,16 +107,16 @@ class ListEgressosState extends State<ListEgressos> {
                         // child: Image.asset("Assets/Images/profile.png"),
                         alignment: Alignment.center,
                         decoration: new BoxDecoration(
-                          border: Border.all(
-                            color: Colors.white,
-                            width: 3.5,
-                          ),
-                          shape: BoxShape.circle,
-                          image: new DecorationImage(
+                            border: Border.all(
+                              color: Colors.white,
+                              width: 3.5,
+                            ),
+                            shape: BoxShape.circle,
+                            image: new DecorationImage(
                               fit: BoxFit.fill,
-                              image: NetworkImage("https://www.kirkham-legal.co.uk/wp-content/uploads/2017/02/profile-placeholder.png"),
-                          )
-                        ),
+                              image: NetworkImage(
+                                  "https://www.kirkham-legal.co.uk/wp-content/uploads/2017/02/profile-placeholder.png"),
+                            )),
                       ),
                     ),
                   ),
@@ -124,22 +129,24 @@ class ListEgressosState extends State<ListEgressos> {
                         children: <Widget>[
                           Container(
                               margin: EdgeInsets.fromLTRB(0.0, 0, 0, 10),
-                              child: Text('${widget.list[index].nome}',
+                              // child: Text('${widget.list[index].nome}',
+                              child: Text('${widget.egressos[index].nome}',
                                   style: TextStyle(
                                       color: Colors.blue, fontSize: 20.0))),
                           Container(
                               child: ConstrainedBox(
-                                constraints: BoxConstraints(
-                                    maxWidth:
+                            constraints: BoxConstraints(
+                                maxWidth:
                                     MediaQuery.of(context).size.width * 0.8 / 2,
-                                    maxHeight:
+                                maxHeight:
                                     MediaQuery.of(context).size.height * 1.0),
-                                child: AutoSizeText(
-                                  '${'Professor na Universidade Católica de Brasília'}',
-                                  group: AutoSizeGroup(),
-                                ),
-                              )),
-                          Text('${"Doutor"}')
+                            child: AutoSizeText(
+                              /*'${'Professor na Universidade Católica de Brasília'}'*/ '${widget.egressos[index].email}',
+                              group: AutoSizeGroup(),
+                            ),
+                          )),
+                          Text(
+                              /*'${"Doutor"}'*/ '${widget.egressos[index].celular}')
                         ],
                       ),
                     ),
