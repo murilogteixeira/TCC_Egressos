@@ -41,5 +41,11 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Usaremos o seu álbum para escolher a melhor foto do seu perfil.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Usaremos a camera para capturar um foto para o seu perfil.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Usaremos o microfone para gravar vídeos</string>
 </dict>
 </plist>

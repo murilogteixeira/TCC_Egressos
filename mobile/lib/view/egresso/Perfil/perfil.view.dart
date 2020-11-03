@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobile/controller/login.controller.dart';
 import 'package:mobile/controller/perfil.controller.dart';
+import 'package:mobile/main.dart';
 import 'package:mobile/view/egresso/Perfil/View/dadosGeraisView.dart';
 import 'package:mobile/view/egresso/Perfil/View/producoesView.dart';
 import 'package:mobile/view/shared/login.view.dart';
@@ -27,11 +28,15 @@ class _PerfilViewState extends State<PerfilView> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Perfil'),
+        backgroundColor: mainColor,
         actions: [
           FlatButton(
             child: Text(
               'Sair',
-              style: TextStyle(color: Colors.white, fontSize: 16),
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold),
             ),
             onPressed: () {
               LoginController().logout();
@@ -39,6 +44,14 @@ class _PerfilViewState extends State<PerfilView> {
             },
           )
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.edit),
+        backgroundColor: mainColor,
+        onPressed: () {
+          Navigator.of(context)
+              .pushNamed(EditarPerfil.route, arguments: _controller.egresso);
+        },
       ),
       body: Observer(
         builder: (_) => _controller.egresso == null
@@ -152,12 +165,6 @@ class _PerfilViewState extends State<PerfilView> {
                 ),
               ),
             ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.edit),
-        onPressed: () {
-          Navigator.of(context).pushNamed(EditarPerfil.route);
-        },
       ),
     );
   }

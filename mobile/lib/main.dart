@@ -7,6 +7,8 @@ import 'package:mobile/view/shared/recuperarSenha.view.dart';
 
 void main() => runApp(MyApp());
 
+var mainColor = Color(0xff30559F);
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,9 @@ class MyApp extends StatelessWidget {
         RecuperarSenha.route: (context) => RecuperarSenha(),
         TabBarAppView.route: (context) => TabBarAppView(),
         ConsultaView.route: (context) => ConsultaView(),
-        EditarPerfil.route: (context) => EditarPerfil(),
+        EditarPerfil.route: (context) => EditarPerfil(
+              egresso: ModalRoute.of(context).settings.arguments,
+            ),
       },
     );
   }
