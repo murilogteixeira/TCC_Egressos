@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobile/controller/recuperarSenha.controller.dart';
+import 'package:mobile/main.dart';
 
 class RecuperarSenha extends StatefulWidget {
   static final route = "/recuperarSenha";
@@ -112,7 +113,7 @@ class _RecuperarSenhaState extends State<RecuperarSenha> {
                       width: 192,
                       height: 50,
                       child: RaisedButton(
-                        color: Color(0xFF30559F),
+                        color: mainColor,
                         child: Text(
                           'Enviar',
                           style: TextStyle(

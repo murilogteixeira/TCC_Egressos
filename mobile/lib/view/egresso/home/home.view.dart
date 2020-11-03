@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobile/controller/home.controller.dart';
+import 'package:mobile/main.dart';
 import 'package:mobile/model/curriculo_lattes/egresso.dart';
 import 'package:mobile/view/egresso/home/bancas.view.dart';
 import 'package:mobile/view/egresso/home/producoes.view.dart';
@@ -35,7 +36,7 @@ class _HomeViewState extends State<HomeView> {
           //   //   // Tab(child: Text(_tituloBancas)),
           //   // ],
           // ),
-          backgroundColor: Color(0xff30559F),
+          backgroundColor: mainColor,
         ),
         body: Observer(
           builder: (_) {
