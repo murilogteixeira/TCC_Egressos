@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mobile/controller/editar_perfil.controller.dart';
-import 'package:mobile/image_picker.view.dart';
 import 'package:mobile/model/curriculo_lattes/egresso.dart';
+
+enum ImageOption { CAMERA, GALLERY }
 
 class EditarPerfil extends StatefulWidget {
   static final route = '/editar_perfil';
@@ -35,6 +39,61 @@ class _EditarPerfilState extends State<EditarPerfil> {
     ),
   );
 
+  File _image;
+  final picker = ImagePicker();
+
+  Future getImage() async {
+    final pickedFile = await picker.getImage(source: ImageSource.camera);
+
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+      } else {
+        print('No image selected.');
+      }
+    });
+  }
+
+  Future getImageFromGallery() async {
+    var image = await picker.getImage(source: ImageSource.gallery);
+    setState(() {
+      if (image != null) {
+        _image = File(image.path);
+      } else {
+        print('No image selected.');
+      }
+    });
+  }
+
+  Future _selectImageOption() async {
+    switch (await showDialog(
+        context: context,
+        child: SimpleDialog(
+          title: Text('Selecione a opção para escolha da imagem:'),
+          children: [
+            SimpleDialogOption(
+              child: Text('Galeria'),
+              onPressed: () {
+                Navigator.of(context).pop(ImageOption.GALLERY);
+              },
+            ),
+            SimpleDialogOption(
+              child: Text('Câmera'),
+              onPressed: () {
+                Navigator.of(context).pop(ImageOption.CAMERA);
+              },
+            ),
+          ],
+        ))) {
+      case ImageOption.GALLERY:
+        this.getImageFromGallery();
+        break;
+      case ImageOption.CAMERA:
+        this.getImage();
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     _controller = EditarPerfilController(widget.egresso);
@@ -54,20 +113,31 @@ class _EditarPerfilState extends State<EditarPerfil> {
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(180),
-                      child: Image.network(
-                        'https://www.pngitem.com/pimgs/m/421-4212617_person-placeholder-image-transparent-hd-png-download.png',
-                        height: 90,
-                        width: 90,
-                      ),
+                      child: _image == null
+                          ? Image.network(
+                              'https://www.pngitem.com/pimgs/m/421-4212617_person-placeholder-image-transparent-hd-png-download.png',
+                              height: 90,
+                              width: 90,
+                            )
+                          : Image.file(
+                              _image,
+                              fit: BoxFit.cover,
+                              height: 90,
+                              width: 90,
+                            ),
                     ),
                     Positioned(
-                      left: 50,
-                      top: 50,
-                      child: IconButton(
-                        icon: Icon(Icons.camera_alt),
-                        onPressed: () {
-                          Navigator.of(context).pushNamed(MyHomePage.route);
-                        },
+                      left: 35,
+                      top: 55,
+                      child: RawMaterialButton(
+                        child: Icon(
+                          Icons.camera_alt,
+                          size: 15,
+                        ),
+                        elevation: 2,
+                        fillColor: Colors.white,
+                        shape: CircleBorder(),
+                        onPressed: this._selectImageOption,
                       ),
                     ),
                   ],
@@ -102,6 +172,15 @@ class _EditarPerfilState extends State<EditarPerfil> {
               Text(
                 _controller.egresso.nomeCitacoes,
                 style: TextStyle(color: Colors.black, fontSize: 20.0),
+              ),
+              SizedBox(height: verticalPadding),
+              Text(
+                'ORCID:',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+              ),
+              TextFormField(
+                initialValue: '',
+                decoration: _inputDecoration,
               ),
               SizedBox(height: verticalPadding),
               Text(
@@ -149,7 +228,9 @@ class _EditarPerfilState extends State<EditarPerfil> {
               Center(
                 child: RaisedButton(
                   child: Text('Salvar'),
-                  onPressed: () {},
+                  onPressed: () {
+                    print('Salvar');
+                  },
                 ),
               )
             ],
