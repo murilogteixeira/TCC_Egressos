@@ -98,7 +98,7 @@ class _PerfilViewState extends State<PerfilView> {
                               borderRadius: BorderRadius.circular(4),
                               color: Color(0xFF70D169)),
                           child: Text(
-                            "Regular",
+                            'Regular',
                             style: TextStyle(
                               fontWeight: FontWeight.w700,
                               fontSize: 10.0,
@@ -135,23 +135,23 @@ class _PerfilViewState extends State<PerfilView> {
                                       ),
                                     )),
                               ),
-                              Container(
-                                width: 130.0,
-                                color: Colors.white,
-                                child: FlatButton(
-                                    onPressed: () {
-                                      _controller.setInformacoesEgresso(
-                                          producoesEgressoView);
-                                    },
-                                    child: Text(
-                                      "Produções",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 13.0,
-                                        color: Color(0xFF547DD9),
-                                      ),
-                                    )),
-                              ),
+                              // Container(
+                              //   width: 130.0,
+                              //   color: Colors.white,
+                              //   child: FlatButton(
+                              //       onPressed: () {
+                              //         _controller.setInformacoesEgresso(
+                              //             producoesEgressoView);
+                              //       },
+                              //       child: Text(
+                              //         "Produções",
+                              //         style: TextStyle(
+                              //           fontWeight: FontWeight.w500,
+                              //           fontSize: 13.0,
+                              //           color: Color(0xFF547DD9),
+                              //         ),
+                              //       )),
+                              // ),
                             ]),
                       ),
                     ),
