@@ -87,62 +87,62 @@ class _DadosGeraisViewState extends State<DadosGeraisView> {
             ],
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(0, 27, 40, 27),
-          child: horizontalSeparator,
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              pointIndicator,
-              Padding(
-                padding: const EdgeInsets.fromLTRB(24, 8, 8, 8),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 9),
-                      child: Text('Atuação:',
-                          style: TextStyle(
-                              color: Color(0xFF547DD9), fontWeight: FontWeight.bold, fontSize: 18.0)),
-                    ),
-                    Text('Docencia',
-                        style: TextStyle(color: Color(0xFF4A4A4A), fontSize: 20.0))
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(0, 27, 40, 27),
-          child: horizontalSeparator,
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              pointIndicator,
-              Padding(
-                padding: const EdgeInsets.fromLTRB(24, 8, 8, 8),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 9),
-                      child: Text('Cargo Atual:',
-                          style: TextStyle(
-                              color: Color(0xFF547DD9), fontWeight: FontWeight.bold, fontSize: 18.0)),
-                    ),
-                    Text('Professor Universitario',
-                        style: TextStyle(color: Color(0xFF4A4A4A), fontSize: 20.0)),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
+        // Padding(
+        //   padding: const EdgeInsets.fromLTRB(0, 27, 40, 27),
+        //   child: horizontalSeparator,
+        // ),
+        // Padding(
+        //   padding: const EdgeInsets.all(8.0),
+        //   child: Row(
+        //     children: [
+        //       pointIndicator,
+        //       Padding(
+        //         padding: const EdgeInsets.fromLTRB(24, 8, 8, 8),
+        //         child: Column(
+        //           crossAxisAlignment: CrossAxisAlignment.start,
+        //           children: [
+        //             Padding(
+        //               padding: const EdgeInsets.only(bottom: 9),
+        //               child: Text('Atuação:',
+        //                   style: TextStyle(
+        //                       color: Color(0xFF547DD9), fontWeight: FontWeight.bold, fontSize: 18.0)),
+        //             ),
+        //             Text('Docencia',
+        //                 style: TextStyle(color: Color(0xFF4A4A4A), fontSize: 20.0))
+        //           ],
+        //         ),
+        //       ),
+        //     ],
+        //   ),
+        // ),
+        // Padding(
+        //   padding: const EdgeInsets.fromLTRB(0, 27, 40, 27),
+        //   child: horizontalSeparator,
+        // ),
+        // Padding(
+        //   padding: const EdgeInsets.all(8.0),
+        //   child: Row(
+        //     children: [
+        //       pointIndicator,
+        //       Padding(
+        //         padding: const EdgeInsets.fromLTRB(24, 8, 8, 8),
+        //         child: Column(
+        //           crossAxisAlignment: CrossAxisAlignment.start,
+        //           children: [
+        //             Padding(
+        //               padding: const EdgeInsets.only(bottom: 9),
+        //               child: Text('Cargo Atual:',
+        //                   style: TextStyle(
+        //                       color: Color(0xFF547DD9), fontWeight: FontWeight.bold, fontSize: 18.0)),
+        //             ),
+        //             Text('Professor Universitario',
+        //                 style: TextStyle(color: Color(0xFF4A4A4A), fontSize: 20.0)),
+        //           ],
+        //         ),
+        //       ),
+        //     ],
+        //   ),
+        // ),
         Padding(
           padding: const EdgeInsets.fromLTRB(0, 27, 40, 27),
           child: horizontalSeparator,
