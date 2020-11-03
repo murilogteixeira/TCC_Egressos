@@ -31,7 +31,10 @@ class _PerfilViewState extends State<PerfilView> {
           FlatButton(
             child: Text(
               'Sair',
-              style: TextStyle(color: Colors.white, fontSize: 16),
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold),
             ),
             onPressed: () {
               LoginController().logout();
@@ -39,6 +42,13 @@ class _PerfilViewState extends State<PerfilView> {
             },
           )
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.edit),
+        onPressed: () {
+          Navigator.of(context)
+              .pushNamed(EditarPerfil.route, arguments: _controller.egresso);
+        },
       ),
       body: Observer(
         builder: (_) => _controller.egresso == null
@@ -151,20 +161,15 @@ class _PerfilViewState extends State<PerfilView> {
                         builder: (_) => Padding(
                           padding: EdgeInsets.symmetric(vertical: 40),
                           child: Align(
-                              alignment: Alignment.bottomCenter,
-                              child: _controller.informacoesEgresso),
+                            alignment: Alignment.bottomCenter,
+                            child: _controller.informacoesEgresso,
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
               ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.edit),
-        onPressed: () {
-          Navigator.of(context).pushNamed(EditarPerfil.route, arguments: _controller.egresso);
-        },
       ),
     );
   }
