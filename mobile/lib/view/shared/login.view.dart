@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobile/controller/login.controller.dart';
+import 'package:mobile/main.dart';
 import 'package:mobile/model/usuario.dart';
 import 'package:mobile/view/egresso/tabbar.view.dart';
 import 'package:mobile/view/shared/recuperarSenha.view.dart';
@@ -209,7 +210,7 @@ class _LoginFormState extends State<LoginForm> {
                       width: 192,
                       height: 50,
                       child: RaisedButton(
-                        color: Color(0xFF30559F),
+                        color: mainColor,
                         child: Text(
                           'Entrar',
                           style: TextStyle(

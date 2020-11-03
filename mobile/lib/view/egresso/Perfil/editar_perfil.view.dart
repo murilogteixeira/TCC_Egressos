@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobile/controller/editar_perfil.controller.dart';
+import 'package:mobile/main.dart';
 import 'package:mobile/model/curriculo_lattes/egresso.dart';
 
 enum ImageOption { CAMERA, GALLERY }
@@ -101,6 +102,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Editar perfil'),
+        backgroundColor: mainColor,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -127,12 +129,13 @@ class _EditarPerfilState extends State<EditarPerfil> {
                             ),
                     ),
                     Positioned(
-                      left: 35,
+                      left: 30,
                       top: 55,
+                      height: 30,
                       child: RawMaterialButton(
                         child: Icon(
                           Icons.camera_alt,
-                          size: 15,
+                          size: 22,
                         ),
                         elevation: 2,
                         fillColor: Colors.white,
@@ -226,13 +229,27 @@ class _EditarPerfilState extends State<EditarPerfil> {
               ),
               SizedBox(height: verticalPadding),
               Center(
-                child: RaisedButton(
-                  child: Text('Salvar'),
-                  onPressed: () {
-                    print('Salvar');
-                  },
+                child: SizedBox(
+                  width: 192,
+                  height: 50,
+                  child: RaisedButton(
+                    color: mainColor,
+                    child: Text(
+                      'Salvar',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 19,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25)),
+                  ),
                 ),
-              )
+              ),
             ],
           ),
         ),
