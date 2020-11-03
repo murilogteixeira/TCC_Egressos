@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as Charts;
 
@@ -42,7 +40,7 @@ class PieOutsideLabelChart extends StatelessWidget {
   factory PieOutsideLabelChart.withSampleData(List<ChartsData> data) {
     return new PieOutsideLabelChart(
       _createSampleData(data),
-      animate: true,
+      animate: false,
     );
   }
 
@@ -50,7 +48,7 @@ class PieOutsideLabelChart extends StatelessWidget {
   Widget build(BuildContext context) {
     return Charts.PieChart(
       seriesList,
-      animate: true,
+      animate: false,
       animationDuration: Duration(seconds: 2),
     );
   }
@@ -80,7 +78,7 @@ class BarChartOutsideLabelChart extends StatelessWidget {
       List<ChartsData> data, List<int> averages) {
     return new BarChartOutsideLabelChart(
       _createSampleData(data, averages),
-      animate: true,
+      animate: false,
     );
   }
 
@@ -178,52 +176,58 @@ class OrganizeCharts {
       colorsMaterial.add(MaterialColor(element.value, getSwatch(element)));
     });
 
-    final children = <Widget>[];
+    List<Widget> _createDataRows(bool isAvarages) {
+      final children = <Widget>[];
 
-    for (var i = 0; i < data.length; i++) {
-      data[i].cor = Charts.Color(
-          r: colorsColor[i].red,
-          g: colorsColor[i].green,
-          b: colorsColor[i].blue,
-          a: colorsColor[i].alpha);
+      for (var i = 0; i < data.length; i++) {
+        data[i].cor = Charts.Color(
+            r: colorsColor[i].red,
+            g: colorsColor[i].green,
+            b: colorsColor[i].blue,
+            a: colorsColor[i].alpha);
 
-      Widget row = Padding(
-        padding: const EdgeInsets.symmetric(vertical: 5),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Row(
-                children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 0, horizontal: 5),
-                    child: Icon(Icons.lens,
-                        size: (ballSize), color: colorsMaterial[i]),
-                  ),
-                  Flexible(
-                    child: Text(
-                      data[i].nome,
-                      style: TextStyle(fontSize: fontSize),
+        Widget row = Padding(
+          padding: const EdgeInsets.symmetric(vertical: 5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 0, horizontal: 5),
+                      child: Icon(Icons.lens,
+                          size: (ballSize), color: colorsMaterial[i]),
                     ),
-                  )
-                ],
+                    Flexible(
+                      child: Text(
+                        data[i].nome,
+                        style: TextStyle(fontSize: fontSize),
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
-            Text(
-              "... ${data[i].value}",
-              style: TextStyle(fontSize: fontSize),
-            ),
-          ],
-        ),
-      );
-      children.add(row);
+              Padding(
+                padding: const EdgeInsets.only(left: 2.0),
+                child: Text(
+                  " .${isAvarages ? avarages[i] : data[i].value}",
+                  style: TextStyle(fontSize: fontSize),
+                ),
+              ),
+            ],
+          ),
+        );
+        children.add(row);
+      }
+      return children;
     }
 
     List<Widget> _pieChartAndData() {
       Widget legendas = Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: children,
+        children: _createDataRows(false),
       );
       double chartSize = kIsWeb ? 300 : 250;
       legendas = kIsWeb
@@ -246,6 +250,7 @@ class OrganizeCharts {
     }
 
     List<Widget> _barChartAndData() {
+
       return [
         Padding(
           padding: kIsWeb
@@ -263,7 +268,7 @@ class OrganizeCharts {
               : const EdgeInsets.all(10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: children,
+            children: _createDataRows(true),
           ),
         )
       ];
@@ -295,7 +300,7 @@ class OrganizeCharts {
                   ? const EdgeInsets.fromLTRB(60, 50, 1, 10)
                   : const EdgeInsets.fromLTRB(25, 50, 1, 10),
               child: Text(
-                "Visão Geral - ${title.capitalize()}",
+                title.capitalize(),
                 style: TextStyle(
                   color: Color.fromARGB(255, 84, 125, 217),
                   fontSize: 17,
@@ -371,25 +376,25 @@ class ChartsData {
   ChartsData(this.nome, this.value, [this.cor]);
 }
 
-final dataExemplo = [
-  new ChartsData(
-    "Participação em eventos, congressos, exposições e feiras ",
-    500,
-  ),
-  new ChartsData(
-    "Organização de eventos, congressos, exposições e feiras ",
-    710,
-  ),
-  new ChartsData(
-    "Artigos publicados ",
-    400,
-  ),
-  new ChartsData(
-    "Menções em obras ",
-    400,
-  ),
-  new ChartsData(
-    "Participação em bancas ",
-    400,
-  ),
-];
+// final dataExemplo = [
+//   new ChartsData(
+//     "Participação em eventos, congressos, exposições e feiras ",
+//     500,
+//   ),
+//   new ChartsData(
+//     "Organização de eventos, congressos, exposições e feiras ",
+//     710,
+//   ),
+//   new ChartsData(
+//     "Artigos publicados ",
+//     400,
+//   ),
+//   new ChartsData(
+//     "Menções em obras ",
+//     400,
+//   ),
+//   new ChartsData(
+//     "Participação em bancas ",
+//     400,
+//   ),
+// ];

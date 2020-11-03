@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/view/home/home.view.dart';
-import 'package:mobile/view/perfil.view.dart';
+import 'package:mobile/model/curriculo_lattes/egresso.dart';
+import 'package:mobile/model/usuario.dart';
+import 'package:mobile/view/egresso/home/home.view.dart';
+import 'package:mobile/view/egresso/Perfil/perfil.view.dart';
 
 class TabBarAppView extends StatefulWidget {
   static final route = '/tabBarView';
@@ -10,14 +12,9 @@ class TabBarAppView extends StatefulWidget {
 
 class _TabBarAppViewState extends State<TabBarAppView> {
   var _selectedIndex = 0;
-  
-  static const String _tituloHome = 'Comparativos';
-  static const String _tituloPerfil = 'Perfil';
 
-  static List<Widget> _widgetOptions = [
-    HomeView(title: _tituloHome),
-    PerfilView(),
-  ];
+  static const String _tituloHome = 'Produções';
+  static const String _tituloPerfil = 'Perfil';
 
   _onItemTapped(int index) {
     setState(() {
@@ -27,6 +24,16 @@ class _TabBarAppViewState extends State<TabBarAppView> {
 
   @override
   Widget build(BuildContext context) {
+    Egresso egresso = ModalRoute.of(context).settings.arguments;
+
+    List<Widget> _widgetOptions = [
+      HomeView(
+        title: _tituloHome,
+        egresso: egresso,
+      ),
+      PerfilView(),
+    ];
+
     return Scaffold(
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
@@ -44,7 +51,7 @@ class _TabBarAppViewState extends State<TabBarAppView> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Theme.of(context).primaryColor,
+        selectedItemColor: Color(0xff547DD9),
         onTap: _onItemTapped,
       ),
     );

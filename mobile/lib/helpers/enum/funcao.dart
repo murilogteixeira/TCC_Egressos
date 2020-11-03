@@ -1,3 +1,0 @@
-enum Funcao {
-  admin, egresso
-}
