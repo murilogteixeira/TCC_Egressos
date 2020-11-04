@@ -26,7 +26,7 @@ class _SplashScrenViewState extends State<SplashScrenView> {
   }
 
   _goToHome() {
-    Navigator.of(context).pushReplacementNamed(TabBarAppView.route);
+    Navigator.of(context).pushReplacementNamed(TabBarAppView.route, arguments: _usuario);
   }
 
   @override
@@ -34,6 +34,7 @@ class _SplashScrenViewState extends State<SplashScrenView> {
     verificaLoginEmCache().then((usuarioLogado) {
       usuarioLogado == null ? _goToLogin() : _goToHome();
     });
+    
     return Scaffold(
       body: Container(
         color: Colors.white,

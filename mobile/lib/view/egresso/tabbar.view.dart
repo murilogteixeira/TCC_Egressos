@@ -48,11 +48,11 @@ class _TabBarAppViewState extends State<TabBarAppView> {
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.pie_chart),
-            title: Text(_tituloHome),
+            label: _tituloHome,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),
-            title: Text(_tituloPerfil),
+            label: _tituloPerfil,
           ),
         ],
         currentIndex: _selectedIndex,
