@@ -36,7 +36,7 @@ class _TabBarAppViewState extends State<TabBarAppView> {
         title: _tituloHome,
         egresso: egresso,
       ),
-      PerfilView(),
+      PerfilView(egresso: egresso),
     ];
 
     return Scaffold(

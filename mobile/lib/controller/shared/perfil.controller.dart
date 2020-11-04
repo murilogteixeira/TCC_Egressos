@@ -7,9 +7,7 @@ part 'perfil.controller.g.dart';
 class PerfilController = _PerfilControllerBase with _$PerfilController;
 
 abstract class _PerfilControllerBase with Store {
-  _PerfilControllerBase() {
-    LoginController().usuario.then((value) => egresso = value.egresso);
-  }
+  _PerfilControllerBase({this.egresso});
 
   @observable
   Egresso egresso;

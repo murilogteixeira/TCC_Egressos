@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/view/admin/egressos_list.view.dart';
 import 'package:mobile/view/egresso/Perfil/editar_perfil.view.dart';
+import 'package:mobile/view/egresso/Perfil/perfil.view.dart';
 import 'package:mobile/view/shared/login.view.dart';
 import 'package:mobile/view/egresso/tabbar.view.dart';
 import 'package:mobile/view/shared/recuperarSenha.view.dart';
@@ -31,6 +32,9 @@ class MyApp extends StatelessWidget {
             ),
         EgressosListView.route: (context) => EgressosListView(),
         EditarPerfil.route: (context) => EditarPerfil(
+              egresso: ModalRoute.of(context).settings.arguments,
+            ),
+        PerfilView.route: (context) => PerfilView(
               egresso: ModalRoute.of(context).settings.arguments,
             ),
       },

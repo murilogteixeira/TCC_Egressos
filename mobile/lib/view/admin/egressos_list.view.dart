@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/components/egresso_list_row.dart';
 import 'package:mobile/controller/admin/egressos_list.controller.dart';
+import 'package:mobile/model/curriculo_lattes/egresso.dart';
+import 'package:mobile/model/curriculo_lattes/endereco.dart';
+import 'package:mobile/view/egresso/Perfil/editar_perfil.view.dart';
+import 'package:mobile/view/egresso/Perfil/perfil.view.dart';
 
 class EgressosListView extends StatefulWidget {
   static final route = '/consulta';
@@ -10,6 +14,17 @@ class EgressosListView extends StatefulWidget {
 
 class _EgressosListViewState extends State<EgressosListView> {
   var controller = EgressosListController();
+
+  var usuario = Egresso(
+    nome: '',
+    celular: '',
+    dNasc: '',
+    email: '',
+    id: 1,
+    idLattes: '',
+    nomeCitacoes: '',
+    producoes: [],
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +44,7 @@ class _EgressosListViewState extends State<EgressosListView> {
             grau: 'Doutor',
             isFirst: index == 0,
             onPressed: () {
-              print('object');
+              Navigator.of(context).pushNamed(PerfilView.route, arguments: usuario);
             },
           );
         },
@@ -37,7 +52,3 @@ class _EgressosListViewState extends State<EgressosListView> {
     );
   }
 }
-
-
-
-
