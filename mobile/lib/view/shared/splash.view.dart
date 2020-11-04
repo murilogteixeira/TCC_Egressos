@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/controller/login.controller.dart';
+import 'package:mobile/controller/shared/login.controller.dart';
 import 'package:mobile/model/usuario.dart';
 import 'package:mobile/view/egresso/tabbar.view.dart';
 import 'package:mobile/view/shared/login.view.dart';

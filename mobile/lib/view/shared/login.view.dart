@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mobile/controller/login.controller.dart';
+import 'package:mobile/controller/shared/login.controller.dart';
 import 'package:mobile/main.dart';
 import 'package:mobile/model/usuario.dart';
 import 'package:mobile/view/egresso/tabbar.view.dart';

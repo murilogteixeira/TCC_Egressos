@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/controller/login.controller.dart';
+import 'package:mobile/controller/shared/login.controller.dart';
 import 'package:mobile/model/curriculo_lattes/egresso.dart';
 import 'package:mobx/mobx.dart';
 part 'perfil.controller.g.dart';

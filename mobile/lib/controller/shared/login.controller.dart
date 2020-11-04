@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:mobx/mobx.dart';
-part 'login.controller.g.dart';
+part '../login.controller.g.dart';
 
 class LoginController = _LoginControllerBase with _$LoginController;
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/controller/perfil.controller.dart';
+import 'package:mobile/controller/shared/perfil.controller.dart';
 
 class DadosGeraisView extends StatefulWidget {
   const DadosGeraisView({Key key, this.controller}) : super(key: key);

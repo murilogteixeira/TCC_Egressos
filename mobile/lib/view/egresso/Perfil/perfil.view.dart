@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mobile/controller/login.controller.dart';
-import 'package:mobile/controller/perfil.controller.dart';
+import 'package:mobile/controller/shared/login.controller.dart';
+import 'package:mobile/controller/shared/perfil.controller.dart';
 import 'package:mobile/main.dart';
 import 'package:mobile/view/egresso/Perfil/View/dadosGeraisView.dart';
 import 'package:mobile/view/egresso/Perfil/View/producoesView.dart';
