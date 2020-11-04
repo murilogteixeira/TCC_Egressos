@@ -43,14 +43,6 @@ class _LoginFormState extends State<LoginForm> {
   String inputEmail;
   String inputSenha;
 
-  Future<Usuario> verificaLoginEmCache() async {
-    Future.delayed(Duration(seconds: 1));
-    _controller.setLoading(true);
-    usuario = await _controller.usuario;
-    _controller.setLoading(false);
-    return usuario;
-  }
-
   _login() async {
     await _loginValidate()
         ? _goToHome()
@@ -113,11 +105,6 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    verificaLoginEmCache().then((usuarioLogado) {
-      if (usuarioLogado != null) {
-        _goToHome();
-      }
-    });
     return Form(
       key: _formKey,
       child: Column(

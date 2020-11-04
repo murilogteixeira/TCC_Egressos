@@ -4,6 +4,7 @@ import 'package:mobile/view/egresso/Perfil/editar_perfil.view.dart';
 import 'package:mobile/view/shared/login.view.dart';
 import 'package:mobile/view/egresso/tabbar.view.dart';
 import 'package:mobile/view/shared/recuperarSenha.view.dart';
+import 'package:mobile/view/shared/splash.view.dart';
 
 void main() => runApp(MyApp());
 
@@ -19,10 +20,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: LoginView.route,
-      // initialRoute: ConsultaView.route,
+      initialRoute: SplashScrenView.route,
       // initialRoute: TabBarAppView.route,
       routes: {
+        SplashScrenView.route: (context) => SplashScrenView(),
         LoginView.route: (context) => LoginView(),
         RecuperarSenha.route: (context) => RecuperarSenha(),
         TabBarAppView.route: (context) =>

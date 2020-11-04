@@ -13,7 +13,7 @@ class LoginController = _LoginControllerBase with _$LoginController;
 
 abstract class _LoginControllerBase with Store {
   @observable
-  bool loading = true;
+  bool loading = false;
   @action
   setLoading(value) => loading = value;
 
