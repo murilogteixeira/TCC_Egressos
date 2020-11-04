@@ -6,6 +6,11 @@ import 'package:mobile/view/egresso/Perfil/perfil.view.dart';
 
 class TabBarAppView extends StatefulWidget {
   static final route = '/tabBarView';
+
+  const TabBarAppView({Key key, this.egresso}) : super(key: key);
+  
+  final Egresso egresso;
+
   @override
   _TabBarAppViewState createState() => _TabBarAppViewState();
 }
@@ -24,7 +29,7 @@ class _TabBarAppViewState extends State<TabBarAppView> {
 
   @override
   Widget build(BuildContext context) {
-    Egresso egresso = ModalRoute.of(context).settings.arguments;
+    var egresso = widget.egresso;
 
     List<Widget> _widgetOptions = [
       HomeView(
