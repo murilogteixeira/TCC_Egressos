@@ -15,39 +15,57 @@ class EgressosListView extends StatefulWidget {
 class _EgressosListViewState extends State<EgressosListView> {
   var controller = EgressosListController();
 
-  var usuario = Egresso(
-    nome: '',
-    celular: '',
-    dNasc: '',
-    email: '',
-    id: 1,
-    idLattes: '',
-    nomeCitacoes: '',
-    producoes: [],
-  );
+  List<Egresso> usuarios = [];
+
+  _criarLista() {
+    usuarios = [];
+    int i;
+    for (i = 0; i < 10; i++) {
+      var usuario = Egresso(
+        nome: 'Mário Braga',
+        celular: '',
+        dNasc: '',
+        email: '',
+        id: 1,
+        idLattes: '',
+        nomeCitacoes: '',
+        producoes: [],
+      );
+      usuarios.add(usuario);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    _criarLista();
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Egressos'),
       ),
-      body: ListView.builder(
-        itemCount: 10,
-        itemBuilder: (BuildContext context, int index) {
-          return EgressoListRow(
-            imagemURL: "",
-            corBordaImagem: Colors.red,
-            nome: 'Lívia Danúbia',
-            cargo:
-                'Professora no departamento de engenharia da Universidade Católica de Brasília',
-            grau: 'Doutor',
-            isFirst: index == 0,
-            onPressed: () {
-              Navigator.of(context).pushNamed(PerfilView.route, arguments: usuario);
-            },
-          );
-        },
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              itemCount: usuarios.length,
+              itemBuilder: (BuildContext context, int index) {
+                return EgressoListRow(
+                  imagemURL: "",
+                  corBordaImagem: Colors.red,
+                  nome: usuarios[index].nome,
+                  cargo:
+                      'Professor no departamento de engenharia da Universidade Católica de Brasília',
+                  grau: 'Doutor',
+                  isFirst: index == 0,
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(PerfilView.route,
+                        arguments: usuarios[index]);
+                  },
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
