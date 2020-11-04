@@ -18,7 +18,8 @@ abstract class _HomeControllerBase with Store {
   ObservableList<Producao> producoes = <Producao>[].asObservable();
 
   @observable
-  ObservableList<MediaProducao> mediaProducoes = <MediaProducao>[].asObservable();
+  ObservableList<MediaProducao> mediaProducoes =
+      <MediaProducao>[].asObservable();
 
   @observable
   ObservableList<Banca> bancas = <Banca>[].asObservable();
@@ -33,6 +34,10 @@ abstract class _HomeControllerBase with Store {
     var egresso = usuario.egresso;
     List<Producao> _producoes =
         await producoesController.getProducoesEgresso(egresso.id);
+    if (_producoes == null) {
+      print('Producoes null');
+      return;
+    }
     _producoes.forEach((element) {
       producoes.add(element);
     });
@@ -50,14 +55,4 @@ abstract class _HomeControllerBase with Store {
     });
   }
 
-  // _fetchBancas() async {
-  //   var controller = LoginController();
-  //   var usuario = await controller.usuario;
-  //   var egresso = usuario.egresso;
-  //   List<Banca> _bancas =
-  //       await controller.getBancasEgresso(egresso.id);
-  //   _bancas.forEach((element) {
-  //     bancas.add(element);
-  //   });
-  // }
 }
