@@ -6,7 +6,7 @@ import 'package:mobile/model/usuario.dart';
 import 'package:mobile/view/egresso/tabbar.view.dart';
 import 'package:mobile/view/shared/recuperarSenha.view.dart';
 
-import '../admin/consulta.view.dart';
+import '../admin/egressos_list.view.dart';
 
 class LoginView extends StatefulWidget {
   static final route = '/login';
@@ -70,7 +70,7 @@ class _LoginFormState extends State<LoginForm> {
   _goToHome() {
     if (usuario != null) {
       usuario.isStaff
-          ? Navigator.of(context).pushReplacementNamed(ConsultaView.route)
+          ? Navigator.of(context).pushReplacementNamed(EgressosListView.route)
           : Navigator.of(context).pushReplacementNamed(TabBarAppView.route,
               arguments: usuario.egresso);
     }

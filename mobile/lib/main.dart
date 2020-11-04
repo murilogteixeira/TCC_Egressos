@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/view/admin/consulta.view.dart';
+import 'package:mobile/view/admin/egressos_list.view.dart';
 import 'package:mobile/view/egresso/Perfil/editar_perfil.view.dart';
 import 'package:mobile/view/shared/login.view.dart';
 import 'package:mobile/view/egresso/tabbar.view.dart';
@@ -20,17 +20,19 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: SplashScrenView.route,
-      // initialRoute: TabBarAppView.route,
+      // initialRoute: SplashScrenView.route,
+      initialRoute: EgressosListView.route,
       routes: {
         SplashScrenView.route: (context) => SplashScrenView(),
         LoginView.route: (context) => LoginView(),
         RecuperarSenha.route: (context) => RecuperarSenha(),
-        TabBarAppView.route: (context) =>
-            TabBarAppView(egresso: ModalRoute.of(context).settings.arguments),
-        ConsultaView.route: (context) => ConsultaView(),
-        EditarPerfil.route: (context) =>
-            EditarPerfil(egresso: ModalRoute.of(context).settings.arguments),
+        TabBarAppView.route: (context) => TabBarAppView(
+              egresso: ModalRoute.of(context).settings.arguments,
+            ),
+        EgressosListView.route: (context) => EgressosListView(),
+        EditarPerfil.route: (context) => EditarPerfil(
+              egresso: ModalRoute.of(context).settings.arguments,
+            ),
       },
     );
   }
