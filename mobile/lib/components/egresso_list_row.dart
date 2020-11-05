@@ -36,22 +36,22 @@ class EgressoListRow extends StatelessWidget {
                   imageURL: imagemURL, size: 60, borderColor: corBordaImagem),
               Padding(
                 padding: const EdgeInsets.only(left: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      nome,
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Color(0xFF547DD9),
-                        fontWeight: FontWeight.w500,
+                child: Container(
+                  constraints: BoxConstraints(
+                    maxWidth: MediaQuery.of(context).size.width - 110,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        nome,
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Color(0xFF547DD9),
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
-                    ),
-                    Container(
-                      constraints: BoxConstraints(
-                        maxWidth: MediaQuery.of(context).size.width - 110,
-                      ),
-                      child: Text(
+                      Text(
                         cargo,
                         style: TextStyle(
                           fontSize: 12,
@@ -59,19 +59,16 @@ class EgressoListRow extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                         ),
                         maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
-                        softWrap: true,
                       ),
-                    ),
-                    Text(
-                      grau,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Color(0xFF696969),
+                      Text(
+                        grau,
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Color(0xFF696969),
+                        ),
                       ),
-                      maxLines: 3,
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ],
