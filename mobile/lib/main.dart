@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:mobile/view/admin/egressos_list.view.dart';
 import 'package:mobile/view/egresso/Perfil/editar_perfil.view.dart';
@@ -40,4 +42,8 @@ class MyApp extends StatelessWidget {
       },
     );
   }
+}
+
+String decodeUTF8(string) {
+  return utf8.decode(string);
 }
