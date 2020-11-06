@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
-import 'package:mobile/main.dart';
 import 'package:mobile/model/curriculo_lattes/egresso.dart';
 import 'package:mobx/mobx.dart';
 import 'package:http/http.dart' as http;
+
+import '../../globals.dart';
 part 'egressos_list.controller.g.dart';
 
 class EgressosListController = _EgressosListControllerBase

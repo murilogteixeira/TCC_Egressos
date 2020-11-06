@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 
 import 'package:mobile/model/curriculo_lattes/banca/banca.dart';
 
-import '../../main.dart';
+import '../../globals.dart';
 
 class BancasController {
 

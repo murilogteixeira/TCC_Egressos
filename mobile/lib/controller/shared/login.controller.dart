@@ -1,11 +1,12 @@
 import 'dart:convert';
 
-import 'package:mobile/main.dart';
 import 'package:mobile/model/usuario.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:mobx/mobx.dart';
+
+import '../../globals.dart';
 part '../login.controller.g.dart';
 
 class LoginController = _LoginControllerBase with _$LoginController;

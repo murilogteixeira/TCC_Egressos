@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobile/components/egresso_list_row.dart';
 import 'package:mobile/controller/admin/egressos_list.controller.dart';
-import 'package:mobile/main.dart';
-import 'package:mobile/model/curriculo_lattes/egresso.dart';
 import 'package:mobile/view/egresso/Perfil/perfil.view.dart';
+
+import '../../globals.dart';
 
 class EgressosListView extends StatefulWidget {
   static final route = '/consulta';

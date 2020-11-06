@@ -6,6 +6,7 @@ import 'package:mobile/model/usuario.dart';
 import 'package:mobile/view/egresso/tabbar.view.dart';
 import 'package:mobile/view/shared/recuperarSenha.view.dart';
 
+import '../../globals.dart';
 import '../admin/egressos_list.view.dart';
 
 class LoginView extends StatefulWidget {

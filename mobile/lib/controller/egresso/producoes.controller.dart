@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 
 import 'package:mobile/model/curriculo_lattes/producao/producao.dart';
 
-import '../../main.dart';
+import '../../globals.dart';
 
 class ProducoesController {
   Future<List<Producao>> getProducoesEgresso(int id) async {
