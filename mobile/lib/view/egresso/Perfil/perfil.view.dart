@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobile/controller/shared/login.controller.dart';
 import 'package:mobile/controller/shared/perfil.controller.dart';
-import 'package:mobile/main.dart';
 import 'package:mobile/model/curriculo_lattes/egresso.dart';
 import 'package:mobile/view/egresso/Perfil/View/dadosGeraisView.dart';
 import 'package:mobile/view/egresso/Perfil/View/producoesView.dart';
 import 'package:mobile/view/shared/login.view.dart';
 
+import '../../../globals.dart';
 import 'editar_perfil.view.dart';
 
 class PerfilView extends StatefulWidget {
@@ -47,8 +47,7 @@ class _PerfilViewState extends State<PerfilView> {
                   fontWeight: FontWeight.bold),
             ),
             onPressed: () {
-              LoginController().logout();
-              Navigator.of(context).pushReplacementNamed(LoginView.route);
+              LoginController().logout(context);
             },
           )
         ],

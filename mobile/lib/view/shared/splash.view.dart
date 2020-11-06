@@ -26,7 +26,7 @@ class _SplashScrenViewState extends State<SplashScrenView> {
   }
 
   _goToHome() {
-    Navigator.of(context).pushReplacementNamed(TabBarAppView.route, arguments: _usuario);
+    Navigator.of(context).pushReplacementNamed(TabBarAppView.route, arguments: _usuario.egresso);
   }
 
   @override

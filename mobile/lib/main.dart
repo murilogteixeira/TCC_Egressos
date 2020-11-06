@@ -10,8 +10,6 @@ import 'package:mobile/view/shared/splash.view.dart';
 
 void main() => runApp(MyApp());
 
-var mainColor = Color(0xff30559F);
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

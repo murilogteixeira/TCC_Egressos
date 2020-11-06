@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobile/components/egresso_list_row.dart';
 import 'package:mobile/controller/admin/egressos_list.controller.dart';
+import 'package:mobile/controller/shared/login.controller.dart';
 import 'package:mobile/view/egresso/Perfil/perfil.view.dart';
+import 'package:mobile/view/shared/login.view.dart';
 
 import '../../globals.dart';
 
@@ -21,6 +23,25 @@ class _EgressosListViewState extends State<EgressosListView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFEAEDF2),
+      appBar: AppBar(
+        title: Text('Egressos'),
+        backgroundColor: mainColor,
+        actions: [
+          FlatButton(
+            child: Text(
+              'Sair',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            onPressed: () {
+              LoginController().logout(context);
+            },
+          )
+        ],
+      ),
       body: SafeArea(
         child: Column(
           children: [
@@ -44,7 +65,13 @@ class _EgressosListViewState extends State<EgressosListView> {
                   return Center(child: Text('Não encontrado...'));
 
                 return Container(
-                  color: Colors.white,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(15),
+                      topRight: Radius.circular(15),
+                    ),
+                  ),
                   child: ListView.builder(
                     itemCount: controller.egressosFiltered.length,
                     itemBuilder: (BuildContext context, int index) {

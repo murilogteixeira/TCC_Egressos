@@ -1,7 +1,8 @@
-
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+
+var mainColor = Color(0xFF30559F);
 
 String decodeUTF8(string) {
   return utf8.decode(string);

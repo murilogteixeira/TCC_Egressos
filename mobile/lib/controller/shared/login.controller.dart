@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:mobile/model/usuario.dart';
+import 'package:mobile/view/shared/login.view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -30,10 +32,12 @@ abstract class _LoginControllerBase with Store {
     return usuarioEncontrado;
   }
 
-  logout() async {
+  logout(BuildContext context) async {
     var prefs = await SharedPreferences.getInstance();
     this._usuario = null;
     prefs.setString(usuarioKey, null);
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil(LoginView.route, (route) => false);
   }
 
   Future<Usuario> _performLogin(String username, String password) async {

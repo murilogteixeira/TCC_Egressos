@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:diacritic/diacritic.dart';
 import 'package:mobile/model/curriculo_lattes/egresso.dart';
 import 'package:mobx/mobx.dart';
 import 'package:http/http.dart' as http;
@@ -39,6 +40,8 @@ abstract class _EgressosListControllerBase with Store {
   }
 
   filter(String value) {
+    value = value.toUpperCase();
+    value = removeDiacritics(value);
     if (value.isEmpty) {
       egressos.forEach((e) {
         egressosFiltered.add(e);
@@ -46,8 +49,9 @@ abstract class _EgressosListControllerBase with Store {
     } else {
       egressosFiltered.removeWhere((element) => true);
       egressos.forEach((e) {
-        if (e.nome.toUpperCase().contains(value.toUpperCase()))
-          egressosFiltered.add(e);
+        var nome = e.nome.toUpperCase();
+        nome = removeDiacritics(nome);
+        if (nome.contains(value)) egressosFiltered.add(e);
       });
     }
   }
