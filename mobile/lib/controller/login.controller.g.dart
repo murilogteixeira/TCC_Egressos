@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'login.controller.dart';
+part of 'shared/login.controller.dart';
 
 // **************************************************************************
 // StoreGenerator

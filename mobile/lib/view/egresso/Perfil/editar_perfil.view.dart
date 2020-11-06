@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mobile/controller/editar_perfil.controller.dart';
+import 'package:mobile/controller/egresso/editar_perfil.controller.dart';
 import 'package:mobile/main.dart';
 import 'package:mobile/model/curriculo_lattes/egresso.dart';
 

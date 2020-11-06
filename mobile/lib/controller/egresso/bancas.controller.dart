@@ -3,6 +3,8 @@ import 'package:http/http.dart' as http;
 
 import 'package:mobile/model/curriculo_lattes/banca/banca.dart';
 
+import '../../main.dart';
+
 class BancasController {
 
   Future<List<Banca>> getBancasEgresso(int id) async {
@@ -12,7 +14,7 @@ class BancasController {
     final response = await http.get(uri);
 
     if (response.statusCode == 200) {
-      var body = _decodeUTF8(response.bodyBytes);
+      var body = decodeUTF8(response.bodyBytes);
       List json = jsonDecode(body);
       List<Banca> bancas = [];
       bancas = json.map((e) => Banca.fromJson(e)).toList();
@@ -21,10 +23,6 @@ class BancasController {
       print('Erro ao buscar produções');
     }
     return null;
-  }
-
-  String _decodeUTF8(string) {
-    return utf8.decode(string);
   }
   
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/components/organize_charts.model.dart';
-import 'package:mobile/controller/login.controller.dart';
+import 'package:mobile/controller/shared/login.controller.dart';
 import 'package:mobile/model/curriculo_lattes/banca/banca.dart';
 import 'package:mobile/model/usuario.dart';
 

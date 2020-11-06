@@ -1,5 +1,5 @@
-import 'package:mobile/controller/login.controller.dart';
-import 'package:mobile/controller/producoes.controller.dart';
+import 'package:mobile/controller/shared/login.controller.dart';
+import 'package:mobile/controller/egresso/producoes.controller.dart';
 import 'package:mobile/model/curriculo_lattes/banca/banca.dart';
 import 'package:mobile/model/curriculo_lattes/producao/producao.dart';
 import 'package:mobx/mobx.dart';

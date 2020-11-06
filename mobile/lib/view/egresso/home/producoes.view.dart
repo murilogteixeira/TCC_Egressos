@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobile/components/organize_charts.model.dart';
-import 'package:mobile/controller/producoes.controller.dart';
+import 'package:mobile/controller/egresso/producoes.controller.dart';
 import 'package:mobile/model/curriculo_lattes/producao/producao.dart';
 import 'package:mobx/mobx.dart';
 

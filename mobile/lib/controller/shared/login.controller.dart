@@ -1,19 +1,18 @@
 import 'dart:convert';
 
-import 'package:mobile/model/curriculo_lattes/banca/banca.dart';
-import 'package:mobile/model/curriculo_lattes/producao/producao.dart';
+import 'package:mobile/main.dart';
 import 'package:mobile/model/usuario.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:mobx/mobx.dart';
-part 'login.controller.g.dart';
+part '../login.controller.g.dart';
 
 class LoginController = _LoginControllerBase with _$LoginController;
 
 abstract class _LoginControllerBase with Store {
   @observable
-  bool loading = true;
+  bool loading = false;
   @action
   setLoading(value) => loading = value;
 
@@ -50,7 +49,8 @@ abstract class _LoginControllerBase with Store {
     );
 
     if (response.statusCode == 200) {
-      var json = jsonDecode(response.body);
+      var body = decodeUTF8(response.bodyBytes);
+      var json = jsonDecode(body);
       if (json['status'] == false) return null;
       List egressoJson = jsonDecode(json['Egresso']);
       if (egressoJson.first == null) return null;

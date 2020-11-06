@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mobile/controller/login.controller.dart';
+import 'package:mobile/controller/shared/login.controller.dart';
 import 'package:mobile/main.dart';
 import 'package:mobile/model/usuario.dart';
 import 'package:mobile/view/egresso/tabbar.view.dart';
 import 'package:mobile/view/shared/recuperarSenha.view.dart';
 
-import '../admin/consulta.view.dart';
+import '../admin/egressos_list.view.dart';
 
 class LoginView extends StatefulWidget {
   static final route = '/login';
@@ -43,14 +43,6 @@ class _LoginFormState extends State<LoginForm> {
   String inputEmail;
   String inputSenha;
 
-  Future<Usuario> verificaLoginEmCache() async {
-    Future.delayed(Duration(seconds: 1));
-    _controller.setLoading(true);
-    usuario = await _controller.usuario;
-    _controller.setLoading(false);
-    return usuario;
-  }
-
   _login() async {
     await _loginValidate()
         ? _goToHome()
@@ -78,7 +70,7 @@ class _LoginFormState extends State<LoginForm> {
   _goToHome() {
     if (usuario != null) {
       usuario.isStaff
-          ? Navigator.of(context).pushReplacementNamed(ConsultaView.route)
+          ? Navigator.of(context).pushReplacementNamed(EgressosListView.route)
           : Navigator.of(context).pushReplacementNamed(TabBarAppView.route,
               arguments: usuario.egresso);
     }
@@ -95,29 +87,9 @@ class _LoginFormState extends State<LoginForm> {
     ));
   }
 
-  var _inputDecoration = InputDecoration(
-    contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-    focusedBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(7)),
-      borderSide: BorderSide(color: Color(0xFF547DD9), width: 2.0),
-    ),
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(7)),
-      borderSide: BorderSide(color: Color(0xFFDCDDE0), width: 2.0),
-    ),
-    errorBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(7)),
-      borderSide: BorderSide(color: Colors.red, width: 2.0),
-    ),
-  );
 
   @override
   Widget build(BuildContext context) {
-    verificaLoginEmCache().then((usuarioLogado) {
-      if (usuarioLogado != null) {
-        _goToHome();
-      }
-    });
     return Form(
       key: _formKey,
       child: Column(
@@ -150,7 +122,7 @@ class _LoginFormState extends State<LoginForm> {
                     return null;
                   },
                   onSaved: (value) => inputEmail = value,
-                  decoration: _inputDecoration,
+                  decoration: inputDecoration,
                 ),
                 SizedBox(
                   height: 16,
