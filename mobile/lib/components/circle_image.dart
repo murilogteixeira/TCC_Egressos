@@ -17,7 +17,7 @@ class CircleImage extends StatelessWidget {
         shape: BoxShape.circle,
         color: Colors.white,
         border: Border.all(
-          color: Colors.red,
+          color: borderColor,
           width: 4,
         ),
       ),

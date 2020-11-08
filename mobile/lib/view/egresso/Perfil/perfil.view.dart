@@ -5,7 +5,6 @@ import 'package:mobile/controller/shared/perfil.controller.dart';
 import 'package:mobile/model/curriculo_lattes/egresso.dart';
 import 'package:mobile/view/egresso/Perfil/View/dadosGeraisView.dart';
 import 'package:mobile/view/egresso/Perfil/View/producoesView.dart';
-import 'package:mobile/view/shared/login.view.dart';
 
 import '../../../globals.dart';
 import 'editar_perfil.view.dart';

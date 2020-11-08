@@ -4,7 +4,6 @@ import 'package:mobile/components/egresso_list_row.dart';
 import 'package:mobile/controller/admin/egressos_list.controller.dart';
 import 'package:mobile/controller/shared/login.controller.dart';
 import 'package:mobile/view/egresso/Perfil/perfil.view.dart';
-import 'package:mobile/view/shared/login.view.dart';
 
 import '../../globals.dart';
 
@@ -62,7 +61,22 @@ class _EgressosListViewState extends State<EgressosListView> {
                   return Center(child: CircularProgressIndicator());
 
                 if (controller.egressosFiltered.isEmpty)
-                  return Center(child: Text('Não encontrado...'));
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Egresso não encontrado...',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 120),
+                      ],
+                    ),
+                  );
 
                 return Container(
                   decoration: BoxDecoration(
@@ -76,9 +90,24 @@ class _EgressosListViewState extends State<EgressosListView> {
                     itemCount: controller.egressosFiltered.length,
                     itemBuilder: (BuildContext context, int index) {
                       final egresso = controller.egressosFiltered[index];
+
+                      Color corSituacao;
+                      switch (egresso.situacao.id) {
+                        case 1: // regular
+                          corSituacao = Colors.blue;
+                          break;
+                        case 2: // adiantado
+                          corSituacao = Colors.green;
+                          break;
+                        case 3: // atrasado
+                          corSituacao = Colors.red;
+                          break;
+                        default:
+                      }
+
                       return EgressoListRow(
                         imagemURL: "",
-                        corBordaImagem: Colors.red,
+                        corBordaImagem: corSituacao,
                         nome: egresso.nome,
                         cargo:
                             'Professor no departamento de engenharia da Universidade Católica de Brasília',

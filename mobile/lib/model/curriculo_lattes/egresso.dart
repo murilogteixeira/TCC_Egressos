@@ -40,11 +40,9 @@ class Egresso {
     celular = json['celular'];
     email = json['email'];
     // endereco = json['endereco'] != null
-        // ? new Endereco.fromJson(json['endereco'])
-        // : null;
-    // situacao = json['situacao'] != null
-    //     ? new Situacao.fromJson(json['situacao'])
-    //     : null;
+    // ? new Endereco.fromJson(json['endereco'])
+    // : null;
+    if (json['situacao'] != null) situacao = Situacao.fromJson(json['situacao']);
     if (json['producoes'] != null) {
       producoes = new List<Producao>();
       json['producoes'].forEach((v) {

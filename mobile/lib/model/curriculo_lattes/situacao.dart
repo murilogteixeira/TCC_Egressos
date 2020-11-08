@@ -6,7 +6,7 @@ class Situacao {
 
   Situacao.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    tipo = json['tipo'];
+    if (json['tipo'] != null) tipo = json['tipo'];
   }
 
   Map<String, dynamic> toJson() {
