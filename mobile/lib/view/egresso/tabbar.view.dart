@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/model/curriculo_lattes/egresso.dart';
+import 'package:mobile/model/usuario.dart';
 import 'package:mobile/view/egresso/home/home.view.dart';
 import 'package:mobile/view/egresso/Perfil/perfil.view.dart';
 
 class TabBarAppView extends StatefulWidget {
   static final route = '/tabBarView';
 
-  const TabBarAppView({Key key, this.egresso}) : super(key: key);
+  const TabBarAppView({Key key, this.usuario}) : super(key: key);
   
-  final Egresso egresso;
+  final Usuario usuario;
 
   @override
   _TabBarAppViewState createState() => _TabBarAppViewState();
@@ -28,14 +29,13 @@ class _TabBarAppViewState extends State<TabBarAppView> {
 
   @override
   Widget build(BuildContext context) {
-    var egresso = widget.egresso;
 
     List<Widget> _widgetOptions = [
       HomeView(
         title: _tituloHome,
-        egresso: egresso,
+        egresso: widget.usuario.egresso,
       ),
-      PerfilView(egresso: egresso),
+      PerfilView(usuario: widget.usuario),
     ];
 
     return Scaffold(

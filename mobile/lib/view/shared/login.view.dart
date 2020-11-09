@@ -72,7 +72,7 @@ class _LoginFormState extends State<LoginForm> {
       usuario.isStaff
           ? Navigator.of(context).pushReplacementNamed(EgressosListView.route)
           : Navigator.of(context).pushReplacementNamed(TabBarAppView.route,
-              arguments: usuario.egresso);
+              arguments: usuario);
     }
   }
 
