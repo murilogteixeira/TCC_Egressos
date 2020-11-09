@@ -34,7 +34,7 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   Usuario usuario;
   // var _formKey = GlobalKey<FormState>();
-  // var _controller = LoginController();
+  var _controller = LoginController();
 
   String inputEmail;
   String inputSenha;
