@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:mobile/view/admin/egressos_list.view.dart';
 import 'package:mobile/view/egresso/Perfil/editar_perfil.view.dart';
@@ -27,14 +26,14 @@ class MyApp extends StatelessWidget {
         LoginView.route: (context) => LoginView(),
         RecuperarSenha.route: (context) => RecuperarSenha(),
         TabBarAppView.route: (context) => TabBarAppView(
-              egresso: ModalRoute.of(context).settings.arguments,
+              usuario: ModalRoute.of(context).settings.arguments,
             ),
         EgressosListView.route: (context) => EgressosListView(),
         EditarPerfil.route: (context) => EditarPerfil(
               egresso: ModalRoute.of(context).settings.arguments,
             ),
         PerfilView.route: (context) => PerfilView(
-              egresso: ModalRoute.of(context).settings.arguments,
+              usuario: ModalRoute.of(context).settings.arguments,
             ),
       },
     );

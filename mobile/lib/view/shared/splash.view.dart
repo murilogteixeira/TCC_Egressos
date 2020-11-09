@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/controller/shared/login.controller.dart';
 import 'package:mobile/model/usuario.dart';
+import 'package:mobile/view/admin/egressos_list.view.dart';
 import 'package:mobile/view/egresso/tabbar.view.dart';
 import 'package:mobile/view/shared/login.view.dart';
 
@@ -25,14 +26,16 @@ class _SplashScrenViewState extends State<SplashScrenView> {
     Navigator.of(context).pushReplacementNamed(LoginView.route);
   }
 
-  _goToHome() {
-    Navigator.of(context).pushReplacementNamed(TabBarAppView.route, arguments: _usuario.egresso);
+  _goToHome(bool isStaff) {
+    isStaff
+    ? Navigator.of(context).pushReplacementNamed(EgressosListView.route)
+    : Navigator.of(context).pushReplacementNamed(TabBarAppView.route, arguments: _usuario);
   }
 
   @override
   Widget build(BuildContext context) {
     verificaLoginEmCache().then((usuarioLogado) {
-      usuarioLogado == null ? _goToLogin() : _goToHome();
+      usuarioLogado == null ? _goToLogin() : _goToHome(usuarioLogado.isStaff);
     });
     
     return Scaffold(

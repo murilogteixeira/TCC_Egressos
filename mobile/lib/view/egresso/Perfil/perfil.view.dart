@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobile/controller/shared/login.controller.dart';
 import 'package:mobile/controller/shared/perfil.controller.dart';
 import 'package:mobile/model/curriculo_lattes/egresso.dart';
+import 'package:mobile/model/usuario.dart';
 import 'package:mobile/view/egresso/Perfil/View/dadosGeraisView.dart';
 import 'package:mobile/view/egresso/Perfil/View/producoesView.dart';
 
@@ -11,9 +12,9 @@ import 'editar_perfil.view.dart';
 
 class PerfilView extends StatefulWidget {
   static final route = '/perfil';
-  final Egresso egresso;
+  final Usuario usuario;
 
-  const PerfilView({Key key, this.egresso}) : super(key: key);
+  const PerfilView({Key key, this.usuario}) : super(key: key);
 
   @override
   _PerfilViewState createState() => _PerfilViewState();
@@ -27,7 +28,8 @@ class _PerfilViewState extends State<PerfilView> {
 
   @override
   Widget build(BuildContext context) {
-    _controller = PerfilController(egresso: widget.egresso);
+    _controller = PerfilController(egresso: widget.usuario.egresso);
+
     switch (_controller.egresso.situacao.tipo) {
       case "Adiantado":
         situacaoEgressoColor = Color(0xFF70D169);
@@ -38,10 +40,33 @@ class _PerfilViewState extends State<PerfilView> {
       case "Atrasado":
         situacaoEgressoColor = Colors.red;
     }
+
     dadosGeraisView = DadosGeraisView(
       controller: _controller,
     );
+
     _controller.setInformacoesEgresso(dadosGeraisView);
+
+    var dadosGeraisButton = Container(
+      width: 130.0,
+      color: Colors.white,
+      child: FlatButton(
+        onPressed: () {
+          _controller.setInformacoesEgresso(dadosGeraisView);
+        },
+        child: Text(
+          "Dados Gerais",
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 13.0,
+            color: Color(0xFF547DD9),
+          ),
+        ),
+      ),
+    );
+
+    var menuButtons = widget.usuario.isStaff ? [dadosGeraisButton,dadosGeraisButton] : [dadosGeraisButton];
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Perfil'),
@@ -100,13 +125,16 @@ class _PerfilViewState extends State<PerfilView> {
                       Padding(
                         padding: EdgeInsets.only(bottom: 10),
                         child: Align(
-                            alignment: Alignment.center,
-                            child: Text(_controller.egresso.nome,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 18.0,
-                                  color: Color(0xFF547DD9),
-                                ))),
+                          alignment: Alignment.center,
+                          child: Text(
+                            _controller.egresso.nome,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 18.0,
+                              color: Color(0xFF547DD9),
+                            ),
+                          ),
+                        ),
                       ),
                       Padding(
                         padding: EdgeInsets.only(bottom: 40),
@@ -138,43 +166,9 @@ class _PerfilViewState extends State<PerfilView> {
                           color: Colors.white,
                           width: (MediaQuery.of(context).size.width),
                           child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Container(
-                                  width: 130.0,
-                                  color: Colors.white,
-                                  child: FlatButton(
-                                      onPressed: () {
-                                        _controller.setInformacoesEgresso(
-                                            dadosGeraisView);
-                                      },
-                                      child: Text(
-                                        "Dados Gerais",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 13.0,
-                                          color: Color(0xFF547DD9),
-                                        ),
-                                      )),
-                                ),
-                                // Container(
-                                //   width: 130.0,
-                                //   color: Colors.white,
-                                //   child: FlatButton(
-                                //       onPressed: () {
-                                //         _controller.setInformacoesEgresso(
-                                //             producoesEgressoView);
-                                //       },
-                                //       child: Text(
-                                //         "Produções",
-                                //         style: TextStyle(
-                                //           fontWeight: FontWeight.w500,
-                                //           fontSize: 13.0,
-                                //           color: Color(0xFF547DD9),
-                                //         ),
-                                //       )),
-                                // ),
-                              ]),
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: menuButtons,
+                          ),
                         ),
                       ),
                       Padding(
