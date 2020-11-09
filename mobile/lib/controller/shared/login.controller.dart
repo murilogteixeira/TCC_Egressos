@@ -57,11 +57,6 @@ abstract class _LoginControllerBase with Store {
       var body = decodeUTF8(response.bodyBytes);
       var json = jsonDecode(body);
       if (json['status'] == false) return null;
-      if (json['isStaff']) return Usuario.fromJson(json);
-      List egressoJson = jsonDecode(json['Egresso']);
-      if (egressoJson.first == null) return null;
-      json['Egresso'] = egressoJson.first['fields'];
-      json['Egresso']['id'] = egressoJson.first['pk'];
       var usuarioResponse = Usuario.fromJson(json);
       return usuarioResponse.status ? usuarioResponse : null;
     } else {

@@ -42,7 +42,6 @@ class Egresso {
     // endereco = json['endereco'] != null
     // ? new Endereco.fromJson(json['endereco'])
     // : null;
-    print(json['situacao']);
     if (json['situacao'] != null)
       situacao = Situacao.fromJson(json['situacao']);
     if (json['producoes'] != null) {
