@@ -12,7 +12,7 @@ import 'editar_perfil.view.dart';
 
 class PerfilView extends StatefulWidget {
   static final route = '/perfil';
-  final Usuario usuario;
+  final dynamic usuario;
 
   const PerfilView({Key key, this.usuario}) : super(key: key);
 
@@ -28,7 +28,21 @@ class _PerfilViewState extends State<PerfilView> {
 
   @override
   Widget build(BuildContext context) {
-    _controller = PerfilController(egresso: widget.usuario.egresso);
+    Egresso usuario;
+    bool isGestor = false;
+
+    switch (widget.usuario.runtimeType) {
+      case Egresso:
+        usuario = widget.usuario;
+        break;
+      case Usuario:
+        usuario = (widget.usuario as Usuario).egresso;
+        isGestor = true;
+        break;
+      default:
+    }
+
+    _controller = PerfilController(egresso: usuario);
 
     switch (_controller.egresso.situacao.tipo) {
       case "Adiantado":
@@ -65,7 +79,8 @@ class _PerfilViewState extends State<PerfilView> {
       ),
     );
 
-    var menuButtons = widget.usuario.isStaff ? [dadosGeraisButton,dadosGeraisButton] : [dadosGeraisButton];
+    var menuButtons =
+        isGestor ? [dadosGeraisButton, dadosGeraisButton] : [dadosGeraisButton];
 
     return Scaffold(
       appBar: AppBar(
