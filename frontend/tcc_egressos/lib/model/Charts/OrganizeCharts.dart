@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
-
+import 'package:charts_flutter/flutter.dart' as Charts;
 import 'package:flutter/rendering.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 Map<int, Color> getSwatch(Color color) {
   final hslColor = HSLColor.fromColor(color);
@@ -29,7 +29,7 @@ Map<int, Color> getSwatch(Color color) {
 }
 
 class PieOutsideLabelChart extends StatelessWidget {
-  final List<charts.Series> seriesList;
+  final List<Charts.Series> seriesList;
   final bool animate;
 
   PieOutsideLabelChart(this.seriesList, {this.animate});
@@ -37,24 +37,24 @@ class PieOutsideLabelChart extends StatelessWidget {
   factory PieOutsideLabelChart.withSampleData(List<ChartsData> data) {
     return new PieOutsideLabelChart(
       _createSampleData(data),
-      animate: true,
+      animate: false,
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return new charts.PieChart(
+    return Charts.PieChart(
       seriesList,
-      animate: true,
+      animate: false,
       animationDuration: Duration(seconds: 2),
     );
   }
 
   /// Create one series with sample hard coded data.
-  static List<charts.Series<ChartsData, String>> _createSampleData(
+  static List<Charts.Series<ChartsData, String>> _createSampleData(
       List<ChartsData> data) {
     return [
-      new charts.Series<ChartsData, String>(
+      new Charts.Series<ChartsData, String>(
         id: 'UserData',
         domainFn: (ChartsData data, _) => data.nome,
         measureFn: (ChartsData data, _) => data.value,
@@ -66,7 +66,7 @@ class PieOutsideLabelChart extends StatelessWidget {
 }
 
 class BarChartOutsideLabelChart extends StatelessWidget {
-  final List<charts.Series> seriesList;
+  final List<Charts.Series> seriesList;
   final bool animate;
 
   BarChartOutsideLabelChart(this.seriesList, {this.animate});
@@ -75,30 +75,30 @@ class BarChartOutsideLabelChart extends StatelessWidget {
       List<ChartsData> data, List<int> averages) {
     return new BarChartOutsideLabelChart(
       _createSampleData(data, averages),
-      animate: true,
+      animate: false,
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return new charts.BarChart(
+    return new Charts.BarChart(
       seriesList,
       animate: animate,
-      domainAxis: new charts.OrdinalAxisSpec(
+      domainAxis: new Charts.OrdinalAxisSpec(
           // Make sure that we draw the domain axis line.
           showAxisLine: true,
           // But don't draw anything else.
-          renderSpec: new charts.NoneRenderSpec()),
-      defaultRenderer: new charts.BarRendererConfig(
-        cornerStrategy: const charts.ConstCornerStrategy(4),
+          renderSpec: new Charts.NoneRenderSpec()),
+      defaultRenderer: new Charts.BarRendererConfig(
+        cornerStrategy: const Charts.ConstCornerStrategy(4),
       ),
       animationDuration: Duration(seconds: 2),
-      barGroupingType: charts.BarGroupingType.grouped,
+      barGroupingType: Charts.BarGroupingType.grouped,
     );
   }
 
   /// Create one series with sample hard coded data.
-  static List<charts.Series<ChartsData, String>> _createSampleData(
+  static List<Charts.Series<ChartsData, String>> _createSampleData(
       List<ChartsData> data, List<int> averages) {
     final List<ChartsData> userData = [];
     final List<ChartsData> averageData = [];
@@ -110,18 +110,18 @@ class BarChartOutsideLabelChart extends StatelessWidget {
       );
       averageData.add(
         new ChartsData('$i', averages[i],
-            charts.Color(r: 235, g: 234, b: 242, a: Colors.grey.alpha)),
+            Charts.Color(r: 235, g: 234, b: 242, a: Colors.grey.alpha)),
       );
     }
     return [
-      new charts.Series<ChartsData, String>(
+      new Charts.Series<ChartsData, String>(
         id: 'data',
         domainFn: (ChartsData data, _) => data.nome,
         measureFn: (ChartsData data, _) => data.value,
         colorFn: (ChartsData data, _) => data.cor,
         data: userData,
       ),
-      new charts.Series<ChartsData, String>(
+      new Charts.Series<ChartsData, String>(
         id: 'average',
         domainFn: (ChartsData data, _) => data.nome,
         measureFn: (ChartsData data, _) => data.value,
@@ -150,6 +150,7 @@ class OrganizeCharts {
   }
 
   Widget createCharts(
+    String title,
     List<ChartsData> data,
     List<int> avarages,
   ) {
@@ -172,33 +173,109 @@ class OrganizeCharts {
       colorsMaterial.add(MaterialColor(element.value, getSwatch(element)));
     });
 
-    final children = <Widget>[];
+    List<Widget> _createDataRows(bool isAvarages) {
+      final children = <Widget>[];
 
-    for (var i = 0; i < data.length; i++) {
-      data[i].cor = charts.Color(
-          r: colorsColor[i].red,
-          g: colorsColor[i].green,
-          b: colorsColor[i].blue,
-          a: colorsColor[i].alpha);
+      for (var i = 0; i < data.length; i++) {
+        data[i].cor = Charts.Color(
+            r: colorsColor[i].red,
+            g: colorsColor[i].green,
+            b: colorsColor[i].blue,
+            a: colorsColor[i].alpha);
 
-      children.add(new Row(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 5),
-            child: Icon(Icons.lens, size: (ballSize), color: colorsMaterial[i]),
+        Widget row = Padding(
+          padding: const EdgeInsets.symmetric(vertical: 5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 0, horizontal: 5),
+                      child: Icon(Icons.lens,
+                          size: (ballSize), color: colorsMaterial[i]),
+                    ),
+                    Flexible(
+                      child: Text(
+                        data[i].nome,
+                        style: TextStyle(fontSize: fontSize),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 2.0),
+                child: Text(
+                  " .${isAvarages ? avarages[i] : data[i].value}",
+                  style: TextStyle(fontSize: fontSize),
+                ),
+              ),
+            ],
           ),
-          Text(
-            data[i].nome + "..." + "${data[i].value}",
-            style: TextStyle(fontSize: fontSize),
+        );
+        children.add(row);
+      }
+      return children;
+    }
+
+    List<Widget> _pieChartAndData() {
+      Widget legendas = Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: _createDataRows(false),
+      );
+      double chartSize = kIsWeb ? 300 : 250;
+      legendas = kIsWeb
+          ? legendas
+          : Padding(
+              padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+              child: legendas,
+            );
+      return [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+          child: SizedBox(
+            width: chartSize,
+            height: chartSize,
+            child: PieOutsideLabelChart.withSampleData(data),
           ),
-        ],
-      ));
+        ),
+        legendas,
+      ];
+    }
+
+    List<Widget> _barChartAndData() {
+      return [
+        Padding(
+          padding: kIsWeb
+              ? const EdgeInsets.symmetric(horizontal: 60, vertical: 20)
+              : const EdgeInsets.all(10),
+          child: SizedBox(
+            width: data.length.toDouble() * this.widthBarChart,
+            height: 350,
+            child: new BarChartOutsideLabelChart.withSampleData(data, avarages),
+          ),
+        ),
+        Padding(
+          padding: kIsWeb
+              ? const EdgeInsets.symmetric(horizontal: 60, vertical: 20)
+              : const EdgeInsets.all(10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: _createDataRows(true),
+          ),
+        )
+      ];
     }
 
     return Center(
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Container(
-        margin: EdgeInsets.symmetric(horizontal: 100, vertical: 20),
+        margin: kIsWeb
+            ? const EdgeInsets.symmetric(horizontal: 100, vertical: 20)
+            : const EdgeInsets.only(left: 12, right: 12, top: 20),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10.0),
@@ -211,12 +288,16 @@ class OrganizeCharts {
             ),
           ],
         ),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.fromLTRB(60, 50, 1, 10),
+              padding: kIsWeb
+                  ? const EdgeInsets.fromLTRB(60, 50, 1, 10)
+                  : const EdgeInsets.fromLTRB(25, 50, 1, 10),
               child: Text(
-                "Visão Geral",
+                // title.capitalize(),
+                title,
                 style: TextStyle(
                   color: Color.fromARGB(255, 84, 125, 217),
                   fontSize: 17,
@@ -224,36 +305,30 @@ class OrganizeCharts {
               ),
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(60, 5, 1, 10),
+              padding: kIsWeb
+                  ? const EdgeInsets.fromLTRB(60, 50, 1, 10)
+                  : const EdgeInsets.only(left: 25),
               child: Text(
-                "Total: $valorTotalPieChart produções",
+                "Total: $valorTotalPieChart ",
                 style: TextStyle(
                   fontSize: 16,
                 ),
               ),
             ),
-            Row(
-              children: [
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-                  child: SizedBox(
-                    width: 300,
-                    height: 300,
-                    child: new PieOutsideLabelChart.withSampleData(data),
+            kIsWeb
+                ? Row(
+                    children: _pieChartAndData(),
+                  )
+                : Column(
+                    children: _pieChartAndData(),
                   ),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: children,
-                ),
-              ],
-            ),
           ],
         ),
       ),
       Container(
-        margin: EdgeInsets.symmetric(horizontal: 100, vertical: 20),
+        margin: kIsWeb
+            ? const EdgeInsets.symmetric(horizontal: 100, vertical: 20)
+            : const EdgeInsets.only(left: 12, right: 12, top: 20, bottom: 20),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10.0),
@@ -272,28 +347,15 @@ class OrganizeCharts {
             Padding(
               padding: EdgeInsets.fromLTRB(60, 50, 1, 10),
               child: Text(
-                "Em comparação com a média",
+                "Comparação com a média",
                 style: TextStyle(
                   color: Color.fromARGB(255, 84, 125, 217),
                   fontSize: 17,
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 20),
-              child: SizedBox(
-                width: data.length.toDouble() * this.widthBarChart,
-                height: 350,
-                child: new BarChartOutsideLabelChart.withSampleData(
-                    data, avarages),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: children,
-              ),
+            Column(
+              children: _barChartAndData(),
             ),
           ],
         ),
@@ -306,30 +368,13 @@ class OrganizeCharts {
 class ChartsData {
   final String nome;
   final int value;
-  charts.Color cor;
+  Charts.Color cor;
 
-  ChartsData(this.nome, this.value,[this.cor]);
+  ChartsData(this.nome, this.value, [this.cor]);
 }
 
-final dataExemplo = [
-  new ChartsData(
-      "Participação em eventos, congressos, exposições e feiras ",
-      500,),
-  new ChartsData(
-      "Organização de eventos, congressos, exposições e feiras ",
-      710,
-      ),
-  new ChartsData(
-      "Artigos publicados ",
-      400,
-      ),
-  new ChartsData(
-      "Menções em obras ",
-      400,
-      ),
-  new ChartsData(
-      "Participação em bancas ",
-      400,
-      ),
-  
-];
+// extension StringExtension on String {
+//   String capitalize() {
+//     return "${this[0].toUpperCase()}${this.substring(1)}";
+//   }
+// }

@@ -1,7 +1,6 @@
-import 'package:tcc_egressos/model/curriculo_lattes/banca/banca.dart';
-import 'package:tcc_egressos/model/curriculo_lattes/situacao.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/producao/producao.dart';
 
+import 'banca/banca.dart';
 import 'endereco.dart';
 import 'situacao.dart';
 
@@ -43,9 +42,9 @@ class Egresso {
     // endereco = json['endereco'] != null
     // ? new Endereco.fromJson(json['endereco'])
     // : null;
-    situacao = json['situacao'] != null
-        ? new Situacao.fromJson(json['situacao'])
-        : null;
+    // situacao = json['situacao'] != null
+    //     ? new Situacao.fromJson(json['situacao'])
+    //     : null;
     if (json['producoes'] != null) {
       producoes = new List<Producao>();
       json['producoes'].forEach((v) {

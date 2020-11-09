@@ -141,7 +141,7 @@ abstract class _CurriculoLattesBase with Store {
       nomeCitacao: json["nomeCitacoes"],
       celular: json["celular"],
       email: json["email"],
-      endereco: Endereco().fromJson(json["endereco"]),
+      endereco: Endereco /*()*/ .fromJson(json["endereco"]),
       situacao: Situacao /*()*/ .fromJson(json["situacao"]),
     );
   }

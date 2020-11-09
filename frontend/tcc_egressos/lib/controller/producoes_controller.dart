@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-
 import 'package:tcc_egressos/model/curriculo_lattes/producao/producao.dart';
 
 class ProducoesController {
@@ -18,6 +17,7 @@ class ProducoesController {
       return producoes;
     } else {
       print('Erro ao buscar produções');
+      print(_decodeUTF8(response.bodyBytes));
     }
     return null;
   }

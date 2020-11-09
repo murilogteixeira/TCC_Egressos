@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tcc_egressos/components/detalhes_curriculo_widget.dart';
 import 'package:tcc_egressos/components/menu_botao_widget.dart';
@@ -12,11 +13,14 @@ import 'package:tcc_egressos/components/screenSize.dart';
 import 'package:tcc_egressos/controller/curriculo_controller.dart';
 import 'package:tcc_egressos/controller/egresso_controller.dart';
 import 'package:tcc_egressos/controller/menu_botao_widget_controller.dart';
+import 'package:tcc_egressos/controller/producoes_controller.dart';
 import 'package:tcc_egressos/model/Charts/OrganizeCharts.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/cargo.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/egresso.dart';
 import 'package:tcc_egressos/model/lista_detalhes.dart';
+import 'package:tcc_egressos/view/bancas_view.dart';
+import 'package:tcc_egressos/view/producoes_view.dart';
 
 class CurriculoView extends StatefulWidget {
   static var route = "/curriculo";
@@ -48,8 +52,8 @@ class _CurriculoViewState extends State<CurriculoView> {
     // _formacaoBotao = _setFormacaoBotao();
     // _atuacaoBotao = _setAtuacaoBotao();
     _producoesBotao = _setProducoesBotao();
-    _eventosBotao = _setEventosBotao();
-    // _bancasBotao = _setBancasBotao();
+    // _eventosBotao = _setEventosBotao();
+    _bancasBotao = _setBancasBotao();
     super.initState();
   }
 
@@ -232,7 +236,7 @@ class _CurriculoViewState extends State<CurriculoView> {
       padding: const EdgeInsets.only(top: 14),
       child: Container(
         child: Text(
-          "Graduado em Tecnologia de Computação pelo Instituto Tecnológico de Aeronáutica - ITA (1979), Mestre em Sistemas e Computação pela Universidade Federal da Paraíba - UFPB (1988) e Doutor em Ciência da Computação pelo Laboratoire d'Informatique, Robotique et de Microélectronique de Montpellier - LIRMM, França (1992). Entre 1986 e 2004, foi professor do Departamento de Sistemas e Computação da Universidade Federal de Campina Grande - UFCG (antiga UFPB), tendo atuado nos cursos de Tecnologia em Processamento de Dados, Bacharelado em Ciência da Computação, Mestrado em Informática e Doutorado em Engenharia Elétrica. Desde 2001 é professor titular da Universidade Católica de Brasília, onde atua no Curso de Bacharelado em Ciência da Computação e no Mestrado em Governança, Tecnologia e Inovação (antigo Mestrado em Gestão do Conhecimento e Tecnologia da Informação). Seus interesses incluem Inteligência Artificial e Gestão do Conhecimento. Tem experiência como consultor de organismos internacionais em projetos juntos a órgãos do Governo Federal Brasileiro.",
+          _controller.egresso.situacao.tipo,
         ),
       ),
     );
@@ -245,7 +249,7 @@ class _CurriculoViewState extends State<CurriculoView> {
   _resetBotaoAtivo() {
     _dadosGeraisBotao.controller.ativo = false;
     _producoesBotao.controller.ativo = false;
-    _eventosBotao.controller.ativo = false;
+    // _eventosBotao.controller.ativo = false;
     // _bancasBotao.controller.ativo = false;
   }
 
@@ -276,19 +280,33 @@ class _CurriculoViewState extends State<CurriculoView> {
     );
   }
 
-  MenuBotaoWidget _eventosBotao;
-  _setEventosBotao() {
+  MenuBotaoWidget _bancasBotao;
+  _setBancasBotao() {
     return MenuBotaoWidget(
       onTap: () {
-        _setAtualMenu(_eventosContainer());
+        _setAtualMenu(_bancasContainer());
         _resetBotaoAtivo();
-        _eventosBotao.controller.ativo = true;
-        // _setAtualBotao(_eventosBotao);
+        _bancasBotao.controller.ativo = true;
+        // _setAtualBotao(_producoesBotao);
       },
-      text: "Eventos",
+      text: "Bancas",
       controller: MenuBotaoWidgetController(ativo: false),
     );
   }
+
+  // MenuBotaoWidget _eventosBotao;
+  // _setEventosBotao() {
+  //   return MenuBotaoWidget(
+  //     onTap: () {
+  //       _setAtualMenu(_eventosContainer());
+  //       _resetBotaoAtivo();
+  //       _eventosBotao.controller.ativo = true;
+  //       // _setAtualBotao(_eventosBotao);
+  //     },
+  //     text: "Eventos",
+  //     controller: MenuBotaoWidgetController(ativo: false),
+  //   );
+  // }
 
   _dadosGeraisContainer() {
     var nomeCitacao = ListaDetalhes(
@@ -359,15 +377,19 @@ class _CurriculoViewState extends State<CurriculoView> {
   }
 
   _producoesContainer() {
-    return Container(
-        child: OrganizeCharts()
-            .createCharts(dataExemplo, [100, 200, 300, 400, 500]));
+    return ProducoesView(
+        producoes: _controller.egresso.producoes,
+        mediaProducoes: ObservableList<MediaProducao>());
   }
 
-  _eventosContainer() {
-    return Container(
-        child: OrganizeCharts().createCharts(dataExemplo, [100, 2, 30, 4, 55]));
+  _bancasContainer() {
+    return BancasView(bancas: _controller.egresso.bancas);
   }
+
+  // _eventosContainer() {
+  //   return Container(
+  //       child: OrganizeCharts().createCharts(dataExemplo, [100, 2, 30, 4, 55]));
+  // }
 
   _mostrarLayout() {
     _controller.container = _dadosGeraisContainer();
@@ -437,7 +459,7 @@ class _CurriculoViewState extends State<CurriculoView> {
                           children: <Widget>[
                             _dadosGeraisBotao,
                             _producoesBotao,
-                            _eventosBotao,
+                            // _eventosBotao,
                           ],
                         ),
                       ),
