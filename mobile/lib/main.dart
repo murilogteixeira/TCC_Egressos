@@ -20,8 +20,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      // initialRoute: SplashScrenView.route,
-      initialRoute: EgressosListView.route,
+      initialRoute: SplashScrenView.route,
+      // initialRoute: EgressosListView.route,
       routes: {
         SplashScrenView.route: (context) => SplashScrenView(),
         LoginView.route: (context) => LoginView(),

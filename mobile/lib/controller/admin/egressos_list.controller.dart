@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:diacritic/diacritic.dart';
+import 'package:mobile/helpers/service/network.dart';
 import 'package:mobile/model/curriculo_lattes/egresso.dart';
 import 'package:mobx/mobx.dart';
 import 'package:http/http.dart' as http;
@@ -24,24 +25,18 @@ abstract class _EgressosListControllerBase with Store {
 
   fetchEgressos() async {
     final url = 'https://egressosbackend.herokuapp.com/egressos/';
-    final response = await http.get(
-      url,
-      headers: {
-        'Authorization': 'Token b3240e032bcf3df07185f34322c0f10b65a267e1',
-      },
-    );
 
-    if (response.statusCode == 200) {
-      var body = decodeUTF8(response.bodyBytes);
-      List json = jsonDecode(body);
-      json.forEach((element) {
-        var egresso = Egresso.fromJson(element);
-        egressos.add(egresso);
-        egressosFiltered.add(egresso);
-      });
-      egressos.sort((a, b) => a.nome.compareTo(b.nome));
-      egressosFiltered.sort((a, b) => a.nome.compareTo(b.nome));
-    }
+    List json = await Network().fetchData(url);
+    if (json == null) return null;
+
+    json.forEach((element) {
+      var egresso = Egresso.fromJson(element);
+      egressos.add(egresso);
+      egressosFiltered.add(egresso);
+    });
+    egressos.sort((a, b) => a.nome.compareTo(b.nome));
+    egressosFiltered.sort((a, b) => a.nome.compareTo(b.nome));
+
   }
 
   filter(String value) {
