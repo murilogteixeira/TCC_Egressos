@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:tcc_egressos/controller/login_controller.dart';
 import 'package:tcc_egressos/view/consulta_view.dart';
 
 class LoginView extends StatefulWidget {
   static var route = '/';
+  // var a = LoginController();
 
   final String title = "Login";
 
