@@ -21,13 +21,23 @@ class PerfilView extends StatefulWidget {
 
 class _PerfilViewState extends State<PerfilView> {
   PerfilController _controller;
+  Color situacaoEgressoColor;
   DadosGeraisView dadosGeraisView;
   ProducoesEgressoView producoesEgressoView = ProducoesEgressoView();
 
   @override
   Widget build(BuildContext context) {
     _controller = PerfilController(egresso: widget.egresso);
-
+    switch (_controller.egresso.situacao.tipo) {
+      case "Adiantado":
+        situacaoEgressoColor = Color(0xFF70D169);
+        break;
+      case "Regular":
+        situacaoEgressoColor = Colors.lightBlue;
+        break;
+      case "Atrasado":
+        situacaoEgressoColor = Colors.red;
+    }
     dadosGeraisView = DadosGeraisView(
       controller: _controller,
     );
@@ -108,9 +118,9 @@ class _PerfilViewState extends State<PerfilView> {
                             height: 20,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(4),
-                                color: Color(0xFF70D169)),
+                                color: situacaoEgressoColor),
                             child: Text(
-                              'Regular',
+                              _controller.egresso.situacao.tipo,
                               style: TextStyle(
                                 fontWeight: FontWeight.w700,
                                 fontSize: 10.0,
