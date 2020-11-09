@@ -24,7 +24,12 @@ abstract class _EgressosListControllerBase with Store {
 
   fetchEgressos() async {
     final url = 'https://egressosbackend.herokuapp.com/egressos/';
-    final response = await http.get(url);
+    final response = await http.get(
+      url,
+      headers: {
+        'Authorization': 'Token b3240e032bcf3df07185f34322c0f10b65a267e1',
+      },
+    );
 
     if (response.statusCode == 200) {
       var body = decodeUTF8(response.bodyBytes);
