@@ -19,6 +19,9 @@ import 'package:tcc_egressos/model/lista_detalhes.dart';
 import 'package:tcc_egressos/view/bancas_view.dart';
 import 'package:tcc_egressos/view/producoes_view.dart';
 
+import '../model/lista_detalhes.dart';
+import '../model/lista_detalhes.dart';
+
 class CurriculoView extends StatefulWidget {
   static var route = "/curriculo";
 
@@ -151,18 +154,19 @@ class _CurriculoViewState extends State<CurriculoView> {
     );
     Color corSituacao = Colors.grey;
 
-    // switch (_controller.egresso.situacao.id) {
-    //   case 1:
-    //     corSituacao = Colors.red;
-    //     break;
-    //   case 2:
-    //     corSituacao = Colors.blue;
-    //     break;
-    //   case 3:
-    //     corSituacao = Colors.green;
-    //     break;
-    //   default:
-    // }
+    switch (_controller.egresso.situacao.tipo) {
+      case 'Regular':
+        corSituacao = Colors.blue;
+        break;
+      case 'Atrasado':
+        corSituacao = Colors.red;
+        break;
+      case 'Adiantado':
+        corSituacao = Colors.green;
+        break;
+      default:
+        corSituacao = Colors.grey;
+    }
 
     var status = Padding(
       padding: const EdgeInsets.only(left: 18),
@@ -174,8 +178,7 @@ class _CurriculoViewState extends State<CurriculoView> {
             borderRadius: BorderRadius.all(Radius.circular(12))),
         child: Center(
             child: Text(
-          // "${_controller.egresso.situacao.tipo}",
-          "Undefined",
+          _controller.egresso.situacao.tipo,
           style: TextStyle(fontSize: 14, color: Color(0xFFFDFDFD)),
         )),
       ),
@@ -197,22 +200,24 @@ class _CurriculoViewState extends State<CurriculoView> {
   }
 
   _formacaoCargo() {
-    var cargo = _controller.consultaCargo();
+    // var cargo = _controller.consultaCargo();
+    var cargo = _controller.egresso.cargoAtual;
     return Padding(
       padding: const EdgeInsets.only(top: 14),
       child: Container(
         constraints: BoxConstraints(maxWidth: _constraints.maxWidth * 0.8),
         // color: Colors.blue,
-        child: FutureBuilder(
-          future: cargo,
-          builder: (BuildContext context, AsyncSnapshot<Cargo> snapshot) {
-            if (snapshot.hasData) {
-              return Text(
-                  '${snapshot.data.cargo} - ${snapshot.data.instituicao}');
-            }
-            return Text('Cargo atual não informado');
-          },
-        ),
+        child: Text(cargo),
+        // FutureBuilder(
+        //   future: cargo,
+        //   builder: (BuildContext context, AsyncSnapshot<Cargo> snapshot) {
+        //     if (snapshot.hasData) {
+        //       return Text(
+        //           '${snapshot.data.cargo} - ${snapshot.data.instituicao}');
+        //     }
+        //     return Text('Cargo atual não informado');
+        //   },
+        // ),
         // child: Text(
         //   '${cargo.cargo} - ${cargo.instituicao}',
         // ),
@@ -225,8 +230,8 @@ class _CurriculoViewState extends State<CurriculoView> {
       padding: const EdgeInsets.only(top: 14),
       child: Container(
         child: Text(
-          // _controller.egresso.situacao.tipo,
-          "Undefined",
+          "Doutorando na Universidade Católica de Brasília",
+          // "Undefined",
         ),
       ),
     );
@@ -299,14 +304,23 @@ class _CurriculoViewState extends State<CurriculoView> {
   // }
 
   _dadosGeraisContainer() {
+    var idLattes = ListaDetalhes(
+      titulo: 'ID Lattes',
+      lista: [
+        ItemListaDetalhes(
+          subtitulo: _controller.egresso.idLattes,
+          corpo: [],
+        ),
+      ],
+    );
     var nomeCitacao = ListaDetalhes(
       titulo: 'Nome Citação',
       lista: [
         ItemListaDetalhes(
-          subtitulo: _controller.egresso.nomeCitacoes[0],
+          subtitulo: _controller.egresso.nomeCitacoes,
           // subtitulo: "Undefined",
           // _controller.egresso.nomeCitacoes[0] ?? "Undefined",
-          corpo: [''],
+          corpo: [],
         ),
       ],
     );
@@ -332,29 +346,34 @@ class _CurriculoViewState extends State<CurriculoView> {
         ),
         ItemListaDetalhes(
           subtitulo: 'LinkedIn:',
-          corpo: ['https://www.linkedin.com/in/edilson-ferneda-348199a/'],
+          corpo: [
+            _controller.egresso
+                .linkedin /*'https://www.linkedin.com/in/edilson-ferneda-348199a/'*/
+          ],
         ),
         ItemListaDetalhes(
           subtitulo: 'Instagram:',
-          corpo: ['@eferneda'],
+          corpo: [_controller.egresso.instagram /*'@eferneda'*/],
         ),
         ItemListaDetalhes(
           subtitulo: 'Facebook:',
-          corpo: ['https://www.facebook.com/edilson.ferneda.5'],
+          corpo: [
+            'Facebook indisponível' /*'https://www.facebook.com/edilson.ferneda.5'*/
+          ],
         ),
         ItemListaDetalhes(
           subtitulo: 'Telefone:',
-          corpo: [
-            /*_controller.curriculo.celular*/
-            _controller.egresso.celular
-            // 'Não informado'
-          ],
+          corpo: [_controller.egresso.celular],
         ),
       ],
     );
 
     return Column(
       children: <Widget>[
+        DetalhesCurriculoWidget(
+          maxWidth: _maxWidth * 0.9,
+          dados: idLattes,
+        ),
         DetalhesCurriculoWidget(
           maxWidth: _maxWidth * 0.9,
           dados: nomeCitacao,
