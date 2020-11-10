@@ -19,6 +19,23 @@ import 'package:tcc_egressos/model/lista_detalhes.dart';
 import 'package:tcc_egressos/view/bancas_view.dart';
 import 'package:tcc_egressos/view/producoes_view.dart';
 
+import '../controller/home_controller.dart';
+import '../controller/home_controller.dart';
+import '../controller/home_controller.dart';
+import '../controller/home_controller.dart';
+import '../controller/home_controller.dart';
+import '../controller/home_controller.dart';
+import '../controller/producoes_controller.dart';
+import '../controller/producoes_controller.dart';
+import '../controller/producoes_controller.dart';
+import '../controller/producoes_controller.dart';
+import '../controller/producoes_controller.dart';
+import '../controller/producoes_controller.dart';
+import '../model/curriculo_lattes/producao/producao.dart';
+import '../model/curriculo_lattes/producao/producao.dart';
+import '../model/curriculo_lattes/producao/producao.dart';
+import '../model/curriculo_lattes/producao/producao.dart';
+import '../model/curriculo_lattes/producao/producao.dart';
 import '../model/lista_detalhes.dart';
 import '../model/lista_detalhes.dart';
 
@@ -37,6 +54,11 @@ class _CurriculoViewState extends State<CurriculoView> {
   BoxConstraints _constraints;
   ScreenSize _screenSize;
   EgressoController _controller;
+  HomeController homeController;
+
+  ObservableList<Producao> producoes = ObservableList<Producao>();
+  ObservableList<MediaProducao> mediaProducoes =
+      ObservableList<MediaProducao>();
 
   MenuBotaoWidget _atualBotao;
 
@@ -44,6 +66,7 @@ class _CurriculoViewState extends State<CurriculoView> {
   void initState() {
     // _controller = CurriculoController();
     _controller = EgressoController();
+    homeController = HomeController(context);
 
     _dadosGeraisBotao = _setDadosGeraisBotao();
     // _formacaoBotao = _setFormacaoBotao();
@@ -58,15 +81,15 @@ class _CurriculoViewState extends State<CurriculoView> {
   Widget build(BuildContext context) {
     var egresso = ModalRoute.of(context).settings.arguments;
 
-    // if (curriculo != null) {
-    //   _controller.setCurriculo(curriculo);
-    // }
-
     if (egresso != null) {
       _controller.setEgresso(egresso);
     }
-    // print("Egresso: ======" + egresso);
+
     _getEgresso();
+    _getProducoes();
+    _getMediaProducoes();
+    print('\n\n\n\n\n\n${this.producoes.toString()}\n\n\n\n\n\n');
+    print('\n\n\n\n\n\n${this.mediaProducoes.toString()}\n\n\n\n\n\n');
 
     return LayoutBuilder(builder: (context, constraints) {
       _maxWidth = constraints.maxWidth;
@@ -131,7 +154,6 @@ class _CurriculoViewState extends State<CurriculoView> {
 
   _foto() {
     return Container(
-      // color: Colors.green,
       width: 90,
       height: 90,
       decoration: new BoxDecoration(
@@ -382,10 +404,29 @@ class _CurriculoViewState extends State<CurriculoView> {
     );
   }
 
+  _getMediaProducoes() async {
+    var controller = ProducoesController();
+    controller.getListAvarages(_controller.egresso.id).then((value) {
+      value.forEach((element) {
+        print(element.toString());
+        this.mediaProducoes.add(element);
+      });
+    });
+  }
+
+  _getProducoes() async {
+    var controller = ProducoesController();
+    controller.getProducoesEgresso(_controller.egresso.id).then((value) {
+      value.forEach((element) {
+        print(element.toString());
+        this.producoes.add(element);
+      });
+    });
+  }
+
   _producoesContainer() {
     return ProducoesView(
-        producoes: _controller.egresso.producoes,
-        mediaProducoes: ObservableList<MediaProducao>());
+        producoes: this.producoes, mediaProducoes: this.mediaProducoes);
   }
 
   _bancasContainer() {

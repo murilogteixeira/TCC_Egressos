@@ -40,6 +40,7 @@ class _ProducoesViewState extends State<ProducoesView> {
   }
 
   List<ChartsData> _chartData() {
+    // widget.producoes = ObservableList<Producao>();
     var listType = widget.producoes.map((e) => e.tipo.nome ?? "Undefined");
 
     Map<String, int> map = Map();
