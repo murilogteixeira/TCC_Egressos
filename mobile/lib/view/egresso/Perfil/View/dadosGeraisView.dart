@@ -35,12 +35,12 @@ class _DadosGeraisViewState extends State<DadosGeraisView> {
       child: Column(
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(0.0),
             child: Row(
               children: [
                 pointIndicator,
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(24, 8, 8, 8),
+                  padding: const EdgeInsets.fromLTRB(24, 0, 8, 0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -51,7 +51,7 @@ class _DadosGeraisViewState extends State<DadosGeraisView> {
                             style: TextStyle(
                                 color: Color(0xFF547DD9), fontWeight: FontWeight.bold, fontSize: 18.0)),
                       ),
-                      Text(widget.controller.egresso.idLattes,
+                      Text(widget.controller.egresso.idLattes ?? 'Não informado',
                           style: TextStyle(color: Color(0xFF4A4A4A), fontSize: 20.0))
                     ],
                   ),
@@ -64,28 +64,33 @@ class _DadosGeraisViewState extends State<DadosGeraisView> {
             child: horizontalSeparator,
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(0.0),
             child: Row(
               children: [
                 pointIndicator,
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(24, 8, 8, 8),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 9),
-                        child: Text('Nome de Citação:',
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                                color: Color(0xFF547DD9), fontWeight: FontWeight.bold, fontSize: 18.0)),
-                      ),
-                      Text(widget.controller.egresso.nomeCitacoes,
-                          textAlign: TextAlign.left,
-                          style: TextStyle(color: Color(0xFF4A4A4A), fontSize: 20.0)),
-                    ],
+                ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxWidth: MediaQuery.of(context).size.width - 50,
                   ),
-                ),
+                  child:Padding(
+                    padding: const EdgeInsets.fromLTRB(24, 0, 8, 0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 9),
+                          child: Text('Nome de Citação:',
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  color: Color(0xFF547DD9), fontWeight: FontWeight.bold, fontSize: 18.0)),
+                        ),
+                        Text(widget.controller.egresso.nomeCitacoes ?? 'Não informado',
+                            textAlign: TextAlign.left,
+                            style: TextStyle(color: Color(0xFF4A4A4A), fontSize: 20.0)),
+                      ],
+                    ),
+                  ),
+                )
               ],
             ),
           ),
@@ -150,12 +155,12 @@ class _DadosGeraisViewState extends State<DadosGeraisView> {
             child: horizontalSeparator,
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(0.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(34, 8, 8, 9),
+                  padding: const EdgeInsets.fromLTRB(34, 0, 8, 0),
                   child: Text('Conatos:',
                       style:
                           TextStyle(color: Color(0xFF547DD9),fontWeight: FontWeight.bold, fontSize: 18.0)),
@@ -164,41 +169,18 @@ class _DadosGeraisViewState extends State<DadosGeraisView> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     pointIndicator,
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(24, 8, 8, 8),
-                      child: Text(widget.controller.egresso.email,
-                          style: TextStyle(color: Color(0xFF4A4A4A), fontSize: 20.0)),
+                    ConstrainedBox(
+                      constraints: BoxConstraints(
+                        maxWidth: MediaQuery.of(context).size.width - 50,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(24, 8, 8, 8),
+                        child: Text(widget.controller.egresso.email ?? 'Email não informado',
+                            style: TextStyle(color: Color(0xFF4A4A4A), fontSize: 20.0)),
+                      ),
                     ),
                   ],
                 ),
-                // Padding(
-                //   padding: const EdgeInsets.only(left: 4),
-                //   child: verticalSeparator,
-                // ),
-                // Row(
-                //   children: [
-                //     pointIndicator,
-                //     Padding(
-                //       padding: const EdgeInsets.fromLTRB(24, 8, 8, 8),
-                //       child: Text('Linkedin@mario-braga',
-                //           style: TextStyle(color: Color(0xFF4A4A4A), fontSize: 20.0)),
-                //     ),
-                //   ],
-                // ),
-                // Padding(
-                //   padding: const EdgeInsets.only(left: 4),
-                //   child: verticalSeparator,
-                // ),
-                // Row(
-                //   children: [
-                //     pointIndicator,
-                //     Padding(
-                //       padding: const EdgeInsets.fromLTRB(24, 8, 8, 8),
-                //       child: Text('@mariobragaucb',
-                //           style: TextStyle(color: Color(0xFF4A4A4A), fontSize: 20.0)),
-                //     ),
-                //   ],
-                // ),
                 Padding(
                   padding: const EdgeInsets.only(left: 4),
                   child: verticalSeparator,
@@ -206,10 +188,53 @@ class _DadosGeraisViewState extends State<DadosGeraisView> {
                 Row(
                   children: [
                     pointIndicator,
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(24, 8, 8, 8),
-                      child: Text(widget.controller.egresso.celular ?? '',
-                          style: TextStyle(color: Color(0xFF4A4A4A), fontSize: 20.0)),
+                    ConstrainedBox(
+                      constraints: BoxConstraints(
+                        maxWidth: MediaQuery.of(context).size.width - 50,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(24, 8, 8, 8),
+                        child: Text(widget.controller.egresso.linkedin ?? 'Linkedin não informado',
+                            style: TextStyle(color: Color(0xFF4A4A4A), fontSize: 20.0)),
+                      ),
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 4),
+                  child: verticalSeparator,
+                ),
+                Row(
+                  children: [
+                    pointIndicator,
+                    ConstrainedBox(
+                      constraints: BoxConstraints(
+                        maxWidth: MediaQuery.of(context).size.width - 50,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(24, 8, 8, 8),
+                        child: Text(widget.controller.egresso.instagram ?? 'Instagram não informado',
+                            style: TextStyle(color: Color(0xFF4A4A4A), fontSize: 20.0)),
+                      ),
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 4),
+                  child: verticalSeparator,
+                ),
+                Row(
+                  children: [
+                    pointIndicator,
+                    ConstrainedBox(
+                      constraints: BoxConstraints(
+                        maxWidth: MediaQuery.of(context).size.width - 50,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(24, 8, 8, 8),
+                        child: Text(widget.controller.egresso.celular ?? 'Telefone não informado',
+                            style: TextStyle(color: Color(0xFF4A4A4A), fontSize: 20.0)),
+                      ),
                     ),
                   ],
                 ),
