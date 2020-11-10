@@ -7,9 +7,9 @@ import 'package:mobile/view/egresso/home/producoes.view.dart';
 import '../../../globals.dart';
 
 class HomeView extends StatefulWidget {
-  const HomeView({Key key, this.title, this.egresso}) : super(key: key);
+  const HomeView({Key key, this.egresso}) : super(key: key);
 
-  final String title;
+  // final String titulo;
   final Egresso egresso;
 
   @override
@@ -17,27 +17,28 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-
-  var _controller = HomeController();
+  HomeController controller;
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-          backgroundColor: mainColor,
-        ),
-        body: Observer(
-          builder: (_) {
-            return ProducoesView(
-              producoes: _controller.producoes,
-              mediaProducoes: _controller.mediaProducoes,
-            );
-          },
-        ),
+    controller = HomeController(egresso: widget.egresso);
+    // return DefaultTabController(
+    //   length: 2,
+    //   child:
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Produções'),
+        backgroundColor: mainColor,
+      ),
+      body: Observer(
+        builder: (_) {
+          return ProducoesView(
+            producoes: controller.producoes,
+            mediaProducoes: controller.mediaProducoes,
+          );
+        },
       ),
     );
+    // );
   }
 }

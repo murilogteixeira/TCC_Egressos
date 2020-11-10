@@ -32,7 +32,7 @@ class _TabBarAppViewState extends State<TabBarAppView> {
 
     List<Widget> _widgetOptions = [
       HomeView(
-        title: _tituloHome,
+        // title: _tituloHome,
         egresso: widget.usuario.egresso,
       ),
       PerfilView(usuario: widget.usuario),
