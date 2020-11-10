@@ -32,12 +32,12 @@ mixin _$LoginController on _LoginControllerBase, Store {
     return super._usuario;
   }
 
-  @override
-  set _usuario(Usuario value) {
-    _$_usuarioAtom.reportWrite(value, super._usuario, () {
-      super._usuario = value;
-    });
-  }
+  // @override
+  // set _usuario(Usuario value) {
+  //   _$_usuarioAtom.reportWrite(value, super._usuario, () {
+  //     super._usuario = value;
+  //   });
+  // }
 
   final _$_LoginControllerBaseActionController =
       ActionController(name: '_LoginControllerBase');

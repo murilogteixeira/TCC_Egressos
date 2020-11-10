@@ -5,7 +5,6 @@ import 'package:mobx/mobx.dart';
 import 'package:tcc_egressos/controller/curriculo_controller.dart';
 import 'package:tcc_egressos/controller/list_egressos_controller.dart';
 import 'package:tcc_egressos/extension/hand_cursor.dart';
-import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/egresso.dart';
 
 class ListEgressos extends StatefulWidget {
@@ -95,8 +94,10 @@ class ListEgressosState extends State<ListEgressos> {
                         //    color: Colors.red,
                         //    width: 5.0,
                         //  ),
-                        color:
-                            _defineColor(widget.egressos[index].situacao.tipo),
+                        color: Colors.grey,
+                        // widget.egressos[index].situacao.tipo != null
+                        //     ? _defineColor(widget.egressos[index].situacao.tipo)
+                        //     : Colors.grey,
                         shape: BoxShape.circle,
                         // image: new DecorationImage(
                         //       image: AssetImage('web/profile.png'), fit: BoxFit.fill),

@@ -1,19 +1,19 @@
 import 'dart:convert';
 
-import 'package:tcc_egressos/model/curriculo_lattes/banca/banca.dart';
-import 'package:tcc_egressos/model/curriculo_lattes/producao/producao.dart';
+import 'package:flutter/material.dart';
 import 'package:tcc_egressos/model/usuario.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:mobx/mobx.dart';
+import 'package:tcc_egressos/view/login_view.dart';
 part 'login_controller.g.dart';
 
 class LoginController = _LoginControllerBase with _$LoginController;
 
 abstract class _LoginControllerBase with Store {
   @observable
-  bool loading = true;
+  bool loading = false;
   @action
   setLoading(value) => loading = value;
 
@@ -30,10 +30,12 @@ abstract class _LoginControllerBase with Store {
     return usuarioEncontrado;
   }
 
-  logout() async {
+  logout(BuildContext context) async {
     var prefs = await SharedPreferences.getInstance();
     this._usuario = null;
     prefs.setString(usuarioKey, null);
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil(LoginView.route, (route) => false);
   }
 
   Future<Usuario> _performLogin(String username, String password) async {
@@ -50,12 +52,9 @@ abstract class _LoginControllerBase with Store {
     );
 
     if (response.statusCode == 200) {
-      var json = jsonDecode(response.body);
+      var body = decodeUTF8(response.bodyBytes);
+      var json = jsonDecode(body);
       if (json['status'] == false) return null;
-      List egressoJson = jsonDecode(json['Egresso']);
-      if (egressoJson.first == null) return null;
-      json['Egresso'] = egressoJson.first['fields'];
-      json['Egresso']['id'] = egressoJson.first['pk'];
       var usuarioResponse = Usuario.fromJson(json);
       return usuarioResponse.status ? usuarioResponse : null;
     } else {
@@ -91,4 +90,8 @@ abstract class _LoginControllerBase with Store {
     var prefs = await SharedPreferences.getInstance();
     prefs.setString(usuarioKey, jsonEncode(_usuario.toJson()));
   }
+}
+
+String decodeUTF8(string) {
+  return utf8.decode(string);
 }

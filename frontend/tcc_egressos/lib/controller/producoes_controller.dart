@@ -1,48 +1,30 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:tcc_egressos/components/network.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/producao/producao.dart';
 
 class ProducoesController {
   Future<List<Producao>> getProducoesEgresso(int id) async {
-    final uri =
+    final url =
         'https://egressosbackend.herokuapp.com/producoesEgresso/?search=$id';
 
-    final response = await http.get(uri);
-
-    if (response.statusCode == 200) {
-      var body = _decodeUTF8(response.bodyBytes);
-      List json = jsonDecode(body);
-      List<Producao> producoes = [];
-      producoes = json.map((e) => Producao.fromJson(e)).toList();
-      return producoes;
-    } else {
-      print('Erro ao buscar produções');
-      print(_decodeUTF8(response.bodyBytes));
-    }
-    return null;
+    List json = await Network().fetchData(url);
+    if (json == null) return null;
+    List<Producao> producoes = [];
+    producoes = json.map((e) => Producao.fromJson(e)).toList();
+    return producoes;
   }
 
   Future<List<MediaProducao>> getListAvarages(int id) async {
-    final uri = 'https://egressosbackend.herokuapp.com/graphType/$id';
+    final url = 'https://egressosbackend.herokuapp.com/graphType/$id';
 
-    final response = await http.get(uri);
-
-    if (response.statusCode == 200) {
-      var body = _decodeUTF8(response.bodyBytes);
-      var json = jsonDecode(body);
-      if (json['status'] == false) return null;
-      List mediasJson = json['media'];
-      List<MediaProducao> medias =
-          mediasJson.map((e) => MediaProducao.fromJson(e)).toList();
-      return medias;
-    } else {
-      print('Erro ao buscar produções');
-    }
-    return null;
-  }
-
-  String _decodeUTF8(string) {
-    return utf8.decode(string);
+    var json = await Network().fetchData(url);
+    if (json == null) return null;
+    if (json['status'] == false) return null;
+    List mediasJson = json['media'];
+    List<MediaProducao> medias =
+        mediasJson.map((e) => MediaProducao.fromJson(e)).toList();
+    return medias;
   }
 }
 

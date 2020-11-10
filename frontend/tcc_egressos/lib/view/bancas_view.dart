@@ -34,7 +34,7 @@ class _BancasViewState extends State<BancasView> {
   }
 
   List<ChartsData> _chartData() {
-    var listType = widget.bancas.map((e) => e.tipo.descricao);
+    var listType = widget.bancas.map((e) => e.tipo.descricao ?? "Undefined");
     Map<String, int> map = Map();
     listType.forEach((i) {
       var count = map[i];

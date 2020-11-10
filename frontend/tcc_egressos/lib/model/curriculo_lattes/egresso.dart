@@ -45,6 +45,9 @@ class Egresso {
     // situacao = json['situacao'] != null
     //     ? new Situacao.fromJson(json['situacao'])
     //     : null;
+
+    print(json);
+    print(nome);
     if (json['producoes'] != null) {
       producoes = new List<Producao>();
       json['producoes'].forEach((v) {

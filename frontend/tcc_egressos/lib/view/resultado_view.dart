@@ -4,7 +4,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
 import 'package:tcc_egressos/components/nav_bar_widget.dart';
 import 'package:tcc_egressos/controller/resultado_controller.dart';
-import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/egresso.dart';
 import 'package:tcc_egressos/view/list_egressos.dart';
 
@@ -94,15 +93,21 @@ class _ResultadoViewState extends State<ResultadoView> {
       aux.add(Container(
         padding: EdgeInsets.fromLTRB(
             i == 0 ? 0 : 1.0, 0, i == nroPages - 1 ? 1.0 : 0, 0),
-        child: FlatButton(
-          padding: EdgeInsets.zero,
-          textColor: Colors.black,
-          shape: new CircleBorder(),
-          onPressed: () {
-            _controller.setPaginaAtual(i);
-          },
-          child: Text('${i + 1}'),
-        ),
+        // child: ListView(scrollDirection: Axis.horizontal, children: [
+        //   Row(
+        //     children: [
+        //       FlatButton(
+        //         padding: EdgeInsets.zero,
+        //         textColor: Colors.black,
+        //         shape: new CircleBorder(),
+        //         onPressed: () {
+        //           _controller.setPaginaAtual(i);
+        //         },
+        //         child: Text('${i + 1}'),
+        //       ),
+        //     ],
+        //   ),
+        // ]),
       ));
     }
 

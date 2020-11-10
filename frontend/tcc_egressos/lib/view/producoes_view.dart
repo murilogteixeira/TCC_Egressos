@@ -44,7 +44,7 @@ class _ProducoesViewState extends State<ProducoesView> {
   }
 
   List<ChartsData> _chartData() {
-    var listType = widget.producoes.map((e) => e.tipo.nome);
+    var listType = widget.producoes.map((e) => e.tipo.nome ?? "Undefined");
 
     Map<String, int> map = Map();
     listType.forEach((i) {

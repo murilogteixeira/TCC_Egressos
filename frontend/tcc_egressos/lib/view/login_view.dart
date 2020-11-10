@@ -33,76 +33,76 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   Usuario usuario;
-  // var _formKey = GlobalKey<FormState>();
+  var _formKey = GlobalKey<FormState>();
   var _controller = LoginController();
 
   String inputEmail;
   String inputSenha;
 
-  // Future<Usuario> verificaLoginEmCache() async {
-  //   Future.delayed(Duration(seconds: 1));
-  //   _controller.setLoading(true);
-  //   usuario = await _controller.usuario;
-  //   _controller.setLoading(false);
-  //   return usuario;
-  // }
+  Future<Usuario> verificaLoginEmCache() async {
+    Future.delayed(Duration(seconds: 1));
+    _controller.setLoading(true);
+    usuario = await _controller.usuario;
+    _controller.setLoading(false);
+    return usuario;
+  }
 
-  // _login() async {
-  //   await _loginValidate()
-  //       ? _goToHome()
-  //       : _showMessageError('Email ou senha inválido');
-  // }
+  _login() async {
+    await _loginValidate()
+        ? _goToHome()
+        : _showMessageError('Email ou senha inválido');
+  }
 
-  // Future<bool> _loginValidate() async {
-  //   var retorno = true;
-  //   _controller.setLoading(true);
-  //   usuario = await _controller.efetuarLogin(inputEmail, inputSenha);
-  //   if (usuario == null) {
-  //     retorno = false;
-  //   }
-  //   _controller.setLoading(false);
-  //   return retorno;
-  // }
+  Future<bool> _loginValidate() async {
+    var retorno = true;
+    _controller.setLoading(true);
+    usuario = await _controller.efetuarLogin(inputEmail, inputSenha);
+    if (usuario == null) {
+      retorno = false;
+    }
+    _controller.setLoading(false);
+    return retorno;
+  }
 
-  // entrarOnPressed() async {
-  //   if (_formKey.currentState.validate()) {
-  //     _formKey.currentState.save();
-  //     await _login();
-  //   }
-  // }
+  entrarOnPressed() async {
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+      await _login();
+    }
+  }
 
-  // _goToHome() {
-  //   if (usuario != null) {
-  //     Navigator.of(context).pushReplacementNamed(ConsultaView.route);
-  //   }
-  // }
+  _goToHome() {
+    if (usuario != null) {
+      Navigator.of(context).pushReplacementNamed(ConsultaView.route);
+    }
+  }
 
-  // _showMessageError(String texto) {
-  //   Scaffold.of(context).showSnackBar(SnackBar(
-  //     content: Text(
-  //       texto,
-  //       textAlign: TextAlign.center,
-  //       style: TextStyle(fontSize: 18),
-  //     ),
-  //     backgroundColor: Colors.red[700],
-  //   ));
-  // }
+  _showMessageError(String texto) {
+    Scaffold.of(context).showSnackBar(SnackBar(
+      content: Text(
+        texto,
+        textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 18),
+      ),
+      backgroundColor: Colors.red[700],
+    ));
+  }
 
-  // var _inputDecoration = InputDecoration(
-  //   contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-  //   focusedBorder: OutlineInputBorder(
-  //     borderRadius: BorderRadius.all(Radius.circular(7)),
-  //     borderSide: BorderSide(color: Color(0xFF547DD9), width: 2.0),
-  //   ),
-  //   border: OutlineInputBorder(
-  //     borderRadius: BorderRadius.all(Radius.circular(7)),
-  //     borderSide: BorderSide(color: Color(0xFFDCDDE0), width: 2.0),
-  //   ),
-  //   errorBorder: OutlineInputBorder(
-  //     borderRadius: BorderRadius.all(Radius.circular(7)),
-  //     borderSide: BorderSide(color: Colors.red, width: 2.0),
-  //   ),
-  // );
+  var _inputDecoration = InputDecoration(
+    contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+    focusedBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.all(Radius.circular(7)),
+      borderSide: BorderSide(color: Color(0xFF547DD9), width: 2.0),
+    ),
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.all(Radius.circular(7)),
+      borderSide: BorderSide(color: Color(0xFFDCDDE0), width: 2.0),
+    ),
+    errorBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.all(Radius.circular(7)),
+      borderSide: BorderSide(color: Colors.red, width: 2.0),
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -139,7 +139,7 @@ class _LoginFormState extends State<LoginForm> {
                 ),
                 TextFormField(
                   validator: (value) {
-                    if (value.isEmpty) return 'Insira o seu email';
+                    if (value.isEmpty) return 'aline.ximenes';
                     return null;
                   },
                   onSaved: (value) => inputEmail = value,
@@ -175,7 +175,7 @@ class _LoginFormState extends State<LoginForm> {
                 TextFormField(
                   obscureText: true,
                   validator: (value) {
-                    if (value.isEmpty) return 'Insira a sua senha';
+                    if (value.isEmpty) return 'TCCegressos2020';
                     return null;
                   },
                   onSaved: (value) => inputSenha = value,
@@ -218,6 +218,7 @@ class _LoginFormState extends State<LoginForm> {
                     borderRadius: BorderRadius.circular(25)),
                 onPressed: () {
                   Navigator.pushNamed(context, ConsultaView.route);
+                  // _login();
                 },
                 // entrarOnPressed,
                 child: Text(

@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +17,7 @@ import 'package:tcc_egressos/model/Charts/OrganizeCharts.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/cargo.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/egresso.dart';
+import 'package:tcc_egressos/model/curriculo_lattes/producao/producao.dart';
 import 'package:tcc_egressos/model/lista_detalhes.dart';
 import 'package:tcc_egressos/view/bancas_view.dart';
 import 'package:tcc_egressos/view/producoes_view.dart';
@@ -156,24 +156,25 @@ class _CurriculoViewState extends State<CurriculoView> {
   _nomeStatus() {
     var nome = Text(
       // _controller.curriculo.nome,
-      _controller.egresso.nome,
+      // _controller.egresso.nome,
+      "Undefined",
       style: TextStyle(fontSize: 22),
     );
-    Color corSituacao;
+    Color corSituacao = Colors.grey;
 
     // switch (_controller.curriculo.situacao.id) {
-    switch (_controller.egresso.situacao.id) {
-      case 1:
-        corSituacao = Colors.red;
-        break;
-      case 2:
-        corSituacao = Colors.blue;
-        break;
-      case 3:
-        corSituacao = Colors.green;
-        break;
-      default:
-    }
+    // switch (_controller.egresso.situacao.id) {
+    //   case 1:
+    //     corSituacao = Colors.red;
+    //     break;
+    //   case 2:
+    //     corSituacao = Colors.blue;
+    //     break;
+    //   case 3:
+    //     corSituacao = Colors.green;
+    //     break;
+    //   default:
+    // }
 
     var status = Padding(
       padding: const EdgeInsets.only(left: 18),
@@ -186,7 +187,8 @@ class _CurriculoViewState extends State<CurriculoView> {
         child: Center(
             child: Text(
           // "${_controller.curriculo.situacao.tipo}",
-          '${_controller.egresso.situacao.tipo}',
+          // '${_controller.egresso.situacao.tipo ?? "Undefined"}',
+          "Undefined",
           style: TextStyle(fontSize: 14, color: Color(0xFFFDFDFD)),
         )),
       ),
@@ -236,7 +238,8 @@ class _CurriculoViewState extends State<CurriculoView> {
       padding: const EdgeInsets.only(top: 14),
       child: Container(
         child: Text(
-          _controller.egresso.situacao.tipo,
+          // _controller.egresso.situacao.tipo ??
+          "Undefined",
         ),
       ),
     );
@@ -314,7 +317,8 @@ class _CurriculoViewState extends State<CurriculoView> {
       lista: [
         ItemListaDetalhes(
           // subtitulo: _controller.curriculo.nomeCitacao,
-          subtitulo: _controller.egresso.nomeCitacoes[0],
+          subtitulo: "Undefined",
+          // _controller.egresso.nomeCitacoes[0] ?? "Undefined",
           corpo: [''],
         ),
       ],
@@ -334,7 +338,8 @@ class _CurriculoViewState extends State<CurriculoView> {
       lista: [
         ItemListaDetalhes(
           subtitulo: 'Email:',
-          corpo: [/*_controller.curriculo.email*/ _controller.egresso.email],
+          corpo: [/*_controller.curriculo.email*/ "Undefined"],
+          // _controller.egresso.email],
         ),
         ItemListaDetalhes(
           subtitulo: 'LinkedIn:',
@@ -351,8 +356,9 @@ class _CurriculoViewState extends State<CurriculoView> {
         ItemListaDetalhes(
           subtitulo: 'Telefone:',
           corpo: [
-            /*_controller.curriculo.celular*/ _controller.egresso.celular ??
-                'Não informado'
+            /*_controller.curriculo.celular*/ "Undefined"
+            // _controller.egresso.celular ??
+            // 'Não informado'
           ],
         ),
       ],
@@ -378,7 +384,8 @@ class _CurriculoViewState extends State<CurriculoView> {
 
   _producoesContainer() {
     return ProducoesView(
-        producoes: _controller.egresso.producoes,
+        producoes: ObservableList<Producao>(name: "Sei la"),
+        // _controller.egresso.producoes,
         mediaProducoes: ObservableList<MediaProducao>());
   }
 
