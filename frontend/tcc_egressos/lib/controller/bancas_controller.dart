@@ -1,7 +1,4 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:tcc_egressos/components/network.dart';
-
 import 'package:tcc_egressos/model/curriculo_lattes/banca/banca.dart';
 
 class BancasController {

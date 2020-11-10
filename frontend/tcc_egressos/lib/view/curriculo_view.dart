@@ -9,13 +9,10 @@ import 'package:tcc_egressos/components/detalhes_curriculo_widget.dart';
 import 'package:tcc_egressos/components/menu_botao_widget.dart';
 import 'package:tcc_egressos/components/nav_bar_widget.dart';
 import 'package:tcc_egressos/components/screenSize.dart';
-import 'package:tcc_egressos/controller/curriculo_controller.dart';
 import 'package:tcc_egressos/controller/egresso_controller.dart';
 import 'package:tcc_egressos/controller/menu_botao_widget_controller.dart';
 import 'package:tcc_egressos/controller/producoes_controller.dart';
-import 'package:tcc_egressos/model/Charts/OrganizeCharts.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/cargo.dart';
-import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/egresso.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/producao/producao.dart';
 import 'package:tcc_egressos/model/lista_detalhes.dart';
@@ -36,9 +33,6 @@ class _CurriculoViewState extends State<CurriculoView> {
   double _maxWidth;
   BoxConstraints _constraints;
   ScreenSize _screenSize;
-  // CurriculoLattes _curriculo;
-  // CurriculoController _controller;
-  Egresso _egresso;
   EgressoController _controller;
 
   MenuBotaoWidget _atualBotao;
@@ -59,7 +53,6 @@ class _CurriculoViewState extends State<CurriculoView> {
 
   @override
   Widget build(BuildContext context) {
-    // var curriculo = ModalRoute.of(context).settings.arguments;
     var egresso = ModalRoute.of(context).settings.arguments;
 
     // if (curriculo != null) {
@@ -68,8 +61,7 @@ class _CurriculoViewState extends State<CurriculoView> {
     if (egresso != null) {
       _controller.setEgresso(egresso);
     }
-
-    // _getCurriculo();
+    // print("Egresso: ======" + egresso);
     _getEgresso();
 
     return LayoutBuilder(builder: (context, constraints) {
@@ -94,12 +86,10 @@ class _CurriculoViewState extends State<CurriculoView> {
     });
   }
 
-  // _getCurriculo() async {
   _getEgresso() async {
     var prefs = await SharedPreferences.getInstance();
     var json = prefs.getString('egresso');
-    // var json = prefs.getString("curriculo");
-    // _controller.curriculo = CurriculoLattes().fromJson(jsonDecode(json));
+    print("Egresso: ======" + json);
     _controller.egresso = Egresso.fromJson(jsonDecode(json));
   }
 
@@ -155,14 +145,12 @@ class _CurriculoViewState extends State<CurriculoView> {
 
   _nomeStatus() {
     var nome = Text(
-      // _controller.curriculo.nome,
-      // _controller.egresso.nome,
-      "Undefined",
+      _controller.egresso.nome,
+      // "Undefined",
       style: TextStyle(fontSize: 22),
     );
     Color corSituacao = Colors.grey;
 
-    // switch (_controller.curriculo.situacao.id) {
     // switch (_controller.egresso.situacao.id) {
     //   case 1:
     //     corSituacao = Colors.red;
@@ -186,8 +174,7 @@ class _CurriculoViewState extends State<CurriculoView> {
             borderRadius: BorderRadius.all(Radius.circular(12))),
         child: Center(
             child: Text(
-          // "${_controller.curriculo.situacao.tipo}",
-          // '${_controller.egresso.situacao.tipo ?? "Undefined"}',
+          // "${_controller.egresso.situacao.tipo}",
           "Undefined",
           style: TextStyle(fontSize: 14, color: Color(0xFFFDFDFD)),
         )),
@@ -238,7 +225,7 @@ class _CurriculoViewState extends State<CurriculoView> {
       padding: const EdgeInsets.only(top: 14),
       child: Container(
         child: Text(
-          // _controller.egresso.situacao.tipo ??
+          // _controller.egresso.situacao.tipo,
           "Undefined",
         ),
       ),
@@ -316,8 +303,8 @@ class _CurriculoViewState extends State<CurriculoView> {
       titulo: 'Nome Citação',
       lista: [
         ItemListaDetalhes(
-          // subtitulo: _controller.curriculo.nomeCitacao,
-          subtitulo: "Undefined",
+          subtitulo: _controller.egresso.nomeCitacoes[0],
+          // subtitulo: "Undefined",
           // _controller.egresso.nomeCitacoes[0] ?? "Undefined",
           corpo: [''],
         ),
@@ -338,8 +325,10 @@ class _CurriculoViewState extends State<CurriculoView> {
       lista: [
         ItemListaDetalhes(
           subtitulo: 'Email:',
-          corpo: [/*_controller.curriculo.email*/ "Undefined"],
-          // _controller.egresso.email],
+          corpo: [
+            /*_controller.curriculo.email*/
+            _controller.egresso.email
+          ],
         ),
         ItemListaDetalhes(
           subtitulo: 'LinkedIn:',
@@ -356,8 +345,8 @@ class _CurriculoViewState extends State<CurriculoView> {
         ItemListaDetalhes(
           subtitulo: 'Telefone:',
           corpo: [
-            /*_controller.curriculo.celular*/ "Undefined"
-            // _controller.egresso.celular ??
+            /*_controller.curriculo.celular*/
+            _controller.egresso.celular
             // 'Não informado'
           ],
         ),
@@ -384,8 +373,9 @@ class _CurriculoViewState extends State<CurriculoView> {
 
   _producoesContainer() {
     return ProducoesView(
-        producoes: ObservableList<Producao>(name: "Sei la"),
-        // _controller.egresso.producoes,
+        producoes:
+            // ObservableList<Producao>(name: "Sei la"),
+            _controller.egresso.producoes,
         mediaProducoes: ObservableList<MediaProducao>());
   }
 
@@ -479,7 +469,6 @@ class _CurriculoViewState extends State<CurriculoView> {
                           },
                         ),
                       ),
-                      // DadosGeraisWidget(),
                     ],
                   ),
                 ),

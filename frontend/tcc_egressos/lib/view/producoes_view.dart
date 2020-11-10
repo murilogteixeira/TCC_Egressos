@@ -22,29 +22,29 @@ class _ProducoesViewState extends State<ProducoesView> {
 
   @override
   Widget build(BuildContext context) {
-    return Observer(builder: (_) {
-      return widget.producoes.isEmpty //|| widget.mediaProducoes.isEmpty
-          ? Center(child: CircularProgressIndicator())
-          : SingleChildScrollView(
-              child: Column(
-                children: [
-                  Observer(
-                    builder: (_) {
-                      return OrganizeCharts().createCharts(
-                        'Produções',
-                        _chartData(),
-                        _chartAvarages(),
-                      );
-                    },
-                  ),
-                ],
-              ),
-            );
-    });
+    return
+        // widget.producoes.isEmpty
+        //     ? Center(child: CircularProgressIndicator())
+        //     :
+        Container(
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            OrganizeCharts().createCharts(
+              'Produções',
+              _chartData(),
+              _chartAvarages(),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   List<ChartsData> _chartData() {
-    var listType = widget.producoes.map((e) => e.tipo.nome ?? "Undefined");
+    // widget.producoes = ObservableList<Producao>();
+    var listType = ["aaa", "bbbb", "cccc"];
+    // widget.producoes.map((e) => e.tipo.nome ?? "Undefined");
 
     Map<String, int> map = Map();
     listType.forEach((i) {

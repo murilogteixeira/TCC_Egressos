@@ -175,19 +175,6 @@ class _ConsultaViewState extends State<ConsultaView> {
                               style: TextStyle(color: Colors.white),
                             ),
                           ),
-                          // Padding(
-                          //   padding: const EdgeInsets.only(top: 14),
-                          //   child: MaterialButton(
-                          //     color: Colors.blue,
-                          //     onPressed: () {
-                          //       _buscarTodos();
-                          //     },
-                          //     child: Text(
-                          //       "Buscar todos",
-                          //       style: TextStyle(color: Colors.white),
-                          //     ),
-                          //   ),
-                          // )
                         ],
                       ),
                     )),
@@ -242,7 +229,7 @@ class _ConsultaViewState extends State<ConsultaView> {
                               ),
                             );
                           } else if (snapshot.hasError) {
-                            return Text("Deu ruim meu amigo!");
+                            return Text("Erro ao pesquisar!");
                           }
                           return Text("Carregando...");
                         },

@@ -2,16 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:mobx/mobx.dart';
-import 'package:tcc_egressos/controller/curriculo_controller.dart';
 import 'package:tcc_egressos/controller/list_egressos_controller.dart';
 import 'package:tcc_egressos/extension/hand_cursor.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/egresso.dart';
 
 class ListEgressos extends StatefulWidget {
-  // final ObservableList<CurriculoLattes> list;
   final ObservableList<Egresso> egressos;
   final int sizeList;
-  // const ListEgressos({this.list, this.sizeList});
   const ListEgressos({this.egressos, this.sizeList});
 
   @override
@@ -20,14 +17,14 @@ class ListEgressos extends StatefulWidget {
 
 class ListEgressosState extends State<ListEgressos> {
   ListEgressosController _listController;
-  CurriculoController _curriculoController;
+  // CurriculoController _curriculoController;
   int indexInicial;
   int indexFinal;
 
   @override
   void initState() {
     _listController = ListEgressosController(context);
-    _curriculoController = CurriculoController();
+    // _curriculoController = CurriculoController();
     super.initState();
   }
 
@@ -45,7 +42,6 @@ class ListEgressosState extends State<ListEgressos> {
 
   // Color _defineColor(int index) {
   Color _defineColor(String tipo) {
-    // switch (widget.list[index].situacao.tipo) {
     switch (tipo) {
       case 'Regular':
         return Colors.blue;
@@ -62,7 +58,6 @@ class ListEgressosState extends State<ListEgressos> {
     return HandCursor(
       cursor: 'pointer',
       child: GestureDetector(
-        // onTap: () => _listController.onTapCurriculo(widget.list[index]),
         onTap: () => _listController.onTapEgresso(widget.egressos[index]),
         child: Container(
           height: MediaQuery.of(context).size.width < 768 ? 175 : 119,
@@ -105,7 +100,6 @@ class ListEgressosState extends State<ListEgressos> {
                       child: Container(
                         height: 69.0,
                         width: 69.0,
-                        // child: Image.asset("Assets/Images/profile.png"),
                         alignment: Alignment.center,
                         decoration: new BoxDecoration(
                             border: Border.all(
@@ -130,7 +124,6 @@ class ListEgressosState extends State<ListEgressos> {
                         children: <Widget>[
                           Container(
                               margin: EdgeInsets.fromLTRB(0.0, 0, 0, 10),
-                              // child: Text('${widget.list[index].nome}',
                               child: Text('${widget.egressos[index].nome}',
                                   style: TextStyle(
                                       color: Colors.blue, fontSize: 20.0))),
@@ -142,12 +135,11 @@ class ListEgressosState extends State<ListEgressos> {
                                 maxHeight:
                                     MediaQuery.of(context).size.height * 1.0),
                             child: AutoSizeText(
-                              /*'${'Professor na Universidade Católica de Brasília'}'*/ '${widget.egressos[index].email}',
+                              '${widget.egressos[index].email}',
                               group: AutoSizeGroup(),
                             ),
                           )),
-                          Text(
-                              /*'${"Doutor"}'*/ '${widget.egressos[index].celular}')
+                          Text('${widget.egressos[index].celular}')
                         ],
                       ),
                     ),

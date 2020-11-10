@@ -23,13 +23,11 @@ class Atuacao {
     };
   }
 
-  Atuacao fromJson(Map<String, dynamic> json) {
-    return Atuacao(
-      cargo: json['cargo'],
-      instituicao: json['instituicao'],
-      dataInicio: json['data_inicio'],
-      dataFim: json['data_fim'],
-      descricao: json['descricao'],
-    );
+  Atuacao.fromJson(Map<String, dynamic> json) {
+    cargo = json['cargo'];
+    instituicao = json['instituicao'];
+    dataInicio = json['data_inicio'];
+    dataFim = json['data_fim'];
+    descricao = json['descricao'];
   }
 }

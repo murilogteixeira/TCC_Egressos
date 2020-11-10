@@ -136,8 +136,6 @@ class _ResultadoViewState extends State<ResultadoView> {
           );
   }
 
-  // _listContainer(ObservableList<CurriculoLattes> lista) {
-  // _listContainer(ObserverList<Egresso> lista) {
   _listContainer(ObservableList<Egresso> lista) {
     if (lista == null) {
       return Text("Nenhum egresso encontrado");
