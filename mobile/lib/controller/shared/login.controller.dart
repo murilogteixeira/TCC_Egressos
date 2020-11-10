@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:mobile/helpers/service/network.dart';
+import 'package:mobile/helpers/url.dart';
 import 'package:mobile/model/usuario.dart';
 import 'package:mobile/view/shared/login.view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -42,7 +43,7 @@ abstract class _LoginControllerBase with Store {
   }
 
   Future<Usuario> _performLogin(String username, String password) async {
-    final url = 'https://egressosbackend.herokuapp.com/api/login/';
+    final url = BaseURL.shared.login();
     var body = {
       'username': username,
       'password': password,

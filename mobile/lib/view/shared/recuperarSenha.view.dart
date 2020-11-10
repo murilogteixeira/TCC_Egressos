@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/helpers/url.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class RecuperarSenha extends StatefulWidget {
@@ -13,7 +14,7 @@ class _RecuperarSenhaState extends State<RecuperarSenha> {
   final _key = UniqueKey();
 
   _RecuperarSenhaState() {
-    this.url = 'https://egressosbackend.herokuapp.com/accounts/password_reset/';
+    this.url = BaseURL.shared.resetSenha();
   }
 
   @override

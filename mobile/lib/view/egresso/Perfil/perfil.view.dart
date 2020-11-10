@@ -118,6 +118,8 @@ class _PerfilViewState extends State<PerfilView> {
     var menuButtons =
         isGestor ? [dadosGeraisButton, producoesButton] : [dadosGeraisButton];
 
+    _controller.getPerfil();
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Perfil'),
@@ -141,11 +143,9 @@ class _PerfilViewState extends State<PerfilView> {
         child: Icon(Icons.edit),
         backgroundColor: mainColor,
         onPressed: () async {
-          var egressoUpdated = await Navigator.of(context)
+          await Navigator.of(context)
               .pushNamed(EditarPerfil.route, arguments: _controller.egresso);
-          if (egressoUpdated != null) {
-            _controller.egresso = egressoUpdated;
-          }
+          _controller.getPerfil();
         },
       ),
       body: Observer(

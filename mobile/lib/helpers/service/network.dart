@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:mobile/globals.dart';
-import 'package:mobile/model/curriculo_lattes/egresso.dart';
 
 class Network {
   static Network _instance;
@@ -56,6 +55,7 @@ class Network {
   Future putApi(String url, Map body) async {
     final response = await http.put(
       url,
+      headers: headers,
       body: jsonEncode(body),
     );
 

@@ -1,4 +1,5 @@
 import 'package:mobile/helpers/service/network.dart';
+import 'package:mobile/helpers/url.dart';
 import 'package:mobile/model/curriculo_lattes/egresso.dart';
 import 'package:mobx/mobx.dart';
 part 'editar_perfil.controller.g.dart';
@@ -12,13 +13,19 @@ abstract class _EditarPerfilControllerBase with Store {
   @observable
   Egresso egresso;
 
+  @observable
+  bool isLoading = false;
+
   @action
   setEgresso(value) => egresso = value;
 
-  updateEgresso() async {
-    final url = '';
+  @action
+  updateEgresso() async {    
+    final url = BaseURL.shared.updateEgresso(egresso.id);
 
+    isLoading = true;
     var json = await Network().putApi(url, egresso.toJson());
+    isLoading = false;
     if (json == null) return null;
   }
 }

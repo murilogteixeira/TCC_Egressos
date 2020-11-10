@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobile/controller/egresso/editar_perfil.controller.dart';
 import 'package:mobile/model/curriculo_lattes/egresso.dart';
@@ -22,6 +23,8 @@ class EditarPerfil extends StatefulWidget {
 
 class _EditarPerfilState extends State<EditarPerfil> {
   EditarPerfilController _controller;
+  Egresso egresso;
+  var formKey = GlobalKey<FormState>();
   var verticalPadding = 20.0;
   var smallVerticalPadding = 10.0;
 
@@ -102,10 +105,19 @@ class _EditarPerfilState extends State<EditarPerfil> {
     }
   }
 
+  updateEgresso(BuildContext context) async {
+    if (formKey.currentState.validate()) {
+      formKey.currentState.save();
+
+      egresso.celular = await _controller.updateEgresso();
+      Navigator.of(context).pop(egresso);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     _controller = EditarPerfilController(widget.egresso);
-    var egresso = widget.egresso;
+    egresso = widget.egresso;
 
     return Scaffold(
       appBar: AppBar(
@@ -115,171 +127,179 @@ class _EditarPerfilState extends State<EditarPerfil> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Stack(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(180),
-                      child: _image == null
-                          ? Image.network(
-                              'https://www.pngitem.com/pimgs/m/421-4212617_person-placeholder-image-transparent-hd-png-download.png',
-                              height: 90,
-                              width: 90,
-                            )
-                          : Image.file(
-                              _image,
-                              fit: BoxFit.cover,
-                              height: 90,
-                              width: 90,
-                            ),
-                    ),
-                    Positioned(
-                      left: 30,
-                      top: 55,
-                      height: 30,
-                      child: RawMaterialButton(
-                        child: Icon(
-                          Icons.camera_alt,
-                          size: 22,
+          child: Form(
+            key: formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: Stack(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(180),
+                        child: _image == null
+                            ? Image.asset(
+                                'assets/placeholder-person.jpg',
+                                height: 90,
+                                width: 90,
+                              )
+                            : Image.file(
+                                _image,
+                                fit: BoxFit.cover,
+                                height: 90,
+                                width: 90,
+                              ),
+                      ),
+                      Positioned(
+                        left: 30,
+                        top: 55,
+                        height: 30,
+                        child: RawMaterialButton(
+                          child: Icon(
+                            Icons.camera_alt,
+                            size: 22,
+                          ),
+                          elevation: 2,
+                          fillColor: Colors.white,
+                          shape: CircleBorder(),
+                          onPressed: this._selectImageOption,
                         ),
-                        elevation: 2,
-                        fillColor: Colors.white,
-                        shape: CircleBorder(),
-                        onPressed: this._selectImageOption,
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: verticalPadding),
-              Align(
-                alignment: Alignment.center,
-                child: Text(
-                  _controller.egresso.nome,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 18.0,
-                    color: Color(0xFF547DD9),
+                    ],
                   ),
                 ),
-              ),
-              SizedBox(height: verticalPadding),
-              Text(
-                'ID Lattes:',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
-              ),
-              Text(
-                _controller.egresso.idLattes,
-                style: TextStyle(color: Colors.black, fontSize: 20.0),
-              ),
-              SizedBox(height: verticalPadding),
-              Text(
-                'Nome de Citação:',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
-              ),
-              Text(
-                _controller.egresso.nomeCitacoes,
-                style: TextStyle(color: Colors.black, fontSize: 20.0),
-              ),
-              SizedBox(height: verticalPadding),
-              Text(
-                'ORCID:',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
-              ),
-              TextFormField(
-                initialValue: '',
-                decoration: _inputDecoration,
-              ),
-              SizedBox(height: verticalPadding),
-              Text(
-                'Atuação:',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
-              ),
-              TextFormField(
-                initialValue: 'Docencia',
-                decoration: _inputDecoration,
-              ),
-              SizedBox(height: verticalPadding),
-              Text(
-                'Cargo Atual:',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
-              ),
-              TextFormField(
-                initialValue: 'Professor Universitario',
-                decoration: _inputDecoration,
-              ),
-              SizedBox(height: verticalPadding),
-              Text(
-                'Contatos:',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
-              ),
-              SizedBox(height: smallVerticalPadding),
-              Text(
-                'Email:',
-                style: TextStyle(fontSize: 16.0),
-              ),
-              SizedBox(height: smallVerticalPadding),
-              TextFormField(
-                initialValue: _controller.egresso.email,
-                decoration: _inputDecoration,
-              ),
-              SizedBox(height: smallVerticalPadding),
-              Text(
-                'Telefone:',
-                style: TextStyle(fontSize: 16.0),
-              ),
-              SizedBox(height: smallVerticalPadding),
-              TextFormField(
-                initialValue: _controller.egresso.celular,
-                decoration: _inputDecoration,
-              ),
-              SizedBox(height: smallVerticalPadding),
-              // Text(
-              //   'LinkedIn:',
-              //   style: TextStyle(fontSize: 16.0),
-              // ),
-              // SizedBox(height: smallVerticalPadding),
-              // TextFormField(
-              //   initialValue: '',
-              //   decoration: _inputDecoration,
-              // ),
-              // SizedBox(height: smallVerticalPadding),
-              // Text(
-              //   'Instagram:',
-              //   style: TextStyle(fontSize: 16.0),
-              // ),
-              // SizedBox(height: smallVerticalPadding),
-              // TextFormField(
-              //   initialValue: '',
-              //   decoration: _inputDecoration,
-              // ),
-              SizedBox(height: verticalPadding),
-              Center(
-                child: SizedBox(
-                  width: 192,
-                  height: 50,
-                  child: RaisedButton(
-                    color: mainColor,
-                    child: Text(
-                      'Salvar',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 19,
-                        fontWeight: FontWeight.w300,
-                      ),
+                SizedBox(height: verticalPadding),
+                Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    _controller.egresso.nome,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 18.0,
+                      color: Color(0xFF547DD9),
                     ),
-                    onPressed: () {
-                      Navigator.of(context).pop(egresso);
-                    },
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25)),
                   ),
                 ),
-              ),
-            ],
+                SizedBox(height: verticalPadding),
+                Text(
+                  'ID Lattes:',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+                ),
+                Text(
+                  _controller.egresso.idLattes,
+                  style: TextStyle(color: Colors.black, fontSize: 20.0),
+                ),
+                SizedBox(height: verticalPadding),
+                Text(
+                  'Nome de Citação:',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+                ),
+                Text(
+                  _controller.egresso.nomeCitacoes,
+                  style: TextStyle(color: Colors.black, fontSize: 20.0),
+                ),
+                SizedBox(height: verticalPadding),
+                Text(
+                  'ORCID:',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+                ),
+                TextFormField(
+                  initialValue: '',
+                  decoration: _inputDecoration,
+                ),
+                SizedBox(height: verticalPadding),
+                Text(
+                  'Atuação:',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+                ),
+                TextFormField(
+                  initialValue: 'Docencia',
+                  decoration: _inputDecoration,
+                ),
+                SizedBox(height: verticalPadding),
+                Text(
+                  'Cargo Atual:',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+                ),
+                TextFormField(
+                  initialValue: 'Professor Universitario',
+                  decoration: _inputDecoration,
+                ),
+                SizedBox(height: verticalPadding),
+                Text(
+                  'Contatos:',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+                ),
+                SizedBox(height: smallVerticalPadding),
+                Text(
+                  'Email:',
+                  style: TextStyle(fontSize: 16.0),
+                ),
+                SizedBox(height: smallVerticalPadding),
+                TextFormField(
+                  initialValue: _controller.egresso.email,
+                  decoration: _inputDecoration,
+                ),
+                SizedBox(height: smallVerticalPadding),
+                Text(
+                  'Telefone:',
+                  style: TextStyle(fontSize: 16.0),
+                ),
+                SizedBox(height: smallVerticalPadding),
+                TextFormField(
+                  initialValue: _controller.egresso.celular,
+                  decoration: _inputDecoration,
+                  onSaved: (newValue) => egresso.celular = newValue,
+                ),
+                SizedBox(height: smallVerticalPadding),
+                // Text(
+                //   'LinkedIn:',
+                //   style: TextStyle(fontSize: 16.0),
+                // ),
+                // SizedBox(height: smallVerticalPadding),
+                // TextFormField(
+                //   initialValue: '',
+                //   decoration: _inputDecoration,
+                // ),
+                // SizedBox(height: smallVerticalPadding),
+                // Text(
+                //   'Instagram:',
+                //   style: TextStyle(fontSize: 16.0),
+                // ),
+                // SizedBox(height: smallVerticalPadding),
+                // TextFormField(
+                //   initialValue: '',
+                //   decoration: _inputDecoration,
+                // ),
+                SizedBox(height: verticalPadding),
+                Observer(
+                  builder: (context) => _controller.isLoading
+                      ? CircularProgressIndicator()
+                      : Center(
+                          child: SizedBox(
+                            width: 192,
+                            height: 50,
+                            child: RaisedButton(
+                              color: mainColor,
+                              child: Text(
+                                'Salvar',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              ),
+                              onPressed: () {
+                                updateEgresso(context);
+                              },
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(25)),
+                            ),
+                          ),
+                        ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

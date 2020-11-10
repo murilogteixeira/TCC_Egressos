@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobile/components/egresso_list_row.dart';
 import 'package:mobile/controller/admin/egressos_list.controller.dart';
 import 'package:mobile/controller/shared/login.controller.dart';
+import 'package:mobile/model/curriculo_lattes/egresso.dart';
 import 'package:mobile/view/egresso/Perfil/perfil.view.dart';
 
 import '../../globals.dart';
@@ -89,7 +90,7 @@ class _EgressosListViewState extends State<EgressosListView> {
                   child: ListView.builder(
                     itemCount: controller.egressosFiltered.length,
                     itemBuilder: (BuildContext context, int index) {
-                      final egresso = controller.egressosFiltered[index];
+                      var egresso = controller.egressosFiltered[index];
 
                       Color corSituacao;
                       switch (egresso.situacao.id) {
@@ -113,9 +114,10 @@ class _EgressosListViewState extends State<EgressosListView> {
                             'Professor no departamento de engenharia da Universidade Católica de Brasília',
                         grau: 'Doutor',
                         isFirst: index == 0,
-                        onPressed: () {
-                          Navigator.of(context)
+                        onPressed: () async {
+                          await Navigator.of(context)
                               .pushNamed(PerfilView.route, arguments: egresso);
+                          // controller.fetchEgressos();
                         },
                       );
                     },

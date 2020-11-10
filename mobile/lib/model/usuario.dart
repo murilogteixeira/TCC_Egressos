@@ -11,7 +11,8 @@ class Usuario {
 
   Usuario.fromJson(Map<String, dynamic> json) {
     status = json['status'];
-    egresso = json['Egresso'] != null ? Egresso.fromJson(json['Egresso']) : null;
+    if (json['Egresso'] != null) egresso = Egresso.fromJson(json['Egresso']);
+    if (json['id'] != null) egresso = Egresso.fromJson(json);
     isStaff = json['isStaff'];
   }
 

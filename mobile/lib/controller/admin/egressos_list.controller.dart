@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:diacritic/diacritic.dart';
 import 'package:mobile/helpers/service/network.dart';
+import 'package:mobile/helpers/url.dart';
 import 'package:mobile/model/curriculo_lattes/egresso.dart';
 import 'package:mobx/mobx.dart';
 import 'package:http/http.dart' as http;
@@ -23,8 +24,12 @@ abstract class _EgressosListControllerBase with Store {
     fetchEgressos();
   }
 
+  @action
   fetchEgressos() async {
-    final url = 'https://egressosbackend.herokuapp.com/egressos/';
+    egressos.removeWhere((element) => true);
+    egressosFiltered.removeWhere((element) => true);
+
+    final url = BaseURL.shared.getEgressos();
 
     List json = await Network().getApi(url);
     if (json == null) return null;
@@ -36,7 +41,6 @@ abstract class _EgressosListControllerBase with Store {
     });
     egressos.sort((a, b) => a.nome.compareTo(b.nome));
     egressosFiltered.sort((a, b) => a.nome.compareTo(b.nome));
-
   }
 
   filter(String value) {

@@ -1,15 +1,12 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:mobile/helpers/service/network.dart';
+import 'package:mobile/helpers/url.dart';
 
 import 'package:mobile/model/curriculo_lattes/producao/producao.dart';
 
-import '../../globals.dart';
 
 class ProducoesController {
   Future<List<Producao>> getProducoesEgresso(int id) async {
-    final url =
-        'https://egressosbackend.herokuapp.com/producoesEgresso/?search=$id';
+    final url = BaseURL.shared.getProducoes(id);
 
     List json = await Network().getApi(url);
     if (json == null) return null;
@@ -19,7 +16,7 @@ class ProducoesController {
   }
 
   Future<List<MediaProducao>> getListAvarages(int id) async {
-    final url = 'https://egressosbackend.herokuapp.com/graphType/$id';
+    final url = BaseURL.shared.getMediaProducoes(id);
 
     var json = await Network().getApi(url);
     if (json == null) return null;
