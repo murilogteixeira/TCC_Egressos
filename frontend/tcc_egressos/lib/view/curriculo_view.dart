@@ -339,27 +339,19 @@ class _CurriculoViewState extends State<CurriculoView> {
       lista: [
         ItemListaDetalhes(
           subtitulo: 'Email:',
-          corpo: [
-            /*_controller.curriculo.email*/
-            _controller.egresso.email
-          ],
+          corpo: [_controller.egresso.email],
         ),
         ItemListaDetalhes(
           subtitulo: 'LinkedIn:',
-          corpo: [
-            _controller.egresso
-                .linkedin /*'https://www.linkedin.com/in/edilson-ferneda-348199a/'*/
-          ],
+          corpo: [_controller.egresso.linkedin],
         ),
         ItemListaDetalhes(
           subtitulo: 'Instagram:',
-          corpo: [_controller.egresso.instagram /*'@eferneda'*/],
+          corpo: [_controller.egresso.instagram],
         ),
         ItemListaDetalhes(
           subtitulo: 'Facebook:',
-          corpo: [
-            'Facebook indisponível' /*'https://www.facebook.com/edilson.ferneda.5'*/
-          ],
+          corpo: ['Facebook indisponível'],
         ),
         ItemListaDetalhes(
           subtitulo: 'Telefone:',
