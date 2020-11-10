@@ -11,7 +11,7 @@ class BancasController {
     final url =
         'https://egressosbackend.herokuapp.com/bancasEgresso/?search=$id';
 
-    List json = await Network().fetchData(url);
+    List json = await Network().getApi(url);
     if (json == null) return null;
     List<Banca> bancas = [];
     bancas = json.map((e) => Banca.fromJson(e)).toList();

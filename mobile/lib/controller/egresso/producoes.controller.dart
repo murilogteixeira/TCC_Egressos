@@ -11,7 +11,7 @@ class ProducoesController {
     final url =
         'https://egressosbackend.herokuapp.com/producoesEgresso/?search=$id';
 
-    List json = await Network().fetchData(url);
+    List json = await Network().getApi(url);
     if (json == null) return null;
     List<Producao> producoes = [];
     producoes = json.map((e) => Producao.fromJson(e)).toList();
@@ -21,7 +21,7 @@ class ProducoesController {
   Future<List<MediaProducao>> getListAvarages(int id) async {
     final url = 'https://egressosbackend.herokuapp.com/graphType/$id';
 
-    var json = await Network().fetchData(url);
+    var json = await Network().getApi(url);
     if (json == null) return null;
     if (json['status'] == false) return null;
     List mediasJson = json['media'];

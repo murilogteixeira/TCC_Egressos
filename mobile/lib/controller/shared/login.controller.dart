@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:mobile/helpers/service/network.dart';
 import 'package:mobile/model/usuario.dart';
 import 'package:mobile/view/shared/login.view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -41,28 +42,16 @@ abstract class _LoginControllerBase with Store {
   }
 
   Future<Usuario> _performLogin(String username, String password) async {
-    final uri = 'https://egressosbackend.herokuapp.com/api/login/';
-    var json = {
+    final url = 'https://egressosbackend.herokuapp.com/api/login/';
+    var body = {
       'username': username,
       'password': password,
     };
 
-    final response = await http.post(
-      uri,
-      headers: {'Content-Type': 'application/json; charset=UTF-8'},
-      body: jsonEncode(json),
-    );
-
-    if (response.statusCode == 200) {
-      var body = decodeUTF8(response.bodyBytes);
-      var json = jsonDecode(body);
-      if (json['status'] == false) return null;
-      var usuarioResponse = Usuario.fromJson(json);
-      return usuarioResponse.status ? usuarioResponse : null;
-    } else {
-      print('Erro ao realizar login');
-    }
-    return null;
+    var response = await Network().postApi(url, body);
+    if (response['status'] == false) return null;
+    var usuarioResponse = Usuario.fromJson(response);
+    return usuarioResponse.status ? usuarioResponse : null;
   }
 
   Future<Usuario> get usuario async {

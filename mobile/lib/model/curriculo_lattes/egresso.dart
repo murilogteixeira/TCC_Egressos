@@ -39,9 +39,6 @@ class Egresso {
     nomeCitacoes = json['nomeCitacoes'];
     celular = json['celular'];
     email = json['email'];
-    // endereco = json['endereco'] != null
-    // ? new Endereco.fromJson(json['endereco'])
-    // : null;
     if (json['situacao'] != null)
       situacao = Situacao.fromJson(json['situacao']);
     if (json['producoes'] != null) {

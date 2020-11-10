@@ -26,7 +26,7 @@ abstract class _EgressosListControllerBase with Store {
   fetchEgressos() async {
     final url = 'https://egressosbackend.herokuapp.com/egressos/';
 
-    List json = await Network().fetchData(url);
+    List json = await Network().getApi(url);
     if (json == null) return null;
 
     json.forEach((element) {

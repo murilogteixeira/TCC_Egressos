@@ -49,7 +49,8 @@ class _PerfilViewState extends State<PerfilView> {
       default:
     }
 
-    _controller = PerfilController(egresso: egresso == null ? usuario.egresso : egresso);
+    _controller =
+        PerfilController(egresso: egresso == null ? usuario.egresso : egresso);
 
     dadosGeraisView = DadosGeraisView(controller: _controller);
 
@@ -139,9 +140,12 @@ class _PerfilViewState extends State<PerfilView> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.edit),
         backgroundColor: mainColor,
-        onPressed: () {
-          Navigator.of(context)
+        onPressed: () async {
+          var egressoUpdated = await Navigator.of(context)
               .pushNamed(EditarPerfil.route, arguments: _controller.egresso);
+          if (egressoUpdated != null) {
+            _controller.egresso = egressoUpdated;
+          }
         },
       ),
       body: Observer(

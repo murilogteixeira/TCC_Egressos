@@ -1,4 +1,3 @@
-import 'package:mobile/controller/shared/login.controller.dart';
 import 'package:mobile/controller/egresso/producoes.controller.dart';
 import 'package:mobile/model/curriculo_lattes/banca/banca.dart';
 import 'package:mobile/model/curriculo_lattes/egresso.dart';

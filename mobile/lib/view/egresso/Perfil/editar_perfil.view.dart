@@ -105,6 +105,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
   @override
   Widget build(BuildContext context) {
     _controller = EditarPerfilController(widget.egresso);
+    var egresso = widget.egresso;
 
     return Scaffold(
       appBar: AppBar(
@@ -271,7 +272,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.of(context).pop();
+                      Navigator.of(context).pop(egresso);
                     },
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25)),
