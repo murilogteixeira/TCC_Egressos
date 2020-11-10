@@ -32,6 +32,7 @@ class Egresso {
   });
 
   Egresso.fromJson(Map<String, dynamic> json) {
+    print("Egresso: ===========" + json.toString());
     id = json['id'];
     idLattes = json['idLattes'];
     nome = json['nome'];
@@ -39,20 +40,15 @@ class Egresso {
     nomeCitacoes = json['nomeCitacoes'];
     celular = json['celular'];
     email = json['email'];
-    // endereco = json['endereco'] != null
-    // ? new Endereco.fromJson(json['endereco'])
-    // : null;
-    // situacao = json['situacao'] != null
-    //     ? new Situacao.fromJson(json['situacao'])
-    //     : null;
-
-    print(json);
-    print(nome);
+    if (json['situacao'] != null)
+      situacao = Situacao.fromJson(json['situacao']);
     if (json['producoes'] != null) {
       producoes = new List<Producao>();
       json['producoes'].forEach((v) {
         producoes.add(new Producao.fromJson(v));
       });
+    } else {
+      producoes = new List<Producao>();
     }
     if (json['bancas'] != null) {
       bancas = new List<Banca>();

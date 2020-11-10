@@ -3,8 +3,8 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:tcc_egressos/components/nav_bar_widget.dart';
 import 'package:tcc_egressos/components/screenSize.dart';
-import 'package:tcc_egressos/controller/home_controller.dart';
 import 'package:mobx/mobx.dart';
+import 'package:tcc_egressos/controller/list_egressos_controller.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/egresso.dart';
 import 'package:tcc_egressos/view/list_egressos.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
@@ -21,7 +21,7 @@ class ConsultaView extends StatefulWidget {
 class _ConsultaViewState extends State<ConsultaView> {
   final _formKey = GlobalKey<FormState>();
   String _nome;
-  HomeController _controller;
+  ListEgressosController _controller;
   ProgressDialog pr;
   Future<ObservableList<CurriculoLattes>> curriculos;
 
@@ -32,7 +32,7 @@ class _ConsultaViewState extends State<ConsultaView> {
   @override
   void initState() {
     super.initState();
-    _controller = HomeController(context);
+    _controller = ListEgressosController(context);
     pr = _createProgressDialog();
     // curriculos = _controller.getCurriculos();
     egressos = _controller.getEgressos();

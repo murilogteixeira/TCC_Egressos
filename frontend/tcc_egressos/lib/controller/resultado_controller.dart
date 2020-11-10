@@ -23,7 +23,6 @@ abstract class _ResultadoControllerBase with Store {
   setPaginaAtual(value) => paginaAtual = value;
 
   @observable
-  // ObservableList<CurriculoLattes> lista = ObservableList();
   ObservableList<Egresso> lista = ObservableList();
 
   onTapCurriculo(CurriculoLattes curriculo) {

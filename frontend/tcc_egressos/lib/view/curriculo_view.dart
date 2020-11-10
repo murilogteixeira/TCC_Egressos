@@ -58,6 +58,7 @@ class _CurriculoViewState extends State<CurriculoView> {
     // if (curriculo != null) {
     //   _controller.setCurriculo(curriculo);
     // }
+
     if (egresso != null) {
       _controller.setEgresso(egresso);
     }
@@ -89,8 +90,7 @@ class _CurriculoViewState extends State<CurriculoView> {
   _getEgresso() async {
     var prefs = await SharedPreferences.getInstance();
     var json = prefs.getString('egresso');
-    print("Egresso: ======" + json);
-    _controller.egresso = Egresso.fromJson(jsonDecode(json));
+    _controller.setEgresso(Egresso.fromJson(jsonDecode(json)));
   }
 
   _criarAppBar() {
@@ -240,7 +240,7 @@ class _CurriculoViewState extends State<CurriculoView> {
     _dadosGeraisBotao.controller.ativo = false;
     _producoesBotao.controller.ativo = false;
     // _eventosBotao.controller.ativo = false;
-    // _bancasBotao.controller.ativo = false;
+    _bancasBotao.controller.ativo = false;
   }
 
   MenuBotaoWidget _dadosGeraisBotao;
@@ -303,7 +303,7 @@ class _CurriculoViewState extends State<CurriculoView> {
       titulo: 'Nome Citação',
       lista: [
         ItemListaDetalhes(
-          subtitulo: _controller.egresso.nomeCitacoes[0],
+          subtitulo: _controller.egresso.nomeCitacoes.toString(),
           // subtitulo: "Undefined",
           // _controller.egresso.nomeCitacoes[0] ?? "Undefined",
           corpo: [''],
@@ -373,9 +373,7 @@ class _CurriculoViewState extends State<CurriculoView> {
 
   _producoesContainer() {
     return ProducoesView(
-        producoes:
-            // ObservableList<Producao>(name: "Sei la"),
-            _controller.egresso.producoes,
+        producoes: _controller.egresso.producoes,
         mediaProducoes: ObservableList<MediaProducao>());
   }
 
