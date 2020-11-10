@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:tcc_egressos/controller/login_controller.dart';
+import 'package:tcc_egressos/controller/loginController.dart';
 import 'package:tcc_egressos/model/usuario.dart';
 import 'package:tcc_egressos/view/consulta_view.dart';
 
@@ -32,17 +32,18 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-  Usuario usuario;
+  // var _controller = LoginController();
+  var _controller = NewLoginController();
   var _formKey = GlobalKey<FormState>();
-  var _controller = LoginController();
 
+  Usuario usuario;
   String inputEmail;
   String inputSenha;
 
   Future<Usuario> verificaLoginEmCache() async {
     Future.delayed(Duration(seconds: 1));
     _controller.setLoading(true);
-    usuario = await _controller.usuario;
+    this.usuario = await _controller.getUsuario();
     _controller.setLoading(false);
     return usuario;
   }
@@ -56,7 +57,7 @@ class _LoginFormState extends State<LoginForm> {
   Future<bool> _loginValidate() async {
     var retorno = true;
     _controller.setLoading(true);
-    usuario = await _controller.efetuarLogin(inputEmail, inputSenha);
+    this.usuario = await _controller.efetuarLogin(inputEmail, inputSenha);
     if (usuario == null) {
       retorno = false;
     }
@@ -72,7 +73,7 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   _goToHome() {
-    if (usuario != null) {
+    if (this.usuario != null) {
       Navigator.of(context).pushReplacementNamed(ConsultaView.route);
     }
   }
@@ -107,13 +108,12 @@ class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     // verificaLoginEmCache().then((usuarioLogado) {
-    // if (usuarioLogado != null) {
-    //   _goToHome();
-    // }
+    //   if (usuarioLogado != null) {
+    //     _goToHome();
+    //   }
     // });
-
     return Form(
-      // key: _formKey,
+      key: _formKey,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -206,29 +206,26 @@ class _LoginFormState extends State<LoginForm> {
           ),
           Observer(
             builder: (_) {
-              return
-                  // _controller.loading
-                  //     ? CircularProgressIndicator()
-                  //     :
-                  MaterialButton(
-                color: Color(0xFF30559F),
-                height: 50,
-                minWidth: 192,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25)),
-                onPressed: () {
-                  Navigator.pushNamed(context, ConsultaView.route);
-                  // _login();
-                },
-                // entrarOnPressed,
-                child: Text(
-                  "Entrar",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 19,
-                      fontWeight: FontWeight.w300),
-                ),
-              );
+              return _controller.loading
+                  ? CircularProgressIndicator()
+                  : MaterialButton(
+                      color: Color(0xFF30559F),
+                      height: 50,
+                      minWidth: 192,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25)),
+                      onPressed: () {
+                        entrarOnPressed();
+                      },
+                      // entrarOnPressed,
+                      child: Text(
+                        "Entrar",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 19,
+                            fontWeight: FontWeight.w300),
+                      ),
+                    );
             },
           ),
           MaterialButton(
