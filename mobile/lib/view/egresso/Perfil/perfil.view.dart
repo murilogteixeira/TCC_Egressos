@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobile/controller/egresso/home.controller.dart';
+import 'package:mobile/controller/egresso/producoes.controller.dart';
 import 'package:mobile/controller/shared/login.controller.dart';
 import 'package:mobile/controller/shared/perfil.controller.dart';
 import 'package:mobile/model/curriculo_lattes/egresso.dart';
 import 'package:mobile/model/usuario.dart';
 import 'package:mobile/view/egresso/Perfil/View/dadosGeraisView.dart';
 import 'package:mobile/view/egresso/Perfil/View/producoesView.dart';
+import 'package:mobile/view/egresso/home/home.view.dart';
+import 'package:mobile/view/egresso/home/producoes.view.dart';
+import 'package:mobx/mobx.dart';
 
 import '../../../globals.dart';
 import 'editar_perfil.view.dart';
@@ -24,25 +29,29 @@ class _PerfilViewState extends State<PerfilView> {
   PerfilController _controller;
   Color situacaoEgressoColor;
   DadosGeraisView dadosGeraisView;
-  ProducoesEgressoView producoesEgressoView = ProducoesEgressoView();
+  ProducoesView producoesEgressoView;
+  bool producoesCarregadas = false;
 
   @override
   Widget build(BuildContext context) {
-    Egresso usuario;
+    Usuario usuario;
+    Egresso egresso;
     bool isGestor = false;
 
     switch (widget.usuario.runtimeType) {
       case Egresso:
-        usuario = widget.usuario;
+        egresso = widget.usuario;
+        isGestor = true;
         break;
       case Usuario:
-        usuario = (widget.usuario as Usuario).egresso;
-        isGestor = true;
+        usuario = widget.usuario;
         break;
       default:
     }
 
-    _controller = PerfilController(egresso: usuario);
+    _controller = PerfilController(egresso: egresso);
+
+    dadosGeraisView = DadosGeraisView(controller: _controller);
 
     switch (_controller.egresso.situacao.tipo) {
       case "Adiantado":
@@ -55,11 +64,17 @@ class _PerfilViewState extends State<PerfilView> {
         situacaoEgressoColor = Colors.red;
     }
 
-    dadosGeraisView = DadosGeraisView(
-      controller: _controller,
-    );
-
     _controller.setInformacoesEgresso(dadosGeraisView);
+
+    fetchProducoes() async {
+      var controller = HomeController(egresso: egresso);
+      var producoes = await controller.fetchProducoes();
+      var medias = await controller.fetchMedias();
+      producoesEgressoView = ProducoesView(
+        producoes: producoes,
+        mediaProducoes: medias,
+      );
+    }
 
     var dadosGeraisButton = Container(
       width: 130.0,
@@ -79,8 +94,28 @@ class _PerfilViewState extends State<PerfilView> {
       ),
     );
 
+    var producoesButton = Container(
+      width: 130.0,
+      color: Colors.white,
+      child: FlatButton(
+        onPressed: () async {
+          _controller.setInformacoesEgresso(CircularProgressIndicator());
+          await fetchProducoes();
+          _controller.setInformacoesEgresso(producoesEgressoView);
+        },
+        child: Text(
+          "Produções",
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 13.0,
+            color: Color(0xFF547DD9),
+          ),
+        ),
+      ),
+    );
+
     var menuButtons =
-        isGestor ? [dadosGeraisButton, dadosGeraisButton] : [dadosGeraisButton];
+        isGestor ? [dadosGeraisButton, producoesButton] : [dadosGeraisButton];
 
     return Scaffold(
       appBar: AppBar(
@@ -114,86 +149,82 @@ class _PerfilViewState extends State<PerfilView> {
             ? Center(
                 child: CircularProgressIndicator(),
               )
-            : Center(
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.01,
+            : SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.01,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 10, top: 40),
+                      child: Container(
+                        height: 90,
+                        width: 90,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: AssetImage('assets/placeholder-person.jpg'),
+                          ),
+                        ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 10, top: 40),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 10),
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          _controller.egresso.nome,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 18.0,
+                            color: Color(0xFF547DD9),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 40),
+                      child: Align(
+                        alignment: Alignment.center,
                         child: Container(
-                          height: 90,
-                          width: 90,
+                          alignment: Alignment.center,
+                          width: 109,
+                          height: 20,
                           decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image:
-                                  AssetImage('assets/placeholder-person.jpg'),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 10),
-                        child: Align(
-                          alignment: Alignment.center,
+                              borderRadius: BorderRadius.circular(4),
+                              color: situacaoEgressoColor),
                           child: Text(
-                            _controller.egresso.nome,
+                            _controller.egresso.situacao.tipo,
                             style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 18.0,
-                              color: Color(0xFF547DD9),
+                              fontWeight: FontWeight.w700,
+                              fontSize: 10.0,
+                              color: Colors.white,
                             ),
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 40),
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Container(
-                            alignment: Alignment.center,
-                            width: 109,
-                            height: 20,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4),
-                                color: situacaoEgressoColor),
-                            child: Text(
-                              _controller.egresso.situacao.tipo,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 10.0,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 10),
+                      child: Container(
+                        margin: EdgeInsets.symmetric(vertical: 20.0),
+                        height: 50.0,
+                        color: Colors.white,
+                        width: (MediaQuery.of(context).size.width),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: menuButtons,
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 40),
-                        child: Container(
-                          margin: EdgeInsets.symmetric(vertical: 20.0),
-                          height: 50.0,
-                          color: Colors.white,
-                          width: (MediaQuery.of(context).size.width),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: menuButtons,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 40.0),
-                        child: Observer(
-                          builder: (_) => _controller.informacoesEgresso,
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                    Observer(
+                      builder: (_) => _controller.informacoesEgresso,
+                    ),
+                    SizedBox(height: 20),
+                  ],
                 ),
               ),
       ),
