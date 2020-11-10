@@ -49,7 +49,7 @@ class _PerfilViewState extends State<PerfilView> {
       default:
     }
 
-    _controller = PerfilController(egresso: egresso);
+    _controller = PerfilController(egresso: egresso == null ? usuario.egresso : egresso);
 
     dadosGeraisView = DadosGeraisView(controller: _controller);
 
