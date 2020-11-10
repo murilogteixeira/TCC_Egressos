@@ -12,6 +12,8 @@ class Egresso {
   String nomeCitacoes;
   String celular;
   String email;
+  String linkedin;
+  String instagram;
   Endereco endereco;
   Situacao situacao;
   List<Producao> producoes;
@@ -25,6 +27,8 @@ class Egresso {
     this.nomeCitacoes,
     this.celular,
     this.email,
+    this.linkedin,
+    this.instagram,
     this.endereco,
     this.situacao,
     this.producoes,
@@ -39,6 +43,8 @@ class Egresso {
     nomeCitacoes = json['nomeCitacoes'];
     celular = json['celular'];
     email = json['email'];
+    linkedin = json['linkedin'];
+    instagram = json['instagram'];
     if (json['situacao'] != null)
       situacao = Situacao.fromJson(json['situacao']);
     if (json['producoes'] != null) {
@@ -64,6 +70,8 @@ class Egresso {
     data['nomeCitacoes'] = this.nomeCitacoes;
     data['celular'] = this.celular;
     data['email'] = this.email;
+    data['linkedin'] = this.linkedin;
+    data['instagram'] = this.instagram;
     if (this.endereco != null) {
       data['endereco'] = this.endereco.toJson();
     }

@@ -35,12 +35,12 @@ class _DadosGeraisViewState extends State<DadosGeraisView> {
       child: Column(
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(0.0),
             child: Row(
               children: [
                 pointIndicator,
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(24, 8, 8, 8),
+                  padding: const EdgeInsets.fromLTRB(24, 0, 8, 0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -51,7 +51,7 @@ class _DadosGeraisViewState extends State<DadosGeraisView> {
                             style: TextStyle(
                                 color: Color(0xFF547DD9), fontWeight: FontWeight.bold, fontSize: 18.0)),
                       ),
-                      Text(widget.controller.egresso.idLattes,
+                      Text(widget.controller.egresso.idLattes ?? 'Não informado',
                           style: TextStyle(color: Color(0xFF4A4A4A), fontSize: 20.0))
                     ],
                   ),
@@ -64,12 +64,12 @@ class _DadosGeraisViewState extends State<DadosGeraisView> {
             child: horizontalSeparator,
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(0.0),
             child: Row(
               children: [
                 pointIndicator,
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(24, 8, 8, 8),
+                  padding: const EdgeInsets.fromLTRB(24, 0, 8, 0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -80,7 +80,7 @@ class _DadosGeraisViewState extends State<DadosGeraisView> {
                             style: TextStyle(
                                 color: Color(0xFF547DD9), fontWeight: FontWeight.bold, fontSize: 18.0)),
                       ),
-                      Text(widget.controller.egresso.nomeCitacoes,
+                      Text(widget.controller.egresso.nomeCitacoes ?? 'Não informado',
                           textAlign: TextAlign.left,
                           style: TextStyle(color: Color(0xFF4A4A4A), fontSize: 20.0)),
                     ],
@@ -150,12 +150,12 @@ class _DadosGeraisViewState extends State<DadosGeraisView> {
             child: horizontalSeparator,
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(0.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(34, 8, 8, 9),
+                  padding: const EdgeInsets.fromLTRB(34, 0, 8, 0),
                   child: Text('Conatos:',
                       style:
                           TextStyle(color: Color(0xFF547DD9),fontWeight: FontWeight.bold, fontSize: 18.0)),
@@ -166,39 +166,11 @@ class _DadosGeraisViewState extends State<DadosGeraisView> {
                     pointIndicator,
                     Padding(
                       padding: const EdgeInsets.fromLTRB(24, 8, 8, 8),
-                      child: Text(widget.controller.egresso.email,
+                      child: Text(widget.controller.egresso.email ?? 'Email não informado',
                           style: TextStyle(color: Color(0xFF4A4A4A), fontSize: 20.0)),
                     ),
                   ],
                 ),
-                // Padding(
-                //   padding: const EdgeInsets.only(left: 4),
-                //   child: verticalSeparator,
-                // ),
-                // Row(
-                //   children: [
-                //     pointIndicator,
-                //     Padding(
-                //       padding: const EdgeInsets.fromLTRB(24, 8, 8, 8),
-                //       child: Text('Linkedin@mario-braga',
-                //           style: TextStyle(color: Color(0xFF4A4A4A), fontSize: 20.0)),
-                //     ),
-                //   ],
-                // ),
-                // Padding(
-                //   padding: const EdgeInsets.only(left: 4),
-                //   child: verticalSeparator,
-                // ),
-                // Row(
-                //   children: [
-                //     pointIndicator,
-                //     Padding(
-                //       padding: const EdgeInsets.fromLTRB(24, 8, 8, 8),
-                //       child: Text('@mariobragaucb',
-                //           style: TextStyle(color: Color(0xFF4A4A4A), fontSize: 20.0)),
-                //     ),
-                //   ],
-                // ),
                 Padding(
                   padding: const EdgeInsets.only(left: 4),
                   child: verticalSeparator,
@@ -208,7 +180,35 @@ class _DadosGeraisViewState extends State<DadosGeraisView> {
                     pointIndicator,
                     Padding(
                       padding: const EdgeInsets.fromLTRB(24, 8, 8, 8),
-                      child: Text(widget.controller.egresso.celular ?? '',
+                      child: Text(widget.controller.egresso.linkedin ?? 'Linkedin não informado',
+                          style: TextStyle(color: Color(0xFF4A4A4A), fontSize: 20.0)),
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 4),
+                  child: verticalSeparator,
+                ),
+                Row(
+                  children: [
+                    pointIndicator,
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(24, 8, 8, 8),
+                      child: Text(widget.controller.egresso.instagram ?? 'Instagram não informado',
+                          style: TextStyle(color: Color(0xFF4A4A4A), fontSize: 20.0)),
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 4),
+                  child: verticalSeparator,
+                ),
+                Row(
+                  children: [
+                    pointIndicator,
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(24, 8, 8, 8),
+                      child: Text(widget.controller.egresso.celular ?? 'Telefone não informado',
                           style: TextStyle(color: Color(0xFF4A4A4A), fontSize: 20.0)),
                     ),
                   ],
