@@ -198,15 +198,15 @@ class _EditarPerfilState extends State<EditarPerfil> {
                   _controller.egresso.nomeCitacoes,
                   style: TextStyle(color: Colors.black, fontSize: 20.0),
                 ),
-                SizedBox(height: verticalPadding),
-                Text(
-                  'ORCID:',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
-                ),
-                TextFormField(
-                  initialValue: '',
-                  decoration: _inputDecoration,
-                ),
+                // SizedBox(height: verticalPadding),
+                // Text(
+                //   'ORCID:',
+                //   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+                // ),
+                // TextFormField(
+                //   initialValue: '',
+                //   decoration: _inputDecoration,
+                // ),
                 SizedBox(height: verticalPadding),
                 Text(
                   'Atuação:',
