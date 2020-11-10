@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tcc_egressos/view/consulta_view.dart';
 import 'package:tcc_egressos/view/curriculo_view.dart';
 import 'package:tcc_egressos/view/login_view.dart';
 
 import 'view/resultado_view.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  SharedPreferences.setMockInitialValues({});
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.

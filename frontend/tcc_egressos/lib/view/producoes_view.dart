@@ -9,7 +9,7 @@ class ProducoesView extends StatefulWidget {
   const ProducoesView({Key key, this.producoes, this.mediaProducoes})
       : super(key: key);
 
-  final ObservableList<Producao> producoes;
+  final List<Producao> producoes;
   final ObservableList<MediaProducao> mediaProducoes;
 
   @override

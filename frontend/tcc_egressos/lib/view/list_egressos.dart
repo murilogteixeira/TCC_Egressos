@@ -89,10 +89,9 @@ class ListEgressosState extends State<ListEgressos> {
                         //    color: Colors.red,
                         //    width: 5.0,
                         //  ),
-                        color: Colors.grey,
-                        // widget.egressos[index].situacao.tipo != null
-                        //     ? _defineColor(widget.egressos[index].situacao.tipo)
-                        //     : Colors.grey,
+                        color: widget.egressos[index].situacao.tipo != null
+                            ? _defineColor(widget.egressos[index].situacao.tipo)
+                            : Colors.grey,
                         shape: BoxShape.circle,
                         // image: new DecorationImage(
                         //       image: AssetImage('web/profile.png'), fit: BoxFit.fill),

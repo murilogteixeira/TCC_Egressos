@@ -12,6 +12,10 @@ class Egresso {
   String nomeCitacoes;
   String celular;
   String email;
+  String atuacao;
+  String cargoAtual;
+  String linkedin;
+  String instagram;
   Endereco endereco;
   Situacao situacao;
   List<Producao> producoes;
@@ -25,6 +29,10 @@ class Egresso {
     this.nomeCitacoes,
     this.celular,
     this.email,
+    this.atuacao,
+    this.cargoAtual,
+    this.linkedin,
+    this.instagram,
     this.endereco,
     this.situacao,
     this.producoes,
@@ -40,8 +48,22 @@ class Egresso {
     nomeCitacoes = json['nomeCitacoes'];
     celular = json['celular'];
     email = json['email'];
-    if (json['situacao'] != null)
-      situacao = Situacao.fromJson(json['situacao']);
+    atuacao =
+        json['atuacao'] != null ? json['atuacao'] : 'Atuação indisponível';
+    cargoAtual = json['cargoAtual'] != null
+        ? json['cargoAtual']
+        : 'Cargo atual indisponível';
+    linkedin =
+        json['linkedin'] != null ? json['linkedin'] : 'Linkedin indisponível';
+    instagram = json['instagram'] != null
+        ? json['instagram']
+        : 'Instagram indisponível';
+    // endereco = json['endereco'] != null
+    // ? new Endereco.fromJson(json['endereco'])
+    // : null;
+    situacao = json['situacao'] != null
+        ? new Situacao.fromJson(json['situacao'])
+        : null;
     if (json['producoes'] != null) {
       producoes = new List<Producao>();
       json['producoes'].forEach((v) {
