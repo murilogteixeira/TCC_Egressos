@@ -213,7 +213,8 @@ class _EditarPerfilState extends State<EditarPerfil> {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
                 ),
                 TextFormField(
-                  initialValue: 'Docencia',
+                  enabled: false,
+                  // initialValue: 'Docencia',
                   decoration: _inputDecoration,
                 ),
                 SizedBox(height: verticalPadding),
@@ -222,7 +223,8 @@ class _EditarPerfilState extends State<EditarPerfil> {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
                 ),
                 TextFormField(
-                  initialValue: 'Professor Universitario',
+                  enabled: false,
+                  // initialValue: 'Professor Universitario',
                   decoration: _inputDecoration,
                 ),
                 SizedBox(height: verticalPadding),
@@ -237,6 +239,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
                 ),
                 SizedBox(height: smallVerticalPadding),
                 TextFormField(
+                  enabled: false,
                   initialValue: _controller.egresso.email,
                   decoration: _inputDecoration,
                 ),

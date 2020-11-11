@@ -51,22 +51,22 @@ class EgressoListRow extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      Text(
-                        cargo,
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Color(0xFF696969),
-                          fontWeight: FontWeight.w500,
-                        ),
-                        maxLines: 3,
-                      ),
-                      Text(
-                        grau,
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Color(0xFF696969),
-                        ),
-                      ),
+                      // Text(
+                      //   cargo,
+                      //   style: TextStyle(
+                      //     fontSize: 12,
+                      //     color: Color(0xFF696969),
+                      //     fontWeight: FontWeight.w500,
+                      //   ),
+                      //   maxLines: 3,
+                      // ),
+                      // Text(
+                      //   grau,
+                      //   style: TextStyle(
+                      //     fontSize: 12,
+                      //     color: Color(0xFF696969),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
