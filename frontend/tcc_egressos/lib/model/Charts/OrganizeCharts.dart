@@ -173,162 +173,33 @@ class OrganizeCharts {
       colorsMaterial.add(MaterialColor(element.value, getSwatch(element)));
     });
 
-    List<Widget> _createDataRows(bool isAvarages) {
-      final children = <Widget>[];
+    final children = <Widget>[];
 
-      for (var i = 0; i < data.length; i++) {
-        data[i].cor = Charts.Color(
-            r: colorsColor[i].red,
-            g: colorsColor[i].green,
-            b: colorsColor[i].blue,
-            a: colorsColor[i].alpha);
+    for (var i = 0; i < data.length; i++) {
+      data[i].cor = Charts.Color(
+          r: colorsColor[i].red,
+          g: colorsColor[i].green,
+          b: colorsColor[i].blue,
+          a: colorsColor[i].alpha);
 
-        Widget row = Padding(
-          padding: const EdgeInsets.symmetric(vertical: 5),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 0, horizontal: 5),
-                      child: Icon(Icons.lens,
-                          size: (ballSize), color: colorsMaterial[i]),
-                    ),
-                    Flexible(
-                      child: Text(
-                        data[i].nome,
-                        style: TextStyle(fontSize: fontSize),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 2.0),
-                child: Text(
-                  " .${isAvarages ? avarages[i] : data[i].value}",
-                  style: TextStyle(fontSize: fontSize),
-                ),
-              ),
-            ],
+      children.add(new Row(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 5),
+            child: Icon(Icons.lens, size: (ballSize), color: colorsMaterial[i]),
           ),
-        );
-        children.add(row);
-      }
-      return children;
-    }
-
-    List<Widget> _pieChartAndData() {
-      Widget legendas = Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: _createDataRows(false),
-      );
-      double chartSize = kIsWeb ? 300 : 250;
-      legendas = kIsWeb
-          ? legendas
-          : Padding(
-              padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
-              child: legendas,
-            );
-      return [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-          child: SizedBox(
-            width: chartSize,
-            height: chartSize,
-            child: PieOutsideLabelChart.withSampleData(data),
+          Text(
+            data[i].nome + ": " + "${data[i].value}",
+            style: TextStyle(fontSize: fontSize),
           ),
-        ),
-        legendas,
-      ];
-    }
-
-    List<Widget> _barChartAndData() {
-      return [
-        Padding(
-          padding: kIsWeb
-              ? const EdgeInsets.symmetric(horizontal: 60, vertical: 20)
-              : const EdgeInsets.all(10),
-          child: SizedBox(
-            width: data.length.toDouble() * this.widthBarChart,
-            height: 350,
-            child: new BarChartOutsideLabelChart.withSampleData(data, avarages),
-          ),
-        ),
-        Padding(
-          padding: kIsWeb
-              ? const EdgeInsets.symmetric(horizontal: 60, vertical: 20)
-              : const EdgeInsets.all(10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: _createDataRows(true),
-          ),
-        )
-      ];
+        ],
+      ));
     }
 
     return Center(
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Container(
-        margin: kIsWeb
-            ? const EdgeInsets.symmetric(horizontal: 100, vertical: 20)
-            : const EdgeInsets.only(left: 12, right: 12, top: 20),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10.0),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 5,
-              blurRadius: 7,
-              offset: Offset(0, 3), // changes position of shadow
-            ),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: kIsWeb
-                  ? const EdgeInsets.fromLTRB(60, 50, 1, 10)
-                  : const EdgeInsets.fromLTRB(25, 50, 1, 10),
-              child: Text(
-                // title.capitalize(),
-                title,
-                style: TextStyle(
-                  color: Color.fromARGB(255, 84, 125, 217),
-                  fontSize: 17,
-                ),
-              ),
-            ),
-            Padding(
-              padding: kIsWeb
-                  ? const EdgeInsets.fromLTRB(60, 50, 1, 10)
-                  : const EdgeInsets.only(left: 25),
-              child: Text(
-                "Total: $valorTotalPieChart ",
-                style: TextStyle(
-                  fontSize: 16,
-                ),
-              ),
-            ),
-            kIsWeb
-                ? Row(
-                    children: _pieChartAndData(),
-                  )
-                : Column(
-                    children: _pieChartAndData(),
-                  ),
-          ],
-        ),
-      ),
-      Container(
-        margin: kIsWeb
-            ? const EdgeInsets.symmetric(horizontal: 100, vertical: 20)
-            : const EdgeInsets.only(left: 12, right: 12, top: 20, bottom: 20),
+        margin: EdgeInsets.symmetric(horizontal: 100, vertical: 20),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10.0),
@@ -347,20 +218,298 @@ class OrganizeCharts {
             Padding(
               padding: EdgeInsets.fromLTRB(60, 50, 1, 10),
               child: Text(
-                "Comparação com a média",
+                "Visão Geral",
                 style: TextStyle(
                   color: Color.fromARGB(255, 84, 125, 217),
                   fontSize: 17,
                 ),
               ),
             ),
-            Column(
-              children: _barChartAndData(),
+            Padding(
+              padding: EdgeInsets.fromLTRB(60, 5, 1, 10),
+              child: Text(
+                "Total: $valorTotalPieChart produções",
+                style: TextStyle(
+                  fontSize: 16,
+                ),
+              ),
+            ),
+            Row(
+              children: [
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                  child: SizedBox(
+                    width: 300,
+                    height: 300,
+                    child: new PieOutsideLabelChart.withSampleData(data),
+                  ),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: children,
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+      Container(
+        margin: EdgeInsets.symmetric(horizontal: 100, vertical: 20),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10.0),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: Offset(0, 3), // changes position of shadow
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.fromLTRB(60, 50, 1, 10),
+              child: Text(
+                "Em comparação com a média",
+                style: TextStyle(
+                  color: Color.fromARGB(255, 84, 125, 217),
+                  fontSize: 17,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 20),
+              child: SizedBox(
+                width: data.length.toDouble() * this.widthBarChart,
+                height: 350,
+                child: new BarChartOutsideLabelChart.withSampleData(
+                    data, avarages),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: children,
+              ),
             ),
           ],
         ),
       ),
     ]));
+    // this.valorTotalPieChart = this.valorTotalData(data);
+
+    // List<Color> colorsColor = [
+    //   new Color.fromARGB(255, 255, 111, 111),
+    //   new Color.fromARGB(255, 119, 130, 255),
+    //   new Color.fromARGB(255, 111, 255, 128),
+    //   new Color.fromARGB(255, 167, 121, 255),
+    //   new Color.fromARGB(255, 255, 224, 121),
+    //   new Color.fromARGB(255, 137, 45, 121),
+    //   new Color.fromARGB(255, 68, 112, 200),
+    //   new Color.fromARGB(255, 150, 37, 13),
+    //   new Color.fromARGB(255, 255, 10, 10),
+    // ];
+
+    // List<MaterialColor> colorsMaterial = [];
+    // colorsColor.forEach((element) {
+    //   colorsMaterial.add(MaterialColor(element.value, getSwatch(element)));
+    // });
+
+    // List<Widget> _createDataRows(bool isAvarages) {
+    //   final children = <Widget>[];
+
+    //   for (var i = 0; i < data.length; i++) {
+    //     data[i].cor = Charts.Color(
+    //         r: colorsColor[i].red,
+    //         g: colorsColor[i].green,
+    //         b: colorsColor[i].blue,
+    //         a: colorsColor[i].alpha);
+
+    //     Widget row = Padding(
+    //       padding: const EdgeInsets.symmetric(vertical: 5),
+    //       child: Row(
+    //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //         mainAxisSize: MainAxisSize.min,
+    //         children: [
+    //           Flexible(
+    //             fit: FlexFit.loose,
+    //             child: Row(
+    //               children: [
+    //                 Padding(
+    //                   padding: const EdgeInsets.symmetric(
+    //                       vertical: 0, horizontal: 5),
+    //                   child: Icon(Icons.lens,
+    //                       size: (ballSize), color: colorsMaterial[i]),
+    //                 ),
+    //                 Flexible(
+    //                   child: Text(
+    //                     data[i].nome,
+    //                     style: TextStyle(fontSize: fontSize),
+    //                   ),
+    //                 )
+    //               ],
+    //             ),
+    //           ),
+    //           Padding(
+    //             padding: const EdgeInsets.only(left: 2.0),
+    //             child: Text(
+    //               " .${isAvarages ? avarages[i] : data[i].value}",
+    //               style: TextStyle(fontSize: fontSize),
+    //             ),
+    //           ),
+    //         ],
+    //       ),
+    //     );
+    //     children.add(row);
+    //   }
+    //   return children;
+    // }
+
+    // List<Widget> _pieChartAndData() {
+    //   Widget legendas = Column(
+    //     crossAxisAlignment: CrossAxisAlignment.start,
+    //     children: _createDataRows(false),
+    //   );
+    //   double chartSize = kIsWeb ? 300 : 250;
+    //   legendas = kIsWeb
+    //       ? legendas
+    //       : Padding(
+    //           padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+    //           child: legendas,
+    //         );
+    //   return [
+    //     Padding(
+    //       padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+    //       child: SizedBox(
+    //         width: chartSize,
+    //         height: chartSize,
+    //         child: PieOutsideLabelChart.withSampleData(data),
+    //       ),
+    //     ),
+    //     legendas,
+    //   ];
+    // }
+
+    // List<Widget> _barChartAndData() {
+    //   return [
+    //     Padding(
+    //       padding: kIsWeb
+    //           ? const EdgeInsets.symmetric(horizontal: 60, vertical: 20)
+    //           : const EdgeInsets.all(10),
+    //       child: SizedBox(
+    //         width: data.length.toDouble() * this.widthBarChart,
+    //         height: 350,
+    //         child: new BarChartOutsideLabelChart.withSampleData(data, avarages),
+    //       ),
+    //     ),
+    //     Padding(
+    //       padding: kIsWeb
+    //           ? const EdgeInsets.symmetric(horizontal: 60, vertical: 20)
+    //           : const EdgeInsets.all(10),
+    //       child: Column(
+    //         crossAxisAlignment: CrossAxisAlignment.start,
+    //         children: _createDataRows(true),
+    //       ),
+    //     )
+    //   ];
+    // }
+
+    // return Center(
+    //     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+    //   Container(
+    //     margin: kIsWeb
+    //         ? const EdgeInsets.symmetric(horizontal: 100, vertical: 20)
+    //         : const EdgeInsets.only(left: 12, right: 12, top: 20),
+    //     decoration: BoxDecoration(
+    //       color: Colors.white,
+    //       borderRadius: BorderRadius.circular(10.0),
+    //       boxShadow: [
+    //         BoxShadow(
+    //           color: Colors.grey.withOpacity(0.5),
+    //           spreadRadius: 5,
+    //           blurRadius: 7,
+    //           offset: Offset(0, 3), // changes position of shadow
+    //         ),
+    //       ],
+    //     ),
+    //     child: Column(
+    //       crossAxisAlignment: CrossAxisAlignment.start,
+    //       children: [
+    //         Padding(
+    //           padding: kIsWeb
+    //               ? const EdgeInsets.fromLTRB(60, 50, 1, 10)
+    //               : const EdgeInsets.fromLTRB(25, 50, 1, 10),
+    //           child: Text(
+    //             // title.capitalize(),
+    //             title,
+    //             style: TextStyle(
+    //               color: Color.fromARGB(255, 84, 125, 217),
+    //               fontSize: 17,
+    //             ),
+    //           ),
+    //         ),
+    //         Padding(
+    //           padding: kIsWeb
+    //               ? const EdgeInsets.fromLTRB(60, 50, 1, 10)
+    //               : const EdgeInsets.only(left: 25),
+    //           child: Text(
+    //             "Total: $valorTotalPieChart ",
+    //             style: TextStyle(
+    //               fontSize: 16,
+    //             ),
+    //           ),
+    //         ),
+    //         kIsWeb
+    //             ? Row(
+    //                 children: _pieChartAndData(),
+    //               )
+    //             : Column(
+    //                 children: _pieChartAndData(),
+    //               ),
+    //       ],
+    //     ),
+    //   ),
+    //   Container(
+    //     margin: kIsWeb
+    //         ? const EdgeInsets.symmetric(horizontal: 100, vertical: 20)
+    //         : const EdgeInsets.only(left: 12, right: 12, top: 20, bottom: 20),
+    //     decoration: BoxDecoration(
+    //       color: Colors.white,
+    //       borderRadius: BorderRadius.circular(10.0),
+    //       boxShadow: [
+    //         BoxShadow(
+    //           color: Colors.grey.withOpacity(0.5),
+    //           spreadRadius: 5,
+    //           blurRadius: 7,
+    //           offset: Offset(0, 3), // changes position of shadow
+    //         ),
+    //       ],
+    //     ),
+    //     child: Column(
+    //       crossAxisAlignment: CrossAxisAlignment.start,
+    //       children: [
+    //         Padding(
+    //           padding: EdgeInsets.fromLTRB(60, 50, 1, 10),
+    //           child: Text(
+    //             "Comparação com a média",
+    //             style: TextStyle(
+    //               color: Color.fromARGB(255, 84, 125, 217),
+    //               fontSize: 17,
+    //             ),
+    //           ),
+    //         ),
+    //         Column(
+    //           children: _barChartAndData(),
+    //         ),
+    //       ],
+    //     ),
+    //   ),
+    // ]));
   }
 }
 

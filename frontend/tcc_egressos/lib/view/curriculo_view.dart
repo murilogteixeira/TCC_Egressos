@@ -12,15 +12,13 @@ import 'package:tcc_egressos/components/screenSize.dart';
 import 'package:tcc_egressos/controller/egresso_controller.dart';
 import 'package:tcc_egressos/controller/menu_botao_widget_controller.dart';
 import 'package:tcc_egressos/controller/producoes_controller.dart';
-import 'package:tcc_egressos/model/curriculo_lattes/cargo.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/egresso.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/producao/producao.dart';
 import 'package:tcc_egressos/model/lista_detalhes.dart';
 import 'package:tcc_egressos/view/bancas_view.dart';
 import 'package:tcc_egressos/view/producoes_view.dart';
 
-import '../model/lista_detalhes.dart';
-import '../model/lista_detalhes.dart';
+import '../controller/producoes_controller.dart';
 
 class CurriculoView extends StatefulWidget {
   static var route = "/curriculo";
@@ -37,6 +35,8 @@ class _CurriculoViewState extends State<CurriculoView> {
   BoxConstraints _constraints;
   ScreenSize _screenSize;
   EgressoController _controller;
+  List<Producao> producoes;
+  ObservableList<MediaProducao> medias;
 
   MenuBotaoWidget _atualBotao;
 
@@ -58,15 +58,22 @@ class _CurriculoViewState extends State<CurriculoView> {
   Widget build(BuildContext context) {
     var egresso = ModalRoute.of(context).settings.arguments;
 
-    // if (curriculo != null) {
-    //   _controller.setCurriculo(curriculo);
-    // }
-
     if (egresso != null) {
       _controller.setEgresso(egresso);
     }
-    // print("Egresso: ======" + egresso);
+
     _getEgresso();
+    print('ID: ${_controller.egresso.id}');
+    ProducoesController().getListAvarages(_controller.egresso.id).then((value) {
+      this.medias = value.asObservable();
+      print(this.medias);
+    });
+    ProducoesController()
+        .getProducoesEgresso(_controller.egresso.id)
+        .then((value) {
+      this.producoes = value;
+      print(this.producoes);
+    });
 
     return LayoutBuilder(builder: (context, constraints) {
       _maxWidth = constraints.maxWidth;
@@ -131,7 +138,6 @@ class _CurriculoViewState extends State<CurriculoView> {
 
   _foto() {
     return Container(
-      // color: Colors.green,
       width: 90,
       height: 90,
       decoration: new BoxDecoration(
@@ -339,27 +345,19 @@ class _CurriculoViewState extends State<CurriculoView> {
       lista: [
         ItemListaDetalhes(
           subtitulo: 'Email:',
-          corpo: [
-            /*_controller.curriculo.email*/
-            _controller.egresso.email
-          ],
+          corpo: [_controller.egresso.email],
         ),
         ItemListaDetalhes(
           subtitulo: 'LinkedIn:',
-          corpo: [
-            _controller.egresso
-                .linkedin /*'https://www.linkedin.com/in/edilson-ferneda-348199a/'*/
-          ],
+          corpo: [_controller.egresso.linkedin],
         ),
         ItemListaDetalhes(
           subtitulo: 'Instagram:',
-          corpo: [_controller.egresso.instagram /*'@eferneda'*/],
+          corpo: [_controller.egresso.instagram],
         ),
         ItemListaDetalhes(
           subtitulo: 'Facebook:',
-          corpo: [
-            'Facebook indisponível' /*'https://www.facebook.com/edilson.ferneda.5'*/
-          ],
+          corpo: ['Facebook indisponível'],
         ),
         ItemListaDetalhes(
           subtitulo: 'Telefone:',
@@ -391,9 +389,22 @@ class _CurriculoViewState extends State<CurriculoView> {
   }
 
   _producoesContainer() {
+    // return FutureBuilder(
+    //   future: this.medias,
+    //   builder: (context, AsyncSnapshot<Producoes> snapshot) {
+    //     if (snapshot.hasData) {
+    //       return ProducoesView(
+    //         producoes: snapshot.data.producoes,
+    //         mediaProducoes: snapshot.data.medias,
+    //       );
+    //     } else if (snapshot.hasError) {
+    //       return Text('Error...');
+    //     }
+    //     return Text('Carregando...');
+    //   },
+    // );
     return ProducoesView(
-        producoes: _controller.egresso.producoes,
-        mediaProducoes: ObservableList<MediaProducao>());
+        producoes: this.producoes, mediaProducoes: this.medias);
   }
 
   _bancasContainer() {
@@ -496,4 +507,11 @@ class _CurriculoViewState extends State<CurriculoView> {
       ),
     );
   }
+}
+
+class Producoes {
+  List<Producao> producoes;
+  ObservableList<MediaProducao> medias;
+
+  Producoes({this.producoes, this.medias});
 }
