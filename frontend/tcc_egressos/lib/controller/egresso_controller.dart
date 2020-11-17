@@ -19,8 +19,8 @@ abstract class _EgressoControllerBase with Store {
   Egresso egresso;
 
   _EgressoControllerBase({this.egresso}) {
-    obterProducoes();
-    obterMediaProducoes();
+    // obterProducoes();
+    // obterMediaProducoes();
   }
 
   @action
@@ -82,5 +82,9 @@ abstract class _EgressoControllerBase with Store {
     _medias.forEach((element) {
       mediaProducoes.add(element);
     });
+  }
+
+  ObservableList<MediaProducao> getMediaProducoes() {
+    return this.mediaProducoes;
   }
 }

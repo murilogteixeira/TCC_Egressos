@@ -12,32 +12,13 @@ import 'package:tcc_egressos/components/screenSize.dart';
 import 'package:tcc_egressos/controller/egresso_controller.dart';
 import 'package:tcc_egressos/controller/menu_botao_widget_controller.dart';
 import 'package:tcc_egressos/controller/producoes_controller.dart';
-import 'package:tcc_egressos/model/curriculo_lattes/cargo.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/egresso.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/producao/producao.dart';
 import 'package:tcc_egressos/model/lista_detalhes.dart';
 import 'package:tcc_egressos/view/bancas_view.dart';
 import 'package:tcc_egressos/view/producoes_view.dart';
 
-import '../controller/home_controller.dart';
-import '../controller/home_controller.dart';
-import '../controller/home_controller.dart';
-import '../controller/home_controller.dart';
-import '../controller/home_controller.dart';
-import '../controller/home_controller.dart';
 import '../controller/producoes_controller.dart';
-import '../controller/producoes_controller.dart';
-import '../controller/producoes_controller.dart';
-import '../controller/producoes_controller.dart';
-import '../controller/producoes_controller.dart';
-import '../controller/producoes_controller.dart';
-import '../model/curriculo_lattes/producao/producao.dart';
-import '../model/curriculo_lattes/producao/producao.dart';
-import '../model/curriculo_lattes/producao/producao.dart';
-import '../model/curriculo_lattes/producao/producao.dart';
-import '../model/curriculo_lattes/producao/producao.dart';
-import '../model/lista_detalhes.dart';
-import '../model/lista_detalhes.dart';
 
 class CurriculoView extends StatefulWidget {
   static var route = "/curriculo";
@@ -54,11 +35,8 @@ class _CurriculoViewState extends State<CurriculoView> {
   BoxConstraints _constraints;
   ScreenSize _screenSize;
   EgressoController _controller;
-  HomeController homeController;
-
-  ObservableList<Producao> producoes = ObservableList<Producao>();
-  ObservableList<MediaProducao> mediaProducoes =
-      ObservableList<MediaProducao>();
+  List<Producao> producoes;
+  ObservableList<MediaProducao> medias;
 
   MenuBotaoWidget _atualBotao;
 
@@ -66,7 +44,6 @@ class _CurriculoViewState extends State<CurriculoView> {
   void initState() {
     // _controller = CurriculoController();
     _controller = EgressoController();
-    homeController = HomeController(context);
 
     _dadosGeraisBotao = _setDadosGeraisBotao();
     // _formacaoBotao = _setFormacaoBotao();
@@ -86,10 +63,17 @@ class _CurriculoViewState extends State<CurriculoView> {
     }
 
     _getEgresso();
-    _getProducoes();
-    _getMediaProducoes();
-    print('\n\n\n\n\n\n${this.producoes.toString()}\n\n\n\n\n\n');
-    print('\n\n\n\n\n\n${this.mediaProducoes.toString()}\n\n\n\n\n\n');
+    print('ID: ${_controller.egresso.id}');
+    ProducoesController().getListAvarages(_controller.egresso.id).then((value) {
+      this.medias = value.asObservable();
+      print(this.medias);
+    });
+    ProducoesController()
+        .getProducoesEgresso(_controller.egresso.id)
+        .then((value) {
+      this.producoes = value;
+      print(this.producoes);
+    });
 
     return LayoutBuilder(builder: (context, constraints) {
       _maxWidth = constraints.maxWidth;
@@ -404,29 +388,23 @@ class _CurriculoViewState extends State<CurriculoView> {
     );
   }
 
-  _getMediaProducoes() async {
-    var controller = ProducoesController();
-    controller.getListAvarages(_controller.egresso.id).then((value) {
-      value.forEach((element) {
-        print(element.toString());
-        this.mediaProducoes.add(element);
-      });
-    });
-  }
-
-  _getProducoes() async {
-    var controller = ProducoesController();
-    controller.getProducoesEgresso(_controller.egresso.id).then((value) {
-      value.forEach((element) {
-        print(element.toString());
-        this.producoes.add(element);
-      });
-    });
-  }
-
   _producoesContainer() {
+    // return FutureBuilder(
+    //   future: this.medias,
+    //   builder: (context, AsyncSnapshot<Producoes> snapshot) {
+    //     if (snapshot.hasData) {
+    //       return ProducoesView(
+    //         producoes: snapshot.data.producoes,
+    //         mediaProducoes: snapshot.data.medias,
+    //       );
+    //     } else if (snapshot.hasError) {
+    //       return Text('Error...');
+    //     }
+    //     return Text('Carregando...');
+    //   },
+    // );
     return ProducoesView(
-        producoes: this.producoes, mediaProducoes: this.mediaProducoes);
+        producoes: this.producoes, mediaProducoes: this.medias);
   }
 
   _bancasContainer() {
@@ -529,4 +507,11 @@ class _CurriculoViewState extends State<CurriculoView> {
       ),
     );
   }
+}
+
+class Producoes {
+  List<Producao> producoes;
+  ObservableList<MediaProducao> medias;
+
+  Producoes({this.producoes, this.medias});
 }
