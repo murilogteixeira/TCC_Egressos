@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:tcc_egressos/controller/loginController.dart';
 import 'package:tcc_egressos/model/usuario.dart';
 import 'package:tcc_egressos/view/consulta_view.dart';
+import 'package:tcc_egressos/view/recuperar_senha.dart';
 
 class LoginView extends StatefulWidget {
   static var route = '/login';
@@ -139,9 +140,10 @@ class _LoginFormState extends State<LoginForm> {
                 ),
                 TextFormField(
                   validator: (value) {
-                    if (value.isEmpty) return 'aline.ximenes';
+                    if (value.isEmpty) return "Email incorreto!";
                     return null;
                   },
+                  initialValue: "aline.ximenes",
                   onSaved: (value) => inputEmail = value,
                   decoration: InputDecoration(
                     contentPadding:
@@ -175,9 +177,10 @@ class _LoginFormState extends State<LoginForm> {
                 TextFormField(
                   obscureText: true,
                   validator: (value) {
-                    if (value.isEmpty) return 'TCCegressos2020';
+                    if (value.isEmpty) return 'Senha incorreta!';
                     return null;
                   },
+                  initialValue: "TCCegressos2020",
                   onSaved: (value) => inputSenha = value,
                   decoration: InputDecoration(
                     contentPadding:
@@ -233,7 +236,9 @@ class _LoginFormState extends State<LoginForm> {
             minWidth: 140,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(45)),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed(RecuperarSenha.route);
+            },
             child: Text(
               "Esqueceu a senha?",
               style: TextStyle(

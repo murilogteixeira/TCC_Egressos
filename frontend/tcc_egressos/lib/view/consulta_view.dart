@@ -35,7 +35,6 @@ class _ConsultaViewState extends State<ConsultaView> {
     _controller = ListEgressosController(context);
     pr = _createProgressDialog();
     // curriculos = _controller.getCurriculos();
-    egressos = _controller.getEgressos();
   }
 
   @override
@@ -65,6 +64,14 @@ class _ConsultaViewState extends State<ConsultaView> {
 
   @override
   Widget build(BuildContext context) {
+    Future<ObservableList<Egresso>> args =
+        ModalRoute.of(context).settings.arguments;
+    if (args != null) {
+      egressos = args;
+    } else {
+      egressos = _controller.getEgressos();
+    }
+
     return LayoutBuilder(builder: (context, constraints) {
       var maxWidth = constraints.maxWidth;
 

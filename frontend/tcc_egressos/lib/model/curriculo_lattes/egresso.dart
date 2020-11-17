@@ -40,7 +40,6 @@ class Egresso {
   });
 
   Egresso.fromJson(Map<String, dynamic> json) {
-    print("Egresso: ===========" + json.toString());
     id = json['id'];
     idLattes = json['idLattes'];
     nome = json['nome'];

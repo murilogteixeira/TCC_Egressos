@@ -117,14 +117,16 @@ class _ResultadoViewState extends State<ResultadoView> {
     );
   }
 
-  ListEgressos _selecionarLista() {
+  ListEgressos _selecionarLista(ObservableList<Egresso> lista) {
     // return ListEgressos(
     //   list: matriz[_controller.paginaAtual],
     //   sizeList: matriz[_controller.paginaAtual].length,
     // );
+    // print("\n\n\n\n\n lenght: " + matriz.length.toString());
+    // print("lista: " + matriz.toString() + "\n\n\n\n\n");
     return ListEgressos(
-      egressos: matriz[_controller.paginaAtual],
-      sizeList: matriz[_controller.paginaAtual].length,
+      egressos: lista,
+      sizeList: lista.length,
     );
   }
 
@@ -140,6 +142,7 @@ class _ResultadoViewState extends State<ResultadoView> {
     if (lista == null) {
       return Text("Nenhum egresso encontrado");
     }
+    // print("\n\n\n\n\n lenght: " + lista.length.toString() + "\n\n\n\n\n");
     matriz = _buildPages((lista.length / 4).round(), 4, lista);
     return SingleChildScrollView(
       child: Container(
@@ -174,7 +177,7 @@ class _ResultadoViewState extends State<ResultadoView> {
                           borderRadius: BorderRadius.all(Radius.circular(20)),
                         ),
                         child: Observer(builder: (_) {
-                          return _selecionarLista();
+                          return _selecionarLista(lista);
                         }),
                       ),
                       Container(

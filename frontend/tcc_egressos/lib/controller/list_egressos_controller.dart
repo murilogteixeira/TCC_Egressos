@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tcc_egressos/components/network.dart';
-import 'package:tcc_egressos/model/curriculo_lattes/curriculo_lattes.dart';
+import 'package:diacritic/diacritic.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/egresso.dart';
 import 'package:tcc_egressos/view/curriculo_view.dart';
 import 'package:tcc_egressos/view/resultado_view.dart';
@@ -22,6 +22,7 @@ class ListEgressosController {
   final context;
 
   ObservableList<Egresso> egressos = ObservableList<Egresso>();
+  ObservableList<Egresso> egressosFiltered = ObservableList<Egresso>();
   // ObservableList<CurriculoLattes> curriculos = ObservableList();
 
   consultar(String nome, doneCallback) async {
@@ -34,11 +35,28 @@ class ListEgressosController {
       var egresso = Egresso.fromJson(element);
       egressos.add(egresso);
     });
-    egressos.sort((a, b) => a.nome.compareTo(b.nome));
+
+    nome = nome.toUpperCase();
+    nome = removeDiacritics(nome);
+    if (nome.isEmpty) {
+      egressos.forEach((e) {
+        egressosFiltered.add(e);
+      });
+    } else {
+      egressosFiltered.removeWhere((element) => true);
+      print("\n\n\n\n\n lenght: " + egressosFiltered.length.toString());
+      print("lista: " + egressosFiltered.toString() + "\n\n\n\n\n");
+      egressos.forEach((e) {
+        var value = e.nome.toUpperCase();
+        value = removeDiacritics(value);
+        if (value.contains(nome)) egressosFiltered.add(e);
+      });
+    }
 
     if (egressos.isNotEmpty) {
       doneCallback();
-      Navigator.pushNamed(context, ResultadoView.route, arguments: egressos);
+      Navigator.pushNamed(context, ResultadoView.route,
+          arguments: egressosFiltered);
     }
     doneCallback();
   }
