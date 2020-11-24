@@ -220,12 +220,6 @@ class _ConsultaViewState extends State<ConsultaView> {
                                           fontSize: 20),
                                     ),
                                   ),
-                                  /*ListEgressos(
-                                    list: snapshot.data,
-                                    sizeList: snapshot.data.length == 0
-                                        ? 3
-                                        : snapshot.data.length,
-                                  ),*/
                                   ListEgressos(
                                     egressos: snapshot.data,
                                     sizeList: snapshot.data.length == 0
@@ -238,7 +232,7 @@ class _ConsultaViewState extends State<ConsultaView> {
                           } else if (snapshot.hasError) {
                             return Text("Erro ao pesquisar!");
                           }
-                          return Text("Carregando...");
+                          return Center(child: CircularProgressIndicator());
                         },
                       ))),
             )

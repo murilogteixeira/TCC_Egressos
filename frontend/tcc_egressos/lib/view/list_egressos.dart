@@ -17,14 +17,12 @@ class ListEgressos extends StatefulWidget {
 
 class ListEgressosState extends State<ListEgressos> {
   ListEgressosController _listController;
-  // CurriculoController _curriculoController;
   int indexInicial;
   int indexFinal;
 
   @override
   void initState() {
     _listController = ListEgressosController(context);
-    // _curriculoController = CurriculoController();
     super.initState();
   }
 

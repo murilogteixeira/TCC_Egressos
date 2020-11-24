@@ -35,14 +35,13 @@ class _CurriculoViewState extends State<CurriculoView> {
   BoxConstraints _constraints;
   ScreenSize _screenSize;
   EgressoController _controller;
-  List<Producao> producoes;
-  ObservableList<MediaProducao> medias;
+  ObservableList<Producao> producoes = ObservableList<Producao>();
+  ObservableList<MediaProducao> medias = ObservableList<MediaProducao>();
 
   MenuBotaoWidget _atualBotao;
 
   @override
   void initState() {
-    // _controller = CurriculoController();
     _controller = EgressoController();
 
     _dadosGeraisBotao = _setDadosGeraisBotao();
@@ -64,16 +63,8 @@ class _CurriculoViewState extends State<CurriculoView> {
 
     _getEgresso();
     print('ID: ${_controller.egresso.id}');
-    ProducoesController().getListAvarages(_controller.egresso.id).then((value) {
-      this.medias = value.asObservable();
-      print(this.medias);
-    });
-    ProducoesController()
-        .getProducoesEgresso(_controller.egresso.id)
-        .then((value) {
-      this.producoes = value;
-      print(this.producoes);
-    });
+    _controller.obterProducoes();
+    _controller.obterMediaProducoes();
 
     return LayoutBuilder(builder: (context, constraints) {
       _maxWidth = constraints.maxWidth;
@@ -212,21 +203,7 @@ class _CurriculoViewState extends State<CurriculoView> {
       padding: const EdgeInsets.only(top: 14),
       child: Container(
         constraints: BoxConstraints(maxWidth: _constraints.maxWidth * 0.8),
-        // color: Colors.blue,
         child: Text(cargo),
-        // FutureBuilder(
-        //   future: cargo,
-        //   builder: (BuildContext context, AsyncSnapshot<Cargo> snapshot) {
-        //     if (snapshot.hasData) {
-        //       return Text(
-        //           '${snapshot.data.cargo} - ${snapshot.data.instituicao}');
-        //     }
-        //     return Text('Cargo atual não informado');
-        //   },
-        // ),
-        // child: Text(
-        //   '${cargo.cargo} - ${cargo.instituicao}',
-        // ),
       ),
     );
   }
@@ -389,22 +366,11 @@ class _CurriculoViewState extends State<CurriculoView> {
   }
 
   _producoesContainer() {
-    // return FutureBuilder(
-    //   future: this.medias,
-    //   builder: (context, AsyncSnapshot<Producoes> snapshot) {
-    //     if (snapshot.hasData) {
-    //       return ProducoesView(
-    //         producoes: snapshot.data.producoes,
-    //         mediaProducoes: snapshot.data.medias,
-    //       );
-    //     } else if (snapshot.hasError) {
-    //       return Text('Error...');
-    //     }
-    //     return Text('Carregando...');
-    //   },
-    // );
-    return ProducoesView(
-        producoes: this.producoes, mediaProducoes: this.medias);
+    return Observer(builder: (_) {
+      return ProducoesView(
+          producoes: _controller.producoes,
+          mediaProducoes: _controller.mediaProducoes);
+    });
   }
 
   _bancasContainer() {
@@ -507,11 +473,4 @@ class _CurriculoViewState extends State<CurriculoView> {
       ),
     );
   }
-}
-
-class Producoes {
-  List<Producao> producoes;
-  ObservableList<MediaProducao> medias;
-
-  Producoes({this.producoes, this.medias});
 }

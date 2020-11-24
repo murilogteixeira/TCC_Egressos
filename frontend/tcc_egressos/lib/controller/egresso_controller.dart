@@ -32,9 +32,13 @@ abstract class _EgressoControllerBase with Store {
   @action
   setContainer(value) => container = value;
 
+  @observable
   ObservableList<Producao> producoes = <Producao>[].asObservable();
+
+  @observable
   ObservableList<MediaProducao> mediaProducoes =
       <MediaProducao>[].asObservable();
+
   ObservableList<Banca> bancas = <Banca>[].asObservable();
   ObservableList<int> mediaBancas = <int>[].asObservable();
 
