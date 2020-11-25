@@ -75,7 +75,11 @@ class _LoginFormState extends State<LoginForm> {
 
   _goToHome() {
     if (this.usuario != null) {
-      Navigator.of(context).pushReplacementNamed(ConsultaView.route);
+      if (this.usuario.isStaff) {
+        Navigator.of(context).pushReplacementNamed(ConsultaView.route);
+      } else {
+        _showMessageError('Acesso restrito a gestores');
+      }
     }
   }
 
@@ -143,7 +147,7 @@ class _LoginFormState extends State<LoginForm> {
                     if (value.isEmpty) return "Email incorreto!";
                     return null;
                   },
-                  initialValue: "aline.ximenes",
+                  initialValue: "gestor",
                   onSaved: (value) => inputEmail = value,
                   decoration: InputDecoration(
                     contentPadding:

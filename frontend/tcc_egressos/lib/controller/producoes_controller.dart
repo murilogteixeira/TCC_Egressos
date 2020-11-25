@@ -51,4 +51,9 @@ class MediaProducao {
     data['tipo_id'] = this.tipoId;
     return data;
   }
+
+  @override
+  String toString() {
+    return 'Media: ${this.media}\nEgresso: ${this.egresso.toString()}\nTipo: ${this.tipo}\n';
+  }
 }

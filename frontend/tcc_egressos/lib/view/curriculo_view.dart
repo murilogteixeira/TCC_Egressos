@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mobx/mobx.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tcc_egressos/components/detalhes_curriculo_widget.dart';
 import 'package:tcc_egressos/components/menu_botao_widget.dart';
@@ -11,14 +10,10 @@ import 'package:tcc_egressos/components/nav_bar_widget.dart';
 import 'package:tcc_egressos/components/screenSize.dart';
 import 'package:tcc_egressos/controller/egresso_controller.dart';
 import 'package:tcc_egressos/controller/menu_botao_widget_controller.dart';
-import 'package:tcc_egressos/controller/producoes_controller.dart';
 import 'package:tcc_egressos/model/curriculo_lattes/egresso.dart';
-import 'package:tcc_egressos/model/curriculo_lattes/producao/producao.dart';
 import 'package:tcc_egressos/model/lista_detalhes.dart';
 import 'package:tcc_egressos/view/bancas_view.dart';
 import 'package:tcc_egressos/view/producoes_view.dart';
-
-import '../controller/producoes_controller.dart';
 
 class CurriculoView extends StatefulWidget {
   static var route = "/curriculo";
@@ -35,8 +30,6 @@ class _CurriculoViewState extends State<CurriculoView> {
   BoxConstraints _constraints;
   ScreenSize _screenSize;
   EgressoController _controller;
-  ObservableList<Producao> producoes = ObservableList<Producao>();
-  ObservableList<MediaProducao> medias = ObservableList<MediaProducao>();
 
   MenuBotaoWidget _atualBotao;
 
@@ -62,7 +55,6 @@ class _CurriculoViewState extends State<CurriculoView> {
     }
 
     _getEgresso();
-    print('ID: ${_controller.egresso.id}');
     _controller.obterProducoes();
     _controller.obterMediaProducoes();
 
@@ -197,7 +189,6 @@ class _CurriculoViewState extends State<CurriculoView> {
   }
 
   _formacaoCargo() {
-    // var cargo = _controller.consultaCargo();
     var cargo = _controller.egresso.cargoAtual;
     return Padding(
       padding: const EdgeInsets.only(top: 14),
@@ -312,7 +303,7 @@ class _CurriculoViewState extends State<CurriculoView> {
       titulo: 'Atuação',
       lista: [
         ItemListaDetalhes(
-          subtitulo: 'Gestão educacional',
+          subtitulo: _controller.egresso.atuacao,
           corpo: [''],
         ),
       ],

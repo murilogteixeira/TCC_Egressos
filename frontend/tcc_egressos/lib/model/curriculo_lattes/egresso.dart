@@ -57,9 +57,9 @@ class Egresso {
     instagram = json['instagram'] != null
         ? json['instagram']
         : 'Instagram indisponível';
-    // endereco = json['endereco'] != null
-    // ? new Endereco.fromJson(json['endereco'])
-    // : null;
+    endereco = json['endereco'] != null
+        ? new Endereco.fromJson(json['endereco'])
+        : null;
     situacao = json['situacao'] != null
         ? new Situacao.fromJson(json['situacao'])
         : null;
