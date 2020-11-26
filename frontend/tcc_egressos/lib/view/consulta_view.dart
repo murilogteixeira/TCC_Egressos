@@ -222,9 +222,11 @@ class _ConsultaViewState extends State<ConsultaView> {
                                   ),
                                   ListEgressos(
                                     egressos: snapshot.data,
-                                    sizeList: snapshot.data.length == 0
+                                    sizeList:
+                                        3 /*snapshot.data.length == 0
                                         ? 3
-                                        : snapshot.data.length,
+                                        : snapshot.data.length*/
+                                    ,
                                   ),
                                 ],
                               ),
@@ -232,7 +234,10 @@ class _ConsultaViewState extends State<ConsultaView> {
                           } else if (snapshot.hasError) {
                             return Text("Erro ao pesquisar!");
                           }
-                          return Center(child: CircularProgressIndicator());
+                          return Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Center(child: CircularProgressIndicator()),
+                          );
                         },
                       ))),
             )

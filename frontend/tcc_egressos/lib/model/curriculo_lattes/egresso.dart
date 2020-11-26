@@ -102,4 +102,16 @@ class Egresso {
     }
     return data;
   }
+
+  bool operator ==(other) {
+    if (this.id == other.id) {
+      return true;
+    } else if (identical(this, other)) {
+      return true;
+    }
+    return false;
+  }
+
+  @override
+  int get hashCode => super.hashCode;
 }

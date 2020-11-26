@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -18,7 +20,6 @@ class ResultadoView extends StatefulWidget {
 
 class _ResultadoViewState extends State<ResultadoView> {
   ResultadoController _controller;
-  // ObservableList<ObservableList<CurriculoLattes>> matriz;
   ObservableList<ObservableList<Egresso>> matriz;
 
   @override
@@ -29,15 +30,14 @@ class _ResultadoViewState extends State<ResultadoView> {
 
   @override
   Widget build(BuildContext context) {
-    // ObservableList<CurriculoLattes> args =
-    //     ModalRoute.of(context).settings.arguments;
     ObservableList<Egresso> args = ModalRoute.of(context).settings.arguments;
     if (args != null) {
       _controller.lista = args;
     }
 
-    // ObservableList<CurriculoLattes> lista = _controller.lista;
     ObservableList<Egresso> lista = _controller.lista;
+    lista = lista.toSet().toList().asObservable();
+    lista = this._removeDuplicates(lista);
 
     return LayoutBuilder(builder: (context, constraints) {
       var maxWidth = constraints.maxWidth;
@@ -51,12 +51,15 @@ class _ResultadoViewState extends State<ResultadoView> {
     });
   }
 
-  // ObservableList<ObservableList<CurriculoLattes>> _buildPages(
-  //     int nroPages, int nroRegister, ObservableList<CurriculoLattes> lista) {
+  ObservableList<Egresso> _removeDuplicates(ObservableList<Egresso> list) {
+    var ids = list.map((element) => element.id).toSet();
+    var newList = list;
+    newList.retainWhere((element) => ids.remove(element.id));
+    return newList;
+  }
+
   ObservableList<ObservableList<Egresso>> _buildPages(
       int nroPages, int nroRegister, ObservableList<Egresso> lista) {
-    // ObservableList<ObservableList<CurriculoLattes>> aux =
-    //     new ObservableList<ObservableList<CurriculoLattes>>();
     ObservableList<ObservableList<Egresso>> aux =
         new ObservableList<ObservableList<Egresso>>();
     int k = 0;
@@ -66,7 +69,6 @@ class _ResultadoViewState extends State<ResultadoView> {
     }
 
     for (int i = 0; i < nroPages; i++) {
-      // aux.add(new ObservableList<CurriculoLattes>());
       aux.add(new ObservableList<Egresso>());
       /*
         Verifica se o numero de register nao e maior que o numero de egressos
@@ -91,43 +93,54 @@ class _ResultadoViewState extends State<ResultadoView> {
     List<Widget> aux = new List<Widget>();
     for (int i = 0; i < nroPages; i++) {
       aux.add(Container(
+        width: 50,
+        height: 50,
         padding: EdgeInsets.fromLTRB(
             i == 0 ? 0 : 1.0, 0, i == nroPages - 1 ? 1.0 : 0, 0),
-        // child: ListView(scrollDirection: Axis.horizontal, children: [
-        //   Row(
-        //     children: [
-        //       FlatButton(
-        //         padding: EdgeInsets.zero,
-        //         textColor: Colors.black,
-        //         shape: new CircleBorder(),
-        //         onPressed: () {
-        //           _controller.setPaginaAtual(i);
-        //         },
-        //         child: Text('${i + 1}'),
-        //       ),
-        //     ],
-        //   ),
-        // ]),
+        child: FlatButton(
+          padding: EdgeInsets.zero,
+          textColor: Colors.black,
+          shape: new CircleBorder(),
+          onPressed: () {
+            _controller.setPaginaAtual(i);
+          },
+          child: Text('${i + 1}'),
+        ),
       ));
     }
 
+    // return Row(
+    //   mainAxisAlignment: MainAxisAlignment.center,
+    //   children: aux,
+    // );
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: aux,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Expanded(
+          child: SizedBox(
+            height: 100.0,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: aux,
+            ),
+          ),
+        ),
+      ],
     );
   }
 
   ListEgressos _selecionarLista(ObservableList<Egresso> lista) {
-    // return ListEgressos(
-    //   list: matriz[_controller.paginaAtual],
-    //   sizeList: matriz[_controller.paginaAtual].length,
-    // );
+    return ListEgressos(
+      egressos: matriz[_controller.paginaAtual],
+      sizeList: matriz[_controller.paginaAtual].length,
+    );
     // print("\n\n\n\n\n lenght: " + matriz.length.toString());
     // print("lista: " + matriz.toString() + "\n\n\n\n\n");
-    return ListEgressos(
-      egressos: lista,
-      sizeList: lista.length,
-    );
+    // return ListEgressos(
+    //   egressos: lista,
+    //   sizeList: lista.length,
+    // );
   }
 
   _createAppBar() {
@@ -143,7 +156,7 @@ class _ResultadoViewState extends State<ResultadoView> {
       return Text("Nenhum egresso encontrado");
     }
     // print("\n\n\n\n\n lenght: " + lista.length.toString() + "\n\n\n\n\n");
-    matriz = _buildPages((lista.length / 4).round(), 4, lista);
+    matriz = _buildPages((lista.length / 8).round(), 8, lista);
     return SingleChildScrollView(
       child: Container(
         color: Color(0xFFEAEDF2),
@@ -170,7 +183,7 @@ class _ResultadoViewState extends State<ResultadoView> {
                       Container(
                         alignment: Alignment.topCenter,
                         padding: EdgeInsets.all(20),
-                        child: _buildIndexPage((lista.length / 4).round()),
+                        child: _buildIndexPage((lista.length / 8).round()),
                       ),
                       Container(
                         decoration: BoxDecoration(
@@ -183,7 +196,7 @@ class _ResultadoViewState extends State<ResultadoView> {
                       Container(
                         alignment: Alignment.topCenter,
                         padding: EdgeInsets.all(20),
-                        child: _buildIndexPage((lista.length / 4).round()),
+                        child: _buildIndexPage((lista.length / 8).round()),
                       ),
                     ],
                   ),
