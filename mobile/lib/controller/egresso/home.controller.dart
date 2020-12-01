@@ -46,11 +46,12 @@ abstract class _HomeControllerBase with Store {
     return producoes;
   }
 
-  fetchMedias() async {
+  Future<List<MediaProducao>> fetchMedias() async {
     // var loginController = LoginController();
     var producoesController = ProducoesController();
     // var usuario = await loginController.usuario;
     // var egresso = usuario.egresso;
+    mediaProducoes.removeWhere((element) => true);
     List<MediaProducao> _medias =
         await producoesController.getListAvarages(egresso.id);
     _medias.forEach((element) {

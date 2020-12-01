@@ -227,7 +227,7 @@ class _PerfilViewState extends State<PerfilView> {
                     Observer(
                       builder: (_) => _controller.informacoesEgresso,
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 50),
                   ],
                 ),
               ),
