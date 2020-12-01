@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobile/components/dados_gerais_row.dart';
 import 'package:mobile/controller/shared/perfil.controller.dart';
 
 class DadosGeraisView extends StatefulWidget {
@@ -36,6 +37,10 @@ class _DadosGeraisViewState extends State<DadosGeraisView> {
         padding: const EdgeInsets.only(left: 40.0),
         child: Column(
           children: <Widget>[
+            // DadosGeraisRow(
+            //   rowData: DadosGeraisRowData(
+            //       title: '| teste', data: ['| teste', '| teste1']),
+            // ),
             Padding(
               padding: const EdgeInsets.all(0.0),
               child: Row(
@@ -55,9 +60,7 @@ class _DadosGeraisViewState extends State<DadosGeraisView> {
                                   fontWeight: FontWeight.bold,
                                   fontSize: 18.0)),
                         ),
-                        Text(
-                            widget.controller.egresso.idLattes ??
-                                'Não informado',
+                        Text(widget.controller.egresso.idLattes,
                             style: TextStyle(
                                 color: Color(0xFF4A4A4A), fontSize: 20.0))
                       ],
@@ -106,62 +109,120 @@ class _DadosGeraisViewState extends State<DadosGeraisView> {
                 ],
               ),
             ),
-            // Padding(
-            //   padding: const EdgeInsets.fromLTRB(0, 27, 40, 27),
-            //   child: horizontalSeparator,
-            // ),
-            // Padding(
-            //   padding: const EdgeInsets.all(8.0),
-            //   child: Row(
-            //     children: [
-            //       pointIndicator,
-            //       Padding(
-            //         padding: const EdgeInsets.fromLTRB(24, 8, 8, 8),
-            //         child: Column(
-            //           crossAxisAlignment: CrossAxisAlignment.start,
-            //           children: [
-            //             Padding(
-            //               padding: const EdgeInsets.only(bottom: 9),
-            //               child: Text('Atuação:',
-            //                   style: TextStyle(
-            //                       color: Color(0xFF547DD9), fontWeight: FontWeight.bold, fontSize: 18.0)),
-            //             ),
-            //             Text('Docencia',
-            //                 style: TextStyle(color: Color(0xFF4A4A4A), fontSize: 20.0))
-            //           ],
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
-            // Padding(
-            //   padding: const EdgeInsets.fromLTRB(0, 27, 40, 27),
-            //   child: horizontalSeparator,
-            // ),
-            // Padding(
-            //   padding: const EdgeInsets.all(8.0),
-            //   child: Row(
-            //     children: [
-            //       pointIndicator,
-            //       Padding(
-            //         padding: const EdgeInsets.fromLTRB(24, 8, 8, 8),
-            //         child: Column(
-            //           crossAxisAlignment: CrossAxisAlignment.start,
-            //           children: [
-            //             Padding(
-            //               padding: const EdgeInsets.only(bottom: 9),
-            //               child: Text('Cargo Atual:',
-            //                   style: TextStyle(
-            //                       color: Color(0xFF547DD9), fontWeight: FontWeight.bold, fontSize: 18.0)),
-            //             ),
-            //             Text('Professor Universitario',
-            //                 style: TextStyle(color: Color(0xFF4A4A4A), fontSize: 20.0)),
-            //           ],
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
+            Column(
+              children: widget.controller.egresso.cargoAtual == null
+                  ? []
+                  : [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 27, 40, 27),
+                        child: horizontalSeparator,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            pointIndicator,
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(24, 8, 8, 8),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 9),
+                                    child: Text('Atuação:',
+                                        style: TextStyle(
+                                            color: Color(0xFF547DD9),
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18.0)),
+                                  ),
+                                  Text(widget.controller.egresso.atuacao,
+                                      style: TextStyle(
+                                          color: Color(0xFF4A4A4A),
+                                          fontSize: 20.0))
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+            ),
+            Column(
+              children: widget.controller.egresso.cargoAtual == null
+                  ? []
+                  : [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 27, 40, 27),
+                        child: horizontalSeparator,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            pointIndicator,
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(24, 8, 8, 8),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 9),
+                                    child: Text('Cargo Atual:',
+                                        style: TextStyle(
+                                            color: Color(0xFF547DD9),
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18.0)),
+                                  ),
+                                  Text(widget.controller.egresso.cargoAtual,
+                                      style: TextStyle(
+                                          color: Color(0xFF4A4A4A),
+                                          fontSize: 20.0)),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+            ),
+            Column(
+              children: widget.controller.egresso.empresa == null
+                  ? []
+                  : [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 27, 40, 27),
+                        child: horizontalSeparator,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            pointIndicator,
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(24, 8, 8, 8),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 9),
+                                    child: Text('Empresa:',
+                                        style: TextStyle(
+                                            color: Color(0xFF547DD9),
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18.0)),
+                                  ),
+                                  Text(widget.controller.egresso.empresa,
+                                      style: TextStyle(
+                                          color: Color(0xFF4A4A4A),
+                                          fontSize: 20.0)),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+            ),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 27, 40, 27),
               child: horizontalSeparator,

@@ -20,12 +20,14 @@ abstract class _EditarPerfilControllerBase with Store {
   setEgresso(value) => egresso = value;
 
   @action
-  updateEgresso() async {    
+  updateEgresso() async {
     final url = BaseURL.shared.updateEgresso(egresso.id);
 
     isLoading = true;
     var json = await Network().putApi(url, egresso.toJson());
     isLoading = false;
+    print('json: $json');
+    print('egresso: ${egresso.toJson()}');
     if (json == null) return null;
   }
 }

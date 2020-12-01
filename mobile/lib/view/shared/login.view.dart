@@ -42,6 +42,7 @@ class _LoginFormState extends State<LoginForm> {
   Usuario usuario;
   String inputEmail;
   String inputSenha;
+  bool _senhaVisivel = false;
 
   _login() async {
     await _loginValidate()
@@ -71,8 +72,8 @@ class _LoginFormState extends State<LoginForm> {
     if (usuario != null) {
       usuario.isStaff
           ? Navigator.of(context).pushReplacementNamed(EgressosListView.route)
-          : Navigator.of(context).pushReplacementNamed(TabBarAppView.route,
-              arguments: usuario);
+          : Navigator.of(context)
+              .pushReplacementNamed(TabBarAppView.route, arguments: usuario);
     }
   }
 
@@ -86,7 +87,6 @@ class _LoginFormState extends State<LoginForm> {
       backgroundColor: Colors.red[700],
     ));
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -136,13 +136,23 @@ class _LoginFormState extends State<LoginForm> {
                 ),
                 TextFormField(
                   initialValue: "TCCegressos2020",
-                  obscureText: true,
+                  obscureText: !_senhaVisivel,
                   validator: (value) {
                     if (value.isEmpty) return 'Insira a sua senha';
                     return null;
                   },
                   onSaved: (value) => inputSenha = value,
                   decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _senhaVisivel ? Icons.visibility : Icons.visibility_off,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _senhaVisivel = !_senhaVisivel;
+                        });
+                      },
+                    ),
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 0, horizontal: 10),
                     focusedBorder: OutlineInputBorder(

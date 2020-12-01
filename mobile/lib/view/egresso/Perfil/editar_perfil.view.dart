@@ -109,7 +109,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
     if (formKey.currentState.validate()) {
       formKey.currentState.save();
 
-      egresso.celular = await _controller.updateEgresso();
+      egresso = await _controller.updateEgresso();
       Navigator.of(context).pop(egresso);
     }
   }
@@ -213,9 +213,9 @@ class _EditarPerfilState extends State<EditarPerfil> {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
                 ),
                 TextFormField(
-                  enabled: false,
-                  // initialValue: 'Docencia',
+                  initialValue: egresso.atuacao,
                   decoration: _inputDecoration,
+                  onSaved: (newValue) => egresso.atuacao = newValue,
                 ),
                 SizedBox(height: verticalPadding),
                 Text(
@@ -223,9 +223,19 @@ class _EditarPerfilState extends State<EditarPerfil> {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
                 ),
                 TextFormField(
-                  enabled: false,
-                  // initialValue: 'Professor Universitario',
+                  initialValue: egresso.cargoAtual,
                   decoration: _inputDecoration,
+                  onSaved: (newValue) => egresso.cargoAtual = newValue,
+                ),
+                SizedBox(height: verticalPadding),
+                Text(
+                  'Empresa:',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+                ),
+                TextFormField(
+                  initialValue: egresso.empresa,
+                  decoration: _inputDecoration,
+                  onSaved: (newValue) => egresso.empresa = newValue,
                 ),
                 SizedBox(height: verticalPadding),
                 Text(
@@ -239,9 +249,9 @@ class _EditarPerfilState extends State<EditarPerfil> {
                 ),
                 SizedBox(height: smallVerticalPadding),
                 TextFormField(
-                  enabled: false,
                   initialValue: _controller.egresso.email,
                   decoration: _inputDecoration,
+                  onSaved: (newValue) => egresso.email = newValue,
                 ),
                 SizedBox(height: smallVerticalPadding),
                 Text(
@@ -276,30 +286,32 @@ class _EditarPerfilState extends State<EditarPerfil> {
                 // ),
                 SizedBox(height: verticalPadding),
                 Observer(
-                  builder: (context) => _controller.isLoading
-                      ? CircularProgressIndicator()
-                      : Center(
-                          child: SizedBox(
-                            width: 192,
-                            height: 50,
-                            child: RaisedButton(
-                              color: mainColor,
-                              child: Text(
-                                'Salvar',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 19,
-                                  fontWeight: FontWeight.w300,
+                  builder: (_) {
+                    return _controller.isLoading
+                        ? CircularProgressIndicator()
+                        : Center(
+                            child: SizedBox(
+                              width: 192,
+                              height: 50,
+                              child: RaisedButton(
+                                color: mainColor,
+                                child: Text(
+                                  'Salvar',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 19,
+                                    fontWeight: FontWeight.w300,
+                                  ),
                                 ),
+                                onPressed: () {
+                                  updateEgresso(context);
+                                },
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(25)),
                               ),
-                              onPressed: () {
-                                updateEgresso(context);
-                              },
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(25)),
                             ),
-                          ),
-                        ),
+                          );
+                  },
                 ),
               ],
             ),
