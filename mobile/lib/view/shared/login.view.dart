@@ -116,7 +116,7 @@ class _LoginFormState extends State<LoginForm> {
                   ),
                 ),
                 TextFormField(
-                  initialValue: "aline.ximenes",
+                  initialValue: "adriana.silva",
                   validator: (value) {
                     if (value.isEmpty) return 'Insira o seu email';
                     return null;
@@ -145,7 +145,7 @@ class _LoginFormState extends State<LoginForm> {
                   decoration: InputDecoration(
                     suffixIcon: IconButton(
                       icon: Icon(
-                        _senhaVisivel ? Icons.visibility : Icons.visibility_off,
+                        _senhaVisivel ? Icons.visibility_off : Icons.visibility,
                       ),
                       onPressed: () {
                         setState(() {
