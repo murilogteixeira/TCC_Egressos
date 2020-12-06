@@ -22,21 +22,19 @@ class _ProducoesViewState extends State<ProducoesView> {
 
   @override
   Widget build(BuildContext context) {
+    var progressIndicator = Center(child: CircularProgressIndicator());
+
     return Observer(builder: (_) {
-      return widget.producoes.isEmpty //|| widget.mediaProducoes.isEmpty
-          ? Center(child: CircularProgressIndicator())
+      return widget.producoes.isEmpty || widget.mediaProducoes.isEmpty
+          ? progressIndicator
           : SingleChildScrollView(
               child: Column(
                 children: [
-                  Observer(
-                    builder: (_) {
-                      return OrganizeCharts().createCharts(
-                        'Produções',
-                        _chartData(),
-                        _chartAvarages(),
-                      );
-                    },
-                  ),
+                  OrganizeCharts().createCharts(
+                    'Produções',
+                    _chartData(),
+                    _chartAvarages(),
+                  )
                 ],
               ),
             );
@@ -66,8 +64,8 @@ class _ProducoesViewState extends State<ProducoesView> {
   }
 
   List<int> _chartAvarages() {
-    widget.mediaProducoes.sort((a,b) => a.tipoId.compareTo(b.tipoId));
-    
+    widget.mediaProducoes.sort((a, b) => a.tipoId.compareTo(b.tipoId));
+
     return widget.mediaProducoes.map((element) => element.media).toList();
   }
 }

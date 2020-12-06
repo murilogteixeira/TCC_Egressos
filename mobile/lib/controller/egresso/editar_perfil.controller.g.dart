@@ -24,6 +24,29 @@ mixin _$EditarPerfilController on _EditarPerfilControllerBase, Store {
     });
   }
 
+  final _$isLoadingAtom = Atom(name: '_EditarPerfilControllerBase.isLoading');
+
+  @override
+  bool get isLoading {
+    _$isLoadingAtom.reportRead();
+    return super.isLoading;
+  }
+
+  @override
+  set isLoading(bool value) {
+    _$isLoadingAtom.reportWrite(value, super.isLoading, () {
+      super.isLoading = value;
+    });
+  }
+
+  final _$updateEgressoAsyncAction =
+      AsyncAction('_EditarPerfilControllerBase.updateEgresso');
+
+  @override
+  Future updateEgresso() {
+    return _$updateEgressoAsyncAction.run(() => super.updateEgresso());
+  }
+
   final _$_EditarPerfilControllerBaseActionController =
       ActionController(name: '_EditarPerfilControllerBase');
 
@@ -41,7 +64,8 @@ mixin _$EditarPerfilController on _EditarPerfilControllerBase, Store {
   @override
   String toString() {
     return '''
-egresso: ${egresso}
+egresso: ${egresso},
+isLoading: ${isLoading}
     ''';
   }
 }

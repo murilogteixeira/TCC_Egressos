@@ -1,5 +1,4 @@
 import 'package:mobile/controller/egresso/producoes.controller.dart';
-import 'package:mobile/model/curriculo_lattes/banca/banca.dart';
 import 'package:mobile/model/curriculo_lattes/egresso.dart';
 import 'package:mobile/model/curriculo_lattes/producao/producao.dart';
 import 'package:mobx/mobx.dart';
@@ -12,8 +11,12 @@ abstract class _HomeControllerBase with Store {
   final Egresso egresso;
 
   _HomeControllerBase({this.egresso}) {
-    fetchProducoes();
-    fetchMedias();
+    fetchData();
+  }
+
+  fetchData() async {
+    await fetchProducoes();
+    await fetchMedias();
   }
 
   @observable
@@ -23,17 +26,8 @@ abstract class _HomeControllerBase with Store {
   ObservableList<MediaProducao> mediaProducoes =
       <MediaProducao>[].asObservable();
 
-  @observable
-  ObservableList<Banca> bancas = <Banca>[].asObservable();
-
-  @observable
-  ObservableList<int> mediaBancas = <int>[].asObservable();
-
   fetchProducoes() async {
-    // var loginController = LoginController();
     var producoesController = ProducoesController();
-    // var usuario = await loginController.usuario;
-    // var egresso = usuario.egresso;
     List<Producao> _producoes =
         await producoesController.getProducoesEgresso(egresso.id);
     if (_producoes == null) {
@@ -47,10 +41,7 @@ abstract class _HomeControllerBase with Store {
   }
 
   Future<List<MediaProducao>> fetchMedias() async {
-    // var loginController = LoginController();
     var producoesController = ProducoesController();
-    // var usuario = await loginController.usuario;
-    // var egresso = usuario.egresso;
     mediaProducoes.removeWhere((element) => true);
     List<MediaProducao> _medias =
         await producoesController.getListAvarages(egresso.id);

@@ -40,6 +40,13 @@ mixin _$PerfilController on _PerfilControllerBase, Store {
     });
   }
 
+  final _$getPerfilAsyncAction = AsyncAction('_PerfilControllerBase.getPerfil');
+
+  @override
+  Future<dynamic> getPerfil() {
+    return _$getPerfilAsyncAction.run(() => super.getPerfil());
+  }
+
   final _$_PerfilControllerBaseActionController =
       ActionController(name: '_PerfilControllerBase');
 

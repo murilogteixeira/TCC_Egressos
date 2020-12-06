@@ -32,6 +32,7 @@ class _DadosGeraisViewState extends State<DadosGeraisView> {
   );
   @override
   Widget build(BuildContext context) {
+    var erro = 'Não informado';
     return Observer(
       builder: (context) => Padding(
         padding: const EdgeInsets.only(left: 40.0),
@@ -96,9 +97,7 @@ class _DadosGeraisViewState extends State<DadosGeraisView> {
                                     fontWeight: FontWeight.bold,
                                     fontSize: 18.0)),
                           ),
-                          Text(
-                              widget.controller.egresso.nomeCitacoes ??
-                                  'Não informado',
+                          Text(widget.controller.egresso.nomeCitacoes ?? erro,
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                   color: Color(0xFF4A4A4A), fontSize: 20.0)),
@@ -135,7 +134,10 @@ class _DadosGeraisViewState extends State<DadosGeraisView> {
                                             fontWeight: FontWeight.bold,
                                             fontSize: 18.0)),
                                   ),
-                                  Text(widget.controller.egresso.atuacao,
+                                  Text(
+                                      widget.controller.egresso.atuacao != ''
+                                          ? widget.controller.egresso.atuacao
+                                          : erro,
                                       style: TextStyle(
                                           color: Color(0xFF4A4A4A),
                                           fontSize: 20.0))
@@ -173,7 +175,9 @@ class _DadosGeraisViewState extends State<DadosGeraisView> {
                                             fontWeight: FontWeight.bold,
                                             fontSize: 18.0)),
                                   ),
-                                  Text(widget.controller.egresso.cargoAtual,
+                                  Text(widget.controller.egresso.atuacao != ''
+                                          ? widget.controller.egresso.cargoAtual
+                                          : erro,
                                       style: TextStyle(
                                           color: Color(0xFF4A4A4A),
                                           fontSize: 20.0)),
@@ -211,7 +215,9 @@ class _DadosGeraisViewState extends State<DadosGeraisView> {
                                             fontWeight: FontWeight.bold,
                                             fontSize: 18.0)),
                                   ),
-                                  Text(widget.controller.egresso.empresa,
+                                  Text(widget.controller.egresso.atuacao != ''
+                                          ? widget.controller.egresso.empresa
+                                          : erro,
                                       style: TextStyle(
                                           color: Color(0xFF4A4A4A),
                                           fontSize: 20.0)),

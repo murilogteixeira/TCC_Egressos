@@ -1,10 +1,16 @@
+import 'package:flutter/material.dart';
+import 'package:mobile/components/organize_charts.model.dart';
 import 'package:mobile/helpers/service/network.dart';
 import 'package:mobile/helpers/url.dart';
 
 import 'package:mobile/model/curriculo_lattes/producao/producao.dart';
 
+import 'package:mobx/mobx.dart';
+part 'producoes.controller.g.dart';
 
-class ProducoesController {
+class ProducoesController = _ProducoesControllerBase with _$ProducoesController;
+
+abstract class _ProducoesControllerBase with Store {
   Future<List<Producao>> getProducoesEgresso(int id) async {
     final url = BaseURL.shared.getProducoes(id);
 

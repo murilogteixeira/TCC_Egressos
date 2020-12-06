@@ -7,7 +7,7 @@ import 'package:mobile/controller/shared/perfil.controller.dart';
 import 'package:mobile/model/curriculo_lattes/egresso.dart';
 import 'package:mobile/model/usuario.dart';
 import 'package:mobile/view/egresso/Perfil/View/dadosGeraisView.dart';
-import 'package:mobile/view/egresso/Perfil/View/producoesView.dart';
+import 'package:mobile/view/egresso/Perfil/View/producoesView.dart.old';
 import 'package:mobile/view/egresso/home/home.view.dart';
 import 'package:mobile/view/egresso/home/producoes.view.dart';
 import 'package:mobx/mobx.dart';
@@ -69,11 +69,11 @@ class _PerfilViewState extends State<PerfilView> {
 
     fetchProducoes() async {
       var controller = HomeController(egresso: egresso);
-      var producoes = await controller.fetchProducoes();
-      var medias = await controller.fetchMedias();
+      // var producoes = await controller.fetchProducoes();
+      // var medias = await controller.fetchMedias();
       producoesEgressoView = ProducoesView(
-        producoes: producoes,
-        mediaProducoes: medias,
+        producoes: controller.producoes,
+        mediaProducoes: controller.mediaProducoes,
       );
     }
 

@@ -39,43 +39,11 @@ mixin _$HomeController on _HomeControllerBase, Store {
     });
   }
 
-  final _$bancasAtom = Atom(name: '_HomeControllerBase.bancas');
-
-  @override
-  ObservableList<Banca> get bancas {
-    _$bancasAtom.reportRead();
-    return super.bancas;
-  }
-
-  @override
-  set bancas(ObservableList<Banca> value) {
-    _$bancasAtom.reportWrite(value, super.bancas, () {
-      super.bancas = value;
-    });
-  }
-
-  final _$mediaBancasAtom = Atom(name: '_HomeControllerBase.mediaBancas');
-
-  @override
-  ObservableList<int> get mediaBancas {
-    _$mediaBancasAtom.reportRead();
-    return super.mediaBancas;
-  }
-
-  @override
-  set mediaBancas(ObservableList<int> value) {
-    _$mediaBancasAtom.reportWrite(value, super.mediaBancas, () {
-      super.mediaBancas = value;
-    });
-  }
-
   @override
   String toString() {
     return '''
 producoes: ${producoes},
-mediaProducoes: ${mediaProducoes},
-bancas: ${bancas},
-mediaBancas: ${mediaBancas}
+mediaProducoes: ${mediaProducoes}
     ''';
   }
 }
