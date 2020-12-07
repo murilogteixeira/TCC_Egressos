@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/globals.dart';
 import 'package:mobile/helpers/url.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -22,7 +23,7 @@ class _RecuperarSenhaState extends State<RecuperarSenha> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Esqueceu a Senha"),
-        backgroundColor: Color(0xFF547DD9),
+        backgroundColor: mainColor,
       ),
       body: Stack(
         children: [
