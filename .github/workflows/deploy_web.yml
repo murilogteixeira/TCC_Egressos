@@ -21,12 +21,12 @@ jobs:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
       - name: Install
         run: |
-          cd mobile
+          cd frontend
           flutter config --enable-web
           flutter pub get
       - name: Build
         run: |
-          cd mobile
+          cd frontend
           flutter build web
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
