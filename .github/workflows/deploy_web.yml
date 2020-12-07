@@ -26,7 +26,7 @@ jobs:
           flutter pub get
       - name: Build
         run: |
-          cd frontend
+          cd mobile
           flutter build web
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
