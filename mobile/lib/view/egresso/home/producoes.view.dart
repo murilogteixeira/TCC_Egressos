@@ -27,12 +27,9 @@ class _ProducoesViewState extends State<ProducoesView> {
     _controller.fetchData(widget.egresso.id);
 
     return Observer(builder: (context) {
-      if (_controller.isLoading) {
-        return Center(child: CircularProgressIndicator());
-      } else if (_controller.mediaProducoes.isEmpty) {
-        return Center(child: Text('Nenhuma produção.'));
-      }
-      return SingleChildScrollView(
+      return _controller.isLoading
+      ? Center(child: CircularProgressIndicator())
+      : SingleChildScrollView(
         child: Column(
           children: [
             OrganizeCharts().createCharts(
