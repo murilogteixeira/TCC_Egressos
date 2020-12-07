@@ -32,3 +32,5 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./frontend/build/web
           commit_message: Update flutter web app
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
