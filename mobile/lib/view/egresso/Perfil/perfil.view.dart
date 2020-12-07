@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mobile/controller/egresso/home.controller.dart';
-import 'package:mobile/controller/egresso/producoes.controller.dart';
 import 'package:mobile/controller/shared/login.controller.dart';
 import 'package:mobile/controller/shared/perfil.controller.dart';
 import 'package:mobile/model/curriculo_lattes/egresso.dart';
 import 'package:mobile/model/usuario.dart';
 import 'package:mobile/view/egresso/Perfil/View/dadosGeraisView.dart';
-import 'package:mobile/view/egresso/Perfil/View/producoesView.dart.old';
-import 'package:mobile/view/egresso/home/home.view.dart';
 import 'package:mobile/view/egresso/home/producoes.view.dart';
-import 'package:mobx/mobx.dart';
 
 import '../../../globals.dart';
 import 'editar_perfil.view.dart';
@@ -227,7 +222,7 @@ class _PerfilViewState extends State<PerfilView> {
                     Observer(
                       builder: (_) => _controller.informacoesEgresso,
                     ),
-                    SizedBox(height: 50),
+                    SizedBox(height: 80),
                   ],
                 ),
               ),

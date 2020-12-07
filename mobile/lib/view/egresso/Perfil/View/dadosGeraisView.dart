@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mobile/components/dados_gerais_row.dart';
 import 'package:mobile/controller/shared/perfil.controller.dart';
 
 class DadosGeraisView extends StatefulWidget {

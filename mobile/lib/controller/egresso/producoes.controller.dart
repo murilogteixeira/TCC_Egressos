@@ -2,8 +2,6 @@ import 'package:mobile/helpers/service/network.dart';
 import 'package:mobile/helpers/url.dart';
 import 'package:mobile/model/curriculo_lattes/egresso.dart';
 
-import 'package:mobile/model/curriculo_lattes/producao/producao.dart';
-
 import 'package:mobx/mobx.dart';
 part 'producoes.controller.g.dart';
 
@@ -19,9 +17,6 @@ abstract class _ProducoesControllerBase with Store {
   @observable
   bool isLoading = true;
 
-  // @observable
-  // ObservableList<Producao> producoes = <Producao>[].asObservable();
-
   @observable
   ObservableList<MediaProducao> mediaProducoes =
       <MediaProducao>[].asObservable();
@@ -35,17 +30,6 @@ abstract class _ProducoesControllerBase with Store {
     isLoading = false;
     return;
   }
-
-  // @action
-  // Future<List<Producao>> getProducoesEgresso(int id) async {
-  //   final url = BaseURL.shared.getProducoes(id);
-
-  //   List json = await Network().getApi(url);
-  //   if (json == null) return null;
-  //   producoes.removeWhere((element) => true);
-  //   json.forEach((e) => producoes.add(Producao.fromJson(e)));
-  //   return producoes;
-  // }
 
   @action
   Future<List<MediaProducao>> getListAvarages(int id) async {

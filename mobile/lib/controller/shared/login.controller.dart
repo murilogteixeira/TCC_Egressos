@@ -6,11 +6,9 @@ import 'package:mobile/helpers/url.dart';
 import 'package:mobile/model/usuario.dart';
 import 'package:mobile/view/shared/login.view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
 
 import 'package:mobx/mobx.dart';
 
-import '../../globals.dart';
 part '../login.controller.g.dart';
 
 class LoginController = _LoginControllerBase with _$LoginController;

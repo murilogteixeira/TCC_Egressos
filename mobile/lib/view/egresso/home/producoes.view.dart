@@ -7,13 +7,9 @@ import 'package:mobile/model/curriculo_lattes/egresso.dart';
 class ProducoesView extends StatefulWidget {
   const ProducoesView({
     Key key,
-    // this.producoes,
-    // this.mediaProducoes,
     this.egresso,
   }) : super(key: key);
 
-  // final ObservableList<Producao> producoes;
-  // final ObservableList<MediaProducao> mediaProducoes;
   final Egresso egresso;
 
   @override
@@ -51,27 +47,9 @@ class _ProducoesViewState extends State<ProducoesView> {
   }
 
   List<ChartsData> _chartData() {
-    var listType = _controller.mediaProducoes.map((e) => e.tipo);
-
-    // Map<String, int> map = Map();
-    // listType.forEach((i) {
-    //   var count = map[i];
-    //   map['$i'] = count == null ? 1 : count + 1;
-    // });
-
-    // map.forEach((key, value) {
-    //   var tipo = _TipoProducao(nome: key, quantidade: value);
-
-    //   tipo.id = _controller.mediaProducoes
-    //       .firstWhere((element) => element.tipo == key)
-    //       .tipoId;
-
-    //   tiposProducao.add(tipo);
-    // });
-
-    // return tiposProducao.map((e) => ChartsData(e.nome, e.quantidade)).toList();
-    var list =
-        _controller.mediaProducoes.map((e) => ChartsData(e.tipo, e.egresso)).toList();
+    var list = _controller.mediaProducoes
+        .map((e) => ChartsData(e.tipo, e.egresso))
+        .toList();
     return list;
   }
 

@@ -1,13 +1,8 @@
-import 'dart:convert';
-
 import 'package:diacritic/diacritic.dart';
 import 'package:mobile/helpers/service/network.dart';
 import 'package:mobile/helpers/url.dart';
 import 'package:mobile/model/curriculo_lattes/egresso.dart';
 import 'package:mobx/mobx.dart';
-import 'package:http/http.dart' as http;
-
-import '../../globals.dart';
 part 'egressos_list.controller.g.dart';
 
 class EgressosListController = _EgressosListControllerBase

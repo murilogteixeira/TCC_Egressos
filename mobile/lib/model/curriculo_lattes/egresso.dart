@@ -1,7 +1,6 @@
 import 'package:mobile/model/curriculo_lattes/banca/banca.dart';
 import 'package:mobile/model/curriculo_lattes/producao/producao.dart';
 
-import 'endereco.dart';
 import 'situacao.dart';
 
 class Egresso {
