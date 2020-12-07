@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:mobile/components/organize_charts.model.dart';
 import 'package:mobile/helpers/service/network.dart';
 import 'package:mobile/helpers/url.dart';
+import 'package:mobile/model/curriculo_lattes/egresso.dart';
 
 import 'package:mobile/model/curriculo_lattes/producao/producao.dart';
 
@@ -11,16 +10,44 @@ part 'producoes.controller.g.dart';
 class ProducoesController = _ProducoesControllerBase with _$ProducoesController;
 
 abstract class _ProducoesControllerBase with Store {
-  Future<List<Producao>> getProducoesEgresso(int id) async {
-    final url = BaseURL.shared.getProducoes(id);
+  final Egresso egresso;
 
-    List json = await Network().getApi(url);
-    if (json == null) return null;
-    List<Producao> producoes = [];
-    producoes = json.map((e) => Producao.fromJson(e)).toList();
-    return producoes;
+  _ProducoesControllerBase({this.egresso}) {
+    getListAvarages(egresso.id);
   }
 
+  @observable
+  bool isLoading = true;
+
+  // @observable
+  // ObservableList<Producao> producoes = <Producao>[].asObservable();
+
+  @observable
+  ObservableList<MediaProducao> mediaProducoes =
+      <MediaProducao>[].asObservable();
+
+  @action
+  Future<void> fetchData(int id) async {
+    print('Buscando produções do egresso: $id');
+    isLoading = true;
+    // await getProducoesEgresso(id);
+    await getListAvarages(id);
+    isLoading = false;
+    return;
+  }
+
+  // @action
+  // Future<List<Producao>> getProducoesEgresso(int id) async {
+  //   final url = BaseURL.shared.getProducoes(id);
+
+  //   List json = await Network().getApi(url);
+  //   if (json == null) return null;
+  //   producoes.removeWhere((element) => true);
+  //   json.forEach((e) => producoes.add(Producao.fromJson(e)));
+  //   return producoes;
+  // }
+
+  @action
   Future<List<MediaProducao>> getListAvarages(int id) async {
     final url = BaseURL.shared.getMediaProducoes(id);
 
@@ -28,9 +55,9 @@ abstract class _ProducoesControllerBase with Store {
     if (json == null) return null;
     if (json['status'] == false) return null;
     List mediasJson = json['media'];
-    List<MediaProducao> medias =
-        mediasJson.map((e) => MediaProducao.fromJson(e)).toList();
-    return medias;
+    mediaProducoes.removeWhere((element) => true);
+    mediasJson.forEach((e) => mediaProducoes.add(MediaProducao.fromJson(e)));
+    return mediaProducoes;
   }
 }
 

@@ -8,46 +8,50 @@ part 'home.controller.g.dart';
 class HomeController = _HomeControllerBase with _$HomeController;
 
 abstract class _HomeControllerBase with Store {
-  final Egresso egresso;
+  // final Egresso egresso;
 
-  _HomeControllerBase({this.egresso}) {
-    fetchData();
-  }
+  // _HomeControllerBase({this.egresso}) {
+  //   fetchData();
+  // }
 
-  fetchData() async {
-    await fetchProducoes();
-    await fetchMedias();
-  }
+  // @action
+  // Future fetchData() async {
+  //   await fetchProducoes();
+  //   await fetchMedias();
+  // }
 
-  @observable
-  ObservableList<Producao> producoes = <Producao>[].asObservable();
+  // @observable
+  // var isLoading = true;
 
-  @observable
-  ObservableList<MediaProducao> mediaProducoes =
-      <MediaProducao>[].asObservable();
+  // @observable
+  // ObservableList<Producao> producoes = <Producao>[].asObservable();
 
-  fetchProducoes() async {
-    var producoesController = ProducoesController();
-    List<Producao> _producoes =
-        await producoesController.getProducoesEgresso(egresso.id);
-    if (_producoes == null) {
-      print('Producoes null');
-      return;
-    }
-    _producoes.forEach((element) {
-      producoes.add(element);
-    });
-    return producoes;
-  }
+  // @observable
+  // ObservableList<MediaProducao> mediaProducoes =
+  //     <MediaProducao>[].asObservable();
 
-  Future<List<MediaProducao>> fetchMedias() async {
-    var producoesController = ProducoesController();
-    mediaProducoes.removeWhere((element) => true);
-    List<MediaProducao> _medias =
-        await producoesController.getListAvarages(egresso.id);
-    _medias.forEach((element) {
-      mediaProducoes.add(element);
-    });
-    return mediaProducoes;
-  }
+  // fetchProducoes() async {
+  //   var producoesController = ProducoesController();
+  //   List<Producao> _producoes =
+  //       await producoesController.getProducoesEgresso(egresso.id);
+  //   if (_producoes == null) {
+  //     print('Producoes null');
+  //     return;
+  //   }
+  //   _producoes.forEach((element) {
+  //     producoes.add(element);
+  //   });
+  //   return producoes;
+  // }
+
+  // Future<List<MediaProducao>> fetchMedias() async {
+  //   var producoesController = ProducoesController();
+  //   mediaProducoes.removeWhere((element) => true);
+  //   List<MediaProducao> _medias =
+  //       await producoesController.getListAvarages(egresso.id);
+  //   _medias.forEach((element) {
+  //     mediaProducoes.add(element);
+  //   });
+  //   return mediaProducoes;
+  // }
 }

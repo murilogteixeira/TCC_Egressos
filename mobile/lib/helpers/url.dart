@@ -7,8 +7,8 @@ class BaseURL {
       'https://egressosbackend.herokuapp.com/accounts/password_reset/';
   String getEgressos() => 'https://egressosbackend.herokuapp.com/egressos/';
   String getEgresso(egressoID) => 'https://egressosbackend.herokuapp.com/egressos/$egressoID/';
-  String getProducoes(egressoID) =>
-      'https://egressosbackend.herokuapp.com/producoesEgresso/?search=$egressoID';
+  // String getProducoes(egressoID) =>
+      // 'https://egressosbackend.herokuapp.com/producoesEgresso/?search=$egressoID';
   String getMediaProducoes(egressoID) =>
       'https://egressosbackend.herokuapp.com/graphType/$egressoID';
   String updateEgresso(egressoID) =>

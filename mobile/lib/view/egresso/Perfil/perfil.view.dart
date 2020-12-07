@@ -68,12 +68,12 @@ class _PerfilViewState extends State<PerfilView> {
     _controller.setInformacoesEgresso(dadosGeraisView);
 
     fetchProducoes() async {
-      var controller = HomeController(egresso: egresso);
       // var producoes = await controller.fetchProducoes();
       // var medias = await controller.fetchMedias();
       producoesEgressoView = ProducoesView(
-        producoes: controller.producoes,
-        mediaProducoes: controller.mediaProducoes,
+        // producoes: controller.producoes,
+        // mediaProducoes: controller.mediaProducoes,
+        egresso: egresso,
       );
     }
 

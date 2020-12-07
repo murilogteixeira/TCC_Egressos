@@ -17,11 +17,8 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  HomeController controller;
-
   @override
   Widget build(BuildContext context) {
-    controller = HomeController(egresso: widget.egresso);
     // return DefaultTabController(
     //   length: 2,
     //   child:
@@ -30,13 +27,10 @@ class _HomeViewState extends State<HomeView> {
         title: Text('Produções'),
         backgroundColor: mainColor,
       ),
-      body: Observer(
-        builder: (_) {
-          return ProducoesView(
-            producoes: controller.producoes,
-            mediaProducoes: controller.mediaProducoes,
-          );
-        },
+      body: ProducoesView(
+        // producoes: controller.producoes,
+        // mediaProducoes: controller.mediaProducoes,
+        egresso: widget.egresso,
       ),
     );
     // );
