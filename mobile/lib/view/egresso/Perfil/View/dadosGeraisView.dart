@@ -109,7 +109,8 @@ class _DadosGeraisViewState extends State<DadosGeraisView> {
               ),
             ),
             Column(
-              children: widget.controller.egresso.cargoAtual == null
+              children: widget.controller.egresso.atuacao == null ||
+                      widget.controller.egresso.atuacao == ''
                   ? []
                   : [
                       Padding(
@@ -134,10 +135,7 @@ class _DadosGeraisViewState extends State<DadosGeraisView> {
                                             fontWeight: FontWeight.bold,
                                             fontSize: 18.0)),
                                   ),
-                                  Text(
-                                      widget.controller.egresso.atuacao != ''
-                                          ? widget.controller.egresso.atuacao
-                                          : erro,
+                                  Text(widget.controller.egresso.atuacao,
                                       style: TextStyle(
                                           color: Color(0xFF4A4A4A),
                                           fontSize: 20.0))
@@ -150,7 +148,8 @@ class _DadosGeraisViewState extends State<DadosGeraisView> {
                     ],
             ),
             Column(
-              children: widget.controller.egresso.cargoAtual == null
+              children: widget.controller.egresso.cargoAtual == null ||
+                      widget.controller.egresso.cargoAtual == ''
                   ? []
                   : [
                       Padding(
@@ -175,9 +174,8 @@ class _DadosGeraisViewState extends State<DadosGeraisView> {
                                             fontWeight: FontWeight.bold,
                                             fontSize: 18.0)),
                                   ),
-                                  Text(widget.controller.egresso.atuacao != ''
-                                          ? widget.controller.egresso.cargoAtual
-                                          : erro,
+                                  Text(
+                                      widget.controller.egresso.cargoAtual,
                                       style: TextStyle(
                                           color: Color(0xFF4A4A4A),
                                           fontSize: 20.0)),
@@ -190,7 +188,8 @@ class _DadosGeraisViewState extends State<DadosGeraisView> {
                     ],
             ),
             Column(
-              children: widget.controller.egresso.empresa == null
+              children: widget.controller.egresso.empresa == null ||
+                      widget.controller.egresso.empresa == ''
                   ? []
                   : [
                       Padding(
@@ -215,9 +214,8 @@ class _DadosGeraisViewState extends State<DadosGeraisView> {
                                             fontWeight: FontWeight.bold,
                                             fontSize: 18.0)),
                                   ),
-                                  Text(widget.controller.egresso.atuacao != ''
-                                          ? widget.controller.egresso.empresa
-                                          : erro,
+                                  Text(
+                                      widget.controller.egresso.empresa,
                                       style: TextStyle(
                                           color: Color(0xFF4A4A4A),
                                           fontSize: 20.0)),

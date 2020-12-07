@@ -34,7 +34,7 @@ class _ProducoesViewState extends State<ProducoesView> {
                     'Produções',
                     _chartData(),
                     _chartAvarages(),
-                  )
+                  ),
                 ],
               ),
             );
