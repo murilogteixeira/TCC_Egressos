@@ -1,0 +1,1 @@
+enum SharedPreferenceKeys { usuario }
