@@ -19,7 +19,7 @@ jobs:
           echo "::add-path::${GITHUB_WORKSPACE}/_flutter/bin"
       - name: Install
         run: |
-          cd frontend
+          cd mobile
           flutter config --enable-web
           flutter pub get
       - name: Build
