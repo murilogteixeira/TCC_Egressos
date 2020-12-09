@@ -117,136 +117,158 @@ class _LoginFormState extends State<LoginForm> {
     //     _goToHome();
     //   }
     // });
-    return Form(
-      key: _formKey,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 200),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Log In",
-                  style: TextStyle(
-                      fontSize: 45,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF547DD9)),
-                ),
-                SizedBox(height: 40),
-                Text(
-                  "Nome de Usuário",
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                TextFormField(
-                  validator: (value) {
-                    if (value.isEmpty) return "Email incorreto!";
-                    return null;
-                  },
-                  initialValue: "gestor",
-                  onSaved: (value) => inputEmail = value,
-                  decoration: InputDecoration(
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(7)),
-                      borderSide:
-                          BorderSide(color: Color(0xFF547DD9), width: 2.0),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(7)),
-                      borderSide:
-                          BorderSide(color: Color(0xFFDCDDE0), width: 2.0),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(7)),
-                      borderSide: BorderSide(color: Colors.red, width: 2.0),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 16,
-                ),
-                Text(
-                  "Senha",
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                TextFormField(
-                  obscureText: true,
-                  validator: (value) {
-                    if (value.isEmpty) return 'Senha incorreta!';
-                    return null;
-                  },
-                  initialValue: "TCCegressos2020",
-                  onSaved: (value) => inputSenha = value,
-                  decoration: InputDecoration(
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(7)),
-                      borderSide:
-                          BorderSide(color: Color(0xFF547DD9), width: 2.0),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(7)),
-                      borderSide:
-                          BorderSide(color: Color(0xFFDCDDE0), width: 2.0),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(7)),
-                      borderSide: BorderSide(color: Colors.red, width: 2.0),
-                    ),
-                  ),
-                )
-              ],
-            ),
+    return Scaffold(
+      body: Row(
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width / 2,
+            color: Color(0xFFEAEDF2),
           ),
-          SizedBox(
-            height: 65,
-          ),
-          Observer(
-            builder: (_) {
-              return _controller.loading
-                  ? CircularProgressIndicator()
-                  : MaterialButton(
-                      color: Color(0xFF30559F),
-                      height: 50,
-                      minWidth: 192,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25)),
-                      onPressed: () {
-                        entrarOnPressed();
-                      },
-                      // entrarOnPressed,
-                      child: Text(
-                        "Entrar",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 19,
-                            fontWeight: FontWeight.w300),
-                      ),
-                    );
-            },
-          ),
-          MaterialButton(
-            height: 50,
-            minWidth: 140,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(45)),
-            onPressed: () {
-              Navigator.of(context).pushNamed(RecuperarSenha.route);
-            },
-            child: Text(
-              "Esqueceu a senha?",
-              style: TextStyle(
-                  decoration: TextDecoration.underline, color: Colors.grey),
+          Container(
+            width: MediaQuery.of(context).size.width / 2,
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 128),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Log In",
+                          style: TextStyle(
+                              fontSize: 45,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFF547DD9)),
+                        ),
+                        SizedBox(height: 40),
+                        Text(
+                          "Nome de Usuário",
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        TextFormField(
+                          validator: (value) {
+                            if (value.isEmpty) return "Email incorreto!";
+                            return null;
+                          },
+                          initialValue: "gestor",
+                          onSaved: (value) => inputEmail = value,
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 0, horizontal: 10),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(7)),
+                              borderSide: BorderSide(
+                                  color: Color(0xFF547DD9), width: 2.0),
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(7)),
+                              borderSide: BorderSide(
+                                  color: Color(0xFFDCDDE0), width: 2.0),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(7)),
+                              borderSide:
+                                  BorderSide(color: Colors.red, width: 2.0),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 16,
+                        ),
+                        Text(
+                          "Senha",
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        TextFormField(
+                          obscureText: true,
+                          validator: (value) {
+                            if (value.isEmpty) return 'Senha incorreta!';
+                            return null;
+                          },
+                          initialValue: "TCCegressos2020",
+                          onSaved: (value) => inputSenha = value,
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 0, horizontal: 10),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(7)),
+                              borderSide: BorderSide(
+                                  color: Color(0xFF547DD9), width: 2.0),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(7)),
+                              borderSide: BorderSide(
+                                  color: Color(0xFFDCDDE0), width: 2.0),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(7)),
+                              borderSide:
+                                  BorderSide(color: Colors.red, width: 2.0),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 65,
+                  ),
+                  Observer(
+                    builder: (_) {
+                      return _controller.loading
+                          ? CircularProgressIndicator()
+                          : MaterialButton(
+                              color: Color(0xFF30559F),
+                              height: 50,
+                              minWidth: 192,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(25)),
+                              onPressed: () {
+                                entrarOnPressed();
+                              },
+                              // entrarOnPressed,
+                              child: Text(
+                                "Entrar",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 19,
+                                    fontWeight: FontWeight.w300),
+                              ),
+                            );
+                    },
+                  ),
+                  MaterialButton(
+                    height: 50,
+                    minWidth: 140,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(45)),
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(RecuperarSenha.route);
+                    },
+                    child: Text(
+                      "Esqueceu a senha?",
+                      style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          color: Colors.grey),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
